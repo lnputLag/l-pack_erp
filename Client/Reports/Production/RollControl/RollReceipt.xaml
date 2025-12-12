@@ -1,0 +1,140 @@
+﻿<FlowDocument 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports"
+    xmlns:xrbc="clr-namespace:CodeReason.Reports.Document.Barcode;assembly=CodeReason.Reports"
+    PageWidth="10cm" PageHeight="15cm"  ColumnWidth="10cm"
+    FontFamily="Verdana" FontSize="12"
+>
+
+    <FlowDocument.Resources>
+
+        <Style TargetType="{x:Type Paragraph}">
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="Padding" Value="0,0,0,0"/>
+        </Style>
+
+        <Style TargetType="{x:Type Table}">
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="Padding" Value="0,0,0,0"/>
+        </Style>
+
+        <Style x:Key="SmallValueStyle" TargetType="{x:Type Paragraph}">
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="Padding" Value="0,0,0,0"/>
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+
+        <Style x:Key="MediumValueStyle" TargetType="{x:Type Paragraph}">
+            <Setter Property="Margin" Value="0,5,0,5" />
+            <Setter Property="Padding" Value="0,0,0,0"/>
+            <Setter Property="FontSize" Value="36" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="MediumBoldValueStyle" TargetType="{x:Type Paragraph}">
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="Padding" Value="0,0,0,0"/>
+            <Setter Property="FontSize" Value="36" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+
+        <Style x:Key="LargeValueStyle" TargetType="{x:Type Paragraph}">
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="Padding" Value="0,0,0,0"/>
+            <Setter Property="FontSize" Value="52" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+    </FlowDocument.Resources>
+
+    <Section Padding="10,0,10,0" Name="HeaderSection">
+        <Paragraph>
+            <xrd:InlineDocumentValue PropertyName="SystemName" />
+        </Paragraph>
+        <Paragraph>
+            <xrd:InlineDocumentValue PropertyName="DateNow"  />
+        </Paragraph>
+        <Paragraph></Paragraph>
+    </Section>
+    <Section Name="RawSection">
+        <Paragraph Style="{StaticResource MediumBoldValueStyle}">
+            <xrd:InlineDocumentValue PropertyName="RawName"  />
+        </Paragraph>
+        <Paragraph  Style="{StaticResource MediumBoldValueStyle}" Margin="0,5,0,5">
+            <xrd:InlineDocumentValue PropertyName="Num"  />
+        </Paragraph>
+    </Section>
+    <Section Name="_FaultRollSection" Background="Black">
+        <Paragraph Style="{StaticResource MediumBoldValueStyle}" Foreground="White">
+            <xrd:InlineDocumentValue PropertyName="RawName"  />
+        </Paragraph>
+        <Paragraph  Style="{StaticResource MediumValueStyle}" Foreground="White">
+            <xrd:InlineDocumentValue PropertyName="Num"  />
+        </Paragraph>
+    </Section>
+    <Section>
+        <Paragraph Style="{StaticResource LargeValueStyle}">
+            <xrd:InlineDocumentValue PropertyName="Lngth"  />
+        </Paragraph>
+        <Paragraph Style="{StaticResource LargeValueStyle}">
+            <xrd:InlineDocumentValue PropertyName="Qty"  />
+        </Paragraph>
+
+        <Paragraph></Paragraph>
+
+        <Table>
+            <Table.Columns>
+                <TableColumn Width="1*" />
+                <TableColumn Width="1*" />
+                <TableColumn Width="1.2*" />
+            </Table.Columns>
+
+            <TableRowGroup>
+                <TableRow>
+                    <TableCell>
+                        <Paragraph Style="{StaticResource SmallValueStyle}">
+                            Раскат:
+                            <xrd:InlineDocumentValue PropertyName="Reel"  />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph Style="{StaticResource SmallValueStyle}">
+                            Смена:
+                            <xrd:InlineDocumentValue PropertyName="Shift"  />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph Style="{StaticResource SmallValueStyle}" TextAlignment="Right">
+                            Рулон:
+                            <xrd:InlineDocumentValue PropertyName="IdRoll"  />
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+            </TableRowGroup>
+        </Table>
+
+        <Paragraph Style="{StaticResource SmallValueStyle}">
+            Влажность:
+            <xrd:InlineDocumentValue PropertyName="WetList"  />
+        </Paragraph>
+
+        <Paragraph></Paragraph>
+
+    </Section>
+
+    <Section Name="BarcodeSection" Padding="10,0,10,0">
+        <Paragraph TextAlignment="Center"  >
+            <xrbc:InlineBarcodeC128 PropertyName="ReceiptBarcode" Width="8cm" Height="2cm" BarcodeSubType="A" ShowText="false" />
+        </Paragraph>
+        <Paragraph LineHeight="5"></Paragraph>
+    </Section>
+
+    <Section Name="_FaultReasonSection" Padding="10,0,10,0" Background="Black">
+        <Paragraph  Style="{StaticResource MediumValueStyle}" Foreground="White">
+            <xrd:InlineDocumentValue PropertyName="FaultReason"  />
+        </Paragraph>
+    </Section>
+
+</FlowDocument>

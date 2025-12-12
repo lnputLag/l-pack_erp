@@ -1,0 +1,108 @@
+﻿<FlowDocument 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports"
+    xmlns:xrbc="clr-namespace:CodeReason.Reports.Document.Barcode;assembly=CodeReason.Reports"
+    PageWidth="8cm" PageHeight="20cm"  ColumnWidth="6cm"
+    FontFamily="Verdana" FontSize="10"
+>
+
+    <FlowDocument.Resources>
+
+        <Style TargetType="{x:Type Paragraph}">
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="Padding" Value="0,0,0,0"/>
+        </Style>
+
+        <Style TargetType="{x:Type Table}">
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="Padding" Value="0,0,0,0"/>
+        </Style>
+
+        <Style x:Key="SmallValueStyle" TargetType="{x:Type Paragraph}">
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="Padding" Value="0,0,0,0"/>
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="MediumValueStyle" TargetType="{x:Type Paragraph}">
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="Padding" Value="0,0,0,0"/>
+            <Setter Property="FontSize" Value="28" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="HeaderValueStyle" TargetType="{x:Type Paragraph}">
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="Padding" Value="0,0,0,0"/>
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+
+    </FlowDocument.Resources>
+
+    <Section Padding="0,30,0,0" Name="HeaderSection">
+        <Paragraph Style="{StaticResource HeaderValueStyle}">
+            <xrd:InlineDocumentValue PropertyName="SystemName" />
+        </Paragraph>
+        <Paragraph></Paragraph>
+    </Section>
+
+    <Section Padding="0,30,0,0">
+        <Paragraph Style="{StaticResource SmallValueStyle}">
+            Авто:
+            <xrd:InlineDocumentValue PropertyName="Name"  />
+        </Paragraph>
+    </Section>
+
+    <Section Padding="0,20,0,0">
+        <Paragraph  Style="{StaticResource SmallValueStyle}">
+            Поставщик:
+            <xrd:InlineDocumentValue PropertyName="Post"  />
+        </Paragraph>
+    </Section>
+
+    <!--<Section Padding="0,10,0,0">
+        <Paragraph Style="{StaticResource SmallValueStyle}">
+            Номер телефона:
+            <xrd:InlineDocumentValue PropertyName="Phone"  />
+        </Paragraph>
+    </Section>-->
+
+    <Section Padding="0,20,0,0">
+        <Paragraph TextAlignment="Center" Style="{StaticResource SmallValueStyle}">
+            <xrbc:InlineBarcodeC128 PropertyName="Barcode" Width="5.3cm" Height="1.5cm" BarcodeSubType="A" ShowText="True"/>
+        </Paragraph>
+    </Section>
+
+    <Section Padding="0,10,0,0">
+        <Paragraph Style="{StaticResource SmallValueStyle}">
+            Дата регистрации:
+            <xrd:InlineDocumentValue PropertyName="DateNow"  />
+        </Paragraph>
+    </Section>
+
+    <Section Padding="0,10,0,0">
+        <Paragraph Style="{StaticResource SmallValueStyle}">
+            Ваш код бронирования
+            <xrd:InlineDocumentValue PropertyName="Rnum"  />
+        </Paragraph>
+    </Section>
+
+    <Section Padding="0,10,0,0">
+        <Paragraph Style="{StaticResource SmallValueStyle}">
+            Окно выгрузки:
+            <xrd:InlineDocumentValue PropertyName="DateUnloading"  />
+        </Paragraph>
+    </Section>
+
+    <Section Padding="0,40,0,0">
+        <Paragraph Style="{StaticResource SmallValueStyle}">
+        <xrd:InlineDocumentValue PropertyName="Info"  />
+        </Paragraph>
+    </Section>
+
+</FlowDocument>

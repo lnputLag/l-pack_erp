@@ -1,0 +1,90 @@
+﻿<controls:ControlBase 
+             x:Class="Client.Interfaces.Stock.WarehouseOperation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Stock"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             Style="{DynamicResource UserControlCanvas}"
+             d:DesignHeight="450" d:DesignWidth="1600">
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="11*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Name="OperationGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" >
+                    <Label Content="С:"  Style="{DynamicResource TopLabel}"/>
+                    <controls:DateTimePicker x:Name="FromDateTime" Style="{DynamicResource DateTimeEditStyle}">
+                        <controls:DateTimePicker.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Текущая смена" Click="OnCurrentShift" />
+                                <MenuItem Header="Предыдущая смена" Click="OnPrevShift" />
+                                <MenuItem Header="Текущие сутки" Click ="OnCurrentDay" />
+                                <MenuItem Header="Предыдущие сутки" Click="OnPrevDay" />
+                                <MenuItem Header="Текущая неделя" Click="OnCurrentWeek"/>
+                                <MenuItem Header="Предыдущая неделя" Click="OnPrevWeek"/>
+                                <MenuItem Header="Текущий месяц" Click="OnCurrentMonth"/>
+                                <MenuItem Header="Предыдущий месяц" Click="OnPrevMonth"/>
+                            </ContextMenu>
+                        </controls:DateTimePicker.ContextMenu>
+                    </controls:DateTimePicker>
+
+                    <Label Content="До:"  Style="{DynamicResource TopLabel}"/>
+                    <controls:DateTimePicker x:Name="ToDateTime" Style="{DynamicResource DateTimeEditStyle}">
+                    </controls:DateTimePicker>
+
+                    <Button Name="RefreshButton" Content="Показать"  Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <Button Name="AddButton" Content="Добавить" Style="{DynamicResource Button}"/>
+                    <Button Name="EditButton" Content="Изменить" Style="{DynamicResource Button}"/>
+                    <Button Name="DeleteButton" Content="Удалить"  Style="{DynamicResource Button}"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                    <TextBox Style="{DynamicResource FormFieldTopPanel}" MinWidth="100" MaxWidth="150"  TextWrapping="NoWrap" Name="ItemsSearchBox" Text=""  />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <Label Content="Склад:" Style="{DynamicResource TopLabel}" />
+                    <controls:SelectBox x:Name="WarehouseFilter" Style="{DynamicResource CustomFormField}" Width="150"  HorizontalAlignment="Stretch" SelectedItemChanged="WarehouseFilter_SelectedItemChanged" />
+                    <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                    <Label Content="Статус:" Style="{DynamicResource TopLabel}" />
+                    <controls:SelectBox x:Name="StatusFilter" Style="{DynamicResource CustomFormField}" Width="150"  HorizontalAlignment="Stretch" SelectedItemChanged="StatusFilter_SelectedItemChanged" />
+                    <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                    <Button Name="ExportToExcelButton" Content="В Excel" Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right">
+                    <Button Name="HelpButton"  Width="24" MinWidth="24"  Content="?" Style="{DynamicResource Button}" Margin="0"/>
+                </StackPanel>
+            </Grid>
+          
+            <Grid Grid.Row="1" Grid.Column="0" >
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="OperationGrid" />
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</controls:ControlBase>

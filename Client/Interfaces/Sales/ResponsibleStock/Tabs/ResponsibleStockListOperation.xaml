@@ -1,0 +1,117 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Sales.ResponsibleStockListOperation"
+    xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"    
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+
+    mc:Ignorable="d" 
+    d:DesignWidth="1600" d:DesignHeight="800"  
+    Style="{DynamicResource UserControlCanvas}"  >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5px"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="11.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                            <Button Name="ResreshButton"    Content="Обновить"  Style="{DynamicResource Button}" Click="ResreshButton_Click"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="SearchText" Text=""/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <controls:SelectBox  x:Name="OperationSelectBox" Style="{DynamicResource CustomFormField}" Width="200" SelectedItemChanged="OperationSelectBox_SelectedItemChanged" Autocomplete="True" HorizontalAlignment="Left" ListBoxMinWidth="200"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <controls:SelectBox  x:Name="CreatorSelectBox" Style="{DynamicResource CustomFormField}" Width="100" SelectedItemChanged="CreatorSelectBox_SelectedItemChanged"  Autocomplete="True" HorizontalAlignment="Left" ListBoxMinWidth="100"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                            <Button Name="HelpButton" ToolTip="Документация" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click"  Margin="0,0,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="0">
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="OperationGrid" />
+                </Border>
+            </Grid>
+
+            <Border Grid.Row="3" Grid.Column="0" x:Name="AddOperationBorder">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Ид поддона:" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                        <controls:SelectBox  x:Name="PalletIdSelectBox" Style="{DynamicResource CustomFormField}" SelectedItemChanged="PalletIdSelectBox_SelectedItemChanged" Width="120" Autocomplete="True" HorizontalAlignment="Left" ListBoxMinWidth="120"/>
+                    </Border>
+
+                    <Border Grid.Column="2" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Операция:" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Column="3" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                        <controls:SelectBox  x:Name="OperationIdSelectBox" Style="{DynamicResource CustomFormField}" Width="200" Autocomplete="True" HorizontalAlignment="Left" ListBoxMinWidth="200"/>
+                    </Border>
+
+                    <Border Grid.Column="4" Grid.Row="0" Width="5px" />
+
+                    <Border Grid.Column="5" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                        <Button Content="Создать операцию" Name="CreateOperationButton" Click="CreateOperationButton_Click" Tag="access_mode_full_access" HorizontalAlignment="Stretch" Style="{DynamicResource Button}" />
+                    </Border>
+                </Grid>
+            </Border>
+
+        </Grid>
+    </Border>
+
+</UserControl>

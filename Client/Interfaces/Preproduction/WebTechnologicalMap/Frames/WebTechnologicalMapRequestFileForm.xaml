@@ -1,0 +1,104 @@
+﻿<controls:ControlBase 
+    x:Class="Client.Interfaces.Preproduction.WebTechnologicalMapRequestFileForm"
+    xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+    xmlns:lib="clr-namespace:Client.Common"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"             
+    
+    mc:Ignorable="d"
+    
+    d:DesignWidth="350" d:DesignHeight="200" 
+    Width="350" Height="200"
+    Style="{DynamicResource UserControlCanvas}"
+    HorizontalAlignment="Left" VerticalAlignment="Top"     
+    >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource FormContainerHolder}" Margin="5">
+        <Grid Style="{DynamicResource FormContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Style="{DynamicResource FormControlPanel}">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Column="0" Name="FormToolbar" Style="{DynamicResource FormHeaderButtonsPanel}">
+                        <Button Name="SaveButton" Content="Сохранить"  Tag="Save" Style="{DynamicResource FButtonPrimary}" />
+                        <Button Name="CancelButton" Content="Отмена" Tag="Close" Style="{DynamicResource Button}"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormVerticalPanelSpacer}"></Border>
+            <Border Grid.Row="2" Style="{DynamicResource DataGridMainHolder}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Тип запроса:" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Style="{DynamicResource FormFieldContainer}">
+                        <controls:SelectBox  x:Name="TypeSelectBox" Style="{DynamicResource CustomFormField}" Autocomplete="True" HorizontalAlignment="Stretch"/>
+                    </Border>
+
+                    
+                    <Border Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Направление:" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Style="{DynamicResource FormFieldContainer}">
+                        <controls:SelectBox  x:Name="RecipientSelectBox" Style="{DynamicResource CustomFormField}" Autocomplete="True" HorizontalAlignment="Stretch"/>
+                    </Border>
+                    
+                    
+                    <Border Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Ответственный:" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Style="{DynamicResource FormFieldContainer}">
+                        <controls:SelectBox  x:Name="ResponsibleSelectBox" Style="{DynamicResource CustomFormField}" Autocomplete="True" HorizontalAlignment="Stretch"/>
+                    </Border>
+
+                    <Border Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Комментарий:" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Style="{DynamicResource FormFieldContainer}">
+                        <TextBox Name="CommentTextBox" AcceptsReturn="True" Style="{DynamicResource FormField}" TextWrapping="Wrap" MaxLength="511" Height="68"/>
+                    </Border>
+                </Grid>
+            </Border>
+
+        </Grid>
+    </Border>
+    
+
+</controls:ControlBase>

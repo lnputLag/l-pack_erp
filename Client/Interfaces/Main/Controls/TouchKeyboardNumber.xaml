@@ -1,0 +1,125 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Main.TouchKeyboardNumber"
+    xmlns:local="clr-namespaceClient.Interfaces.Main"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"    
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+
+    mc:Ignorable="d" 
+    d:DesignWidth="400" d:DesignHeight="420" 
+    Background="#ffffffff"
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border  Style="{DynamicResource TouchKeyboardBlock}" BorderBrush="#009000" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid ShowGridLines="false" Style="{DynamicResource TouchFromGrid}" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Button Name="KeyboardButton1" Style="{DynamicResource TouchKeyboardButtonBig}" Margin="7,7,7,7" Tag="1" Click="KeyboardButtonClick">
+                    1
+                </Button>
+            </Grid>
+
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Button Name="KeyboardButton2" Style="{DynamicResource TouchKeyboardButtonBig}" Margin="7,7,7,7" Tag="2" Click="KeyboardButtonClick">
+                    2
+                </Button>
+            </Grid>
+
+            <Grid Grid.Row="0" Grid.Column="2">
+                <Button Name="KeyboardButton3" Style="{DynamicResource TouchKeyboardButtonBig}" Margin="7,7,7,7" Tag="3" Click="KeyboardButtonClick">
+                    3
+                </Button>
+            </Grid>
+
+
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Button Name="KeyboardButton4" Style="{DynamicResource TouchKeyboardButtonBig}" Margin="7,7,7,7" Tag="4" Click="KeyboardButtonClick">
+                    4
+                </Button>
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Button Name="KeyboardButton5" Style="{DynamicResource TouchKeyboardButtonBig}" Margin="7,7,7,7" Tag="5" Click="KeyboardButtonClick">
+                    5
+                </Button>
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="2">
+                <Button Name="KeyboardButton6" Style="{DynamicResource TouchKeyboardButtonBig}" Margin="7,7,7,7" Tag="6" Click="KeyboardButtonClick">
+                    6
+                </Button>
+            </Grid>
+
+
+            <Grid Grid.Row="2" Grid.Column="0">
+                <Button Name="KeyboardButton7" Style="{DynamicResource TouchKeyboardButtonBig}" Margin="7,7,7,7" Tag="7" Click="KeyboardButtonClick">
+                    7
+                </Button>
+            </Grid>
+
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Button Name="KeyboardButton8" Style="{DynamicResource TouchKeyboardButtonBig}" Margin="7,7,7,7" Tag="8" Click="KeyboardButtonClick">
+                    8
+                </Button>
+            </Grid>
+
+            <Grid Grid.Row="2" Grid.Column="2">
+                <Button Name="KeyboardButton9" Style="{DynamicResource TouchKeyboardButtonBig}" Margin="7,7,7,7" Tag="9" Click="KeyboardButtonClick">
+                    9
+                </Button>
+            </Grid>
+
+
+            <Grid Grid.Row="3" Grid.Column="0">
+                <Button Name="KeyboardButtonBackspace" Style="{DynamicResource TouchKeyboardButtonBig}" Margin="7,7,7,7" Tag="BACK_SPACE" Click="KeyboardButtonClick">
+                    <Border Style="{DynamicResource TouchKeyboardButtonIconBlock}">
+                        <Image Style="{DynamicResource TouchKeyboardButtonIconBackspace}" Name="LeftReelIcon"  />
+                    </Border>
+                </Button>
+            </Grid>
+
+            <Grid Grid.Row="3" Grid.Column="1">
+                <Button Name="KeyboardButton0" Style="{DynamicResource TouchKeyboardButtonBig}" Margin="7,7,7,7" Tag="0" Click="KeyboardButtonClick">
+                    0
+                </Button>
+            </Grid>
+
+            <Grid Grid.Row="3" Grid.Column="2">
+                <Button Name="KeyboardButtonNext" Style="{DynamicResource TouchKeyboardButtonBig}" Margin="7,7,7,7">
+
+                </Button>
+            </Grid>
+
+        </Grid>
+    </Border>
+
+</UserControl>
+
+    

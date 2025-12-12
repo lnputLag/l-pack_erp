@@ -1,0 +1,198 @@
+﻿<controls:ControlBase
+        x:Class="Client.Interfaces.Production.PaperProduction.ScrapPaperReportTab"
+        xmlns:local="clr-namespace:Client.Interfaces.Production.PaperProduction"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:controls="clr-namespace:Client.Interfaces.Main"
+
+        mc:Ignorable="d" 
+        d:DesignWidth="1980"
+        d:DesignHeight="768" 
+        Style="{DynamicResource UserControlCanvas}">
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition x:Name="GridReport" Height="*"></RowDefinition>
+                <RowDefinition x:Name="GridAttr" Height="100"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}" >
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border >
+                    <Grid >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+
+                            <Label Content="Площадка"  Style="{DynamicResource TopLabel}"/>
+
+                            <controls:SelectBox  x:Name="IdStList" SelectedItemChanged="IdStList_SelectedItemChanged" Style="{DynamicResource CustomFormField}" ListBoxMinHeight="70" Width="80" Autocomplete="False"  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Отчет"  Style="{DynamicResource TopLabel}"/>
+
+                            <controls:SelectBox  x:Name="ReportList" SelectedItemChanged="ReportList_SelectedItemChanged" Style="{DynamicResource CustomFormField}" ListBoxMinHeight="310" ListBoxMinWidth="280" ListResizeable="False" Width="280" Autocomplete="False"  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="с:"  Style="{DynamicResource TopLabel}"/>
+                            <Grid Style="{DynamicResource FormFieldDateHolder}">
+                                <controls:DatePicker x:Name="ReportDtFrom" Style="{DynamicResource DateEditStyle}" >
+                                </controls:DatePicker>
+                            </Grid>
+                            <controls:SelectBox  x:Name="BegSmenaList" ListResizeable="False" Style="{DynamicResource CustomFormField}" ListBoxMinHeight="60" Width="50" Autocomplete="True"  />
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                            <Label Content="по:"  Style="{DynamicResource TopLabel}"/>
+                            <Grid Style="{DynamicResource FormFieldDateHolder}">
+                                <controls:DatePicker x:Name="ReportDtTo" Style="{DynamicResource DateEditStyle}" >
+                                </controls:DatePicker>
+                            </Grid>
+                            <controls:SelectBox  x:Name="EndSmenaList" ListResizeable="False" Style="{DynamicResource CustomFormField}" ListBoxMinHeight="60" Width="50" Autocomplete="True"  />
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                            <CheckBox  x:Name="AllTimeCheckBox" Style="{DynamicResource CheckBoxTopPanel}" IsEnabled="True" IsChecked="False" Content="Весь диапазон"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="ShowReportButton" Click="ShowReportButton_Click" Content="Показать" Style="{DynamicResource Button}"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="ReportButton"    Content="Отчет" Style="{DynamicResource Button}"  VerticalAlignment="Bottom" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <!--<Button Name="ViewHistoryPolyalButton"    Content="История ПЭС"  Style="{DynamicResource Button}"  VerticalAlignment="Bottom" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>-->
+
+                            <Label Content="Поставщик"  Style="{DynamicResource TopLabel}" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <!--<TextBox Name="SearchPostavshic" Style="{DynamicResource FormFieldTopPanel}" Width="70" MaxWidth="70" MinWidth="50" TextWrapping="NoWrap" Text=""  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>-->
+
+                            <controls:SelectBox  x:Name="PostavshicList" SelectedItemChanged="PostavshicList_SelectedItemChanged" Style="{DynamicResource CustomFormField}" ListBoxMinHeight="250" ListBoxMinWidth="350"  ListResizeable="True" Width="200" Autocomplete="True"  />
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                            <Label Content="Поиск"  Style="{DynamicResource TopLabel}" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <TextBox Name="SearchTovar"  Style="{DynamicResource FormFieldTopPanel}" Width="100" MaxWidth="100" MinWidth="100" TextWrapping="NoWrap" Text=""  />
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                            <Label Content="Марка"  Style="{DynamicResource TopLabel}" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <CheckBox x:Name="PaperAllCheckBox" Content="Все" Checked="PaperAllCheckBox_Checked" Unchecked="PaperAllCheckBox_Unchecked" Style="{DynamicResource CheckBoxTopPanel}" IsEnabled="True" IsChecked="False" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <CheckBox x:Name="PaperMC5BCheckBox" Content="МС5Б" Style="{DynamicResource CheckBoxTopPanel}" IsEnabled="True" IsChecked="False" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <CheckBox x:Name="PaperMC6BCheckBox" Content="МС6Б" Style="{DynamicResource CheckBoxTopPanel}" IsEnabled="True" IsChecked="False" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <CheckBox x:Name="PaperMC8BCheckBox" Content="МС8В" Style="{DynamicResource CheckBoxTopPanel}" IsEnabled="True" IsChecked="False" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <CheckBox x:Name="PaperMC11BCheckBox" Content="МС11В" Style="{DynamicResource CheckBoxTopPanel}" IsEnabled="True" IsChecked="False" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="2"  Grid.Column="0" >
+
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="Report1Grid" Visibility="Hidden" />
+                </Border>
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="Report2Grid" Visibility="Hidden" />
+                </Border>
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="Report3Grid" Visibility="Hidden" />
+                </Border>
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="Report4Grid" Visibility="Hidden" />
+                </Border>
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="Report13Grid" Visibility="Hidden" />
+                </Border>
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="Report14Grid" Visibility="Hidden" />
+                </Border>
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="Report15Grid" Visibility="Hidden" />
+                </Border>
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="Report16Grid" Visibility="Hidden" />
+                </Border>
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="Report17Grid" Visibility="Hidden" />
+                </Border>
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="Report18Grid" Visibility="Hidden" />
+                </Border>
+
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="Report19Grid" Visibility="Hidden" />
+                </Border>
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="Report20Grid" Visibility="Hidden" />
+                </Border>
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="Report21Grid" Visibility="Hidden" />
+                </Border>
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="Report22Grid" Visibility="Hidden" />
+                </Border>
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="Report26Grid" Visibility="Hidden" />
+                </Border>
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="Report27Grid" Visibility="Hidden" />
+                </Border>
+
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="Report28Grid" Visibility="Hidden" />
+                </Border>
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="Report29Grid" Visibility="Hidden" />
+                </Border>
+            </Grid>
+
+            <Border Grid.Row="2" Grid.Column="0" Height="100"  VerticalAlignment="Top" Panel.ZIndex="10">
+                <controls:SplashControl x:Name="SplashControl"/>
+            </Border>
+
+            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+            <Grid Grid.Row="3"  Grid.Column="0" >
+
+                <Border Style="{DynamicResource DataGridMainHolder}"  >
+                    <controls:GridBox4 x:Name="ScrapTansportAttrGrid"  Visibility="Visible" Height="100" />
+                </Border>
+            </Grid>
+
+        </Grid>
+    </Border>
+
+</controls:ControlBase>

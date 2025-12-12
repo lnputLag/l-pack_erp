@@ -1,0 +1,1395 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Production.ProductionTask"
+    xmlns:local="clr-namespace:Client.Interfaces.Production"
+    
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"    
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+
+    mc:Ignorable="d" 
+    d:DesignWidth="1200" d:DesignHeight="768" 
+    Style="{DynamicResource UserControlCanvas}"
+    Background="White"
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <!--
+        форма
+        1 строка: блок кнопок, 30 пикс.
+        
+    -->
+    <Border Style="{DynamicResource FormContainerHolder}" >
+        <Grid Style="{DynamicResource FormContainer}" >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource FormControlPanel}" >
+                <Grid ShowGridLines="false">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="11*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Name="FormToolbar" Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" >
+                        <Button Content="Сохранить"     Name="SaveButton"   Click="Save_Click"   Style="{DynamicResource FButtonPrimary}"   ToolTip="Сохранить данные (Ctrl+Enter)"    />
+                        <Button Content="Отмена"        Name="CloseButton"  Click="Close_Click"  Style="{DynamicResource FButtonCancel}"    ToolTip="Закрыть"   />
+                        <Button Content="Сброс"         Name="ResetButton"  Click="Reset_Click"  Style="{DynamicResource FButtonCancel}"    ToolTip="Очистить все данные"  Visibility="Collapsed" />
+                        <Button Content="Перевыпуск"    Name="ReworkButton" Click="Rework_Click" Style="{DynamicResource FButtonCancel}"    ToolTip="Выбрать позицию для повторного задания"   />
+                        <Button Content="С" Name="CalculateBUtton" Click="CalculateBUtton_Click_1" MinWidth="27" Style="{DynamicResource FButtonCancel}" ToolTip="Calculate"  />
+                        <Button Content="R" Name="LoadRefButton" Click="LoadRefButton_Click" MinWidth="27" Style="{DynamicResource FButtonCancel}" ToolTip="LoadRef" Visibility="Visible" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <TextBlock  Name="FormStatus"  TextAlignment="Left" Style="{DynamicResource FStatusBar}" HorizontalAlignment="Stretch" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                        <Button x:Name="HelpButton" Click="HelpButton_Click"       ToolTip="Справка"     Style="{DynamicResource ButtonGlyph}" HorizontalAlignment="Right" Margin="0,0,0,0"      >
+                            <ContentControl Style="{DynamicResource ButtonSMSymbolIcon}" Content="?" />
+                        </Button>
+                    </StackPanel>
+
+                </Grid>
+            </Grid>
+
+            <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormVerticalPanelSpacer}" Margin="0,5,0,0">
+            </Border>
+
+            <Border Grid.Row="2"  Grid.Column="0">
+                <StackPanel Orientation="Horizontal" Height="24">
+                    <TextBlock Name="Title"  Height="24" Margin="5,0,0,0" MinWidth="250"></TextBlock>
+                    <TextBlock Name="TitleDebug"  Height="24" Margin="5,0,0,0" MinWidth="50"></TextBlock>
+                </StackPanel>
+            </Border>
+
+            <Grid Grid.Row="3" Grid.Column="0" Style="{DynamicResource FromGrid}" Margin="0,0,0,0" >
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Grid.Column="0"  Margin="5,5,0,0">
+                    <StackPanel Style="{DynamicResource FormHeaderButtonsPanel}" Margin="0,0,0,0" >
+
+                        <Label Content="Формат:" Style="{DynamicResource TopLabel}" />
+                        <controls:SelectBox x:Name="FormatList"   Style="{DynamicResource CustomFormField}" ListBoxMinHeight="205" ListBoxMinWidth="120" Width="80" Autocomplete="True"  VerticalAlignment="Top" />
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                        <Label Content="Обрезь, %:"  Style="{DynamicResource TopLabel}" />
+                        <TextBox Name="TrimPercentage" Style="{DynamicResource FormFieldDigit}" HorizontalAlignment="Right" Width="40" TextWrapping="NoWrap" IsReadOnly="True" >
+                            <TextBox.ToolTip>
+                                <StackPanel HorizontalAlignment="Stretch" Width="150" Height="50">
+                                    <Grid HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="8*" />
+                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition Width="2*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <Label     Grid.Row="0" Grid.Column="0"  Content="Обрезь:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="0" Grid.Column="1"  x:Name="TrimTAbsolute" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+                                        <Label     Grid.Row="0" Grid.Column="2"  Content="мм"  Style="{DynamicResource SHMonTooltipLabel}" />
+
+                                        <Label     Grid.Row="1" Grid.Column="0"  Content=""  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="1" Grid.Column="1"  x:Name="TrimTPercentage" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+                                        <Label     Grid.Row="1" Grid.Column="2"  Content="%"  Style="{DynamicResource SHMonTooltipLabel}" />
+
+                                        <Label     Grid.Row="2" Grid.Column="0"  Content="Минимум:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="2" Grid.Column="1"  x:Name="TrimTMin" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+                                        <Label     Grid.Row="2" Grid.Column="2"  Content="мм"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                    </Grid>
+
+                                </StackPanel>
+                            </TextBox.ToolTip>
+                        </TextBox>
+                        <TextBox Name="TrimAbsolute" Style="{DynamicResource FormFieldDigit}" IsReadOnly="True" Visibility="Collapsed"/>
+
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                        <Label Content="Ширина, мм:" ToolTip="Общая ширина задания, все заготовки" Style="{DynamicResource TopLabel}" />
+                        <TextBox Name="CuttingWidth" Style="{DynamicResource FormFieldDigit}" HorizontalAlignment="Right"  Width="50" TextWrapping="NoWrap" IsReadOnly="True" VerticalAlignment="Top" />
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                        <Label Content="Длина, м:"  ToolTip="Общая длина задания" Style="{DynamicResource TopLabel}" />
+                        <TextBox Name="CuttingLength" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="50" TextWrapping="NoWrap" IsReadOnly="True" />
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                        <Label Content="Примечание ГА:"  Style="{DynamicResource TopLabel}" />
+                        <TextBox Name="Comment" HorizontalAlignment="Left" Style="{DynamicResource FormField}" Width="475" TextWrapping="NoWrap"  />
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                    </StackPanel>
+                </Border>
+
+
+
+                <Grid Grid.Row="1"  Grid.Column="0" Style="{DynamicResource FromGrid}" Margin="5,0,0,0" HorizontalAlignment="Left" Width="1100">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="405"/>
+
+                        <ColumnDefinition Width="205" />
+                        <ColumnDefinition Width="0" />
+
+                        <ColumnDefinition Width="145"/>
+                        <ColumnDefinition Width="1"/>
+                        <ColumnDefinition Width="1"/>
+
+                        <ColumnDefinition Width="85" />
+                        <ColumnDefinition Width="85" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="35" />
+                        <ColumnDefinition Width="0" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0" />
+                        <RowDefinition Height="24" />
+                        <RowDefinition Height="29" />
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="29" />
+                        <RowDefinition Height="34" />
+                        <RowDefinition Height="29" />
+                        <RowDefinition Height="34" />
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormGridFieldContainer}" >
+
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="1" Style="{DynamicResource FormGridFieldContainer}" >
+                        <Label Content="Гл." ToolTip="Главный" Style="{DynamicResource TopLabel}" />
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="2" Style="{DynamicResource FormGridFieldContainer}" >
+                        <Label Content="Ст." ToolTip="Стекер" Style="{DynamicResource TopLabel}" />
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="3" Style="{DynamicResource FormGridFieldContainer}" >
+                        <Label Content="Заготовка"  Style="{DynamicResource TopLabel}" />
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="4" Style="{DynamicResource FormGridFieldContainer}" >
+                        <Label Content="Сырье"  Style="{DynamicResource TopLabel}" />
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="5" Style="{DynamicResource FormGridFieldContainer}" >
+                        <Label Content="Рил" ToolTip="Рилевка" Style="{DynamicResource TopLabel}" />
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center" >
+                        <Label Content="Д х Ш" ToolTip="Длина х Ширина"  Style="{DynamicResource TopLabel}" />
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="9" Style="{DynamicResource FormGridFieldContainer}" >
+                        <Label Content="Колич." ToolTip="Количество заготовок"  Style="{DynamicResource TopLabel}" />
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="10" Style="{DynamicResource FormGridFieldContainer}" >
+                        <Label Content="Поток" ToolTip="Количество потоков" Style="{DynamicResource TopLabel}" />
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="11" Style="{DynamicResource FormGridFieldContainer}" >
+                        <Label Content="Опыт." ToolTip="Опытная партия"  Style="{DynamicResource TopLabel}" />
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="12" Style="{DynamicResource FormGridFieldContainer}" />
+
+
+
+                    <Border Grid.Row="3" Grid.Column="0" Grid.RowSpan="4"   Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center" >
+                        <StackPanel Orientation="Vertical" >
+                            <RadioButton Name="Stacker12Group" Click="Stacker12Group_Click" ToolTip="Использовать стекеры 1+2" Style="{DynamicResource RadioBox}" VerticalAlignment="Center" Margin="0,5,0,0" />
+                            <RadioButton Name="Stacker23Group" Click="Stacker23Group_Click" ToolTip="Использовать стекеры 2+3" Style="{DynamicResource RadioBox}" VerticalAlignment="Center" Margin="0,50,0,0" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Row="3" Grid.Column="12" Grid.RowSpan="4"   Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center" >
+                        <StackPanel Orientation="Vertical" >
+                            <Button Name="Stacker12Swap" Click="Stacker12Swap_Click" ToolTip="Поменять местами стекеры 1-2" Style="{DynamicResource ButtonGlyph}" Margin="0,0,0,0">
+                                <Image Style="{DynamicResource UpDownImage}" />
+                            </Button>
+                            <Button Name="Stacker23Swap" Click="Stacker23Swap_Click" ToolTip="Поменять местами стекеры 2-3" Style="{DynamicResource ButtonGlyph}" Margin="0,44,0,0">
+                                <Image Style="{DynamicResource UpDownImage}" />
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+
+
+                    <Border Grid.Row="2" Grid.Column="1" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center" >
+                        <RadioButton Name="Stacker1Main" Click="Stacker1Main_Click"  VerticalAlignment="Center" Margin="0,5,0,0" />
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="2" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center"  >
+                        <Label Content="1"  Style="{DynamicResource TopLabel}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="3" Style="{DynamicResource FormGridFieldContainer}">
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Name="Stacker1Blank" Style="{DynamicResource FormField}"   Width="340" TextWrapping="NoWrap"  IsReadOnly="True" MouseDoubleClick="Stacker1Blank_MouseDoubleClick" >
+                                <TextBox.ToolTip>
+                                    <StackPanel HorizontalAlignment="Stretch" Width="350" Height="150">
+                                        <Grid HorizontalAlignment="Stretch">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="3*" />
+                                                <ColumnDefinition Width="9*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+
+                                            <Label     Grid.Row="0" Grid.Column="0"  Content="Позиция:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="0" Grid.Column="1"  x:Name="Stacker1PositionId" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                            <Label     Grid.Row="1" Grid.Column="0"  Content="Заготовка:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="1" Grid.Column="1"  x:Name="Stacker1BlankId" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+                                            <TextBox Grid.Row="2" Grid.Column="1"  x:Name="Stacker1BlankCode" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+                                            <TextBox Grid.Row="3" Grid.Column="1"  x:Name="Stacker1BlankName" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                            <Label     Grid.Row="4" Grid.Column="0"  Content="Изделие:"      Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="4" Grid.Column="1"  x:Name="Stacker1GoodId" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+                                            <TextBox Grid.Row="5" Grid.Column="1"  x:Name="Stacker1GoodCode" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+                                            <TextBox Grid.Row="6" Grid.Column="1"  x:Name="Stacker1GoodName" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                            <Label     Grid.Row="7" Grid.Column="0"  Content="Мин обрезь:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="7" Grid.Column="1"  x:Name="Stacker1TrimMin" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                            <Label     Grid.Row="8" Grid.Column="0" Content=""   Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="8" Grid.Column="1"  x:Name="Stacker1ZCardboard" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+                                        </Grid>
+                                    </StackPanel>
+                                </TextBox.ToolTip>
+                            </TextBox>
+                            <Button Name="Stacker1SelectButton"   Click="Stacker1SelectButton_Click" ToolTip="Добавить"   Style="{DynamicResource ButtonGlyph}"  Margin="-1,0,0,0"  >
+                                <Image Style="{DynamicResource SelectImage}" />
+                            </Button>
+                            <Button Name="Stacker1ClearButton"  Click="Stacker1ClearButton_Click"   ToolTip="Удалить"    Style="{DynamicResource ButtonGlyph}"  Margin="-1,0,0,0"      >
+                                <Image Style="{DynamicResource CloseImage}" />
+                            </Button>
+                        </StackPanel>
+
+
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="4" Style="{DynamicResource FormGridFieldContainer}" >
+                        <TextBox Name="Stacker1Cardboard" HorizontalAlignment="Left" Style="{DynamicResource FormField}"   Width="185" TextWrapping="NoWrap"  IsReadOnly="True" >
+                            <TextBox.ToolTip>
+                                <StackPanel HorizontalAlignment="Stretch" Width="200" Height="100">
+                                    <Grid HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="6*" />
+                                            <ColumnDefinition Width="6*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <Label     Grid.Row="0" Grid.Column="0"  Content="Картон:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="0" Grid.Column="1"  x:Name="Stacker1CardboardName" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                                        <Label     Grid.Row="1" Grid.Column="0"  Content="ИД:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="1" Grid.Column="1"  x:Name="Stacker1CardboardId" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                                        <Label     Grid.Row="2" Grid.Column="0"  Content="Марка:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="2" Grid.Column="1"  x:Name="Stacker1CardboardMarkId" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                                        <Label     Grid.Row="3" Grid.Column="0"  Content="Тип:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="3" Grid.Column="1"  x:Name="Stacker1CardboardType" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                                        <Label     Grid.Row="4" Grid.Column="0"  Content="Стандартный:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="4" Grid.Column="1"  x:Name="Stacker1CardboardStandart" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                                        <Label     Grid.Row="5" Grid.Column="0"  Content="Профиль:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="5" Grid.Column="1"  x:Name="Stacker1ProfileId" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                                        <Label     Grid.Row="6" Grid.Column="0"  Content="Код цветов внешних слоёв:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="6" Grid.Column="1"  x:Name="Stacker1OuterColorCode" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                                    </Grid>
+
+                                </StackPanel>
+                            </TextBox.ToolTip>
+                        </TextBox>
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="5" Style="{DynamicResource FormGridFieldContainer}" >
+                        <TextBox Name="Stacker1Crease" HorizontalAlignment="Left" Style="{DynamicResource FormFieldDigit}" Width="40" TextWrapping="NoWrap"   IsReadOnly="True"  Margin="0,0,0,5" VerticalAlignment="Bottom" Visibility="Collapsed"/>
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" Style="{DynamicResource FormGridFieldContainer}" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Name="Stacker1Length" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="55" TextWrapping="NoWrap"  IsReadOnly="True" />
+                            <Label Content="x" FontSize="16" Style="{DynamicResource TopLabel}" Padding="0" VerticalAlignment="Center" TextBlock.TextAlignment="Center" HorizontalAlignment="Center" Margin="2,0,2,0" />
+                            <TextBox Name="Stacker1Width" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="55" TextWrapping="NoWrap"  IsReadOnly="True"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="9" Style="{DynamicResource FormGridFieldContainer}" >
+                        <TextBox Name="Stacker1QuantityCalculated"  HorizontalAlignment="Left" Style="{DynamicResource FormFieldDigit}" Width="60" TextWrapping="NoWrap"  VerticalAlignment="Center" TextChanged="Stacker1QuantityCalculated_TextChanged" PreviewMouseUp="Stacker1QuantityCalculated_PreviewMouseUp" />
+                        <!--
+                        <StackPanel Orientation="Vertical" Margin="0,0,0,0">
+                            <StackPanel Orientation="Horizontal">                                
+                                <TextBox Name="Stacker1Quantity" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="40" TextWrapping="NoWrap"  Margin="0,0,0,0" VerticalAlignment="Center" IsReadOnly="True" >
+                                    <TextBox.ToolTip>
+                                        <StackPanel HorizontalAlignment="Stretch" Width="200" Height="100">
+                                            <Grid HorizontalAlignment="Stretch">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="6*" />
+                                                    <ColumnDefinition Width="6*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+
+                                                <Label     Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Количество по заданию"  Style="{DynamicResource SHMonTooltipLabel}" />
+
+                                                <Label     Grid.Row="1" Grid.Column="0"  Content="Верхний порог:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                                <TextBox Grid.Row="1" Grid.Column="1"  x:Name="Stacker1QuantityUpper" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                                <Label     Grid.Row="2" Grid.Column="0"  Content="Нижний порог:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                                <TextBox Grid.Row="2" Grid.Column="1"  x:Name="Stacker1QuantityLower" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                            </Grid>
+
+                                        </StackPanel>
+                                    </TextBox.ToolTip>
+                                </TextBox>
+                            </StackPanel>
+                        </StackPanel>
+                        -->
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="10" Style="{DynamicResource FormGridFieldContainer}" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Name="Stacker1Threads" TextChanged="Stacker1Threads_TextChanged" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="40" TextWrapping="NoWrap"  />
+                            <StackPanel Orientation="Vertical">
+                                <Button Name="Stacker1ThreadsInc" Click="Stacker1ThreadsInc_Click" Height="12" ToolTip="Увеличить количество" Style="{DynamicResource ButtonGlyph}" Margin="-1,0,0,0" BorderThickness="1,1,1,0.5">
+                                    <Image Style="{DynamicResource UpImage}" />
+                                </Button>
+                                <Button Name="Stacker1ThreadsDec" Click="Stacker1ThreadsDec_Click" Height="12" ToolTip="Уменьшить количество" Style="{DynamicResource ButtonGlyph}" Margin="-1,0,0,0" BorderThickness="1,0.5,1,1">
+                                    <Image Style="{DynamicResource DownImage}" />
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>                        
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="11" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center" >
+                        <CheckBox Name="Stacker1Sample"  Style="{DynamicResource CheckBox}"  VerticalAlignment="Center" Margin="0,5,0,0" Click="Stacker1Sample_Click" />
+                    </Border>
+
+                    <Border Grid.Row="3" Grid.Column="3" Style="{DynamicResource FormGridFieldContainer}" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Заявка:" Margin="0,3,0,0"></TextBlock>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <TextBox Name="Stacker1Application" ToolTip="Заявка" Style="{DynamicResource CustomFormField}" Width="318" IsReadOnly="True"/>
+                            <TextBox Name="Stacker1ApplicationId" Visibility="Collapsed" />
+                            <Button Name="Stacker1SelectApplicationButton"   Click="Stacker1SelectApplicationButton_Click"  ToolTip="Добавить"   Style="{DynamicResource ButtonGlyph}"  Margin="-1,0,0,0"  >
+                                <Image Style="{DynamicResource SelectImage}" />
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="4" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Name="Stacker1NoProcessingTask" Style="{DynamicResource CheckBox}"  VerticalAlignment="Center"  Margin="-8,0,0,0" IsEnabled="False" />
+                            <Label Content="Без ПЗ на переработку"  Style="{DynamicResource TopLabel}" Margin="5,0,0,0" />
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="8" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Left" >
+                        <StackPanel Orientation="Horizontal"  Margin="0,3,0,0">
+
+                            
+                            
+                            <TextBlock Text="Рилевка:" Style="{DynamicResource FormInfoLabel}"  />
+                            <TextBox Name="Stacker1CreaseNote"  Width="30" IsReadOnly="True" Style="{DynamicResource FormInfoField}"  />
+                            <TextBox Name="Stacker1CreaseList" Style="{DynamicResource FormInfoField}" Visibility="Collapsed"/>
+
+                            <TextBlock Text="В заявке:"  Style="{DynamicResource FormInfoLabel}"  />
+                            <TextBox Name="Stacker1QuantityLimit"    Width="15" MinWidth="15" IsReadOnly="True" Style="{DynamicResource FormInfoField}" />
+                            <TextBox Name="Stacker1Quantity"    Width="50" IsReadOnly="True" Style="{DynamicResource FormInfoField}" >                            
+                                <TextBox.ToolTip>
+                                    <StackPanel HorizontalAlignment="Stretch" Width="200" Height="100">
+                                        <Grid HorizontalAlignment="Stretch">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="6*" />
+                                                <ColumnDefinition Width="6*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+
+                                            <Label     Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Количество по заданию"  Style="{DynamicResource SHMonTooltipLabel}" />
+
+                                            <Label     Grid.Row="1" Grid.Column="0"  Content="Верхний порог:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="1" Grid.Column="1"  x:Name="Stacker1QuantityUpper" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                            <Label     Grid.Row="2" Grid.Column="0"  Content="Нижний порог:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="2" Grid.Column="1"  x:Name="Stacker1QuantityLower" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                        </Grid>
+
+                                    </StackPanel>
+                                </TextBox.ToolTip>
+                            </TextBox>
+                            
+
+                            <TextBlock Text="Изд/заг:" Style="{DynamicResource FormInfoLabel}" />
+                            <TextBox Name="Stacker1ProductsFromBlank"  Width="20" IsReadOnly="True" Style="{DynamicResource FormInfoField}" />
+
+                            <TextBlock Text="На поддоне:" Style="{DynamicResource FormInfoLabel}" />
+                            <TextBox Name="Stacker1StacksInPallet"  Width="40" IsReadOnly="True" Style="{DynamicResource FormInfoField}" />
+                            <TextBox Name="Stacker1StacksInPalletFact"  Width="60" IsReadOnly="True" Style="{DynamicResource FormInfoField}" />
+
+                            <TextBlock Text="Заг:" Style="{DynamicResource FormInfoLabel}"  />
+                            <TextBox Name="Stacker1ToCut"  Width="50" IsReadOnly="True" Style="{DynamicResource FormInfoField}" />
+
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Row="4" Grid.Column="1" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center" >
+                        <RadioButton Name="Stacker2Main" Click="Stacker2Main_Click" VerticalAlignment="Center" Margin="0,5,0,0" />
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="2" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center" >
+                        <Label Content="2"  Style="{DynamicResource TopLabel}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="3" Style="{DynamicResource FormGridFieldContainer}" >
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Name="Stacker2Blank" Style="{DynamicResource FormField}" Width="340"  TextWrapping="NoWrap"  IsReadOnly="True" MouseDoubleClick="Stacker2Blank_MouseDoubleClick"  >
+                                <TextBox.ToolTip>
+                                    <StackPanel HorizontalAlignment="Stretch" Width="350" Height="150">
+                                        <Grid HorizontalAlignment="Stretch">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="3*" />
+                                                <ColumnDefinition Width="9*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+
+                                            <Label     Grid.Row="0" Grid.Column="0"  Content="Позиция:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="0" Grid.Column="1"  x:Name="Stacker2PositionId" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                            <Label     Grid.Row="1" Grid.Column="0"  Content="Заготовка:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="1" Grid.Column="1"  x:Name="Stacker2BlankId" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+                                            <TextBox Grid.Row="2" Grid.Column="1"  x:Name="Stacker2BlankCode" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+                                            <TextBox Grid.Row="3" Grid.Column="1"  x:Name="Stacker2BlankName" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                            <Label     Grid.Row="4" Grid.Column="0"  Content="Изделие:"      Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="4" Grid.Column="1"  x:Name="Stacker2GoodId" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+                                            <TextBox Grid.Row="5" Grid.Column="1"  x:Name="Stacker2GoodCode" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+                                            <TextBox Grid.Row="6" Grid.Column="1"  x:Name="Stacker2GoodName" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                            <Label     Grid.Row="7" Grid.Column="0"  Content="Мин обрезь:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="7" Grid.Column="1"  x:Name="Stacker2TrimMin" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                            <Label     Grid.Row="8" Grid.Column="0" Content=""   Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="8" Grid.Column="1"  x:Name="Stacker2ZCardboard" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                        </Grid>
+                                    </StackPanel>
+                                </TextBox.ToolTip>
+                            </TextBox>
+                            <Button Name="Stacker2SelectButton"   Click="Stacker2SelectButton_Click"     ToolTip="Добавить"  Style="{DynamicResource ButtonGlyph}"  Margin="-1,0,0,0"  >
+                                <Image Style="{DynamicResource SelectImage}" />
+                            </Button>
+                            <Button Name="Stacker2ClearButton"    Click="Stacker2ClearButton_Click" ToolTip="Удалить"   Style="{DynamicResource ButtonGlyph}"   Margin="-1,0,0,0"   >
+                                <Image Style="{DynamicResource CloseImage}" />
+                            </Button>
+                        </StackPanel>
+
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="4" Style="{DynamicResource FormGridFieldContainer}" >
+                        <TextBox Name="Stacker2Cardboard" HorizontalAlignment="Left" Style="{DynamicResource FormField}"  Width="185" TextWrapping="NoWrap"  IsReadOnly="True" >
+                            <TextBox.ToolTip>
+                                <StackPanel HorizontalAlignment="Stretch" Width="200" Height="100">
+                                    <Grid HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="6*" />
+                                            <ColumnDefinition Width="6*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <Label     Grid.Row="0" Grid.Column="0"  Content="Картон:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="0" Grid.Column="1"  x:Name="Stacker2CardboardName" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                                        <Label     Grid.Row="1" Grid.Column="0"  Content="ИД:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="1" Grid.Column="1"  x:Name="Stacker2CardboardId" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                                        <Label     Grid.Row="2" Grid.Column="0"  Content="Марка:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="2" Grid.Column="1"  x:Name="Stacker2CardboardMarkId" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                                        <Label     Grid.Row="3" Grid.Column="0"  Content="Тип:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="3" Grid.Column="1"  x:Name="Stacker2CardboardType" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                                        <Label     Grid.Row="4" Grid.Column="0"  Content="Стандартный:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="4" Grid.Column="1"  x:Name="Stacker2CardboardStandart" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                                        <Label     Grid.Row="5" Grid.Column="0"  Content="Профиль:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="5" Grid.Column="1"  x:Name="Stacker2ProfileId" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                                        <Label     Grid.Row="6" Grid.Column="0"  Content="Код цветов внешних слоёв:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="6" Grid.Column="1"  x:Name="Stacker2OuterColorCode" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+
+                                    </Grid>
+
+                                </StackPanel>
+                            </TextBox.ToolTip>
+                        </TextBox>
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="5" Style="{DynamicResource FormGridFieldContainer}" >
+                        <TextBox Name="Stacker2Crease" HorizontalAlignment="Left" Style="{DynamicResource FormFieldDigit}" Width="40" TextWrapping="NoWrap"   IsReadOnly="True"  Margin="0,0,0,5" VerticalAlignment="Bottom" Visibility="Collapsed"/>
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="3" Style="{DynamicResource FormGridFieldContainer}" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Name="Stacker2Length" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="54" TextWrapping="NoWrap"    IsReadOnly="True" />
+                            <Label Content="x" FontSize="16" Style="{DynamicResource TopLabel}" Padding="0" VerticalAlignment="Center" TextBlock.TextAlignment="Center" Margin="2,0,2,0" />
+                            <TextBox Name="Stacker2Width" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="54" TextWrapping="NoWrap"   IsReadOnly="True"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="9" Style="{DynamicResource FormGridFieldContainer}" >
+                        <TextBox Name="Stacker2QuantityCalculated"  HorizontalAlignment="Left" Style="{DynamicResource FormFieldDigit}" Width="60" TextWrapping="NoWrap"   VerticalAlignment="Center" TextChanged="Stacker2QuantityCalculated_TextChanged" PreviewMouseUp="Stacker2QuantityCalculated_PreviewMouseUp" />
+                        <!--
+                        <StackPanel Orientation="Vertical" Margin="0,0,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Name="Stacker2Quantity" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="40" TextWrapping="NoWrap"  Margin="0,0,0,0" VerticalAlignment="Center" IsReadOnly="True" >
+                                    <TextBox.ToolTip>
+                                        <StackPanel HorizontalAlignment="Stretch" Width="200" Height="100">
+                                            <Grid HorizontalAlignment="Stretch">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="6*" />
+                                                    <ColumnDefinition Width="6*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+
+                                                <Label     Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Количество по заданию"  Style="{DynamicResource SHMonTooltipLabel}" />
+
+                                                <Label     Grid.Row="1" Grid.Column="0"  Content="Верхний порог:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                                <TextBox Grid.Row="1" Grid.Column="1"  x:Name="Stacker2QuantityUpper" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                                <Label     Grid.Row="2" Grid.Column="0"  Content="Нижний порог:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                                <TextBox Grid.Row="2" Grid.Column="1"  x:Name="Stacker2QuantityLower" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                            </Grid>
+
+                                        </StackPanel>
+                                    </TextBox.ToolTip>
+                                </TextBox>                                
+                            </StackPanel>
+                        </StackPanel>
+                        -->
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="10" Style="{DynamicResource FormGridFieldContainer}" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Name="Stacker2Threads" TextChanged="Stacker2Threads_TextChanged"  HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="40" TextWrapping="NoWrap"  />
+                            <StackPanel Orientation="Vertical">
+                                <Button Name="Stacker2ThreadsInc" Click="Stacker2ThreadsInc_Click" Height="12" ToolTip="Увеличить количество" Style="{DynamicResource ButtonGlyph}" Margin="-1,0,0,0" BorderThickness="1,1,1,0.5">
+                                    <Image Style="{DynamicResource UpImage}" />
+                                </Button>
+                                <Button Name="Stacker2ThreadsDec" Click="Stacker2ThreadsDec_Click" Height="12" ToolTip="Уменьшить количество" Style="{DynamicResource ButtonGlyph}" Margin="-1,0,0,0" BorderThickness="1,0.5,1,1">
+                                    <Image Style="{DynamicResource DownImage}" />
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                        
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="11" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center" >
+                        <CheckBox Name="Stacker2Sample"  Style="{DynamicResource CheckBox}" VerticalAlignment="Center" Margin="0,5,0,0" Click="Stacker1Sample_Click" />
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="12" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center" >
+                    </Border>
+
+
+                    <Border Grid.Row="5" Grid.Column="3" Style="{DynamicResource FormGridFieldContainer}" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Заявка:"  Margin="0,3,0,0"></TextBlock>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <TextBox Name="Stacker2Application" ToolTip="Заявка" Style="{DynamicResource CustomFormField}" Width="318" IsReadOnly="True"/>
+                            <TextBox Name="Stacker2ApplicationId" Visibility="Collapsed" />
+                            <Button Name="Stacker2SelectApplicationButton"   Click="Stacker2SelectApplicationButton_Click"  ToolTip="Добавить"   Style="{DynamicResource ButtonGlyph}"  Margin="-1,0,0,0"  >
+                                <Image Style="{DynamicResource SelectImage}" />
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Row="5" Grid.Column="4" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Name="Stacker2NoProcessingTask" Style="{DynamicResource CheckBox}"  VerticalAlignment="Center" Margin="-8,0,0,0" IsEnabled="False"  />
+                            <Label Content="Без ПЗ на переработку"  Style="{DynamicResource TopLabel}" Margin="5,0,0,0" />
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="8" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Left" >
+                        <StackPanel Orientation="Horizontal"  Margin="0,3,0,0">
+
+                            <TextBlock Text="Рилевка:" Style="{DynamicResource FormInfoLabel}" />
+                            <TextBox Name="Stacker2CreaseNote"  Width="30" IsReadOnly="True" Style="{DynamicResource FormInfoField}" />
+                            <TextBox Name="Stacker2CreaseList" Style="{DynamicResource FormInfoField}" Visibility="Collapsed"/>
+
+                            <TextBlock Text="В заявке:"  Style="{DynamicResource FormInfoLabel}" />
+                            <TextBox Name="Stacker2QuantityLimit"    Width="15" MinWidth="15" IsReadOnly="True" Style="{DynamicResource FormInfoField}" />
+                            <TextBox Name="Stacker2Quantity"    Width="50" IsReadOnly="True" Style="{DynamicResource FormInfoField}" >
+                                <TextBox.ToolTip>
+                                    <StackPanel HorizontalAlignment="Stretch" Width="200" Height="100">
+                                        <Grid HorizontalAlignment="Stretch">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="6*" />
+                                                <ColumnDefinition Width="6*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+
+                                            <Label     Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Количество по заданию"  Style="{DynamicResource SHMonTooltipLabel}" />
+
+                                            <Label     Grid.Row="1" Grid.Column="0"  Content="Верхний порог:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="1" Grid.Column="1"  x:Name="Stacker2QuantityUpper" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                            <Label     Grid.Row="2" Grid.Column="0"  Content="Нижний порог:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="2" Grid.Column="1"  x:Name="Stacker2QuantityLower" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                        </Grid>
+
+                                    </StackPanel>
+                                </TextBox.ToolTip>
+                            </TextBox>
+
+                            <TextBlock Text="Изд/заг:" Style="{DynamicResource FormInfoLabel}" />
+                            <TextBox Name="Stacker2ProductsFromBlank"  Width="20" IsReadOnly="True" Style="{DynamicResource FormInfoField}" />
+                            
+                            <TextBlock Text="На поддоне:" Style="{DynamicResource FormInfoLabel}" />
+                            <TextBox Name="Stacker2StacksInPallet"  Width="40" IsReadOnly="True" Style="{DynamicResource FormInfoField}" />
+                            <TextBox Name="Stacker2StacksInPalletFact"  Width="60" IsReadOnly="True" Style="{DynamicResource FormInfoField}" />
+
+                            <TextBlock Text="Заг:" Style="{DynamicResource FormInfoLabel}" />
+                            <TextBox Name="Stacker2ToCut"  Width="50" IsReadOnly="True" Style="{DynamicResource FormInfoField}" />
+                            
+                        </StackPanel>
+                    </Border>
+                    
+
+
+                    <Border Grid.Row="6" Grid.Column="1" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center" >
+                        <RadioButton Name="Stacker3Main" Click="Stacker3Main_Click" VerticalAlignment="Center" Margin="0,5,0,0" />
+                    </Border>
+                    <Border Grid.Row="6" Grid.Column="2" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center" >
+                        <Label Content="3"  Style="{DynamicResource TopLabel}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Grid.Row="6" Grid.Column="3" Style="{DynamicResource FormGridFieldContainer}" >
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Name="Stacker3Blank" Style="{DynamicResource FormField}" Width="340"   TextWrapping="NoWrap"  IsReadOnly="True"  MouseDoubleClick="Stacker3Blank_MouseDoubleClick" >
+                                <TextBox.ToolTip>
+                                    <StackPanel HorizontalAlignment="Stretch" Width="350" Height="150">
+                                        <Grid HorizontalAlignment="Stretch">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="3*" />
+                                                <ColumnDefinition Width="9*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+
+                                            <Label     Grid.Row="0" Grid.Column="0"  Content="Позиция:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="0" Grid.Column="1"  x:Name="Stacker3PositionId" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                            <Label     Grid.Row="1" Grid.Column="0"  Content="Заготовка:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="1" Grid.Column="1"  x:Name="Stacker3BlankId" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+                                            <TextBox Grid.Row="2" Grid.Column="1"  x:Name="Stacker3BlankCode" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+                                            <TextBox Grid.Row="3" Grid.Column="1"  x:Name="Stacker3BlankName" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                            <Label     Grid.Row="4" Grid.Column="0"  Content="Изделие:"      Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="4" Grid.Column="1"  x:Name="Stacker3GoodId" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+                                            <TextBox Grid.Row="5" Grid.Column="1"  x:Name="Stacker3GoodCode" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+                                            <TextBox Grid.Row="6" Grid.Column="1"  x:Name="Stacker3GoodName" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                            <Label     Grid.Row="7" Grid.Column="0"  Content="Мин обрезь:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="7" Grid.Column="1"  x:Name="Stacker3TrimMin" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                            <Label     Grid.Row="8" Grid.Column="0" Content=""   Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="8" Grid.Column="1"  x:Name="Stacker3ZCardboard" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+                                        </Grid>
+                                    </StackPanel>
+                                </TextBox.ToolTip>
+                            </TextBox>
+                            <Button Name="Stacker3SelectButton"   Click="Stacker3SelectButton_Click"     ToolTip="Добавить"  Style="{DynamicResource ButtonGlyph}" Margin="-1,0,0,0"  >
+                                <Image Style="{DynamicResource SelectImage}" />
+                            </Button>
+                            <Button Name="Stacker3ClearButton"   Click="Stacker3ClearButton_Click"  ToolTip="Удалить"   Style="{DynamicResource ButtonGlyph}"   Margin="-1,0,0,0"   >
+                                <Image Style="{DynamicResource CloseImage}" />
+                            </Button>
+                        </StackPanel>
+
+                    </Border>
+                    <Border Grid.Row="6" Grid.Column="4" Style="{DynamicResource FormGridFieldContainer}" >
+                        <TextBox Name="Stacker3Cardboard" HorizontalAlignment="Left" Style="{DynamicResource FormField}"   Width="185" TextWrapping="NoWrap"  IsReadOnly="True" >
+                            <TextBox.ToolTip>
+                                <StackPanel HorizontalAlignment="Stretch" Width="200" Height="100">
+                                    <Grid HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="6*" />
+                                            <ColumnDefinition Width="6*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <Label     Grid.Row="0" Grid.Column="0"  Content="Картон:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="0" Grid.Column="1"  x:Name="Stacker3CardboardName" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                                        <Label     Grid.Row="1" Grid.Column="0"  Content="ИД:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="1" Grid.Column="1"  x:Name="Stacker3CardboardId" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                                        <Label     Grid.Row="2" Grid.Column="0"  Content="Марка:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="2" Grid.Column="1"  x:Name="Stacker3CardboardMarkId" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                                        <Label     Grid.Row="3" Grid.Column="0"  Content="Тип:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="3" Grid.Column="1"  x:Name="Stacker3CardboardType" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                                        <Label     Grid.Row="4" Grid.Column="0"  Content="Стандартный:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="4" Grid.Column="1"  x:Name="Stacker3CardboardStandart" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                                        <Label     Grid.Row="5" Grid.Column="0"  Content="Профиль:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="5" Grid.Column="1"  x:Name="Stacker3ProfileId" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                                        <Label     Grid.Row="6" Grid.Column="0"  Content="Код цветов внешних слоёв:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                        <TextBlock Grid.Row="6" Grid.Column="1"  x:Name="Stacker3OuterColorCode" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+
+                                    </Grid>
+
+                                </StackPanel>
+                            </TextBox.ToolTip>
+                        </TextBox>
+                    </Border>
+                    <Border Grid.Row="6" Grid.Column="5" Style="{DynamicResource FormGridFieldContainer}" >
+                        <TextBox Name="Stacker3Crease" HorizontalAlignment="Left" Style="{DynamicResource FormFieldDigit}" Width="40" TextWrapping="NoWrap" IsReadOnly="True"  Margin="0,0,0,5" VerticalAlignment="Bottom" Visibility="Collapsed"/>
+                    </Border>
+                    <Border Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="3" Style="{DynamicResource FormGridFieldContainer}" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Name="Stacker3Length" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="54" TextWrapping="NoWrap"    IsReadOnly="True" />
+                            <Label Content="x" FontSize="16" Style="{DynamicResource TopLabel}" Padding="0" VerticalAlignment="Center" TextBlock.TextAlignment="Center" Margin="2,0,2,0" />
+                            <TextBox Name="Stacker3Width" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="54" TextWrapping="NoWrap"   IsReadOnly="True"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Row="6" Grid.Column="9" Style="{DynamicResource FormGridFieldContainer}"  >
+                        <TextBox Name="Stacker3QuantityCalculated"  HorizontalAlignment="Left" Style="{DynamicResource FormFieldDigit}" Width="60" TextWrapping="NoWrap"  VerticalAlignment="Center" TextChanged="Stacker3QuantityCalculated_TextChanged" PreviewMouseUp="Stacker3QuantityCalculated_PreviewMouseUp" />
+                        <!--
+                        <StackPanel Orientation="Vertical" Margin="0,0,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Name="Stacker3Quantity" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="40" TextWrapping="NoWrap"  Margin="0,0,0,0" VerticalAlignment="Center" IsReadOnly="True" >
+                                    <TextBox.ToolTip>
+                                        <StackPanel HorizontalAlignment="Stretch" Width="200" Height="100">
+                                            <Grid HorizontalAlignment="Stretch">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="6*" />
+                                                    <ColumnDefinition Width="6*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+
+                                                <Label     Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Количество по заданию"  Style="{DynamicResource SHMonTooltipLabel}" />
+
+                                                <Label     Grid.Row="1" Grid.Column="0"  Content="Верхний порог:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                                <TextBox Grid.Row="1" Grid.Column="1"  x:Name="Stacker3QuantityUpper" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                                <Label     Grid.Row="2" Grid.Column="0"  Content="Нижний порог:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                                <TextBox Grid.Row="2" Grid.Column="1"  x:Name="Stacker3QuantityLower" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                            </Grid>
+
+                                        </StackPanel>
+                                    </TextBox.ToolTip>
+                                </TextBox>
+                                
+                            </StackPanel>
+                        </StackPanel>
+                        -->
+                    </Border>
+                    <Border Grid.Row="6" Grid.Column="10" Style="{DynamicResource FormGridFieldContainer}" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Name="Stacker3Threads" TextChanged="Stacker3Threads_TextChanged"  HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="40" TextWrapping="NoWrap"  />
+                            <StackPanel Orientation="Vertical">
+                                <Button Name="Stacker3ThreadsInc" Click="Stacker3ThreadsInc_Click" Height="12" ToolTip="Увеличить количество" Style="{DynamicResource ButtonGlyph}" Margin="-1,0,0,0" BorderThickness="1,1,1,0.5">
+                                    <Image Style="{DynamicResource UpImage}" />
+                                </Button>
+                                <Button Name="Stacker3ThreadsDec" Click="Stacker3ThreadsDec_Click" Height="12" ToolTip="Уменьшить количество" Style="{DynamicResource ButtonGlyph}" Margin="-1,0,0,0" BorderThickness="1,0.5,1,1">
+                                    <Image Style="{DynamicResource DownImage}" />
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                        
+                    </Border>
+                    <Border Grid.Row="6" Grid.Column="11" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center" >
+                        <CheckBox Name="Stacker3Sample"   Style="{DynamicResource CheckBox}" VerticalAlignment="Center" Margin="0,5,0,0" Click="Stacker1Sample_Click" />
+                    </Border>
+
+                    <Border Grid.Row="7" Grid.Column="3" Style="{DynamicResource FormGridFieldContainer}" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Заявка:"  Margin="0,3,0,0"></TextBlock>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <TextBox Name="Stacker3Application" ToolTip="Заявка" Style="{DynamicResource CustomFormField}" Width="318" IsReadOnly="True"/>
+                            <TextBox Name="Stacker3ApplicationId" Visibility="Collapsed" />
+                            <Button Name="Stacker3SelectApplicationButton"   Click="Stacker3SelectApplicationButton_Click"  ToolTip="Добавить"   Style="{DynamicResource ButtonGlyph}"  Margin="-1,0,0,0"  >
+                                <Image Style="{DynamicResource SelectImage}" />
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Row="7" Grid.Column="4" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Name="Stacker3NoProcessingTask" Style="{DynamicResource CheckBox}"  VerticalAlignment="Center"  Margin="-8,0,0,0" IsEnabled="False"  />
+                            <Label Content="Без ПЗ на переработку"  Style="{DynamicResource TopLabel}" Margin="5,0,0,0" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="8" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Left" >
+                        <StackPanel Orientation="Horizontal"  Margin="0,3,0,0">
+
+                            
+                            <TextBlock Text="Рилевка:" Style="{DynamicResource FormInfoLabel}" />
+                            <TextBox Name="Stacker3CreaseNote"  Width="30" IsReadOnly="True" Style="{DynamicResource FormInfoField}" />
+                            <TextBox Name="Stacker3CreaseList" Style="{DynamicResource FormInfoField}" Visibility="Collapsed"/>
+
+                            <TextBlock Text="В заявке:"  Style="{DynamicResource FormInfoLabel}" />
+                            <TextBox Name="Stacker3QuantityLimit"    Width="15" MinWidth="15" IsReadOnly="True" Style="{DynamicResource FormInfoField}" />
+                            <TextBox Name="Stacker3Quantity"    Width="50" IsReadOnly="True" Style="{DynamicResource FormInfoField}" >
+                                <TextBox.ToolTip>
+                                    <StackPanel HorizontalAlignment="Stretch" Width="200" Height="100">
+                                        <Grid HorizontalAlignment="Stretch">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="6*" />
+                                                <ColumnDefinition Width="6*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+
+                                            <Label     Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Количество по заданию"  Style="{DynamicResource SHMonTooltipLabel}" />
+
+                                            <Label     Grid.Row="1" Grid.Column="0"  Content="Верхний порог:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="1" Grid.Column="1"  x:Name="Stacker3QuantityUpper" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                            <Label     Grid.Row="2" Grid.Column="0"  Content="Нижний порог:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="2" Grid.Column="1"  x:Name="Stacker3QuantityLower" Style="{DynamicResource FormFieldDigitLabel}" ></TextBox>
+
+                                        </Grid>
+
+                                    </StackPanel>
+                                </TextBox.ToolTip>
+                            </TextBox>
+
+                            <TextBlock Text="Изд/заг:" Style="{DynamicResource FormInfoLabel}" />
+                            <TextBox Name="Stacker3ProductsFromBlank"  Width="20" IsReadOnly="True" Style="{DynamicResource FormInfoField}" />
+
+                            <TextBlock Text="На поддоне:" Style="{DynamicResource FormInfoLabel}" />
+                            <TextBox Name="Stacker3StacksInPallet"  Width="40" IsReadOnly="True" Style="{DynamicResource FormInfoField}" />
+                            <TextBox Name="Stacker3StacksInPalletFact"  Width="60" IsReadOnly="True" Style="{DynamicResource FormInfoField}" />
+
+                            <TextBlock Text="Заг:" Style="{DynamicResource FormInfoLabel}" />
+                            <TextBox Name="Stacker3ToCut"  Width="50" IsReadOnly="True" Style="{DynamicResource FormInfoField}" />
+                            
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border Name="Stacker1Splash" Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="12" Background="#ffffffff" Opacity="0.7" Visibility="Hidden">
+                    </Border>
+                    <Border Name="Stacker2Splash" Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="12" Background="#ffffffff" Opacity="0.7" Visibility="Hidden">
+                    </Border>
+                    <Border Name="Stacker3Splash" Grid.Row="6" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="12" Background="#ffffffff" Opacity="0.7" Visibility="Hidden">
+                    </Border>
+
+                </Grid>
+
+            </Grid>
+
+            <Border Grid.Row="4" Grid.Column="0" BorderBrush="#ff00cccc" BorderThickness="0" Margin="47,0,0,0" >
+                <Grid Margin="0,0,0,0">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="560" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="#ff00cccc" BorderThickness="0" Margin="6,0,0,0" >
+                        <StackPanel Style="{DynamicResource FormHeaderButtonsPanel}"  >
+
+                            <Label Content="Картон:" Style="{DynamicResource TopLabel}" />
+                            <controls:SelectBox  x:Name="CardboardList" Style="{DynamicResource CustomFormField}" ListBoxMinHeight="200" Width="346" Autocomplete="True"   />
+                            <TextBox Name="CardboardColorId" Width="40" Visibility="Collapsed" Margin="-40,0,0,0" />
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}" Width="25"></Border>
+
+                            <Label Content="Качество:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Name="CardboardQuality" HorizontalAlignment="Left" Style="{DynamicResource FormField}" Width="80" TextWrapping="NoWrap"   IsReadOnly="True"/>
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+
+                            <Label Content="Профиль:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Name="CardboardProfile" HorizontalAlignment="Left" Style="{DynamicResource FormField}" MinWidth="30" TextWrapping="NoWrap"   IsReadOnly="True" >
+                                <TextBox.ToolTip>
+                                    <StackPanel HorizontalAlignment="Stretch" Width="100" Height="50">
+                                        <Grid HorizontalAlignment="Stretch">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="3*" />
+                                                <ColumnDefinition Width="9*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+
+                                            <Label     Grid.Row="0" Grid.Column="0"  Content="ИД профиля:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                                            <TextBox Grid.Row="0" Grid.Column="1" Name="CardboardProfileId"  Style="{DynamicResource FormFieldDigitLabel}" />
+
+                                        </Grid>
+                                    </StackPanel>
+                                </TextBox.ToolTip>
+                            </TextBox>
+
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                            
+                            <Label Content="ИД ПЗГА:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Name="TaskId" HorizontalAlignment="Left" Style="{DynamicResource FormField}" Width="80" TextWrapping="NoWrap"   IsReadOnly="True"/>
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                            <Label Content="Номер:"  Style="{DynamicResource TopLabel}" Visibility="Collapsed" />
+                            <TextBox Name="Number" HorizontalAlignment="Left" Style="{DynamicResource FormField}" Width="80" TextWrapping="NoWrap"   IsReadOnly="True" Visibility="Collapsed"  />
+
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="#ff00cccc" BorderThickness="0" Margin="52,10,0,0" >
+                        <StackPanel Height="28" Orientation="Horizontal">
+                            <CheckBox  Name="UseManualComposition" Click="UseManualComposition_Click" VerticalAlignment="Center" Style="{DynamicResource CheckBox}"  Content="Выбор слоев вручную" Margin="0,5,0,0"/>
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                            <CheckBox  Name="Virtual" Click="Virtual_Click" VerticalAlignment="Center" Style="{DynamicResource CheckBox}"  Content="Виртуальное сырье" Margin="0,5,0,0"/>
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                            <TextBlock Name="SourceChangedLabel" Background="#cc0063B1" Foreground="#ffffff" Margin="0,6,0,0" Padding="5,0,5,0">Сырье изменено</TextBlock>
+                        </StackPanel>                        
+                    </Border>
+
+                    <Border Grid.Row="2"  Grid.Column="0" BorderBrush="#ffcccccc" BorderThickness="0" Margin="8,0,0,0" Padding="0,0,0,0" HorizontalAlignment="Left">
+                        <Grid Grid.Row="4"  Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource FromGrid}" Margin="0,0,0,0" HorizontalAlignment="Left"  >
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="45" />
+                                <ColumnDefinition Width="180" />
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="75" />
+                                <ColumnDefinition Width="45" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0" />
+                                <RowDefinition Height="26" />
+                                <RowDefinition Height="29" />
+                                <RowDefinition Height="29" />
+                                <RowDefinition Height="29" />
+                                <RowDefinition Height="29" />
+                                <RowDefinition Height="29" />
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormGridFieldContainer}" >
+                                <Label Content="Слой"  Style="{DynamicResource TopLabel}" />
+                            </Border>
+                            <Border Grid.Row="1" Grid.Column="1" Style="{DynamicResource FormGridFieldContainer}" >
+                                <Label Content="Бумага"  Style="{DynamicResource TopLabel}" />
+                            </Border>
+                            <Border Grid.Row="1" Grid.Column="2" Style="{DynamicResource FormGridFieldContainer}" >
+                                <Label Content="Склейка"  Style="{DynamicResource TopLabel}" />
+                            </Border>
+                            <Border Grid.Row="1" Grid.Column="3" Style="{DynamicResource FormGridFieldContainer}" >
+                                <Label Content="Расход, кг"  Style="{DynamicResource TopLabel}" />
+                            </Border>
+                            <Border Grid.Row="1" Grid.Column="4" Style="{DynamicResource FormGridFieldContainer}" >
+                                <Label Content="Всего в ПЗ, кг"  Style="{DynamicResource TopLabel}" />
+                            </Border>
+                            <Border Grid.Row="1" Grid.Column="5" Style="{DynamicResource FormGridFieldContainer}" >
+                                <Label Content="Склад, кг"  Style="{DynamicResource TopLabel}" />
+                            </Border>
+                            <Border Grid.Row="1" Grid.Column="6" Style="{DynamicResource FormGridFieldContainer}" >
+                                <Label Content="шт"  Style="{DynamicResource TopLabel}" />
+                            </Border>
+
+
+                            <Border Grid.Row="2" Grid.Column="0" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center">
+                                <Label Content="1"  Style="{DynamicResource TopLabel}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <Border Grid.Row="2" Grid.Column="1" Style="{DynamicResource FormGridFieldContainer}" >
+                                <StackPanel Orientation="Horizontal" Name="Layer1">
+                                    <!--<controls:SelectBox  x:Name="Layer1PaperList" Style="{DynamicResource CustomFormField}"  ListBoxMinWidth="625" ListBoxMinHeight="250"  Width="173" Autocomplete="True" DataType="Grid"  />-->
+                                    <TextBox Name="Layer1Paper" Width="143" Style="{DynamicResource FormField}" MouseDoubleClick="Layer1Paper_MouseDoubleClick" IsReadOnly="True" />
+                                    <TextBox Name="Layer1PaperId" Width="40" Visibility="Collapsed" Margin="-40,0,0,0"/>
+                                    <TextBox Name="Layer1Color" Width="40" Visibility="Collapsed" Margin="-40,0,0,0"/>
+                                    <Button Name="Layer1PaperListSelectButton"   Click="Layer1PaperListSelectButton_Click"  ToolTip="Выбрать"  Style="{DynamicResource ButtonGlyph}" Margin="-1,0,0,0"  >
+                                        <Image Style="{DynamicResource SelectImage}" />
+                                    </Button>
+                                </StackPanel>                                
+                            </Border>
+                            <Border Grid.Row="2" Grid.Column="2" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center">
+                                <CheckBox Name="Layer1Gluing" Style="{DynamicResource CheckBox}" VerticalAlignment="Center" Margin="0,5,0,0" Click="Layer1Gluing_Click" />
+                            </Border>
+                            <Border Grid.Row="2" Grid.Column="3" Style="{DynamicResource FormGridFieldContainer}">
+                                <TextBox Name="Layer1TaskWeight" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="50" TextWrapping="NoWrap"  IsReadOnly="True" />
+                            </Border>
+                            <Border Grid.Row="2" Grid.Column="4" Style="{DynamicResource FormGridFieldContainer}" >
+                                <TextBox Name="Layer1PtWeight" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="60" TextWrapping="NoWrap"  IsReadOnly="True">
+                                </TextBox>
+                            </Border>
+                            <Border Grid.Row="2" Grid.Column="5" Style="{DynamicResource FormGridFieldContainer}" >
+                                <TextBox Name="Layer1ResidueWeight" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="60" TextWrapping="NoWrap"  IsReadOnly="True">
+                                    <TextBox.ContextMenu>
+                                        <ContextMenu Name="Raw1CheckMenu">
+                                            <MenuItem Header="Наличие" Name="CheckRawGroupResidue1" Click="CheckRawGroupResidue_Click" />
+                                        </ContextMenu>
+                                    </TextBox.ContextMenu>
+                                </TextBox>
+                            </Border>
+
+                            <Border Grid.Row="2" Grid.Column="6" Style="{DynamicResource FormGridFieldContainer}" >
+                                <TextBox Name="Layer1StockRolls" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="26" TextWrapping="NoWrap"  IsReadOnly="True">
+                                </TextBox>
+                            </Border>
+
+                            <Border Grid.Row="3" Grid.Column="0" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center">
+                                <Label Content="2"  Style="{DynamicResource TopLabel}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <Border Grid.Row="3" Grid.Column="1" Style="{DynamicResource FormGridFieldContainer}" >
+                                <StackPanel Orientation="Horizontal" Name="Layer2">
+                                    <!--<controls:SelectBox  x:Name="Layer2PaperList" Style="{DynamicResource CustomFormField}"  ListBoxMinWidth="625" ListBoxMinHeight="250"   Width="173" Autocomplete="True" DataType="Grid" />-->
+                                    <TextBox Name="Layer2Paper" Width="143" Style="{DynamicResource FormField}" MouseDoubleClick="Layer2Paper_MouseDoubleClick" IsReadOnly="True" />
+                                    <TextBox Name="Layer2PaperId" Width="40" Visibility="Collapsed" Margin="-40,0,0,0" />
+                                    <TextBox Name="Layer2Color" Width="40" Visibility="Collapsed" Margin="-40,0,0,0"/>
+                                    <Button Name="Layer2PaperListSelectButton"   Click="Layer2PaperListSelectButton_Click"  ToolTip="Выбрать"  Style="{DynamicResource ButtonGlyph}" Margin="-1,0,0,0"  >
+                                        <Image Style="{DynamicResource SelectImage}" />
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Row="3" Grid.Column="2" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center">
+                                <CheckBox Name="Layer2Gluing" Style="{DynamicResource CheckBox}"  VerticalAlignment="Center" Margin="0,5,0,0" Click="Layer1Gluing_Click" />
+                            </Border>
+                            <Border Grid.Row="3" Grid.Column="3" Style="{DynamicResource FormGridFieldContainer}" >
+                                <TextBox Name="Layer2TaskWeight" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="50" TextWrapping="NoWrap" IsReadOnly="True"  />
+                            </Border>
+                            <Border Grid.Row="3" Grid.Column="4" Style="{DynamicResource FormGridFieldContainer}" >
+                                <TextBox Name="Layer2PtWeight" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="60" TextWrapping="NoWrap" IsReadOnly="True"  />
+                            </Border>
+                            <Border Grid.Row="3" Grid.Column="5" Style="{DynamicResource FormGridFieldContainer}" >
+                                <TextBox Name="Layer2ResidueWeight" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="60" TextWrapping="NoWrap" IsReadOnly="True">
+                                    <TextBox.ContextMenu>
+                                        <ContextMenu Name="Raw2CheckMenu">
+                                            <MenuItem Header="Наличие" Name="CheckRawGroupResidue2" Click="CheckRawGroupResidue_Click" />
+                                        </ContextMenu>
+                                    </TextBox.ContextMenu>
+                                </TextBox>
+                            </Border>
+
+                            <Border Grid.Row="3" Grid.Column="6" Style="{DynamicResource FormGridFieldContainer}" >
+                                <TextBox Name="Layer2StockRolls" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="26" TextWrapping="NoWrap"  IsReadOnly="True">
+                                </TextBox>
+                            </Border>
+
+
+                            <Border Grid.Row="4" Grid.Column="0" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center">
+                                <Label Content="3"  Style="{DynamicResource TopLabel}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <Border Grid.Row="4" Grid.Column="1" Style="{DynamicResource FormGridFieldContainer}" >
+                                <StackPanel Orientation="Horizontal" Name="Layer3">
+                                    <!--<controls:SelectBox x:Name="Layer3PaperList"  Style="{DynamicResource CustomFormField}" ListBoxMinWidth="625" ListBoxMinHeight="250"  Width="173" Autocomplete="True" DataType="Grid" />-->
+                                    <TextBox Name="Layer3Paper" Width="143" Style="{DynamicResource FormField}" MouseDoubleClick="Layer3Paper_MouseDoubleClick" IsReadOnly="True" />
+                                    <TextBox Name="Layer3PaperId" Width="40" Visibility="Collapsed" Margin="-40,0,0,0" />
+                                    <TextBox Name="Layer3Color" Width="40" Visibility="Collapsed" Margin="-40,0,0,0"/>
+                                    <Button Name="Layer3PaperListSelectButton"   Click="Layer3PaperListSelectButton_Click"  ToolTip="Выбрать"  Style="{DynamicResource ButtonGlyph}" Margin="-1,0,0,0"  >
+                                        <Image Style="{DynamicResource SelectImage}" />
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Row="4" Grid.Column="2" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center">
+                                <CheckBox Name="Layer3Gluing" Style="{DynamicResource CheckBox}" VerticalAlignment="Center" Margin="0,5,0,0" Click="Layer1Gluing_Click"  />
+                            </Border>
+                            <Border Grid.Row="4" Grid.Column="3" Style="{DynamicResource FormGridFieldContainer}" >
+                                <TextBox Name="Layer3TaskWeight" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="50" TextWrapping="NoWrap"  IsReadOnly="True"  />
+                            </Border>
+                            <Border Grid.Row="4" Grid.Column="4" Style="{DynamicResource FormGridFieldContainer}" >
+                                <TextBox Name="Layer3PtWeight" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="60" TextWrapping="NoWrap" IsReadOnly="True"  />
+                            </Border>
+                            <Border Grid.Row="4" Grid.Column="5" Style="{DynamicResource FormGridFieldContainer}" >
+                                <TextBox Name="Layer3ResidueWeight" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="60" TextWrapping="NoWrap" IsReadOnly="True">
+                                    <TextBox.ContextMenu>
+                                        <ContextMenu Name="Raw3CheckMenu">
+                                            <MenuItem Header="Наличие" Name="CheckRawGroupResidue3" Click="CheckRawGroupResidue_Click" />
+                                        </ContextMenu>
+                                    </TextBox.ContextMenu>
+                                </TextBox>
+                            </Border>
+
+                            <Border Grid.Row="4" Grid.Column="6" Style="{DynamicResource FormGridFieldContainer}" >
+                                <TextBox Name="Layer3StockRolls" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="26" TextWrapping="NoWrap"  IsReadOnly="True">
+                                </TextBox>
+                            </Border>
+
+
+                            <Border Grid.Row="5" Grid.Column="0" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center">
+                                <Label Content="4"  Style="{DynamicResource TopLabel}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <Border Grid.Row="5" Grid.Column="1" Style="{DynamicResource FormGridFieldContainer}" >
+                                <StackPanel Orientation="Horizontal" Name="Layer4" >
+                                    <!--<controls:SelectBox x:Name="Layer4PaperList"  Style="{DynamicResource CustomFormField}"  ListBoxMinWidth="625" ListBoxMinHeight="250"  Width="173" Autocomplete="True" DataType="Grid" />-->
+                                    <TextBox Name="Layer4Paper" Width="143" Style="{DynamicResource FormField}" MouseDoubleClick="Layer4Paper_MouseDoubleClick" IsReadOnly="True" />
+                                    <TextBox Name="Layer4PaperId" Width="40" Visibility="Collapsed" Margin="-40,0,0,0" />
+                                    <TextBox Name="Layer4Color" Width="40" Visibility="Collapsed" Margin="-40,0,0,0"/>
+                                    <Button Name="Layer4PaperListSelectButton"   Click="Layer4PaperListSelectButton_Click"  ToolTip="Выбрать"  Style="{DynamicResource ButtonGlyph}" Margin="-1,0,0,0"  >
+                                        <Image Style="{DynamicResource SelectImage}" />
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Row="5" Grid.Column="2" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center">
+                                <CheckBox Name="Layer4Gluing" Style="{DynamicResource CheckBox}" VerticalAlignment="Center" Margin="0,5,0,0" Click="Layer1Gluing_Click" />
+                            </Border>
+                            <Border Grid.Row="5" Grid.Column="3" Style="{DynamicResource FormGridFieldContainer}" >
+                                <TextBox Name="Layer4TaskWeight" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="50" TextWrapping="NoWrap" IsReadOnly="True"  />
+                            </Border>
+                            <Border Grid.Row="5" Grid.Column="4" Style="{DynamicResource FormGridFieldContainer}" >
+                                <TextBox Name="Layer4PtWeight" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="60" TextWrapping="NoWrap"  IsReadOnly="True"  />
+                            </Border>
+                            <Border Grid.Row="5" Grid.Column="5" Style="{DynamicResource FormGridFieldContainer}" >
+                                <TextBox Name="Layer4ResidueWeight" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="60" TextWrapping="NoWrap"  IsReadOnly="True">
+                                    <TextBox.ContextMenu>
+                                        <ContextMenu Name="Raw4CheckMenu">
+                                            <MenuItem Header="Наличие" Name="CheckRawGroupResidue4" Click="CheckRawGroupResidue_Click" />
+                                        </ContextMenu>
+                                    </TextBox.ContextMenu>
+                                </TextBox>
+                            </Border>
+
+                            <Border Grid.Row="5" Grid.Column="6" Style="{DynamicResource FormGridFieldContainer}" >
+                                <TextBox Name="Layer4StockRolls" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="26" TextWrapping="NoWrap"  IsReadOnly="True">
+                                </TextBox>
+                            </Border>
+
+
+                            <Border Grid.Row="6" Grid.Column="0" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center">
+                                <Label Content="5"  Style="{DynamicResource TopLabel}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <Border Grid.Row="6" Grid.Column="1" Style="{DynamicResource FormGridFieldContainer}" >
+                                <StackPanel Orientation="Horizontal" Name="Layer5" >
+                                    <!--<controls:SelectBox  x:Name="Layer5PaperList" Style="{DynamicResource CustomFormField}" ListBoxMinWidth="625" ListBoxMinHeight="250"  Width="173" Autocomplete="True" DataType="Grid" />-->
+                                    <TextBox Name="Layer5Paper" Width="143" Style="{DynamicResource FormField}" MouseDoubleClick="Layer5Paper_MouseDoubleClick" IsReadOnly="True"  />
+                                    <TextBox Name="Layer5PaperId" Width="40" Visibility="Collapsed" Margin="-40,0,0,0" />
+                                    <TextBox Name="Layer5Color" Width="40" Visibility="Collapsed" Margin="-40,0,0,0"/>
+                                    <Button Name="Layer5PaperListSelectButton"   Click="Layer5PaperListSelectButton_Click"  ToolTip="Выбрать"  Style="{DynamicResource ButtonGlyph}" Margin="-1,0,0,0"  >
+                                        <Image Style="{DynamicResource SelectImage}" />
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Row="6" Grid.Column="2" Style="{DynamicResource FormGridFieldContainer}" HorizontalAlignment="Center">
+                                <CheckBox Name="Layer5Gluing" Style="{DynamicResource CheckBox}" VerticalAlignment="Center" Margin="0,5,0,0" Click="Layer1Gluing_Click"  />
+                            </Border>
+                            <Border Grid.Row="6" Grid.Column="3" Style="{DynamicResource FormGridFieldContainer}" >
+                                <TextBox Name="Layer5TaskWeight" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="50" TextWrapping="NoWrap" IsReadOnly="True"  />
+                            </Border>
+                            <Border Grid.Row="6" Grid.Column="4" Style="{DynamicResource FormGridFieldContainer}" >
+                                <TextBox Name="Layer5PtWeight" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="60" TextWrapping="NoWrap" IsReadOnly="True"  />
+                            </Border>
+                            <Border Grid.Row="6" Grid.Column="5" Style="{DynamicResource FormGridFieldContainer}" >
+                                <TextBox Name="Layer5ResidueWeight" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="60" TextWrapping="NoWrap" IsReadOnly="True">
+                                    <TextBox.ContextMenu>
+                                        <ContextMenu Name="Raw5CheckMenu">
+                                            <MenuItem Header="Наличие" Name="CheckRawGroupResidue5" Click="CheckRawGroupResidue_Click" />
+                                        </ContextMenu>
+                                    </TextBox.ContextMenu>
+                                </TextBox>
+                            </Border>
+
+                            <Border Grid.Row="6" Grid.Column="6" Style="{DynamicResource FormGridFieldContainer}" >
+                                <TextBox Name="Layer5StockRolls" HorizontalAlignment="Right" Style="{DynamicResource FormFieldDigit}" Width="26" TextWrapping="NoWrap"  IsReadOnly="True">
+                                </TextBox>
+                            </Border>
+
+                            <Border Name="ManualCompositionSplash" Grid.Row="1" Grid.RowSpan="6" Grid.Column="0" Grid.ColumnSpan="5" Background="#ffffffff" Opacity="0.7" Visibility="Hidden">
+                            </Border>
+
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="2"  Grid.Column="1" BorderBrush="#ffcccccc" BorderThickness="0" Margin="4,0,0,0" Padding="0,0,0,0" HorizontalAlignment="Left" >
+
+                        <Border Name="StatusBar" BorderBrush="#ffcccccc" BorderThickness="1" Margin="13,26,0,0" Padding="10" Width="375" Height="140"  HorizontalAlignment="Left" VerticalAlignment="Top" >
+
+                            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource FromGrid}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Width="40" Height="40" Margin="0,0,0,0" VerticalAlignment="Top">
+                                    <ContentControl Name="StatusBarIconInfo"   Width="40" Height="40" Margin="0,0,0,0" Padding="0" Content="{StaticResource Info}"  Visibility="Collapsed"/>
+                                    <ContentControl Name="StatusBarIconAlert"  Width="40" Height="40" Margin="0,0,0,0" Padding="0" Content="{StaticResource Alert}"  Visibility="Visible" />
+                                    <ContentControl Name="StatusBarIconServer" Width="40" Height="40" Margin="0,0,0,0" Padding="0" Content="{StaticResource Server}" Visibility="Collapsed" />
+                                </StackPanel>
+
+                                <ScrollViewer Grid.Row="0" Grid.Column="1" Style="{DynamicResource FromWrapperFixed}" VerticalScrollBarVisibility="Auto" MaxHeight="220" >
+                                    <StackPanel  Orientation="Vertical" VerticalAlignment="Top">
+                                        <TextBlock Name="StatusBarText" TextWrapping="Wrap" HorizontalAlignment="Stretch" MinHeight="50" VerticalAlignment="Top" ></TextBlock>
+                                    </StackPanel>
+                                </ScrollViewer>
+                                
+                                <ScrollViewer Grid.Row="1" Grid.Column="1" Style="{DynamicResource FromWrapperFixed}" VerticalScrollBarVisibility="Auto" MaxHeight="220" >
+                                    <StackPanel  Orientation="Vertical" VerticalAlignment="Top">
+                                        <Button Name="ErrorCodes" Click="ErrorCodes_Click" Width="90" HorizontalAlignment="Right">Коды ошибок</Button>
+                                    </StackPanel>
+                                </ScrollViewer>
+
+                            </Grid>
+
+
+                        </Border>
+                    </Border>
+
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="5" Grid.Column="0" BorderBrush="#ff00cccc" BorderThickness="0" Margin="0,0,0,0" >
+                <StackPanel Orientation="Horizontal">
+                    <Border  BorderBrush="#ffcccccc" BorderThickness="0" Margin="0,-5,0,0" Width="820" Height="180" HorizontalAlignment="Left">
+                        <Image Name="SchemeImage" Width="820" Height="200"  Margin="0,0,0,0"  HorizontalAlignment="Left" />
+                    </Border>
+                </StackPanel>
+            </Border>
+
+        </Grid>
+    </Border>
+
+</UserControl>
+

@@ -1,0 +1,139 @@
+﻿<UserControl x:Class="Client.Interfaces.Preproduction.MoldedContainerChat"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="800"
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}" >
+        <Grid Style="{DynamicResource FromGrid}" Width="520" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="400"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0">
+                <StackPanel Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" Name="FormToolbar" >
+                    <Button Content="Закрыть" Name="CloseButton"  Click="CloseButton_Click" Style="{DynamicResource FButtonPrimary}" />
+                    <Button Content="Печать" Name="PrintButton" Style="{DynamicResource FButtonCancel}" Click="Print_Click" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormVerticalPanelSpacer}"></Border>
+
+            <Border Grid.Row="2" Grid.Column="0" BorderThickness="1" BorderBrush="#ffcccccc">
+                <ScrollViewer Name="SampleChatContainer" ScrollChanged="ScrollViewer_OnScrollChanged">
+
+                    <Grid ShowGridLines="false" x:Name="ChatMessageContainer" Style="{DynamicResource ChatContainer}" VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                    </Grid>
+
+                </ScrollViewer>
+            </Border>
+
+            <Border Grid.Row="4" Name="InnerRecipientBlock" Style="{DynamicResource DataGridContainerHolder}" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Grid.Column="0">
+                        <Button Name="RecipientButton" Content="Кому" Click="RecipientButton_Click" />
+                    </Border>
+                    <Border Grid.Row="0" Grid.Column="2" >
+                        <TextBox Name="RecipientListTextBox" Style="{DynamicResource CustomFormField}" IsReadOnly="True"/>
+                    </Border>
+
+                </Grid>
+            </Border>
+
+
+            <Grid Grid.Row="6" Style="{DynamicResource VoidContainer}">
+                <Grid ShowGridLines="False" HorizontalAlignment="Left" Width="520">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <TextBox  Name="Message" KeyDown="KeyDownHandler" ToolTip="[Enter] -- отправка сообщения [Ctrl]+[Enter] -- перевод строки" Text="{Binding Path=Message, UpdateSourceTrigger = PropertyChanged, ValidatesOnDataErrors=True}" Height="82" TextWrapping="Wrap" Style="{DynamicResource FormFieldNoValidation}"  MaxLength="511"  />
+
+                    <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormFooterButtonsPanel}" VerticalAlignment="Top">
+
+                        <Button Name="SendButton"    Margin="0"  ToolTip="Отправить"   Command="{Binding ItemCommand}" Click="SendButton_Click"  CommandParameter="Save"  Style="{DynamicResource ButtonGlyphPrimary}"   >
+                            <ContentControl Style="{DynamicResource ButtonSMGlyphIcon}" Content="{StaticResource SendIcon}" IsEnabled="false" />
+                        </Button>
+
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+            <Border Grid.Row="8" Name="ClientChatBlock" Style="{DynamicResource DataGridContainerHolder}" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="1.6*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <CheckBox Name="SendToEmailCheckBox" Content="На почту" Style="{DynamicResource CheckBox}"/>
+                    </Border>
+
+                    <Border Grid.Row="0" Grid.Column="4" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Right">
+                        <CheckBox Name="UnReadCheckBox" Content="Оставить непрочитанным" Style="{DynamicResource CheckBox}"/>
+                    </Border>
+
+                    <Border Grid.Row="1" Name="RecipientFromClient"  Grid.Column="2" Grid.ColumnSpan="3">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Label Content="Получатель: " />
+                            <controls:SelectBox x:Name="RecipientSelectBox" Style="{DynamicResource CustomFormField}" Width="162" ListBoxMinHeight="150" ListBoxMinWidth="300" Margin="10 0 0 0" Autocomplete="True" CompareMode="Contains" SelectedItemChanged="UpdateGridItems" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+
+</UserControl>

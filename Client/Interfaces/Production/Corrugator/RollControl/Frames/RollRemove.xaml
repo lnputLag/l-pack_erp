@@ -1,0 +1,165 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Production.RollRemove"
+    xmlns:local="clr-namespace:Client.Interfaces.Shipments"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"    
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+
+    mc:Ignorable="d" 
+    d:DesignWidth="800" d:DesignHeight="520" 
+    Style="{DynamicResource UserControlCanvasTouch}"
+    Background="White"
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource TouchFrameBlock}"  >
+        <Grid Style="{DynamicResource TouchFrame}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0"  Grid.Column="0" Style="{DynamicResource TouchFromGridBlock}" BorderBrush="#bbbbbb" BorderThickness="1" >
+                <Border Style="{DynamicResource TouchFrameFormPanelBlock}" >
+                    <Grid Style="{DynamicResource TouchFrameFormPanel}">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <!--<ColumnDefinition Width="0.0*"/>-->
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource TouchFromGridBlock}" BorderBrush="#900000" BorderThickness="0" Padding="0">
+                            <Grid ShowGridLines="false" Grid.Row="0"  Grid.Column="0" Margin="0,20,0,0" Style="{DynamicResource TouchFromGrid}" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1.0*"/>
+                                    <ColumnDefinition Width="2.0*"/>
+                                    <ColumnDefinition Width="2.0*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource TouchFormLabelContainer}">
+                                    <Label Content="Назначение:"    Style="{DynamicResource TouchFormLabel}" />
+                                </Border>
+                                <Border Grid.Row="0"  Grid.Column="1"  Style="{DynamicResource TouchFormFieldContainer}">
+                                    <StackPanel Orientation="Horizontal" Name="OperationCode">
+                                        <StackPanel Orientation="Vertical" Width="200">
+                                            <RadioButton Tag="RBS" Content="Cклад"        GroupName="Destination" Style="{DynamicResource FormFieldRadio}" Click="DestinationButton_Click" />
+                                            <RadioButton Tag="RBZ" Content="Z0"           GroupName="Destination" Style="{DynamicResource FormFieldRadio}" Click="DestinationButton_Click" Name="DestinationZ0" />
+                                            <RadioButton Tag="RBD" Content="Смотать"      GroupName="Destination" Style="{DynamicResource FormFieldRadio}" Click="DestinationButton_Click" />
+                                            <RadioButton Tag="RBR" Content="Откатить" Name="RollbackExpense" GroupName="Destination" Style="{DynamicResource FormFieldRadio}" Click="DestinationButton_Click" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" Width="200">
+                                            <RadioButton Tag="RB5" Content="1 раскат"     GroupName="Destination" Style="{DynamicResource FormFieldRadio}" Click="DestinationButton_Click" Name="DestinationRB5" />
+                                            <RadioButton Tag="RB4" Content="2 раскат"     GroupName="Destination" Style="{DynamicResource FormFieldRadio}" Click="DestinationButton_Click" Name="DestinationRB4" />
+                                            <RadioButton Tag="RB3" Content="3 раскат"     GroupName="Destination" Style="{DynamicResource FormFieldRadio}" Click="DestinationButton_Click" Name="DestinationRB3" />
+                                            <RadioButton Tag="RB2" Content="4 раскат"     GroupName="Destination" Style="{DynamicResource FormFieldRadio}" Click="DestinationButton_Click" Name="DestinationRB2" />
+                                            <RadioButton Tag="RB1" Content="5 раскат"     GroupName="Destination" Style="{DynamicResource FormFieldRadio}" Click="DestinationButton_Click" Name="DestinationRB1" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Row="0"  Grid.Column="2" Style="{DynamicResource TouchFormFieldContainer}">
+                                    <StackPanel Orientation="Horizontal" Name="OperationCode2">
+                                        <StackPanel Orientation="Vertical" Width="200">
+                                            <RadioButton Tag="P1" Content="1 ярлык"       GroupName="PrintCount"  Style="{DynamicResource FormFieldRadio}"/>
+                                            <RadioButton Tag="P2" Content="2 ярлыка"       GroupName="PrintCount"  Style="{DynamicResource FormFieldRadio}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Row="0" Grid.Column="1" Style="{DynamicResource TouchFromGridBlock}" BorderBrush="#900000" BorderThickness="0" Padding="50">
+                            
+                        </Border>
+
+                    </Grid>
+
+                </Border>
+            </Border>
+
+            <Border Grid.Row="1"  Grid.Column="0" Style="{DynamicResource TouchFrameControlPanelBlock}">
+                <Grid Style="{DynamicResource TouchFrameControlPanel}" >
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="12*"/>
+                        <ColumnDefinition Width="0*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Style="{DynamicResource TouchFrameControlPanelLeft}"   >
+                        <TextBlock  Name="FormStatus" Text="Не все обязательные поля заполнены верно" TextAlignment="Left" Style="{DynamicResource TouchFormStatusBar}"  />
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource TouchFrameControlPanelRight}" >
+                    </StackPanel>
+
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="2"  Grid.Column="0" Style="{DynamicResource TouchFrameControlPanelBlock}">
+                <Grid Style="{DynamicResource TouchFrameControlPanel}" >
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="12*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Name="Toolbar"  Style="{DynamicResource TouchFrameControlPanelLeft}"   >
+
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource TouchFrameControlPanelRight}" >
+
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        
+                        <Button Name="CancelButton" Click="CancelButton_Click"  Content="Отмена"     Style="{DynamicResource TouchFormButton}" Width="150"   />
+                        <Button Name="SaveButton"   Click="SaveButton_Click" Content="ОК"  Style="{DynamicResource TouchFormButtonPrimary}" Margin="0" Width="150"  />
+                        
+                    </StackPanel>
+
+                </Grid>
+            </Border>
+
+        </Grid>
+    </Border>
+
+</UserControl>
+
+    

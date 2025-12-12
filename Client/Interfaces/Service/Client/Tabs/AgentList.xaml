@@ -1,0 +1,112 @@
+﻿<controls:ControlBase 
+    x:Class="Client.Interfaces.Service.AgentList"
+    xmlns:local="clr-namespace:Client.Interfaces.Service"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"    
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+
+    mc:Ignorable="d" 
+    d:DesignWidth="1360" d:DesignHeight="200" 
+    Style="{DynamicResource UserControlCanvas}"    
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}" Margin="0,9,0,25" Grid.RowSpan="2" >
+            </Grid>
+
+
+            <Grid Grid.Row="1"  Grid.Column="0" Style="{DynamicResource GridControlPanel}" Margin="0,9,0,1">
+                <Border >
+                    <Grid >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="11.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+
+                            <Button Name="RefreshButton"    Content="Обновить" Style="{DynamicResource Button}"  VerticalAlignment="Bottom"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Button Name="CommandButton"    Content="Команда"  Style="{DynamicResource Button}" VerticalAlignment="Bottom"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="150" TextWrapping="NoWrap" Name="Search" Text=""  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Группа:"  Style="{DynamicResource TopLabel}" />
+                            <controls:SelectBox x:Name="GroupType" Style="{DynamicResource CustomFormField}" Width="120" ListBoxMinWidth="180" ListBoxMinHeight="200" Autocomplete="False" SelectedItemChanged="OnChange" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Подгруппа:"  Style="{DynamicResource TopLabel}" />
+                            <controls:SelectBox x:Name="SubGroupType" Style="{DynamicResource CustomFormField}" Width="120" ListBoxMinWidth="180" ListBoxMinHeight="200" Autocomplete="False" SelectedItemChanged="OnChange" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Сервис:"  Style="{DynamicResource TopLabel}" />
+                            <controls:SelectBox x:Name="ServiceType" Style="{DynamicResource CustomFormField}" Width="160" ListBoxMinHeight="160" Autocomplete="False" SelectedItemChanged="OnChange" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Версия:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="50" TextWrapping="NoWrap" Name="Version" Text="" TextChanged="Version_TextChanged" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="ExportConfigButton"    Content="Экспорт"  Style="{DynamicResource Button}" VerticalAlignment="Bottom"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                            <Button Name="HelpButton"  Width="24" MinWidth="24"  Content="?" Margin="0" Style="{DynamicResource Button}" />
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="2"  Grid.Column="0" Margin="0,4,0,-4" Grid.RowSpan="3" >
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="Grid" />
+                </Border>
+            </Grid>
+
+        </Grid>
+    </Border>
+
+</controls:ControlBase>

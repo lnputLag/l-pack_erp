@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="Client.Interfaces.Production.StackerScanedLableInfo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+             MinWidth="800" MinHeight="600"
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+
+        <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource DataGridContainerHolder}" Name="StackerScanedLableInfoBorder">
+            <Viewbox Margin="20" MaxWidth="1200">
+                <TextBox Name="StackerScanedLableInfoLabel" Text="Ошибка сканирования ярлыка" Background="{Binding Path=Background, ElementName=StackerScanedLableInfoBorder, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Style="{DynamicResource StackerHeadInfo}"/>
+            </Viewbox>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource DataGridContainerHolder}" HorizontalAlignment="Stretch" Visibility="Collapsed" Name="StackerScanedLabelQuantityInfoBorder" >
+            <Viewbox Margin="20" MaxWidth="1200">
+                <Grid HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBox Grid.Column="0" Grid.Row="0"  Text="По заданию, шт. " Background="{Binding Path=Background, ElementName=StackerScanedLabelQuantityInfoBorder, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center"  Style="{DynamicResource StackerHeadInfo}"/>
+                    <TextBox Grid.Column="1" Grid.Row="0"  Text="Отсканировано, шт. " Background="{Binding Path=Background, ElementName=StackerScanedLabelQuantityInfoBorder, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center"  Style="{DynamicResource StackerHeadInfo}"/>
+                    <TextBox Grid.Column="2" Grid.Row="0"  Text="Осталось, шт. "   Background="{Binding Path=Background, ElementName=StackerScanedLabelQuantityInfoBorder, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"    HorizontalAlignment="Center" VerticalAlignment="Center"  Style="{DynamicResource StackerHeadInfo}"/>
+
+                    <TextBox Grid.Column="0" Grid.Row="1" Name="StackerScanedLableQuantityByTaskInfoLabel" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{Binding Path=Background, ElementName=StackerScanedLabelQuantityInfoBorder, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  Text="22500" Style="{DynamicResource StackerHeadInfo}"/>
+                    <TextBox Grid.Column="1" Grid.Row="1" Name="StackerScanedLableQuantityScanedInfoLabel" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{Binding Path=Background, ElementName=StackerScanedLabelQuantityInfoBorder, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  Text="22500" Style="{DynamicResource StackerHeadInfo}"/>
+                    <TextBox Grid.Column="2" Grid.Row="1" Name="StackerScanedLableQuantityLeftInfoLabel"   HorizontalAlignment="Center" VerticalAlignment="Center" Background="{Binding Path=Background, ElementName=StackerScanedLabelQuantityInfoBorder, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  Text="22500" Style="{DynamicResource StackerHeadInfo}"/>
+                </Grid>
+            </Viewbox>
+        </Border>
+    </Grid>
+
+</UserControl>

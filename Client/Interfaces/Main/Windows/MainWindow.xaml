@@ -1,0 +1,117 @@
+﻿<Window 
+    x:Class="Client.Interfaces.Main.MainWindow"
+    xmlns:local="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"    
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    mc:Ignorable="d"            
+    Width="1024" Height="768"    
+    MinWidth="800" MinHeight="600"        
+    WindowStartupLocation="CenterScreen"
+    Style="{DynamicResource WindowCanvas}"
+    x:Name="Window1"
+    Background="#ffffffff"
+    SizeChanged="Window1_SizeChanged"
+>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>                
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2,0,2,2" Background="#ffffffff">
+
+        <Border Name="TopMenuBlock" Background="#ffF0F0f0" Height="23" Margin="0" Padding="0" VerticalAlignment="Top">
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9.5*" />
+                    <ColumnDefinition Width="2.5*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <dxb:MainMenuControl VerticalAlignment="Center" ShowBackground="False" Grid.Column="0" x:Name="Menu" AllowCustomizationMenu="False">
+                    <dxb:BarSubItem Content="File">
+                        <dxb:BarButtonItem Content="New" />
+                        <dxb:BarButtonItem Content="Open" />
+                        <dxb:BarButtonItem Content="Exit" />
+                    </dxb:BarSubItem>                    
+                </dxb:MainMenuControl>
+
+                <dxb:MainMenuControl VerticalAlignment="Center" HorizontalAlignment="Right" ShowBackground="False" Grid.Column="1" x:Name="MenuRight" AllowCustomizationMenu="False">
+                    <dxb:BarSubItem Content="Help">
+                        <dxb:BarButtonItem Content="New" />
+                        <dxb:BarButtonItem Content="Open" />
+                        <dxb:BarButtonItem Content="Exit" />
+                    </dxb:BarSubItem>
+                </dxb:MainMenuControl>
+            </Grid>
+        </Border>
+
+        <Grid Margin="0,0,0,18">
+            <Border Name="MainTabsBlock" BorderBrush="#ff900000" BorderThickness="0"  Background="#ffffffff" VerticalAlignment="Stretch" Margin="0,30,0,28" Panel.ZIndex="20">
+                <TabControl  x:Name="MainTabsContainer" BorderThickness="0,1,0,0" VerticalAlignment="Stretch" Margin="0,0,0,0"  Style="{DynamicResource TabsContainer}" >
+                </TabControl>
+            </Border>
+            <Border Name="AddTabsBlock" BorderBrush="#ff000090" BorderThickness="0"  Background="#ffffffff" VerticalAlignment="Stretch" Margin="0,30,0,0" Panel.ZIndex="10">
+                <TabControl  x:Name="AddTabsContainer" BorderThickness="0,1,0,0" VerticalAlignment="Stretch" Margin="0,0,0,0" Style="{DynamicResource TabsContainerBottom}" >
+                </TabControl>
+            </Border>
+        </Grid>
+
+        <Border BorderBrush="#ff990000" BorderThickness="0" Height="18" VerticalAlignment="Bottom" Name="StatusBar" Background="#ffffff">
+            <StackPanel Orientation="Horizontal" Name="StatusBarContainer"></StackPanel>
+        </Border>
+        
+        <Border  Panel.ZIndex="30" Style="{DynamicResource NotificationContainer}" Name="Notifications">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="50" Opacity="0.3" />
+            </Border.Effect>
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="21"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>                    
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"  Grid.Column="0" >
+                    <Border >
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10.0*"/>
+                                <ColumnDefinition Width="19"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Margin="0"  HorizontalAlignment="Left"  >
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="1" Margin="0" HorizontalAlignment="Right" >
+                                <Button BorderBrush="#00efefef" Background="Transparent" BorderThickness="1" Margin="0,0,0,0" Padding="0,0,0,0" Width="19" Height="19" Name="CloseButton" Click="CloseButton_Click" Visibility="Hidden" ToolTip="Скрыть" VerticalAlignment="Top" HorizontalAlignment="Right">
+                                    <ContentControl  Style="{DynamicResource MenuTabGlyphIcon}" Content="{StaticResource CloseTabIcon}" Margin="0,0,0,0" Padding="0,0,0,0" />
+                                </Button>                                
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Grid>
+                <Grid Grid.Row="1"  Grid.Column="0" >
+                    <Border Style="{DynamicResource DataGridMainHolder}" >
+                        <ScrollViewer MinHeight="100" MaxHeight="900" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Visible" >
+                            <Grid Name="NotificationsContainer" HorizontalAlignment="Stretch">
+                            </Grid>
+                        </ScrollViewer>
+                    </Border>
+                </Grid>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

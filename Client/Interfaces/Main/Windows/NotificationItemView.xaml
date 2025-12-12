@@ -1,0 +1,61 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Main.NotificationItemView"
+    xmlns:local="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"     
+    mc:Ignorable="d"   
+    Style="{DynamicResource UserControlCanvas}"         
+    MinWidth="150" MaxWidth="500" HorizontalAlignment="Stretch"
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Name="NotificationItemContainer"  Style="{DynamicResource NotificationItemContainer}">
+        <Grid>
+            
+            <Grid Style="{DynamicResource SHMonBlockGrid}" ShowGridLines="False" MinWidth="150" MaxWidth="500">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource NotificationTitleBlock}"  >
+                    <TextBox  Name="Title" Text="" Style="{DynamicResource NotificationItemTitle}"  />
+                </Border>
+                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource NotificationTitleBlock}"  >
+                    <Button Name="TitleButton" Click="Title_Click" Style="{DynamicResource NotificationItemTitleButton}" />
+                </Border>
+                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource NotificationItemBlock}"  >
+                    <TextBox  x:Name="Content" Text="" MinHeight="15" MaxHeight="90" VerticalScrollBarVisibility="Auto" Style="{DynamicResource NotificationItemText}"  />
+                </Border>
+                <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource NotificationItemBlock}" Margin="0,10,0,0" >
+                    <Button x:Name="LinkButton" Click="Link_Click" Style="{DynamicResource NotificationItemLink}" />
+                </Border>
+                <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource NotificationItemBlock}" Margin="0,10,0,0" >
+                    <TextBox  x:Name="Created" Text="" Style="{DynamicResource NotificationItemCreated}"  />
+                </Border>
+            </Grid>
+
+            <Button BorderBrush="#00efefef" Background="Transparent" BorderThickness="1"  Margin="0,-5,0,0" Padding="0,0,0,0" Width="20" Height="20" Name="ItemRemoveButton" Click="ItemRemoveButton_Click" Visibility="Visible" ToolTip="Скрыть" VerticalAlignment="Top" HorizontalAlignment="Right" Cursor="Hand">
+                <ContentControl Style="{DynamicResource MenuTabGlyphIcon}" Content="{StaticResource CloseTabIcon}" Margin="0,0,0,0" Padding="0,0,0,0" Visibility="Visible" />
+            </Button>
+            
+        </Grid>        
+    </Border>
+
+</UserControl>

@@ -1,0 +1,90 @@
+﻿<controls:ControlBase
+            x:Class="Client.Interfaces.Stock.PalletBindingTab"
+            xmlns:local="clr-namespace:Client.Interfaces.Stock"
+            xmlns:controls="clr-namespace:Client.Interfaces.Main"
+
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+
+            mc:Ignorable="d" 
+            d:DesignWidth="1200" d:DesignHeight="200" 
+            Style="{DynamicResource UserControlCanvas}">
+
+    <controls:ControlBase.Resources>
+    <ResourceDictionary>
+
+        <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+        </ResourceDictionary.MergedDictionaries>
+
+    </ResourceDictionary>
+    </controls:ControlBase.Resources>
+    
+    
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="11*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="PalletGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Width="1000" >
+                            <Button Name="TieButton"  Content="Привязать"   Style="{DynamicResource Button}"/>
+                            <Button Name="UntieButton" Content="Отвязать"  Style="{DynamicResource Button}"  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            
+                            <Button Name="RefreshButton"  Content="Обновить"  Style="{DynamicResource Button}"  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="PrintButton"  Content="Печать"  Style="{DynamicResource Button}"  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+
+                            <Label Content="Липецк"  Style="{DynamicResource TopLabel}" />
+                            <RadioButton x:Name="LipetskRadioButton" HorizontalAlignment="Right" Style="{DynamicResource RadioBoxTopPanel}" Click="LipetskRadioButton_Click"/>
+                            <Border Style="{DynamicResource FormLabelContainer}"/>
+
+                            <Label Content="Кашира"  Style="{DynamicResource TopLabel}" />
+                            <RadioButton x:Name="KashiraRadioButton" HorizontalAlignment="Right" Style="{DynamicResource RadioBoxTopPanel}" Click="KashiraRadioButton_Click"/>
+                            <Border Style="{DynamicResource FormLabelContainer}"/>
+                            
+                            <Label Content="Фильтр:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Name="PalletGridSearch" Style="{DynamicResource FormFieldTopPanel}" MinWidth="120" MaxWidth="180"  TextWrapping="NoWrap"  Text=""  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Поддоны:"  Style="{DynamicResource TopLabel}" />
+                            <controls:SelectBox x:Name="PalletGroup"   Style="{DynamicResource CustomFormField}" ListBoxMinWidth="190" ListBoxMinHeight="120"  Width="190" Autocomplete="True" VerticalAlignment="Bottom"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    
+                            <Button Name="ExcelButton"  Content="В Excel"  Style="{DynamicResource Button}"  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" Width="24" >
+                            <Button Name="HelpButton" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Margin="0"  />
+                        </StackPanel>
+            </Grid>
+
+            <Border Grid.Row="1" Style="{DynamicResource DataGridMainHolder}">
+                <controls:GridBox4 x:Name="PalletGrid" />
+            </Border>
+        </Grid>
+    </Border>
+</controls:ControlBase>

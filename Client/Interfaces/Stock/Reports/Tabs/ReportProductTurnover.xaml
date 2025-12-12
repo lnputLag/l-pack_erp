@@ -1,0 +1,133 @@
+﻿<controls:ControlBase 
+             x:Class="Client.Interfaces.Stock.ReportProductTurnover"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Stock"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             
+             mc:Ignorable="d" 
+             d:DesignWidth="1600" d:DesignHeight="800"  
+            Style="{DynamicResource UserControlCanvas}"  >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                    <Label Content="С:"  Style="{DynamicResource TopLabel}"/>
+                    <controls:DatePicker x:Name="FromDate" Style="{DynamicResource DateEditStyle}">
+                        <controls:DatePicker.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Текущие сутки" Click ="OnCurrentDay" />
+                                <MenuItem Header="Предыдущие сутки" Click="OnPrevDay" />
+                                <MenuItem Header="Текущая неделя" Click="OnCurrentWeek"/>
+                                <MenuItem Header="Предыдущая неделя" Click="OnPrevWeek"/>
+                                <MenuItem Header="Текущий месяц" Click="OnCurrentMonth"/>
+                                <MenuItem Header="Предыдущий месяц" Click="OnPrevMonth"/>
+                            </ContextMenu>
+                        </controls:DatePicker.ContextMenu>
+                    </controls:DatePicker>
+
+                    <Label Content="По:"  Style="{DynamicResource TopLabel}"/>
+                    <controls:DatePicker x:Name="ToDate" Style="{DynamicResource DateEditStyle}">
+                    </controls:DatePicker>
+
+                    <Button Name="RefreshButton"  Content="Показать"  Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                    <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="SearchText" Text=""/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <controls:SelectBox x:Name="ProductCategorySelectBox" SelectedItemChanged="ProductCategorySelectBox_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" ListBoxMinHeight="110" Width="155" Autocomplete="False"/>
+                    <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                    <Button Name="ExportToExcelButton"  Content="В Excel" Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="ProductGrid" />
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="1" Height="45" Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="SummaryGrid" />
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="0" Grid.Column="1" Style="{DynamicResource GridControlPanel}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Name="PalletGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                    <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                    <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="PalletSearchText" Text=""/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <controls:SelectBox x:Name="PalletOperationZoneSelectBox" SelectedItemChanged="PalletOperationZoneSelectBox_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" ListBoxMinHeight="110" Width="105" Autocomplete="False"/>
+                    <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                    <controls:SelectBox x:Name="PalletOperationTypeSelectBox" SelectedItemChanged="PalletOperationTypeSelectBox_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" ListBoxMinHeight="110" Width="110" Autocomplete="False"/>
+                    <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                    <Button Name="PalletExportToExcelButton"  Content="В Excel" Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                    <Button Name="HelpButton" ToolTip="Документация" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Margin="0,0,0,0" />
+                </StackPanel>
+            </Grid>
+
+            <Border Grid.Row="1"  Grid.Column="1" Style="{DynamicResource DataGridMainHolder}" >
+                <controls:GridBox4 x:Name="PalletGrid" />
+            </Border>
+
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="100"  VerticalAlignment="Top" Panel.ZIndex="10">
+                <controls:SplashControl x:Name="SplashControl"/>
+            </Grid>
+        </Grid>
+    </Border>
+</controls:ControlBase>

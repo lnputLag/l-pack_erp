@@ -1,0 +1,123 @@
+﻿<UserControl
+    x:Class="Client.Interfaces.Main.GridBox4"
+    xmlns:local="clr-namespace:Client.Interfaces.Main"
+    
+    dx:ThemeManager.ThemeName="Office2019Colorful"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
+    xmlns:dxci="http://schemas.devexpress.com/winfx/2008/xaml/core/internal"
+    xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys" 
+    xmlns:dxdst="http://schemas.devexpress.com/winfx/2008/xaml/core/themekeys"
+    xmlns:dxgcore="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:dxi="http://schemas.devexpress.com/winfx/2008/xaml/core/internal"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:cs="colorscheme_ignorable_uri"
+
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    
+    mc:Ignorable="d"
+    d:DesignWidth="400"
+    d:DesignHeight="200"
+    Style="{DynamicResource UserControlCanvas}"
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate x:Key="FooterTemplate1">
+                <Border BorderThickness="0,1,0,0"  VerticalAlignment="Stretch" Padding="0"  BorderBrush="#ffcccccc" Background="Transparent">
+                    <ContentPresenter 
+                        Margin="0"
+                        Content="{Binding Path=Content, RelativeSource={RelativeSource TemplatedParent}}"  
+                        ContentTemplate="{StaticResource {dxgt:TotalSummaryThemeKey ResourceKey=FootersTemplate}}"
+                        />
+                </Border>
+            </DataTemplate>
+            
+            <ControlTemplate x:Key="{dxgt:TotalSummaryThemeKey ResourceKey=FootersContentTemplate}" TargetType="{x:Type ContentControl}">
+                <Grid>
+                    <Border Background="#fff0f0f0" BorderThickness="0" Margin="0" Padding="0" VerticalAlignment="Stretch">
+                    </Border>
+                    <ContentPresenter Margin="0,-1,0,0" VerticalAlignment="Stretch" />
+                </Grid>
+            </ControlTemplate>
+
+            <DataTemplate x:Key="SummaryItemTemplate">
+                <Border HorizontalAlignment="Right" Height="16" BorderThickness="0" BorderBrush="#ff900000" Margin="0,-5,0,0" Padding="0">
+                    <TextBlock Text="{Binding Column.TotalSummaryText}" LineHeight="16" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0" Padding="0,4,0,0"/>
+                </Border>
+            </DataTemplate>
+
+            <Style x:Key="TableViewStyle" TargetType="dxg:TableView">
+                <Setter Property="FooterTemplate" Value="{DynamicResource FooterTemplate1}" />
+                <Setter Property="TotalSummaryItemTemplate" Value="{DynamicResource SummaryItemTemplate}" />
+                
+            </Style>
+            <DataTemplate x:Key="TableViewBandHeaderTemplate1">
+                <Grid/>
+            </DataTemplate>
+
+        </ResourceDictionary>        
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0" Panel.ZIndex="20"  >
+            <Grid Name="Splash2" Panel.ZIndex="30" Visibility="Collapsed">
+                <Border   Background="#55ffffff" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                    <Border Margin="0,23,0,0" Name="Splash2ProgressBarContainer" HorizontalAlignment="Center" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#ffdedede" Width="250" Height="70" Background="#ffffffff">
+                        <StackPanel Orientation="Vertical" Opacity="0.9" >
+                            <TextBlock  Name="Splash2Note" HorizontalAlignment="Center" Margin="0,12,0,0" Foreground="#ff000000">Загрузка</TextBlock>
+                            <ProgressBar Name="Splash2ProgressBar" IsIndeterminate="True"  Minimum="0" Maximum="30" Value="0" Width="200" Height="12" Foreground="#ff0C79CA" Margin="0,10,0,0" />
+                        </StackPanel>
+                    </Border>
+                </Border>
+                <TextBlock Name="Splash2Timer" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Height="20" Opacity="0.7" Margin="0,0,30,0" TextAlignment="Right">ожидание: 10</TextBlock>
+                <TextBlock Name="Splash2Dbg" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="200" Height="20" Opacity="0.7" Margin="0,0,30,15" TextAlignment="Right">0-2000 300</TextBlock>
+            </Grid>
+        </Grid>
+        <Border Grid.Row="0" Grid.Column="0" Panel.ZIndex="10">
+            <Grid Name="GridContainer">
+                <dxg:GridControl Name="GridControl" dx:ThemeManager.ThemeName="Office2019Colorful">
+                    <dxg:GridControl.View>
+                        <dxg:TableView  Name="GridView" Tag="" ShowAutoFilterRow="False" ShowGroupPanel="False" Style="{DynamicResource TableViewStyle}">
+                        </dxg:TableView>
+                    </dxg:GridControl.View>
+                </dxg:GridControl>
+            </Grid>            
+        </Border>
+        
+    </Grid>
+    
+    <!--
+    <Grid Name="GridContainer">
+        <dxg:GridControl Name="GridControl" dx:ThemeManager.ThemeName="Office2019Colorful">
+            <dxg:GridControl.View>
+                <dxg:TableView  Name="GridView" Tag="" ShowAutoFilterRow="False" ShowGroupPanel="False" Style="{DynamicResource TableViewStyle}">
+                </dxg:TableView>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+
+        <dx:LoadingDecorator Name ="Decorator" >
+            <dx:LoadingDecorator.SplashScreenTemplate>
+                <DataTemplate>
+                    <dx:WaitIndicator DeferedVisibility="True" Content="Загрузка"/>
+                </DataTemplate>
+            </dx:LoadingDecorator.SplashScreenTemplate>
+        </dx:LoadingDecorator>
+       
+    </Grid>
+    -->
+    
+
+</UserControl>

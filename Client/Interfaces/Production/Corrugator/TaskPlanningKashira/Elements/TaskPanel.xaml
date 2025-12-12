@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="Client.Interfaces.Production.Corrugator.TaskPlanningKashira.TaskPanel"
+    xmlns:local="clr-namespace:Client.Interfaces.Production"
+    xmlns:lib="clr-namespace:Client.Common"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             mc:Ignorable="d" 
+
+    Style="{DynamicResource UserControlCanvas}"
+    >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border >
+       <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Name="Toolbar" Background="White" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" MouseDown="Toolbar_MouseDown" >
+
+            <Label Content="Станок" Name="MachineNameLabel" Style="{DynamicResource TopLabel}" />
+
+            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+            <TextBox Style="{DynamicResource FormFieldTopPanel}" TextWrapping="NoWrap" Name="SearchText" Text=""  />
+
+
+            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+            <Label Content="КПД:"  Style="{DynamicResource TopLabel}" />
+            <TextBox Name="PerformanceText" Text="" MaxWidth="30" Width="30" IsReadOnly="True"  />
+
+
+            <Label Content="Текущее задание:" Style="{DynamicResource TopLabel}" />
+            <TextBox Name="CurrentTaskText" Text="" Width="60" IsReadOnly="True"  />
+
+            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+            <Label Content="Выполнено:" Style="{DynamicResource TopLabel}" />
+            <TextBox Name="CurrentTaskProgressText" Text="" Width="46" IsReadOnly="True"  />
+
+            <Label Content="Из:" Style="{DynamicResource TopLabel}" />
+            <TextBox Name="CurrentTaskLengthText" Text="" Width="46" IsReadOnly="True"  />
+
+            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+            <Label Content="Средняя скорость:" Style="{DynamicResource TopLabel}" />
+            <TextBox Name="CurrentTaskPAvgSpeedText" Text="" Width="30" IsReadOnly="True"  />
+
+            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+            <Label Content="Всего в плане:" Style="{DynamicResource TopLabel}" />
+            <TextBox Name="PlanLengthText" Text="" Width="50" IsReadOnly="True"  />
+
+            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+            <Label Content="Продолжительность:" Style="{DynamicResource TopLabel}" />
+            <TextBox Name="PlanTotalTimeText" Text="" Width="40" IsReadOnly="True"  />
+
+            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+            <Label Content="Автопланирование:" Style="{DynamicResource TopLabel}" />
+
+            <dxe:ToggleSwitch Name="AutoPlan" Checked="AutoPlan_Checked" Unchecked="AutoPlan_Checked" Tag="access_mode_full_access"/>
+
+            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+            <Label Content="Время:" Style="{DynamicResource TopLabel}" />
+            <TextBox Name="PlanTimeText" Text="" Width="30" PreviewTextInput="PlanTimeText_PreviewTextInput" />
+            <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+            <Button Content="Задать" Name="InstallNewTime" Style="{DynamicResource Button}" Click="InstallNewTime_Click"/>
+
+            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+            <Label Content="Артикул" Name="ArticulText" Style="{DynamicResource TopLabel}" />
+
+        </StackPanel>
+    </Border>
+</UserControl>

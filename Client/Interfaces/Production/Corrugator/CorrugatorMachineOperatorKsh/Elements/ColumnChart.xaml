@@ -1,0 +1,58 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Production.Corrugator.CorrugatorMachineOperatorKsh.ColumnChart"
+    xmlns:local="clr-namespace:Client.Interfaces.Production"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"     
+    mc:Ignorable="d"   
+    d:DesignWidth="40" d:DesignHeight="200"
+    Style="{DynamicResource UserControlCanvasStatic}"          
+>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border>
+        <Grid  Style="{DynamicResource SHMonBlockGrid}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="2" Name="Splash" Visibility="Collapsed" Panel.ZIndex="20">
+                <Border Background="#55ffffff" >
+                </Border>
+            </Grid>
+
+            <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0" Style="{DynamicResource FTitleBar}">БУФ</TextBlock>
+
+            <Grid Grid.Column="0" Grid.Row="1" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition x:Name="Buf1GrayRow" Height="50*"/>
+                    <RowDefinition x:Name="Buf1ColorRow" Height="30*" />
+                    <RowDefinition x:Name="Buf1GrayRow2" Height="20*" />
+                </Grid.RowDefinitions>
+
+                <Rectangle x:Name="Buf1GrayRectangle" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="LightGray"/>
+                <Rectangle x:Name="Buf1ColorRectangle" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Orange"/>
+                <Rectangle x:Name="Buf1DarkGrayRectangle" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="DarkGray"/>
+            </Grid>
+            
+            <TextBlock Grid.Column="0" Grid.Row="2" x:Name="Buf1Label" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,5" Style="{DynamicResource RollReelButtonText}">__%</TextBlock>
+
+        </Grid>
+    </Border>
+
+</UserControl>

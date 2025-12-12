@@ -1,0 +1,359 @@
+﻿<UserControl x:Class="Client.Interfaces.Production.StackerKsh"
+             xmlns:local="clr-namespace:Client.Interfaces.Production"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="1024"
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Column="0" Grid.Row="0" Background="#A5C4AA">
+
+            </Border>
+
+            <Border Grid.Column="1" Grid.Row="0" Background="#ABCCE0">
+
+            </Border>
+
+            <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform">
+                <Grid Style="{DynamicResource DataGridContainer}" Width="1024" Height="768">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Column="0" Grid.Row="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition Width="294" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition Width="60" />
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0" Padding="20, 10" Background="#A5C4AA">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBox Name="CurrentTaskNumTextBox" Text="1234/11abc" Style="{DynamicResource StackerHeadInfo}"  Background="#A5C4AA" />
+                                    <TextBox Name="CurrentTaskIdTextBox" Text="12345678" Style="{DynamicResource StackerHeadInfo}"  Background="#A5C4AA"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Column="1" Grid.ColumnSpan="2" Background="#A5C4AA">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBox Name="ComplectationWarningTextBox" Grid.Row="0" Grid.Column="0" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="36" Text="К0" Foreground="Red" Style="{DynamicResource StackerHeadInfo}" Background="#A5C4AA"/>
+
+                                    <TextBox Name="BlockedLastLabelPrintFlagTextBox" Grid.Row="1" Grid.Column="0" Visibility="Collapsed" VerticalAlignment="Top" Padding="0,-7,0,-7" FontWeight="Bold" Height="24" FontSize="36" Text="*" Foreground="Red" Style="{DynamicResource StackerHeadInfo}" Background="#A5C4AA"/>
+
+                                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"  HorizontalAlignment="Center" >
+                                        <TextBox Name="CorrugatorMachineNumberTextBox" FontSize="20" Text="ГА 3" ToolTip="ГА 1 -- БХС1/Антон/Гофра-5&#xD;&#xA;ГА 2 -- БХС2/Шейла/Гофра-3&#xD;&#xA;ГА 3 -- Фосбер&#xD;&#xA;ГА 1 КШ -- JS" Style="{DynamicResource StackerHeadInfo}" Background="#A5C4AA"/>
+                                        <TextBox Name="StackerNumberTextBox" FontSize="20" Text="Ст 2" ToolTip="Ст 1 -- Нижний/Первый стекер&#xD;&#xA;Ст 2 -- Верхний/Второй стекер" Style="{DynamicResource StackerHeadInfo}" Background="#A5C4AA" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Column="3" BorderThickness="3" Background="White" BorderBrush="Gray">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBox Name="CurrentTaskRestTextBox" Text="1234"  Style="{DynamicResource StackerRemainTaskInfo}"/>
+                                    <TextBox Name="CurrentTimeTextBox" Text="12:35" Style="{DynamicResource StackerHeadInfo}" HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Column="4" Padding="20, 10" Background="#ABCCE0">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBox Name="TailTaskNumTextBox" Text="1234/11abc" Style="{DynamicResource StackerHeadInfo}" Background="#ABCCE0" />
+                                    <TextBox Name="TailTaskIdTextBox" Text="12345678" Style="{DynamicResource StackerHeadInfo}" Background="#ABCCE0" />
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Column="5" Padding="10" Background="#ABCCE0">
+                                <TextBox Name="PalletNumTextBox" Text="23" Style="{DynamicResource StackerHeadInfo}" Background="#ABCCE0" VerticalAlignment="Center" />
+                            </Border>
+
+                            <Border Grid.Column="6" Background="#ABCCE0">
+                                <Button Name="BurgerButton" Style="{DynamicResource RollReelButton}" Width="50" Click="BurgerButton_Click" >
+                                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" >
+                                        <Border Width="40">
+                                            <Image Style="{DynamicResource RollReelMenuIcon}"  />
+                                        </Border>
+                                    </StackPanel>
+                                    <Button.ContextMenu >
+                                        <ContextMenu Name="BurgerMenu">
+                                            <MenuItem Header="Настрока печати"                      Name="PrintSettingsButton"   Click="PrintSettingsButton_Click"  FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold" />
+                                            <MenuItem Header="Журнал"                               Name="LogButton"        Click="LogButton_Click"    FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold" />
+                                            <MenuItem Header="Документация"                         Name="HelpButton"        Click="HelpButton_Click"    FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold" />
+                                            <MenuItem Header="О программе"                          Name="InfoButton"        Click="InfoButton_Click"    FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold" />
+                                            <MenuItem Header="Просмотр ярлыка"                      Name="ShowLabelButton"        Click="ShowLabelButton_Click"    FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold" />
+                                            <MenuItem Header="Ручной запуск обработки задания"      Name="ManuallyStartButton"        Click="ManuallyStartButton_Click"    FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold" />
+                                            <MenuItem Header="Обновить"                             Name="RestartButton"    Click="RestartButton_Click"  FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold" />
+                                            <MenuItem Header="Выход"                                Name="ExitButton"       Click="ExitButton_Click"     FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold" />
+                                        </ContextMenu>
+                                    </Button.ContextMenu>
+                                </Button>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Column="0" Grid.Row="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0" Background="#A5C4AA">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Border Grid.Row="0" Style="{DynamicResource StackerRowContainer}">
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="Рилевка" Style="{DynamicResource StackerLabel}" />
+                                            <Border Name="CurrentCadboard" Style="{DynamicResource StackerTextInfoContainer}">
+                                                <TextBox Name="CurrentCreaseCountTextBox" Text="2"  Style="{DynamicResource StackerTextInfo}" />
+                                            </Border>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Grid.Row="1" Style="{DynamicResource StackerRowContainer}">
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="Размер" Style="{DynamicResource StackerLabel}" />
+                                            <Border Style="{DynamicResource StackerTextInfoContainer}">
+                                                <TextBox Name="CurrentBlankSizeTextBox" Text="200x200"  Style="{DynamicResource StackerTextInfo}" />
+                                            </Border>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Grid.Row="2" Style="{DynamicResource StackerRowContainer}">
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="Укладка" Style="{DynamicResource StackerLabel}" />
+                                            <Border Name="CurrentPalletSizeBorder" Style="{DynamicResource StackerTextInfoContainer}">
+                                                <TextBox Name="CurrentPalletSizeTextBox" Text="1200x800"  Style="{DynamicResource StackerTextInfo}" />
+                                            </Border>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Grid.Row="3" Style="{DynamicResource StackerRowContainer}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="5"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Label Grid.Column="0" Grid.Row="0" Content="Хранение" Style="{DynamicResource StackerLabel}" HorizontalAlignment="Center" />
+
+                                            <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource StackerTextInfoContainer}">
+                                                <TextBox Name="CurrentPlaceTextBox" Text="Md"  Style="{DynamicResource StackerTextInfo}" />
+                                            </Border>
+
+                                            <Label Grid.Column="2" Grid.Row="0" Content="Доп. требования" Style="{DynamicResource StackerLabel}" HorizontalAlignment="Center" />
+
+                                            <Border Grid.Column="2" Grid.Row="1" Style="{DynamicResource StackerTextInfoContainer}">
+                                                <TextBox Name="CurrentDemandsTextBox" Text="4НТ"  Style="{DynamicResource StackerTextInfo}" />
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+
+                                    <Border Grid.Row="4" Style="{DynamicResource StackerRowContainer}">
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="Количество на 1" Style="{DynamicResource StackerLabel}" />
+                                            <Border Style="{DynamicResource StackerTextInfoContainer}">
+                                                <TextBox Name="CurrentQtyOnPalletTextBox" Text="500"  Style="{DynamicResource StackerTextInfo}" />
+                                            </Border>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Grid.Row="5" Style="{DynamicResource StackerRowContainer}">
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="По заданию" Style="{DynamicResource StackerLabel}" />
+                                            <Border Style="{DynamicResource StackerTextInfoContainer}">
+                                                <TextBox Name="CurrentQtyByTaskTextBox" Text="2456"  Style="{DynamicResource StackerTextInfo}" />
+                                            </Border>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Grid.Row="6" Style="{DynamicResource StackerRowContainer}">
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="Стопы" Style="{DynamicResource StackerLabel}" />
+                                            <Border Style="{DynamicResource StackerTextInfoContainer}">
+                                                <TextBox Name="CurrentStackTextBox" Text="1x500"  Style="{DynamicResource StackerTextInfo}" />
+                                            </Border>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Name="CurrentCommentBorder" Grid.Row="7" Style="{DynamicResource StackerRowContainer}">
+                                        <TextBox Name="CurrentCommentTextBox" FontSize="32" VerticalContentAlignment="Top" TextWrapping="Wrap" Text="Comment Comment Comment Comment CommenComment 7" Style="{DynamicResource StackerHeadInfo}" Background="#A5C4AA"/>
+                                    </Border>
+
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Column="1" Background="#ABCCE0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    
+                                    <TextBox Grid.Row="0" Grid.RowSpan="8" Grid.Column="1" IsReadOnly="True" Name="LogTextBox" Margin="0,0,0,5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="auto" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" Style="{DynamicResource FormField}" />
+
+                                    <Border Grid.Row="0" Style="{DynamicResource StackerRowContainer}">
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="Рилевка" Style="{DynamicResource StackerLabel}" HorizontalAlignment="Right" />
+                                            <Border Name="TailCardboard" Style="{DynamicResource StackerTextInfoContainer}">
+                                                <TextBox Name="TailCreaseCountTextBox" Text="2"  Style="{DynamicResource StackerTextInfo}" />
+                                            </Border>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Grid.Row="1" Style="{DynamicResource StackerRowContainer}">
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="Размер" Style="{DynamicResource StackerLabel}" HorizontalAlignment="Right" />
+                                            <Border Style="{DynamicResource StackerTextInfoContainer}">
+                                                <TextBox Name="TailBlankSizeTextBox" Text="200x200"  Style="{DynamicResource StackerTextInfo}" />
+                                            </Border>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Grid.Row="2" Style="{DynamicResource StackerRowContainer}">
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="Укладка" Style="{DynamicResource StackerLabel}" HorizontalAlignment="Right" />
+                                            <Border Style="{DynamicResource StackerTextInfoContainer}">
+                                                <TextBox Name="TailPalletSizeTextBox" Text="1200x800"  Style="{DynamicResource StackerTextInfo}" />
+                                            </Border>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Grid.Row="3" Style="{DynamicResource StackerRowContainer}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="5"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Label Grid.Column="0" Grid.Row="0" Content="Хранение" Style="{DynamicResource StackerLabel}" HorizontalAlignment="Center"/>
+
+                                            <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource StackerTextInfoContainer}">
+                                                <TextBox Name="TailPlaceTextBox" Text="Md"  Style="{DynamicResource StackerTextInfo}" />
+                                            </Border>
+
+                                            <Label Grid.Column="2" Grid.Row="0" Content="Доп. требования" Style="{DynamicResource StackerLabel}" HorizontalAlignment="Center"/>
+
+                                            <Border Grid.Column="2" Grid.Row="1" Style="{DynamicResource StackerTextInfoContainer}">
+                                                <TextBox Name="TailDemandsTextBox" Text="4НТ"  Style="{DynamicResource StackerTextInfo}" />
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+
+                                    <Border Grid.Row="4" Style="{DynamicResource StackerRowContainer}">
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="Количество на 1" Style="{DynamicResource StackerLabel}" HorizontalAlignment="Right" />
+                                            <Border Style="{DynamicResource StackerTextInfoContainer}">
+                                                <TextBox Name="TailQtyOnPalletTextBox" Text="500"  Style="{DynamicResource StackerTextInfo}" />
+                                            </Border>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Grid.Row="5" Style="{DynamicResource StackerRowContainer}">
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="По заданию" Style="{DynamicResource StackerLabel}" HorizontalAlignment="Right" />
+                                            <Border Style="{DynamicResource StackerTextInfoContainer}">
+                                                <TextBox Name="TailQtyByTaskTextBox" Text="2456"  Style="{DynamicResource StackerTextInfo}" />
+                                            </Border>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Grid.Row="6" Style="{DynamicResource StackerRowContainer}">
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="Стопы" Style="{DynamicResource StackerLabel}" HorizontalAlignment="Right" />
+                                            <Border Style="{DynamicResource StackerTextInfoContainer}">
+                                                <TextBox Name="TailStackTextBox" Text="1x500"  Style="{DynamicResource StackerTextInfo}" />
+                                            </Border>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Grid.Row="7" Name="TailCommentBorder" Style="{DynamicResource StackerRowContainer}">
+                                        <TextBox Name="TailCommentTextBox" TextWrapping="Wrap" Text="Comment Comment " FontSize="32" Style="{DynamicResource StackerHeadInfo}" Background="#ABCCE0"/>
+                                    </Border>
+
+                                   </Grid>
+                            </Border>
+
+                            <TextBox  Grid.Column="0" Grid.ColumnSpan="2" MaxLength="13"  HorizontalAlignment="Center" VerticalAlignment="Top" Style="{DynamicResource FormField}" Width="100" TextWrapping="NoWrap" Name="BarCodeTextBox" IsEnabled="True" Visibility="Visible">
+
+                            </TextBox>
+
+                            <Grid Grid.Column="0" Grid.ColumnSpan="2" Height="100" VerticalAlignment="Top" HorizontalAlignment="Center" Panel.ZIndex="10">
+                                <controls:SplashControl x:Name="SplashControl"/>
+                            </Grid>
+
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Viewbox>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,55 @@
+﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:local="clr-namespace:Client.Reports.Preproduction.CuttingStamp"
+              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports"
+              PageHeight="29.7cm" PageWidth="21cm" ColumnWidth="21cm" FontFamily="Verdana" FontSize="18">
+
+    <FlowDocument.Resources>
+        <Style x:Key="HeaderStyle" TargetType="{x:Type Paragraph}">
+            <Setter Property="Margin" Value="0,0,0,1cm" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="64" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+
+        <Style x:Key="CellStyle" TargetType="{x:Type TableCell}">
+            <Setter Property="FontSize" Value="48" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+
+        <Style x:Key="MainRowStyle" TargetType="{x:Type Paragraph}">
+            <Setter Property="FontSize" Value="48" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+    </FlowDocument.Resources>
+
+    <Section FontFamily="Arial">
+        <Paragraph  Style="{StaticResource HeaderStyle}">
+            <xrd:InlineDocumentValue PropertyName="PackageNum" />
+        </Paragraph>
+        <Paragraph  Style="{StaticResource MainRowStyle}">
+            Передача штанцформы
+        </Paragraph>
+        <Paragraph  Style="{StaticResource MainRowStyle}">
+            <xrd:InlineDocumentValue PropertyName="OwnerName" />
+        </Paragraph>
+
+        <Table CellSpacing="0" BorderThickness="1" Margin="0,0,0,1cm" >
+            <Table.Columns>
+                <TableColumn Width="*" />
+            </Table.Columns>
+
+            <TableRowGroup>
+                <xrd:TableRowForDataTable TableName="Info">
+                    <TableCell Style="{StaticResource CellStyle}">
+                        <Paragraph >
+                            <xrd:InlineTableCellValue  PropertyName="StampNum"  />
+                        </Paragraph>
+                    </TableCell>
+                </xrd:TableRowForDataTable>
+            </TableRowGroup>
+        </Table>
+    </Section>
+</FlowDocument>

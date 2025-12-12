@@ -1,0 +1,312 @@
+﻿<UserControl
+    x:Class="Client.Interfaces.Production.ManagerWeightBdm2List"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Production.PaperProduction"
+            xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             d:DesignWidth="1980"
+             d:DesignHeight="768" 
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <!-- бордюр, внутри него все размещаем -->
+    <Border Style="{DynamicResource DataGridContainerHolder}"   >
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <!-- грид, внутри него все размещаем -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0"></RowDefinition>
+                <RowDefinition Height="Auto" ></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="10"></RowDefinition>
+                <RowDefinition Height="1.5*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Style="{DynamicResource FormFieldContainer}">
+                <StackPanel Orientation="Vertical">
+                    <!--первая горизонтальная панель -->
+                    <!-- управление кнопками -->
+                    <StackPanel  Name="StackPanel1" Orientation="Horizontal" HorizontalAlignment="Left" >
+                        <!-- внешний шлагбаум -->
+                        <GroupBox x:Name="GroupBoxIn" Header="Внешний шлагбаум" Margin="5" Padding="5">
+                            <StackPanel  Orientation="Horizontal">
+                                <Button Name="BarrierInputButton" Tag="auto_open_in" Content="Открыть"  Style="{DynamicResource Button}"  Click="BarrierInputButton_Click" Margin="0,0,5,1" VerticalAlignment="Bottom"   />
+                                <Button Name="OpenInAndZeroButton" Tag="open_in_and_zero" Content="Открыть с обнулением"  Style="{DynamicResource Button}"  Click="BarrierInputButton_Click"   />
+                                <Button Name="AutoInButton" Tag="auto_in" Content="Открыть и не закрывать"  Style="{DynamicResource Button}"  Click="BarrierInputButton_Click"   />
+                                <Button Name="AutoCloseInButton" Tag="auto_close_in" Content="Закрыть"  Style="{DynamicResource Button}"  Click="BarrierInputButton_Click"   />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- внутренний шлагбаум -->
+                        <GroupBox  x:Name="GroupBoxOut" Header="Внутренний шлагбаум" Margin="5" Padding="5">
+                            <StackPanel  Orientation="Horizontal">
+                                <Button Name="BarrierOutputButton" Tag="auto_open_out" Content="Открыть"  Style="{DynamicResource Button}"  Click="BarrierOutputButton_Click" Margin="0,0,5,1" VerticalAlignment="Bottom"   />
+                                <Button Name="OpenOutAndZeroButton" Tag="open_out_and_zero" Content="Открыть с обнулением"  Style="{DynamicResource Button}"  Click="BarrierOutputButton_Click"   />
+                                <Button Name="AutoOutButton" Tag="auto_out" Content="Открыть и не закрывать"  Style="{DynamicResource Button}"  Click="BarrierOutputButton_Click"   />
+                                <Button Name="AutoCloseOutButton" Tag="auto_close_out" Content="Закрыть"  Style="{DynamicResource Button}"  Click="BarrierOutputButton_Click"   />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- управление -->
+                        <GroupBox x:Name="GroupBoxManagement" Header="Весовая" Margin="5" Padding="5">
+                            <StackPanel  Orientation="Horizontal">
+                                <Label Content="Статус:" Style="{DynamicResource TopLabel}" Margin="0,1,0,0"/>
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <Label Name="Status" FontWeight="Bold" Content="Свободна" Foreground="Green" Style="{DynamicResource TopLabel}" />
+                                <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                                <Button Name="StartButton" Tag="access_mode_full_access" Content="Стоп"  Style="{DynamicResource Button}" MinWidth="45" Click="StartButton_Click" />
+                                <Button Name="ResetButton" Tag="access_mode_full_access" Content="Сброс"  Style="{DynamicResource Button}" MinWidth="45" Click="ResetButton_Click" />
+                                <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                                <Label Content="Дни:" Style="{DynamicResource TopLabel}" />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <TextBox Style="{DynamicResource FormFieldDigit}" MaxLength="1" MinWidth="20" MaxWidth="20" TextWrapping="NoWrap" Name="NumberDay" Text="1" IsKeyboardFocusedChanged="NumberDay_IsKeyboardFocusedChanged" />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- выбор площадок -->
+                        <GroupBox Header="Площадка" Margin="5" Padding="0" >
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton GroupName="Area" Tag="access_mode_full_access" Checked="Area1RadioButton_Checked" IsChecked="False"  Name="Area1RadioButton" Style="{DynamicResource RadioBoxTopPanel}" Margin="0,10,0,0">Все</RadioButton>
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <RadioButton GroupName="Area" Tag="access_mode_full_access" Checked="Area2RadioButton_Checked"  IsChecked="True"  Name="Area2RadioButton"  Style="{DynamicResource RadioBoxTopPanel}" Margin="0,10,0,0" >БДМ2</RadioButton>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+
+                    <!--вторая горизонтальная панель -->
+                    <!-- данные с камер -->
+                    <StackPanel  Name="StackPane2" Orientation="Horizontal" HorizontalAlignment="Left" >
+                        <!-- камера на въезде в ЛПАК-->
+                        <GroupBox  Header="Камера на въезде" Margin="5" Padding="5">
+                            <StackPanel  Orientation="Horizontal">
+                                <Label Content="Номер машины:" Style="{DynamicResource TopLabel}" Margin="0,0,0,0"/>
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <Label Name="CameraInput" FontWeight="Bold" Content="РА145Н136" MinWidth="60" Style="{DynamicResource TopLabel}" Margin="0,0,0,0" />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <Label Content="Дата:" Style="{DynamicResource TopLabel}" Margin="0,0,0,0"/>
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <Label Name="DtTmInput" FontWeight="Bold" Content="15.02.2024 12:59:25" MinWidth="90" Style="{DynamicResource TopLabel}" Margin="0,0,0,0" />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- камера на выезде из ЛПАК-->
+                        <GroupBox  Header="Камера на выезде" Margin="5" Padding="5">
+                            <StackPanel  Orientation="Horizontal">
+                                <Label Content="Номер машины:" Style="{DynamicResource TopLabel}" Margin="0,0,0,0"/>
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <Label Name="CameraOut" FontWeight="Bold" Content="ХА000М777" MinWidth="60" Style="{DynamicResource TopLabel}" Margin="0,0,0,0" />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <Label Content="Дата:" Style="{DynamicResource TopLabel}" Margin="0,0,0,0"/>
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <Label Name="DtTmOutput" FontWeight="Bold" Content="15.02.2024 14:15:17" MinWidth="90" Style="{DynamicResource TopLabel}" Margin="0,0,0,0" />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- весы -->
+                        <GroupBox x:Name ="GroupBoxWeight"  Header="Весы" Margin="5" Padding="5">
+                            <StackPanel  Orientation="Horizontal" Style="{DynamicResource FormHeaderButtonsPanel}">
+                                <Label Content="Данные с весов:" Style="{DynamicResource TopLabel}" />
+                                <Label Name="WeihtCar" FontWeight="Bold" Content="15400" MinWidth="40" Style="{DynamicResource TopLabel}" />
+                                <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                                <Button Name="WeightToZeroButton" Tag="access_mode_full_access" Content="Обнулить"  Style="{DynamicResource Button}"  Click="WeightToZeroButton_Click" VerticalAlignment="Bottom"   />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- датчики -->
+                        <GroupBox  Header="Датчики" Margin="5" Padding="5" IsEnabled="True" >
+                            <StackPanel  Orientation="Horizontal">
+                                <CheckBox  x:Name="SensorOutCheckBox" Style="{DynamicResource CheckBoxTopPanel}" IsEnabled="True" IsChecked="False" Content="Внешний"/>
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <CheckBox  x:Name="SensorCenterCheckBox" Style="{DynamicResource CheckBoxTopPanel}" IsEnabled="True" IsChecked="False" Content="Центральный"/>
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <CheckBox  x:Name="SensorInCheckBox" Style="{DynamicResource CheckBoxTopPanel}" IsEnabled="True" IsChecked="False" Content="Внутренний"/>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- табло -->
+                        <GroupBox x:Name = "GroupBoxTablo" Header="Табло" Margin="5" Padding="5">
+                            <StackPanel  Orientation="Horizontal">
+                                <Label Content="Внешнее:" Style="{DynamicResource TopLabel}" />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <TextBox Style="{DynamicResource FormFieldTopPanel}" MaxLength="22" MinWidth="125" MaxWidth="125" TextWrapping="NoWrap" Name="TabloMessage1" Text=""  />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <Label Content="Внутреннее:" Style="{DynamicResource TopLabel}" />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <TextBox Style="{DynamicResource FormFieldTopPanel}" MaxLength="22" MinWidth="125" MaxWidth="125" TextWrapping="NoWrap" Name="TabloMessage2" Text=""  />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <Button Name="ShowMessageTabloButton" Tag="access_mode_full_access" Content="Вывести"  Style="{DynamicResource Button}"  Click="ShowMessageTabloButton_Click" />
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- гриды -->
+            <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Style="{DynamicResource DataGridMainHolder}">
+                <Grid Style="{DynamicResource DataGridContainer}"  >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="1.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <!-- список машин -->
+                    <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                        <controls:GridBox x:Name="GridMaster" MinHeight="350" />
+                    </Border>
+
+                    <!-- детально инфо по машине, история вывоза мусора  -->
+                    <Border Grid.Row="0" Grid.Column="2" Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+
+                        <Grid Style="{DynamicResource DataGridContainer}"  >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1.7*"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="2*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <!-- детально инфо по машине -->
+                            <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <controls:GridBox x:Name="GridDetail" />
+                            </Border>
+
+                            <!-- выбор даты -->
+                            <StackPanel Grid.Row="2" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+                                <Label Content="Журнал"  Style="{DynamicResource TopLabel}" />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                                <controls:SelectBox x:Name="TypeLog"  Style="{DynamicResource CustomFormField}"  Width="150" ListBoxMinHeight="150" Autocomplete="True" VerticalAlignment="Bottom" Margin="0,0,0, 0" />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                                <Label Content="С:"  Style="{DynamicResource TopLabel}"/>
+                                <Grid Style="{DynamicResource FormFieldDateHolder}">
+                                    <controls:DatePicker x:Name="DateFrom" Style="{DynamicResource DateEditStyle}">
+                                    </controls:DatePicker>
+                                </Grid>
+
+                                <Label Content="По:"  Style="{DynamicResource TopLabel}"/>
+                                <Grid Style="{DynamicResource FormFieldDateHolder}">
+                                    <controls:DatePicker x:Name="DateTo" Style="{DynamicResource DateEditStyle}">
+                                    </controls:DatePicker>
+                                </Grid>
+
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                                <Button Name="LoadLogButton" Content="Показать"  Style="{DynamicResource Button}"  Click="LoadLogButton_Click" VerticalAlignment="Bottom" />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                                <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                                <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="SearchText" Text=""  />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <Button Name="ExportButton"    Content="В Excel"  Style="{DynamicResource Button}" MinWidth="45"  Click="ExportToExcelButton_OnClick" />
+                                <Button Name="TestButton"  MinWidth="45"  Content="Test"  Style="{DynamicResource Button}"   Click="TestButton_OnClick" />
+                            </StackPanel>
+
+                            <!-- история взвешивания мусорки -->
+                            <Border Grid.Row="4" Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <!--<controls:GridBox x:Name="GridCarbage" />-->
+                                <controls:GridBox x:Name="LogGrid"/>
+
+                            </Border>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- просмотр истории вывоза мусора -->
+            <Border Grid.Row="4" Grid.Column="0">
+                <Grid Style="{DynamicResource DataGridContainer}" VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Name="UserGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+                        <Label Content="История вывоза мусора"  Style="{DynamicResource TopLabel}" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                        <Label Content="С:"  Style="{DynamicResource TopLabel}"/>
+                        <Grid Style="{DynamicResource FormFieldDateHolder}">
+                            <controls:DatePicker x:Name="FromDate" Style="{DynamicResource DateEditStyle}" >
+                            </controls:DatePicker>
+                        </Grid>
+
+                        <Label Content="По:"  Style="{DynamicResource TopLabel}"/>
+                        <Grid Style="{DynamicResource FormFieldDateHolder}">
+                            <controls:DatePicker x:Name="ToDate" Style="{DynamicResource DateEditStyle}" >
+                            </controls:DatePicker>
+                        </Grid>                        
+                        <Button Name="RefreshButton" Content="Показать"  Style="{DynamicResource Button}" Click="RefreshButton_Click" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+
+                        <Button Name="AddButton"    Content="Добавить" Tag="access_mode_full_access"  Style="{DynamicResource Button}" Click="AddButton_Click" />
+                        <Button Name="EditButton"    Content="Изменить" Tag="access_mode_full_access"  Style="{DynamicResource Button}" Click="EditButton_Click" />
+                        <Button Name="DeleteButton"  Content="Удалить"  Tag="access_mode_full_access" Style="{DynamicResource Button}" Click="DeleteButton_Click" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                        
+                        <Button Name="ReportButton"  Content="Отчет"  Style="{DynamicResource Button}" Click="ReportButton_Click" MinWidth="45" />
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"/>
+                        <Label Content="Машина:" Style="{DynamicResource TopLabel}" />
+                        <controls:SelectBox x:Name="GarbageCar"  Style="{DynamicResource CustomFormField}"  Width="150" Autocomplete="False" VerticalAlignment="Bottom" />
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"/>
+                        <Button Name="InputLaunchToWeightButton" Tag="access_mode_full_access" Content="Запустить на завод"  Style="{DynamicResource Button}" Click="InputLaunchToWeightButton_Click" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                        <Button Name="OutputLaunchToWeightButton" Tag="access_mode_full_access" Content="Выпустить с завода"  Style="{DynamicResource Button}" Click="OutputLaunchToWeightButton_Click" />
+
+                    </StackPanel>
+
+                    <Border Grid.Row="1" Grid.Column="0"  Style="{DynamicResource FormFieldContainer}" VerticalAlignment="Stretch" >
+                        <Border Style="{DynamicResource DataGridMainHolder}" >
+                            <controls:GridBox4 x:Name="GridCarbage" />
+                        </Border>
+                    </Border>
+
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <Border Grid.Row="1" Grid.Column="2"  Style="{DynamicResource FormFieldContainer}"  VerticalAlignment="Stretch">
+                        <!--<Border Style="{DynamicResource DataGridMainHolder}" >-->
+                        <GroupBox x:Name = "GroupBoxWeightLog" Header="Динамика веса" Padding="1" Margin="0,-8,5,0">
+                            <ListBox HorizontalAlignment="Left" Style="{DynamicResource DropDownListBox}" Width="100" Name="WeightLog" >0 кг.</ListBox>
+                        </GroupBox>
+                        <!--</Border>-->
+                    </Border>
+
+                    <Grid Grid.Row="2"  Grid.Column="0">
+                        <Border Style="{DynamicResource DataGridMainHolder}" >
+                            <StackPanel Orientation="Horizontal" Style="{DynamicResource TotalsBarContainer}" HorizontalAlignment="Left">
+                                <TextBlock Style="{DynamicResource StatusBarTextBlock}" Name="TotalsDayOrders" >Последние данные от агента получены:</TextBlock>
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <TextBlock Style="{DynamicResource StatusBarTextBlock}" Name="Bdm2ManagerDttmValue" >0</TextBlock>
+                                <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                                <TextBlock Style="{DynamicResource StatusBarTextBlock}" FontWeight="Bold" Name="Bdm2ManagerMsg" Margin="0,0,0,-4" >Текущий статус весовой: свободна</TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Border>
+            <!-- грид, внутри него все размещаем -->
+        </Grid>
+    </Border>
+
+</UserControl>

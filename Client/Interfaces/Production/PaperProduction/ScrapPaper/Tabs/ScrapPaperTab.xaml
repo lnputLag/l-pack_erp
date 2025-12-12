@@ -1,0 +1,313 @@
+﻿<controls:ControlBase
+        x:Class="Client.Interfaces.Production.PaperProduction.ScrapPaperTab"
+        xmlns:local="clr-namespace:Client.Interfaces.Production.PaperProduction"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:controls="clr-namespace:Client.Interfaces.Main"
+
+        mc:Ignorable="d" 
+        d:DesignWidth="1980"
+        d:DesignHeight="1080" 
+        Style="{DynamicResource UserControlCanvas}">
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <!-- 0 Весовая-->
+                <RowDefinition Height="1.7*"></RowDefinition>
+                <!-- 1 Терминалы В работе-->
+                <RowDefinition Height="*"></RowDefinition>
+                <!-- 2 Задания История-->
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+         
+            <!-- 0 Весовая-->
+            <Grid Grid.Row="0"  Grid.Column="0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="12*"/>
+                    <ColumnDefinition Width="0.9*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <!-- 0 Первый ряд кнопок-->
+                    <RowDefinition Height="auto"/>
+                    <!-- 1 Второй ряд кнопок-->
+                    <RowDefinition Height="auto"/>
+                    <!-- 2 Грид со списком машин на весовой-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- 0 Первый ряд кнопок-->
+                <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                    <StackPanel Name="TaskGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+                        <Label Content="Весовая"  Style="{DynamicResource TopLabel}" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Button Name="ScrapTransportAtrrEditButton" Content="Описание машины"  Style="{DynamicResource Button}"/>
+                        
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Button Name="AddTerminalButton" Content="Поставить на терминал"  Style="{DynamicResource Button}"/>
+
+                        <Border Name="s1" Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Button Name="ScrapMoveToBdm1Button" Content="Отправить на БДМ1"  Style="{DynamicResource Button}"/>
+                        
+                        <Border Name="s2" Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Button Name="MoveToCastContainerButton" Content="Отправить на ЦЛТ"  Style="{DynamicResource Button}"/>
+
+                        <Border Name="s3" Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Button Name="ScrapTransportScanBarcodeButton" Content="Сканировать ШК"  Style="{DynamicResource Button}"/>
+
+                        <Border Name="s4" Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Label Content="За сколько недель:" Style="{DynamicResource TopLabel}" />
+
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <TextBox  Name="EditNumberOfWeek" Text="1" Style="{DynamicResource FormFieldDigit}" MaxLength="2" MinWidth="20" MaxWidth="20" TextWrapping="NoWrap" />
+                        
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                        <CheckBox x:Name="ScrapTransportAudDeleteCheckBox" Content="Удаленные" Checked="ScrapTransportAudDeleteCheckBox_Checked" Unchecked="ScrapTransportAudDeleteCheckBox_Unchecked" Style="{DynamicResource CheckBoxTopPanel}" IsEnabled="True" IsChecked="False" />
+
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <CheckBox x:Name="ScrapTransportWeightAllCheckBox" Content="Все" Checked="ScrapTransportWeightAllCheckBox_Checked" Unchecked="ScrapTransportWeightAllCheckBox_Unchecked" Style="{DynamicResource CheckBoxTopPanel}" IsEnabled="True" IsChecked="False" />
+
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <CheckBox x:Name="ScrapTransportReturningCheckBox" Content="Возврат/хранение" Checked="ScrapTransportReturningCheckBox_Checked" Unchecked="ScrapTransportReturningCheckBox_Unchecked" Style="{DynamicResource CheckBoxTopPanel}" IsEnabled="True" IsChecked="False" />
+
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                      
+                        <CheckBox x:Name="ScrapTransportPolyAlCheckBox" Content="ПЭС" Checked="ScrapTransportPolyAlCheckBox_Checked" Unchecked="ScrapTransportPolyAlCheckBox_Unchecked" Style="{DynamicResource CheckBoxTopPanel}" IsEnabled="True" IsChecked="False" />
+
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <CheckBox x:Name="ScrapTransportChemistryCheckBox" Content="Химия" Checked="ScrapTransportChemistryCheckBox_Checked" Unchecked="ScrapTransportChemistryCheckBox_Unchecked" Style="{DynamicResource CheckBoxTopPanel}" IsEnabled="True" IsChecked="False" />
+                        
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <CheckBox x:Name="ScrapTransportDidntArriveCheckBox" Content="Не приехали" Checked="ScrapTransportDidntArriveCheckBox_Checked" Unchecked="ScrapTransportDidntArriveCheckBox_Unchecked" Style="{DynamicResource CheckBoxTopPanel}" IsEnabled="True" IsChecked="False" />
+       
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <!--Информация о пожаре-->
+                        <Border Grid.Column="1" Style="{DynamicResource DataGridMainHolder}" >
+                            <TextBlock Name="FireStatus" Visibility="Visible" Text="Тестовое сообщение о пожаре на БДМ" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" FontWeight="SemiBold" />
+                        </Border>
+                    </StackPanel>
+                </Grid>
+
+                <!-- 0 Первый ряд кнопок Пожар-->
+                <Grid Grid.Row="0" Grid.Column="1" Style="{DynamicResource GridControlPanel}">
+                    <StackPanel Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Right"  >
+                        <TextBlock Name="CurrentMacine" Text="БДМ2" VerticalAlignment="Bottom" FontSize="20" FontWeight="Bold" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Button Name="FireButton" Content="Пожар"  Style="{DynamicResource Button}"/>
+                    </StackPanel>
+                </Grid>
+
+                <!-- 1 Второй ряд кнопок-->
+                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource GridControlPanel}">
+                    <StackPanel Name="TaskGridToolbar2" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+
+                        <Button Name="ScrapTransportPopupMenuButton" Content="Добавить"  Style="{DynamicResource Button}">
+                            <Button.ContextMenu>
+                                <ContextMenu Name="BurgerMenu">
+                                    <MenuItem Header="Машина с макулатурой" Name="ScrapTransportAddButton"       Click="ScrapTransportAddButton_Click"   />
+                                    <MenuItem Header="Машина за ПЭС"        Name="ScrapTransportPolyalAddButton" Click="ScrapTransportPolyalAddButton_Click"   />
+                                </ContextMenu>
+                            </Button.ContextMenu>
+                        </Button>
+
+                        <Border Name="s10" Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Button Name="ScrapTransportEditButton" Content="Изменить"  Style="{DynamicResource Button}"/>
+
+                        <Border Name="s11"  Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Button Name="ScrapTransportRefreshButton" Content="Обновить 60" Width="90" Style="{DynamicResource Button}" Click="ScrapTransportRefreshButton_Click"/>
+
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                        <TextBox Style="{DynamicResource FormFieldTopPanel}" MinWidth="100" MaxWidth="150"  TextWrapping="NoWrap" Name="EditScrapTransportFilterSearchBox" Text=""  />
+
+                        <Border Name="s5" Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Button Name="ScrapTransportFileButton" Content="Файлы"  Style="{DynamicResource Button}"/>
+
+                        <Border Name="s6" Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Button Name="ScrapBaleMapBdm1Button" Content="Карта склада БДМ1"  Style="{DynamicResource Button}"/>
+
+                        <Border Name="s7" Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Button Name="ButtonScrapBaleMapButton" Content="Карта склада БДМ2"  Style="{DynamicResource Button}"/>
+
+                        <Border Name="s8" Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Button Name="CastContainerMapButton" Content="Карта склада ЦЛТ"  Style="{DynamicResource Button}"/>
+
+                        <Border Name="s13" Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Button Name="ScrapBaleInfoButton" Content="Информация по ячейкам"  Style="{DynamicResource Button}"/>
+
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Button Name="ScrapBaleBdm2Button" Content="Заполнение складов БДМ"  Style="{DynamicResource Button}"/>
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Button Name="SetupButton" Content="Настройка" Visibility="Hidden" Style="{DynamicResource Button}"/>
+                    </StackPanel>
+                </Grid>
+
+                <!-- 2 Грид со списком машин на весовой-->
+                <Border Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="ScrapTransportWeightGrid" />
+                </Border>
+
+                <!-- 2 Грид со списком удаленных машин на весовой-->
+                <Border Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="ScrapTransportDeleteWeightGrid" Visibility="Hidden" />
+                </Border>
+
+
+                <Border Grid.Row="2" Grid.Column="0"  Grid.ColumnSpan="2" Height="100"  VerticalAlignment="Top" Panel.ZIndex="10">
+                    <controls:SplashControl x:Name="SplashControl"/>
+                </Border>
+
+            </Grid>
+
+            <!-- 1 Терминалы В работе-->
+            <Grid Grid.Row="1"  Grid.Column="0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <!-- 0 Первый ряд кнопок-->
+                    <RowDefinition Height="auto"/>
+                    <!-- 1 Гриды-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                    <StackPanel Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+                        <Label Content="Терминалы"  Style="{DynamicResource TopLabel}" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Button Name="SetPlaceButton" Content="Назначить ячейку"  Style="{DynamicResource Button}"/>
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Button Name="ClearTerminalButton" Content="Открепить машину"  Style="{DynamicResource Button}"/>
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <CheckBox x:Name="ScrpTerminalWorkingFlagCheckBox" Visibility="Hidden" Content="Использовать закрытые терминалы" Checked="ScrapTransportWeightAllCheckBox_Checked" Unchecked="ScrapTransportWeightAllCheckBox_Unchecked" Style="{DynamicResource CheckBoxTopPanel}" IsEnabled="True" IsChecked="False" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    </StackPanel>
+                </Grid>
+
+                <!-- 2 Грид со списком терминалов-->
+                <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="ScrpTerminalGrid" />
+                </Border>
+
+                <Grid Grid.Row="0" Grid.Column="2" Style="{DynamicResource GridControlPanel}">
+                    <StackPanel Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+                        <Label Content="В работе"  Style="{DynamicResource TopLabel}" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Button Name="ScrapBaleMoveButton" Content="Переместить кипы"  Style="{DynamicResource Button}"/>
+
+                        <Border Name="s12"  Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Button Name="RollMoveButton" Content="Переместить рулоны"  Style="{DynamicResource Button}"/>
+
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Button Name="ScrapBaleIntoProductionButton" Content="Списать"  Style="{DynamicResource Button}"/>
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Button Name="ScrapCurrentDeleteButton" Content="Удалить"  Style="{DynamicResource Button}"/>
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Button Name="PrihodPolyAlButton" Content="Приход ПЭС"  Style="{DynamicResource Button}"/>
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Button Name="RachodPolyAlButton" Content="Расход ПЭС"  Style="{DynamicResource Button}"/>
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        
+                        <!--<Label Name="CountPolyalPlace" Content="Количество кип ПЭС в ячейке:" Style="{DynamicResource TopLabel}" Visibility="Collapsed" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <TextBox  Name="QtyPolyAlTextBox" Text="31" Style="{DynamicResource FormFieldDigit}" Visibility="Collapsed"  MaxLength="2" MinWidth="20" MaxWidth="20" TextWrapping="NoWrap"/>
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                        <CheckBox x:Name="ControlPostavshicCategoryCheckBox" Content="Контроль категории макулатуры" Visibility="Collapsed"  Checked="ControlPostavshicCategoryCheckBox_Checked" Unchecked="ControlPostavshicCategoryCheckBox_Unchecked" Style="{DynamicResource CheckBoxTopPanel}" IsEnabled="True" IsChecked="False" />-->
+                        
+                    </StackPanel>
+                </Grid>
+
+                <!-- 2 Грид в работе-->
+                <Border Grid.Row="1" Grid.Column="2" Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="ScrapCurrentGrid" />
+                </Border>
+            </Grid>
+
+            <!-- 2 Задание на макулатуру -->
+            <Grid x:Name="Zadanie" Grid.Row="2"  Grid.Column="0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <!-- 0 Первый ряд кнопок-->
+                    <RowDefinition Height="auto"/>
+                    <!-- 1 Гриды-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                    <StackPanel Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+                        <Label Content="Задания на макулатуру"  Style="{DynamicResource TopLabel}" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Button Name="ScrapPzAddButton" Content="Добавить"  Style="{DynamicResource Button}"/>
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Button Name="ScrapPzEditButton" Content="Изменить"  Style="{DynamicResource Button}"/>
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Button Name="ScrapPzDeleteButton" Content="Удалить"  Style="{DynamicResource Button}"/>
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Button Name="ScrapPzMoveButton" Content="Перенос заданий"  Style="{DynamicResource Button}"/>
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Button Name="ScrapPzlRefreshButton" Content="Обновить 300" Width="100" Click="ScrapPzlRefreshButton_Click" Style="{DynamicResource Button}"/>
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Label Content="Смена"  Style="{DynamicResource TopLabel}" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <controls:SelectBox x:Name="SmenaSelectBox" SelectedItemChanged="SmenaSelectBox_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" ListBoxMinHeight="130" Width="125" Autocomplete="False"/>
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                        
+                        <CheckBox x:Name="WastePaperCheckBox" Content="Макулатура"  Checked="WastePaperCheckBox_Checked" Unchecked="WastePaperCheckBox_Unchecked" Style="{DynamicResource CheckBoxTopPanel}" IsEnabled="True" IsChecked="True" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <CheckBox x:Name="TetraPakBox" Content="ТетраПак"  Checked="TetraPakBox_Checked" Unchecked="TetraPakBox_Unchecked" Style="{DynamicResource CheckBoxTopPanel}" IsEnabled="True" IsChecked="True" />
+             
+                    </StackPanel>
+                </Grid>
+
+                <!-- 2 Грид со списком терминалов-->
+                <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="ScrapPzGrid" />
+                </Border>
+
+                <Grid Grid.Row="0" Grid.Column="2" Style="{DynamicResource GridControlPanel}">
+                    <StackPanel Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+                        <Label Content="История изменений композиции"  Style="{DynamicResource TopLabel}" />
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>                    
+                        <Button Name="ScrapPzNoteEditButton" Content="Композиция" Style="{DynamicResource Button}"/>
+                    </StackPanel>
+                </Grid>
+
+                <!-- 2 Грид в работе-->
+                <Border Grid.Row="1" Grid.Column="2" Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="ScrapPzLogGrid" />
+                </Border>
+            </Grid>
+
+        </Grid>
+    </Border>
+
+</controls:ControlBase>

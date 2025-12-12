@@ -1,0 +1,80 @@
+﻿<controls:ControlBase x:Class="Client.Interfaces.Shipments.DriverListKshExpected"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Shipments"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             
+             mc:Ignorable="d" 
+             d:DesignWidth="1600" d:DesignHeight="800"  
+            Style="{DynamicResource UserControlCanvas}"  >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                    <Button Name="RefreshButton"  Content="Обновить"  Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <Button Name="ChoiceDriverButton"  Content="Выбрать" Style="{DynamicResource FButtonPrimary}"  />
+                    <Button Name="CancelButton"  Content="Отмена"  Style="{DynamicResource Button}"  />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                    
+                    <Button Name="EditDriverButton"  Content="Изменить" Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                    <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="SearchText" Text=""/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                    
+                    <controls:SelectBox  x:Name="ShipmentTypeSelectBox" SelectedItemChanged="Types_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" ListBoxMinHeight="110" Width="120" Autocomplete="False" />
+                    <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                    
+                    <Button Name="ExportToExcelButton"  Content="В Excel" Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                    <Button Name="HelpButton" ToolTip="Документация" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Margin="0,0,0,0" />
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="0">
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="DriverGrid" />
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="0" Height="100" VerticalAlignment="Top" HorizontalAlignment="Center" Panel.ZIndex="10">
+                <controls:SplashControl x:Name="SplashControl"/>
+            </Grid>
+        </Grid>
+    </Border>
+</controls:ControlBase>

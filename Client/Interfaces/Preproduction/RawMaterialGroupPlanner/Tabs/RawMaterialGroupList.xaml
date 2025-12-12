@@ -1,0 +1,769 @@
+﻿<UserControl x:Class="Client.Interfaces.Preproduction.RawMaterialGroupList"
+    xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"    
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+
+    mc:Ignorable="d" 
+    d:DesignWidth="1900" d:DesignHeight="800"  
+    Style="{DynamicResource UserControlCanvas}"  >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="11.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="GridTkListToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                            <Button Name="GetButton"    Content="Получить данные"  Style="{DynamicResource Button}" Click="GetButton_Click"   />
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                            <Button Name="SaveButton" Tag="access_mode_full_access"    Content="Сохранить"  Style="{DynamicResource Button}" Click="SaveButton_Click" ToolTip="Сохранить информацию по заблокированным сырьевым группам"  />
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                            
+                            <Button Name="RecalculateButton"    Content="Пересчитать"  Style="{DynamicResource Button}" Click="RecalculateButton_Click"   />
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                            <Button Name="HelpButton" ToolTip="Документация" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click"  Margin="0,0,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Border Grid.Row="1" Margin="0,0,0,1" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+            <ScrollViewer Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+                
+                    <Grid Name="MainGrid" ShowGridLines="False">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="180"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" BorderBrush="Black" BorderThickness="1,0,1,2">
+                            <TextBlock Text="Группа/Формат" Style="{DynamicResource DIGridHeader}"/>
+                        </Border>
+                        <Border Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch">
+                            <Grid Name="HeaderGrid" Style="{DynamicResource DIGrid}" HorizontalAlignment="Stretch">
+
+                            </Grid>
+                        </Border>
+
+
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource DIBorderGridHeaderDate}" > 
+                            <TextBlock Name="FirstGridHeader" Style="{DynamicResource DIGridHeader}"/>
+                        </Border>
+                        <Grid Grid.Column="1" Grid.Row="1" Name="FirstGrid" Style="{DynamicResource DIGrid}" HorizontalAlignment="Stretch">
+
+                        </Grid>
+
+
+                    <Border Grid.Column="2" Grid.Row="0" Style="{DynamicResource DIBorderGridHeaderDate}">
+                            <TextBlock Name="SecondGridHeader" Style="{DynamicResource DIGridHeader}"/>
+                        </Border>
+                        <Grid Grid.Column="2" Grid.Row="1" Name="SecondGrid" Style="{DynamicResource DIGrid}">
+
+                        </Grid>
+
+                    <Border Grid.Column="3" Grid.Row="0" Style="{DynamicResource DIBorderGridHeaderDate}">
+                            <TextBlock Name="ThirdGridHeader" Style="{DynamicResource DIGridHeader}"/>
+                        </Border>
+                        <Grid Grid.Column="3" Grid.Row="1" Name="ThirdGrid" Style="{DynamicResource DIGrid}">
+
+                        </Grid>
+
+                    <Border Grid.Column="4" Grid.Row="0" Style="{DynamicResource DIBorderGridHeaderDate}">
+                            <TextBlock Name="FourthGridHeader" Style="{DynamicResource DIGridHeader}"/>
+                        </Border>
+                        <Grid Grid.Column="4" Grid.Row="1" Name="FourthGrid" Style="{DynamicResource DIGrid}">
+
+                        </Grid>
+
+                    <Border Grid.Column="5" Grid.Row="0" Style="{DynamicResource DIBorderGridHeaderDate}">
+                            <TextBlock Name="FifthGridHeader" Style="{DynamicResource DIGridHeader}"/>
+                        </Border>
+                        <Grid Grid.Column="5" Grid.Row="1" Name="FifthGrid" Style="{DynamicResource DIGrid}">
+
+                        </Grid>
+
+                    <Border Grid.Column="6" Grid.Row="0" Style="{DynamicResource DIBorderGridHeaderDate}">
+                            <TextBlock Name="SixthGridHeader" Style="{DynamicResource DIGridHeader}"/>
+                        </Border>
+                        <Grid Grid.Column="6" Grid.Row="1" Name="SixthGrid" Style="{DynamicResource DIGrid}">
+
+                        </Grid>
+
+                    <Border Grid.Column="7" Grid.Row="0" Style="{DynamicResource DIBorderGridHeaderDate}">
+                            <TextBlock Name="SeventhGridHeader" Style="{DynamicResource DIGridHeader}"/>
+                        </Border>
+                        <Grid Grid.Column="7" Grid.Row="1" Name="SeventhGrid" Style="{DynamicResource DIGrid}">
+
+                        </Grid>
+
+                    </Grid>
+                
+            </ScrollViewer>
+
+            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" Name="GridProgressContainer" Visibility="Collapsed" Panel.ZIndex="10">
+                <controls:ProgressControl x:Name="GridProgress" Caption="Загрузка" />
+            </Grid>
+
+            <!--
+            <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Name="GridSplash" Visibility="Collapsed" Panel.ZIndex="10" >
+                <Border Background="#99ffffff">
+                    <Border Margin="0,60,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#ffdedede" Width="350" Height="100" Background="#ffffffff">
+                        <StackPanel Orientation="Vertical" >
+                            <TextBlock HorizontalAlignment="Center" Margin="0,25,0,0" Foreground="#ff000000">Загрузка</TextBlock>
+                            <ProgressBar Name="PositionGridSplashProgress" IsIndeterminate="True"  Minimum="0" Maximum="30" Value="0" Width="200" Height="15" Foreground="#ff0C79CA" Margin="0,10,0,0" />
+                        </StackPanel>
+                    </Border>
+                </Border>
+            </Grid>
+            -->
+            
+            <!--
+            <Grid Grid.Row="2"  Grid.Column="0">
+                <Border Style="{DynamicResource DataGridMainHolder}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        
+
+                        <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Группа/Форм фактор" HorizontalAlignment="Center" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+
+                        <Border Grid.Column="0" Grid.Row="1" Margin="0,0,1,0">
+
+                           
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="6*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Column="0" Grid.Row="0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Border Grid.Column="0" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="1,1,1,0">
+                                            <TextBlock Name="FirstTopTextBlock" Text="12345" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+
+                                        <Border Grid.Column="0" Grid.Row="1" BorderBrush="#ffcccccc" BorderThickness="1,1,1,1">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+
+                                                <Border Grid.Column="0" Grid.Row="0">
+                                                    <TextBlock Name="FirstLeftTextBlock" Text="12345" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+
+                                                <Border Grid.Column="1" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="1,0,0,0">
+                                                    <TextBlock Name="FirstRightTextBlock" Text="12345" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+
+
+                                                <Border Grid.Column="0" Grid.Row="1">
+                                                    <TextBlock Name="FirstLeftTextBlock2" Text="12345" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+
+                                                <Border Grid.Column="1" Grid.Row="1" BorderBrush="#ffcccccc" BorderThickness="1,0,0,0">
+                                                    <TextBlock Name="FirstRightTextBlock2" Text="12345" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+
+                                <Border Grid.Column="1" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="0,1,1,1">
+                                    <CheckBox Name="FirstCheckBox" HorizontalAlignment="Center" Click="FirstCheckBox_Click" Style="{DynamicResource FormCheckBox}" IsChecked="{Binding Path=CheckBoxChecked}" />
+                                </Border>
+
+                            </Grid>
+
+                        </Border>
+
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Понедельник" HorizontalAlignment="Center" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                        
+                        <Border Grid.Column="1" Grid.Row="1" Margin="0,0,1,0">
+                            <ListBox Name="FirstListBox" HorizontalContentAlignment="Stretch">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="6*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Border Grid.Column="0" Grid.Row="0">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <Border Grid.Column="0" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="1,1,1,0">
+                                                        <TextBlock Name="FirstTopTextBlock" Text="{Binding Path=TopText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+
+                                                    <Border Grid.Column="0" Grid.Row="1" BorderBrush="#ffcccccc" BorderThickness="1,1,1,1">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"/>
+                                                                <RowDefinition Height="*"/>
+                                                            </Grid.RowDefinitions>
+
+                                                            <Border Grid.Column="0" Grid.Row="0">
+                                                                <TextBlock Name="FirstOrderTextBlock" Text="{Binding Path=OrderText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="1" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="1,0,0,0">
+                                                                <TextBlock Name="FirstStockTextBlock" Text="{Binding Path=StockText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="0" Grid.Row="1">
+                                                                <TextBlock Name="FirstCMTextBlock" Text="{Binding Path=CMText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="1" Grid.Row="1" BorderBrush="#ffcccccc" BorderThickness="1,0,0,0">
+                                                                <TextBlock Name="FirstBDMTextBlock" Text="{Binding Path=BDMText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </Grid>
+                                                    </Border>
+                                                </Grid>
+                                            </Border>
+
+                                            <Border Grid.Column="1" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="0,1,1,1">
+                                                <CheckBox Name="FirstCheckBox" HorizontalAlignment="Center" Click="FirstCheckBox_Click" Style="{DynamicResource FormCheckBox}" IsChecked="{Binding Path=CheckBoxChecked}" />
+                                            </Border>
+
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Border>
+                        
+                        <Border Grid.Column="2" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Вторник" HorizontalAlignment="Center" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+
+                        <Border Grid.Column="2" Grid.Row="1" Margin="0,0,1,0">
+                            <ListBox Name="SecondListBox" HorizontalContentAlignment="Stretch">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="6*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Border Grid.Column="0" Grid.Row="0">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <Border Grid.Column="0" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="1,1,1,0">
+                                                        <TextBlock Name="SecondTopTextBlock" Text="{Binding Path=TopText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+
+                                                    <Border Grid.Column="0" Grid.Row="1" BorderBrush="#ffcccccc" BorderThickness="1,1,1,1">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"/>
+                                                                <RowDefinition Height="*"/>
+                                                            </Grid.RowDefinitions>
+
+                                                            <Border Grid.Column="0" Grid.Row="0">
+                                                                <TextBlock Name="SecondOrderTextBlock" Text="{Binding Path=OrderText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="1" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="1,0,0,0">
+                                                                <TextBlock Name="SecondStockTextBlock" Text="{Binding Path=StockText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="0" Grid.Row="1">
+                                                                <TextBlock Name="SecondCMTextBlock" Text="{Binding Path=CMText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="1" Grid.Row="1" BorderBrush="#ffcccccc" BorderThickness="1,0,0,0">
+                                                                <TextBlock Name="SecondBDMTextBlock" Text="{Binding Path=BDMText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </Grid>
+                                                    </Border>
+                                                </Grid>
+                                            </Border>
+
+                                            <Border Grid.Column="1" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="0,1,1,1">
+                                                <CheckBox Name="SecondCheckBox" Click="SecondCheckBox_Click" HorizontalAlignment="Center" Style="{DynamicResource FormCheckBox}" IsChecked="{Binding Path=CheckBoxChecked}"/>
+                                            </Border>
+
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Border>
+
+                        <Border Grid.Column="3" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Среда" HorizontalAlignment="Center" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+
+                        <Border Grid.Column="3" Grid.Row="1" Margin="0,0,1,0">
+                            <ListBox Name="ThirdListBox" HorizontalContentAlignment="Stretch">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="6*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Border Grid.Column="0" Grid.Row="0">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <Border Grid.Column="0" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="1,1,1,0">
+                                                        <TextBlock Name="ThirdTopTextBlock" Text="{Binding Path=TopText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+
+                                                    <Border Grid.Column="0" Grid.Row="1" BorderBrush="#ffcccccc" BorderThickness="1,1,1,1">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"/>
+                                                                <RowDefinition Height="*"/>
+                                                            </Grid.RowDefinitions>
+
+                                                            <Border Grid.Column="0" Grid.Row="0">
+                                                                <TextBlock Name="ThirdOrderTextBlock" Text="{Binding Path=OrderText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="1" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="1,0,0,0">
+                                                                <TextBlock Name="ThirdStockTextBlock" Text="{Binding Path=StockText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="0" Grid.Row="1">
+                                                                <TextBlock Name="ThirdCMTextBlock" Text="{Binding Path=CMText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="1" Grid.Row="1" BorderBrush="#ffcccccc" BorderThickness="1,0,0,0">
+                                                                <TextBlock Name="ThirdBDMTextBlock" Text="{Binding Path=BDMText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </Grid>
+                                                    </Border>
+                                                </Grid>
+                                            </Border>
+
+                                            <Border Grid.Column="1" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="0,1,1,1">
+                                                <CheckBox Name="ThirdCheckBox" Click="ThirdCheckBox_Click"  HorizontalAlignment="Center" Style="{DynamicResource FormCheckBox}" IsChecked="{Binding Path=CheckBoxChecked}"/>
+                                            </Border>
+
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Border>
+
+                        <Border Grid.Column="4" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Четверг" HorizontalAlignment="Center" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                        
+                        <Border Grid.Column="4" Grid.Row="1" Margin="0,0,1,0">
+                            <ListBox Name="FourthListBox" HorizontalContentAlignment="Stretch">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="6*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Border Grid.Column="0" Grid.Row="0">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <Border Grid.Column="0" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="1,1,1,0">
+                                                        <TextBlock Name="FourthTopTextBlock" Text="{Binding Path=TopText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+
+                                                    <Border Grid.Column="0" Grid.Row="1" BorderBrush="#ffcccccc" BorderThickness="1,1,1,1">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"/>
+                                                                <RowDefinition Height="*"/>
+                                                            </Grid.RowDefinitions>
+
+                                                            <Border Grid.Column="0" Grid.Row="0">
+                                                                <TextBlock Name="FourthOrderTextBlock" Text="{Binding Path=OrderText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="1" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="1,0,0,0">
+                                                                <TextBlock Name="FourthStockTextBlock" Text="{Binding Path=StockText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="0" Grid.Row="1">
+                                                                <TextBlock Name="FourthCMTextBlock" Text="{Binding Path=CMText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="1" Grid.Row="1" BorderBrush="#ffcccccc" BorderThickness="1,0,0,0">
+                                                                <TextBlock Name="FourthBDMTextBlock" Text="{Binding Path=BDMText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </Grid>
+                                                    </Border>
+                                                </Grid>
+                                            </Border>
+
+                                            <Border Grid.Column="1" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="0,1,1,1">
+                                                <CheckBox Name="FourthCheckBox" Click="FourthCheckBox_Click"  HorizontalAlignment="Center" Style="{DynamicResource FormCheckBox}" IsChecked="{Binding Path=CheckBoxChecked}"/>
+                                            </Border>
+
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Border>
+
+                        <Border Grid.Column="5" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Пятница" HorizontalAlignment="Center" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                        
+                        <Border Grid.Column="5" Grid.Row="1" Margin="0,0,1,0">
+                            <ListBox Name="FifthListBox" HorizontalContentAlignment="Stretch">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="6*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Border Grid.Column="0" Grid.Row="0">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <Border Grid.Column="0" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="1,1,1,0">
+                                                        <TextBlock Name="FifthTopTextBlock" Text="{Binding Path=TopText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+
+                                                    <Border Grid.Column="0" Grid.Row="1" BorderBrush="#ffcccccc" BorderThickness="1,1,1,1">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"/>
+                                                                <RowDefinition Height="*"/>
+                                                            </Grid.RowDefinitions>
+
+                                                            <Border Grid.Column="0" Grid.Row="0">
+                                                                <TextBlock Name="FifthOrderTextBlock" Text="{Binding Path=OrderText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="1" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="1,0,0,0">
+                                                                <TextBlock Name="FifthStockTextBlock" Text="{Binding Path=StockText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="0" Grid.Row="1">
+                                                                <TextBlock Name="FifthCMTextBlock" Text="{Binding Path=CMText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="1" Grid.Row="1" BorderBrush="#ffcccccc" BorderThickness="1,0,0,0">
+                                                                <TextBlock Name="FifthBDMTextBlock" Text="{Binding Path=BDMText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </Grid>
+                                                    </Border>
+                                                </Grid>
+                                            </Border>
+
+                                            <Border Grid.Column="1" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="0,1,1,1">
+                                                <CheckBox Name="FifthCheckBox" Click="FifthCheckBox_Click"  HorizontalAlignment="Center" Style="{DynamicResource FormCheckBox}" IsChecked="{Binding Path=CheckBoxChecked}"/>
+                                            </Border>
+
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Border>
+
+                        <Border Grid.Column="6" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Суббота" HorizontalAlignment="Center" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                        
+                        <Border Grid.Column="6" Grid.Row="1" Margin="0,0,1,0">
+                            <ListBox Name="SixthListBox" HorizontalContentAlignment="Stretch">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="6*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Border Grid.Column="0" Grid.Row="0">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <Border Grid.Column="0" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="1,1,1,0">
+                                                        <TextBlock Name="SixthTopTextBlock" Text="{Binding Path=TopText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+
+                                                    <Border Grid.Column="0" Grid.Row="1" BorderBrush="#ffcccccc" BorderThickness="1,1,1,1">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"/>
+                                                                <RowDefinition Height="*"/>
+                                                            </Grid.RowDefinitions>
+
+                                                            <Border Grid.Column="0" Grid.Row="0">
+                                                                <TextBlock Name="SixthOrderTextBlock" Text="{Binding Path=OrderText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="1" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="1,0,0,0">
+                                                                <TextBlock Name="SixthStockTextBlock" Text="{Binding Path=StockText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="0" Grid.Row="1">
+                                                                <TextBlock Name="SixthCMTextBlock" Text="{Binding Path=CMText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="1" Grid.Row="1" BorderBrush="#ffcccccc" BorderThickness="1,0,0,0">
+                                                                <TextBlock Name="SixthBDMTextBlock" Text="{Binding Path=BDMText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </Grid>
+                                                    </Border>
+                                                </Grid>
+                                            </Border>
+
+                                            <Border Grid.Column="1" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="0,1,1,1">
+                                                <CheckBox Name="SixthCheckBox" Click="SixthCheckBox_Click"  HorizontalAlignment="Center" Style="{DynamicResource FormCheckBox}" IsChecked="{Binding Path=CheckBoxChecked}"/>
+                                            </Border>
+
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Border>
+
+                        <Border Grid.Column="7" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Воскресенье" HorizontalAlignment="Center" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+
+                        <Border Grid.Column="7" Grid.Row="1" Margin="0,0,1,0">
+                            <ListBox Name="SeventhListBox" HorizontalContentAlignment="Stretch">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+
+                                                <ColumnDefinition Width="6*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Border Grid.Column="0" Grid.Row="0">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <Border Grid.Column="0" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="1,1,1,0">
+                                                        <TextBlock Name="SeventhTopTextBlock" Text="{Binding Path=TopText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+
+                                                    <Border Grid.Column="0" Grid.Row="1" BorderBrush="#ffcccccc" BorderThickness="1,1,1,1">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"/>
+                                                                <RowDefinition Height="*"/>
+                                                            </Grid.RowDefinitions>
+
+                                                            <Border Grid.Column="0" Grid.Row="0">
+                                                                <TextBlock Name="SeventhOrderTextBlock" Text="{Binding Path=OrderText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="1" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="1,0,0,0">
+                                                                <TextBlock Name="SeventhStockTextBlock" Text="{Binding Path=StockText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="0" Grid.Row="1">
+                                                                <TextBlock Name="SeventhCMTextBlock" Text="{Binding Path=CMText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <Border Grid.Column="1" Grid.Row="1" BorderBrush="#ffcccccc" BorderThickness="1,0,0,0">
+                                                                <TextBlock Name="SeventhBDMTextBlock" Text="{Binding Path=BDMText}" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </Grid>
+                                                    </Border>
+                                                </Grid>
+                                            </Border>
+
+                                            <Border Grid.Column="1" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="0,1,1,1">
+                                                <CheckBox Name="SeventhCheckBox" Click="SeventhCheckBox_Click"  HorizontalAlignment="Center" Style="{DynamicResource FormCheckBox}" IsChecked="{Binding Path=CheckBoxChecked}"/>
+                                            </Border>
+
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Border>
+
+                    </Grid>
+                </Border>
+            </Grid>
+            -->
+        </Grid>
+    </Border>
+</UserControl>

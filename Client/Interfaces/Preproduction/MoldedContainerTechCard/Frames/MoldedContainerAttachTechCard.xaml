@@ -1,0 +1,81 @@
+﻿<controls:ControlBase 
+    x:Class="Client.Interfaces.Preproduction.MoldedContainerAttachTechCard"
+    xmlns:local="clr-namespace:Client.Interfaces.Sources"
+    xmlns:lib="clr-namespace:Client.Common"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"             
+    
+    mc:Ignorable="d"
+    
+    d:DesignWidth="800" d:DesignHeight="250" 
+    Width="800" Height="400"
+    Style="{DynamicResource UserControlCanvas}"
+    HorizontalAlignment="Left" VerticalAlignment="Top"     
+    >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource FormContainerHolder}" Margin="5">
+        <Grid Style="{DynamicResource FormContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Style="{DynamicResource FormControlPanel}">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Column="0" Name="FormToolbar" Style="{DynamicResource FormHeaderButtonsPanel}">
+                        <Button Name="SelectButton" Content="Выбрать"  Tag="Select" Style="{DynamicResource FButtonPrimary}" />
+                        <Button Name="CancelButton" Content="Отмена" Tag="Close" Style="{DynamicResource Button}"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormVerticalPanelSpacer}"></Border>
+            <Border Grid.Row="2" Style="{DynamicResource DataGridMainHolder}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Style="{DynamicResource GridControlPanel}" Height="24" VerticalAlignment="Top">
+                        <StackPanel Name="TechCardsToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                            <Label Content="Фильтр:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Name="TechCardsGridSearch" Style="{DynamicResource FormFieldTopPanel}" MinWidth="120" MaxWidth="180"  TextWrapping="NoWrap"  Text=""/>
+                        </StackPanel>
+                    </Grid>
+                    <Border Grid.Row="1" Style="{DynamicResource DataGridMainHolder}">
+                        <controls:GridBox4 x:Name="TechCardsGrid" />
+                    </Border>
+
+                </Grid>
+            </Border>
+
+        </Grid>
+    </Border>
+    
+
+</controls:ControlBase>

@@ -1,0 +1,533 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Shipments.ShipmentShemeTwo"
+    xmlns:local="clr-namespace:Client.Interfaces.Shipments"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"    
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+
+    mc:Ignorable="d" 
+    d:DesignWidth="1600" d:DesignHeight="800" 
+    Style="{DynamicResource UserControlCanvas}"            
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="4"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="ShipmentsGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                            <Button Name="SaveShemeButton"  Tag="access_mode_full_access"  Content="Сохранить"  Style="{DynamicResource Button}" Click="SaveShemeButton_Click"   />
+                            <Button Name="BackButton"    Content="Отмена"  Style="{DynamicResource Button}" Click="BackButton_Click"  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="GetShemeButton"    Content="Загрузить сохранённую схему"  Style="{DynamicResource Button}" Click="GetShemeButton_Click"  />
+                            <Button x:Name="DemoShemeOne" Content="Автоматическая загрузка" Style="{DynamicResource Button}" Click="DemoShemeOne_Click"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button x:Name="DeleteManuallySchemeButton" Tag="access_mode_full_access" Content="Удалить ручную схему" Style="{DynamicResource Button}" Click="DeleteManuallySchemeButton_Click"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button x:Name="GetSavedSchemeImageButton" Content="Открыть сохранённую схему" ToolTip="Открыть картинку сохранённой схемы" Style="{DynamicResource Button}" Click="GetSavedSchemeImageButton_Click"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right">
+                            <Label Name="BootOrderStatusNameLabel" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Button Name="SettingsButton"    ToolTip="Настройка"   Style="{DynamicResource ButtonGlyph}" Click="SettingsButton_Click"  Margin="0,0,5,0"  >
+                                <Image Style="{DynamicResource SettingsImage}" />
+                            </Button>
+                            <Button Name="HelpButton" ToolTip="Документация" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click"  Margin="0,0,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="0">
+                <Border Style="{DynamicResource DataGridMainHolder}">
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Row="0" Grid.Column="0" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="600" MaxWidth="600"/>
+                                    <ColumnDefinition Width="600" MaxWidth="600" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="450"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <!--Таблица с поддонами-->
+                                <Grid Grid.Row="0"  Grid.Column="0" Grid.RowSpan="2">
+                                    <Border Style="{DynamicResource DataGridMainHolder}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+
+                                            <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" Height="32">
+                                                <StackPanel  Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                                                    <Button Name="PlaceButton"    Content="Разместить"  Style="{DynamicResource Button}" Click="PlaceButton_Click"   />
+                                                    <Button Name="DeletePalleteButton"    Content="Удалить крайний поддон"  Style="{DynamicResource Button}" Click="DeletePalleteButton_Click"   />
+                                                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                                                    <Button Name="ClearButton"    Content="Сбросить"  Style="{DynamicResource Button}" Click="ClearButton_Click"   />
+                                                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                                                    <Button Name="TestShemeButton"    Content="Проверить схему"  Style="{DynamicResource Button}" Click="TestShemeButton_Click"  />
+                                                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                                </StackPanel>
+                                            </Border>
+
+                                            <Grid Grid.Row="1" Grid.Column="0">
+                                                <Border  Style="{DynamicResource DataGridMainHolder}" >
+                                                    <controls:GridBox x:Name="Grid"  />
+                                                </Border>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+
+                                <!-- вьюпорт -->
+                                <!-- Фура -->
+                                <Border Grid.Row="0" Grid.Column="1" Width="600" Height="450" BorderBrush="#dedede" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                    <Viewport3D x:Name="myViewport3D" >
+                                        <Viewport3D.Camera>
+                                            <!--Установка камеры - ортоганальная проекция-->
+                                            <OrthographicCamera x:Name="myCamera" FarPlaneDistance="40000" Width="15000"/>
+                                        </Viewport3D.Camera>
+                                        <Viewport3D.Children>
+                                            <ModelVisual3D>
+                                                <ModelVisual3D.Content>
+                                                    <DirectionalLight x:Name="L1" Color="#999999" Direction="-1,-1,-1"  />
+                                                </ModelVisual3D.Content>
+                                            </ModelVisual3D>
+
+                                            <ModelVisual3D>
+                                                <ModelVisual3D.Content>
+                                                    <AmbientLight x:Name="L2" Color="#999999" />
+                                                </ModelVisual3D.Content>
+                                            </ModelVisual3D>
+
+                                            <ModelVisual3D x:Name="CarModelVisual3D">
+                                                <ModelVisual3D.Content >
+                                                    <GeometryModel3D >
+                                                        <GeometryModel3D.Geometry>
+                                                            <MeshGeometry3D x:Name="CarGeometry" TriangleIndices="0,1,2 0,2,3 
+                                                                                                            4,0,3 4,3,7 
+                                                                                                            4,1,0 4,5,1"/>
+                                                        </GeometryModel3D.Geometry>
+                                                        <GeometryModel3D.Material>
+                                                            <DiffuseMaterial Brush="Gray"/>
+                                                        </GeometryModel3D.Material>
+                                                    </GeometryModel3D>
+                                                </ModelVisual3D.Content>
+                                                <ModelVisual3D.Transform>
+                                                    <RotateTransform3D>
+                                                        <RotateTransform3D.Rotation>
+                                                            <AxisAngleRotation3D x:Name="rotate" Axis="0 1 0" Angle="305" />
+                                                        </RotateTransform3D.Rotation>
+                                                    </RotateTransform3D>
+                                                </ModelVisual3D.Transform>
+                                            </ModelVisual3D>
+
+                                            <ModelVisual3D x:Name="PalletsModelVisual3D">
+                                                <ModelVisual3D.Content>
+                                                    <GeometryModel3D x:Name="myGeometryModel3D">
+                                                    </GeometryModel3D>
+                                                </ModelVisual3D.Content>
+                                                <ModelVisual3D.Transform>
+                                                    <RotateTransform3D>
+                                                        <RotateTransform3D.Rotation>
+                                                            <AxisAngleRotation3D x:Name="rotate2" Axis="0 1 0" Angle="305" />
+                                                        </RotateTransform3D.Rotation>
+                                                    </RotateTransform3D>
+                                                </ModelVisual3D.Transform>
+                                            </ModelVisual3D>
+
+                                            <ContainerUIElement3D x:Name="PointContainerUIElement3D" >
+                                                <ContainerUIElement3D.Transform>
+                                                    <Transform3DGroup>
+                                                        <RotateTransform3D>
+                                                            <RotateTransform3D.Rotation>
+                                                                <AxisAngleRotation3D x:Name="rotate3" Axis="0 1 0" Angle="305" />
+                                                            </RotateTransform3D.Rotation>
+                                                        </RotateTransform3D>
+                                                    </Transform3DGroup>
+                                                </ContainerUIElement3D.Transform>
+                                            </ContainerUIElement3D>
+
+                                            <ContainerUIElement3D x:Name="NumberTextBoxContainer" Visibility="Visible">
+                                                <ContainerUIElement3D.Transform>
+                                                    <RotateTransform3D>
+                                                        <RotateTransform3D.Rotation>
+                                                            <AxisAngleRotation3D Axis="0 1 0" Angle="305"/>
+                                                        </RotateTransform3D.Rotation>
+                                                    </RotateTransform3D>
+                                                </ContainerUIElement3D.Transform>
+
+                                            </ContainerUIElement3D>
+
+                                        </Viewport3D.Children>
+                                    </Viewport3D>
+                                </Border>
+
+                                <Label x:Name="CarLable" ToolTip="Номер и размеры фургона" Grid.Row="0" Grid.Column="1" Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="70" Width="150" HorizontalContentAlignment="Right"/>
+
+                                <!-- Прицеп -->
+                                <Border x:Name="TrailerBorder" Grid.Row="0" Grid.Column="2" Width="600" Height="450" BorderBrush="#dedede" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                    <Viewport3D x:Name="TrailerViewport3D">
+                                        <Viewport3D.Camera>
+                                            <!--Установка камеры - ортоганальная проекция-->
+                                            <OrthographicCamera x:Name="TrailerCamera" FarPlaneDistance="40000" Width="15000"/>
+                                        </Viewport3D.Camera>
+                                        <Viewport3D.Children>
+
+                                            <ModelVisual3D>
+                                                <ModelVisual3D.Content>
+                                                    <DirectionalLight x:Name="TrailerL1" Color="#999999" Direction="-1,-1,-1"  />
+                                                </ModelVisual3D.Content>
+                                            </ModelVisual3D>
+
+                                            <ModelVisual3D>
+                                                <ModelVisual3D.Content>
+                                                    <AmbientLight x:Name="TrailerL2" Color="#999999" />
+                                                </ModelVisual3D.Content>
+                                            </ModelVisual3D>
+
+                                            <ModelVisual3D x:Name="TrailerModelVisual3D">
+                                                <ModelVisual3D.Content >
+                                                    <GeometryModel3D >
+                                                        <GeometryModel3D.Geometry>
+                                                            <MeshGeometry3D x:Name="TrailerGeometry" TriangleIndices="0,1,2 0,2,3 
+                                                                                                            4,0,3 4,3,7 
+                                                                                                            4,1,0 4,5,1"/>
+                                                        </GeometryModel3D.Geometry>
+                                                        <GeometryModel3D.Material>
+                                                            <DiffuseMaterial Brush="Gray"/>
+                                                        </GeometryModel3D.Material>
+                                                    </GeometryModel3D>
+                                                </ModelVisual3D.Content>
+                                                <ModelVisual3D.Transform>
+                                                    <RotateTransform3D>
+                                                        <RotateTransform3D.Rotation>
+                                                            <AxisAngleRotation3D x:Name="TrailerRotate" Axis="0 1 0" Angle="305" />
+                                                        </RotateTransform3D.Rotation>
+                                                    </RotateTransform3D>
+                                                </ModelVisual3D.Transform>
+                                            </ModelVisual3D>
+
+                                            <ModelVisual3D x:Name="TrailerPalletsModelVisual3D">
+                                                <ModelVisual3D.Content>
+                                                    <GeometryModel3D x:Name="TrailerGeometryModel3D">
+                                                    </GeometryModel3D>
+                                                </ModelVisual3D.Content>
+                                                <ModelVisual3D.Transform>
+                                                    <RotateTransform3D>
+                                                        <RotateTransform3D.Rotation>
+                                                            <AxisAngleRotation3D x:Name="TrailerRotate2" Axis="0 1 0" Angle="305" />
+                                                        </RotateTransform3D.Rotation>
+                                                    </RotateTransform3D>
+                                                </ModelVisual3D.Transform>
+                                            </ModelVisual3D>
+
+                                            <ContainerUIElement3D x:Name="TrailerPointContainerUIElement3D" >
+                                                <ContainerUIElement3D.Transform>
+                                                    <Transform3DGroup>
+                                                        <RotateTransform3D>
+                                                            <RotateTransform3D.Rotation>
+                                                                <AxisAngleRotation3D x:Name="TrailerRotate3" Axis="0 1 0" Angle="305" />
+                                                            </RotateTransform3D.Rotation>
+                                                        </RotateTransform3D>
+                                                    </Transform3DGroup>
+                                                </ContainerUIElement3D.Transform>
+                                            </ContainerUIElement3D>
+
+                                            <ContainerUIElement3D x:Name="TrailerNumberTextBoxContainer" Visibility="Visible">
+                                                <ContainerUIElement3D.Transform>
+                                                    <RotateTransform3D>
+                                                        <RotateTransform3D.Rotation>
+                                                            <AxisAngleRotation3D Axis="0 1 0" Angle="305"/>
+                                                        </RotateTransform3D.Rotation>
+                                                    </RotateTransform3D>
+                                                </ContainerUIElement3D.Transform>
+                                            </ContainerUIElement3D>
+
+                                        </Viewport3D.Children>
+                                    </Viewport3D>
+                                </Border>
+
+                                <Label x:Name="TrailerLable" ToolTip="Номер и размеры прицепа" Grid.Row="0" Grid.Column="2" Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="70" Width="150" HorizontalContentAlignment="Right"/>
+
+
+                                <!-- управление -->
+                                <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+                                    <Grid HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="5"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Border Grid.Row="0" Grid.Column="0" Width="300" Height="300" BorderBrush="#dedede" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                            <Viewport3D x:Name="PalletDemonstrationViewport3D">
+                                                <Viewport3D.Camera>
+                                                    <!--Установка камеры - ортоганальная проекция-->
+                                                    <OrthographicCamera x:Name="PalletDemonstrationCamera" FarPlaneDistance="40000" Width="5000"/>
+                                                </Viewport3D.Camera>
+                                                <Viewport3D.Children>
+                                                    <ModelVisual3D>
+                                                        <ModelVisual3D.Content>
+                                                            <DirectionalLight x:Name="PalletDemonstrationL1" Color="#999999" Direction="-1,-1,-1"  />
+                                                        </ModelVisual3D.Content>
+                                                    </ModelVisual3D>
+
+                                                    <ModelVisual3D>
+                                                        <ModelVisual3D.Content>
+                                                            <AmbientLight x:Name="PalletDemonstrationL2" Color="#999999" />
+                                                        </ModelVisual3D.Content>
+                                                    </ModelVisual3D>
+
+                                                    <ModelVisual3D x:Name="PalletDemonstrationModelVisual3D">
+                                                        <ModelVisual3D.Content>
+                                                            <GeometryModel3D>
+                                                            </GeometryModel3D>
+                                                        </ModelVisual3D.Content>
+                                                        <ModelVisual3D.Transform>
+                                                            <RotateTransform3D>
+                                                                <RotateTransform3D.Rotation>
+                                                                    <AxisAngleRotation3D Axis="0 1 0" Angle="305" />
+                                                                </RotateTransform3D.Rotation>
+                                                            </RotateTransform3D>
+                                                        </ModelVisual3D.Transform>
+                                                    </ModelVisual3D>
+
+                                                    <ContainerUIElement3D x:Name="PalletDemonstrationNumberTextBoxContainer" Visibility="Visible">
+                                                        <ContainerUIElement3D.Transform>
+                                                            <RotateTransform3D>
+                                                                <RotateTransform3D.Rotation>
+                                                                    <AxisAngleRotation3D Axis="0 1 0" Angle="305"/>
+                                                                </RotateTransform3D.Rotation>
+                                                            </RotateTransform3D>
+                                                        </ContainerUIElement3D.Transform>
+                                                    </ContainerUIElement3D>
+
+                                                </Viewport3D.Children>
+                                            </Viewport3D>
+                                        </Border>
+
+                                        <Label x:Name="PalletDemonstrationLabel" ToolTip="Размеры платформы" Grid.Row="0" Grid.Column="0" Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="50" Width="70" HorizontalContentAlignment="Right"/>
+                                        
+                                        <Border Grid.Row="0" Grid.Column="2">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+
+                                                <Grid Grid.Row="0" Grid.Column="0">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Button x:Name="CameraFirstPositionButton" Content="Камера 1" Click="CameraFirstPositionButton_Click" Style="{DynamicResource Button}"/>
+                                                        <Button x:Name="CameraSecondPositionButton" Content="Камера 2" Click="CameraSecondPositionButton_Click" Style="{DynamicResource Button}" />
+                                                        <Button x:Name="CameraThirdPositionButton" Content="Камера 3" Click="CameraThirdPositionButton_Click"  Style="{DynamicResource Button}" />
+                                                        <Button x:Name="CameraFourthPositionButton" Content="Камера 4" Click="CameraFourthPositionButton_Click"  Style="{DynamicResource Button}" />
+                                                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                                        <Button x:Name="InitButton" Content="Init" Click="InitButton_Click" Style="{DynamicResource Button}" />
+                                                        <Button x:Name="RenderButton" Content="Render" Click="RenderButton_Click" Style="{DynamicResource Button}" />
+                                                    </StackPanel>
+                                                </Grid>
+                                                
+                                                <Grid Grid.Row="1" Grid.Column="0" x:Name="PositionGrid" Margin="0,5,0,0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="auto"/>
+                                                        <ColumnDefinition Width="auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                                        <Border Style="{DynamicResource FormFieldContainer}">
+                                                            <RadioButton x:Name="TruckRadioButton" Style="{DynamicResource RadioBoxTopPanel}" Click="TruckRadioButton_Click"/>
+                                                        </Border>
+                                                        <Border Style="{DynamicResource FormLabelContainer}">
+                                                            <Label x:Name="TruckRadioButtonLable" Content="В фургоне" Style="{DynamicResource FormLabel}"  />
+                                                        </Border>
+                                                        <Border  Style="{DynamicResource FormButtonsPanelDoubleSpacer}"/>
+                                                        <Border Style="{DynamicResource FormFieldContainer}">
+                                                            <RadioButton x:Name="TrailerRadioButton" Style="{DynamicResource RadioBoxTopPanel}" Click="TrailerRadioButton_Click"/>
+                                                        </Border>
+                                                        <Border Style="{DynamicResource FormLabelContainer}">
+                                                            <Label x:Name="TrailerRadioButtonLable" Content="В прицепе" Style="{DynamicResource FormLabel}"  />
+                                                        </Border>
+                                                    </StackPanel>
+
+                                                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                                        <Border Style="{DynamicResource FormLabelContainer}">
+                                                            <Label Content="Повёрнут:" Style="{DynamicResource FormLabel}"  />
+                                                        </Border>
+                                                        <Border Style="{DynamicResource FormFieldContainer}">
+                                                            <CheckBox Name="Rotated" Style="{DynamicResource FormCheckBox}" Click="Rotated_Click"/>
+                                                        </Border>
+                                                    </StackPanel>
+
+                                                    <Border Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center">
+                                                        <Grid >
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="auto"/>
+                                                                <ColumnDefinition Width="auto"/>
+                                                                <ColumnDefinition Width="auto"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="auto"/>
+                                                                <RowDefinition Height="auto"/>
+                                                                <RowDefinition Height="auto"/>
+                                                            </Grid.RowDefinitions>
+
+                                                            <Border Grid.Row="0" Grid.Column="1" >
+                                                                <Button MaxHeight="36" MaxWidth="36" Height="36" Width="36" x:Name="UpButton" HorizontalAlignment="Center" Click="UpButton_Click" >
+                                                                    <Image Style="{DynamicResource UpImage}" />
+                                                                </Button>
+                                                            </Border>
+
+                                                            <Border Grid.Row="1" Grid.Column="0">
+                                                                <Button MaxHeight="36" MaxWidth="36" Height="36" Width="36" x:Name="LeftButton" HorizontalAlignment="Center" Click="LeftButton_Click" >
+                                                                    <Image Style="{DynamicResource LeftImage}" />
+                                                                </Button>
+                                                            </Border>
+
+                                                            <Border Grid.Row="1" Grid.Column="2">
+                                                                <Button MaxHeight="36" MaxWidth="36" Height="36" Width="36" x:Name="RigthButton" HorizontalAlignment="Center" Click="RigthButton_Click" >
+                                                                    <Image Style="{DynamicResource RightImage}" />
+                                                                </Button>
+                                                            </Border>
+
+                                                            <Border Grid.Row="2" Grid.Column="1" >
+                                                                <Button MaxHeight="36" MaxWidth="36" Height="36" Width="36" x:Name="DownButton" HorizontalAlignment="Center" Click="DownButton_Click" >
+                                                                    <Image Style="{DynamicResource DownImage}" />
+                                                                </Button>
+                                                            </Border>
+                                                        </Grid>
+                                                    </Border>
+
+                                                    <Border Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="auto"/>
+                                                                <ColumnDefinition Width="auto"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="auto"/>
+                                                                <RowDefinition Height="auto"/>
+                                                                <RowDefinition Height="auto"/>
+                                                            </Grid.RowDefinitions>
+
+                                                            <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormLabelContainer}" >
+                                                                <Label Content="Х координата:"    Style="{DynamicResource FormLabel}"  />
+                                                            </Border>
+                                                            <Border Grid.Row="0"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}" >
+                                                                <TextBox  Name="LeftCoordinateTextBox" Width="45" TextWrapping="NoWrap" Style="{DynamicResource FormField}" TextChanged="Left_TextChanged"/>
+                                                            </Border>
+
+                                                            <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormLabelContainer}" >
+                                                                <Label Content="У координата:"    Style="{DynamicResource FormLabel}" />
+                                                            </Border>
+                                                            <Border Grid.Row="1"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}" >
+                                                                <TextBox  Name="TopCoordinateTextBox" Width="45" TextWrapping="NoWrap" Style="{DynamicResource FormField}" TextChanged="Top_TextChanged"/>
+                                                            </Border>
+
+                                                            <Border Grid.Row="2" Grid.Column="0" Style="{DynamicResource FormLabelContainer}" >
+                                                                <Label Content="Шаг перемещения:"    Style="{DynamicResource FormLabel}" />
+                                                            </Border>
+                                                            <Border Grid.Row="2"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}" >
+                                                                <TextBox  Name="StepOfMovementCoordinateTextBox" Width="45" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                                                            </Border>
+                                                        </Grid>
+                                                    </Border>
+
+                                                    <Border Grid.Row="3" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                                                        <Button Content="ОК" Width="70" Name="OKButton" Style="{DynamicResource Button}" HorizontalAlignment="Right" Click="OKButton_Click"/>
+                                                    </Border>
+
+                                                    <Border Grid.Row="4" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                                                        <Button Content="Отменить" Width="70" Name="CancelPlaceButton" Style="{DynamicResource Button}" HorizontalAlignment="Right" Click="CancelPlaceButton_Click"/>
+                                                    </Border>
+
+                                                    <Border Grid.Row="5"  Grid.Column="0" Grid.ColumnSpan="3" Style="{DynamicResource FormFieldContainer}" >
+                                                        <TextBlock  Name="FormStatus" TextWrapping="Wrap" Height="40" TextAlignment="Left" Style="{DynamicResource FStatusBar}" HorizontalAlignment="Stretch" />
+                                                    </Border>
+
+                                                </Grid>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                                
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+
+</UserControl>

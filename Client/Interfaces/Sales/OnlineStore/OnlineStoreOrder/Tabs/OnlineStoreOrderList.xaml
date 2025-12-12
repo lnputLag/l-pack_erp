@@ -1,0 +1,141 @@
+﻿<controls:ControlBase
+    x:Class="Client.Interfaces.Sales.OnlineStoreOrderList"
+    xmlns:local="clr-namespace:Client.Interfaces.Sales"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"    
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+
+    mc:Ignorable="d" 
+    d:DesignWidth="1600" d:DesignHeight="800"  
+    Style="{DynamicResource UserControlCanvas}"  >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="11.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                            <Button Name="ResreshButton"    Content="Обновить"  Style="{DynamicResource Button}" Click="ResreshButton_Click"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="AddOrderButton" Content="Добавить" Click="AddOrderButton_Click" Tag="access_mode_full_access" Style="{DynamicResource Button}" />
+                            <Button Name="EditOrderButton" Content="Изменить" Click="EditOrderButton_Click" Tag="access_mode_full_access" IsEnabled="False" Style="{DynamicResource Button}" />
+                            <Button Name="DeleteOrderButton" Content="Удалить" Click="DeleteOrderButton_Click" Tag="access_mode_full_access" IsEnabled="False"  Style="{DynamicResource Button}" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+
+                            <Button Name="CancelApplicationButton" Content="Отменить заявку" Click="CancelApplicationButton_Click" Tag="access_mode_full_access" Style="{DynamicResource Button}" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="SearchText" Text=""/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <controls:SelectBox x:Name="StatusSelectBox" SelectedItemChanged="StatusSelectBox_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" ListBoxMinHeight="110" Width="165" Autocomplete="False"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <controls:SelectBox x:Name="ShippingPointSelectBox" SelectedItemChanged="ShippingPointSelectBox_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" ListBoxMinHeight="80" Width="120" Autocomplete="False"/>
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                            <Button Name="ExcelButton" Content="В Excel"  Style="{DynamicResource Button}" Click="ExcelButton_Click"   />
+                            <Button Name="CustomerExcelReportButton" Content="Отчёт по КА"  Style="{DynamicResource Button}" Click="CustomerExcelReportButton_Click"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                            <Button Name="SettingsButton"    ToolTip="Настройка"   Style="{DynamicResource ButtonGlyph}" Click="SettingsButton_Click"  Margin="0,0,5,0"  >
+                                <Image Style="{DynamicResource SettingsImage}" />
+                                <Button.ContextMenu>
+                                    <ContextMenu Name="BurgerMenu">
+                                        <MenuItem Header="Настройка печати" Name="BurgerPrintSettings" Click="BurgerPrintSettings_Click"  Background="#ffffff" />
+                                    </ContextMenu>
+                                </Button.ContextMenu>
+                            </Button>
+                            <Button Name="HelpButton" ToolTip="Документация" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click"  Margin="0,0,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="0">
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="OrderGrid" />
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="0" Height="100" VerticalAlignment="Top" Panel.ZIndex="10">
+                <controls:SplashControl x:Name="SplashControl"/>
+            </Grid>
+
+            <Grid Grid.Row="2" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+
+                            <Button Name="AddPositionButton" Content="Добавить" Click="AddPositionButton_Click" Tag="access_mode_full_access" Style="{DynamicResource Button}" />
+                            <Button Name="EditPositionButton" Content="Изменить" Click="EditPositionButton_Click" Tag="access_mode_full_access" IsEnabled="False" Style="{DynamicResource Button}" />
+                            <Button Name="DeletePositionButton" Content="Удалить" Click="DeletePositionButton_Click" Tag="access_mode_full_access" IsEnabled="False" Style="{DynamicResource Button}" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+
+                            <Button Name="ReserveAllButton" Content="Забронировать поддоны" Click="ReserveAllButton_Click" Tag="access_mode_full_access" ToolTip="Забронировать все поддоны из заказа"  IsEnabled="False" Style="{DynamicResource Button}" />
+                            <Button Name="UnreserveAllButton" Content="Отменить бронирование" Click="UnreserveAllButton_Click" Tag="access_mode_full_access" ToolTip="Снать бронь со всех поддонов заказа"  IsEnabled="False" Style="{DynamicResource Button}" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+
+                            <Button Name="PositionExcelButton" Content="В Excel"  Style="{DynamicResource Button}" Click="PositionExcelButton_Click"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+
+            <Grid Grid.Row="3"  Grid.Column="0">
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="PositionGrid" />
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+
+</controls:ControlBase>

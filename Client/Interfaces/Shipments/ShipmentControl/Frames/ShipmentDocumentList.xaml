@@ -1,0 +1,135 @@
+﻿<controls:ControlBase
+    x:Class="Client.Interfaces.Shipments.ShipmentDocumentList"
+    xmlns:local="clr-namespace:Client.Interfaces.Shipments"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"    
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+
+    mc:Ignorable="d" 
+    d:DesignWidth="1600" d:DesignHeight="800"  
+    Style="{DynamicResource UserControlCanvas}"  >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="11.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                            <Button Name="ResreshButton"    Content="Обновить"  Style="{DynamicResource Button}" Click="ResreshButton_Click"   />
+                            <Button Name="CancelButton"    Content="Отмена"  Style="{DynamicResource Button}" Click="CancelButton_Click"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="PrintButton"    Content="Печать"  Style="{DynamicResource Button}" Click="PrintButton_Click"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="DeleteDocumentButton"  Tag="access_mode_full_access"  Content="Удалить накладную"  Style="{DynamicResource Button}" Click="DeleteDocumentButton_Click"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="LoadingScheneButton"    Content="Схема погрузки"  Style="{DynamicResource Button}" Click="LoadingScheneButton_Click"  />
+                            <Button Name="PrintMapButton"    Content="Карта склада"  Style="{DynamicResource Button}" Click="PrintMapButton_Click"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                            <Button Name="SettingsButton"    ToolTip="Настройка"   Style="{DynamicResource ButtonGlyph}" Click="SettingsButton_Click"  Margin="0,0,5,0"  >
+                                <Image Style="{DynamicResource SettingsImage}" />
+                                <Button.ContextMenu>
+                                    <ContextMenu Name="BurgerMenu">
+                                        <MenuItem Header="Настройка печати" Name="BurgerPrintSettings" Click="BurgerPrintSettings_Click"  Background="#ffffff" />
+                                    </ContextMenu>
+                                </Button.ContextMenu>
+                            </Button>
+                            <Button Name="HelpButton" ToolTip="Документация" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click"  Margin="0,0,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="0">
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="OrderGrid" />
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="2" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                            <Button Name="AddConsumptionButton"  Tag="access_mode_full_access"  Content="Добавить"  Style="{DynamicResource Button}" Click="AddConsumptionButton_Click"   />
+                            <Button Name="EditConsumptionButton"  Tag="access_mode_full_access"  Content="Изменить" ToolTip="Изменить позицию"  Style="{DynamicResource Button}" Click="EditConsumptionButton_Click"/>
+                            <Button Name="DeleteConsumptionButton"  Tag="access_mode_full_access"  Content="Удалить" ToolTip="Удалить позицию"  Style="{DynamicResource Button}" Click="DeleteConsumptionButton_Click"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="ConfirmSelectedConsumptionButton"  Tag="access_mode_full_access"  Content="Провести" ToolTip="Провести выбранные позиции" Style="{DynamicResource Button}" Click="ConfirmSelectedConsumptionButton_Click"/>
+                            <Button Name="UnconfirmSelectedConsumptionButton" Tag="access_mode_full_access"   Content="Отменить проведение" ToolTip="Отменить проведение выбранных позиций"  Style="{DynamicResource Button}" Click="UnconfirmSelectedConsumptionButton_Click"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+
+            <Grid Grid.Row="3"  Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="OrderPositionGrid" />
+                </Border>
+                
+                <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="PositionGrid" />
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+
+</controls:ControlBase>

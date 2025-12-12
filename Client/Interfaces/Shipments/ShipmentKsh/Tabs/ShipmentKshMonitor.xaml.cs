@@ -1,0 +1,534 @@
+﻿using Client.Common;
+using Client.Interfaces.Main;
+using GalaSoft.MvvmLight.Messaging;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Threading;
+using static DevExpress.Data.Filtering.Helpers.SubExprHelper.ThreadHoppingFiltering;
+
+namespace Client.Interfaces.Shipments
+{
+    /// <summary>
+    /// Управление отгрузками, вкладка "Монитор" площадки Кашира 
+    /// </summary>
+    /// <author>sviridov_ae</author>    
+    public partial class ShipmentKshMonitor : UserControl
+    {
+        public ShipmentKshMonitor()
+        {
+            InitializeComponent();
+
+            AutoUpdateInterval=60*5;
+            ItemsAutoUpdate=false;
+            FirstLoad=false;
+
+            Profiler=new Profiler();
+            FirstTimeLoaded=false;
+
+            ProcessPermissions();
+            SetDefaults();
+            Init();
+
+            //регистрация обработчика сообщений
+            Messenger.Default.Register<ItemMessage>(this, _ProcessMessages);
+            Central.Msg.Register(ProcessMessages);
+            
+            Loaded+=OnLoad;                        
+        }
+
+        private bool ItemsAutoUpdate{get;set;}
+        public Profiler Profiler { get;set;}
+        private bool FirstTimeLoaded { get;set;}
+        private ShipmentMonitorGrid Monitor { get; set; }
+        private List<Dictionary<string,string>> Items { get; set; }
+        private bool FirstLoad {get;set;}
+
+        /// <summary>
+        /// интервал автообновления грида
+        /// 0- автообновление отключено
+        /// (по таймеру будет вызвана коллбэк-функция DoLoadItems
+        /// </summary>
+        public int AutoUpdateInterval { get; set; }
+        public DispatcherTimer AutoUpdateTimer { get; set; }
+
+        /// <summary>
+        /// Идентификатор площадки
+        /// </summary>
+        private int FactoryId = 2;
+
+        /// <summary>
+        /// обработка правил доступа
+        /// </summary>
+        private void ProcessPermissions(string roleCode = "")
+        {
+            // Проверяем уровень доступа
+            var mode = Central.Navigator.GetRoleLevel("[erp]shipment_control_ksh");
+            var userAccessMode = mode;
+            switch (mode)
+            {
+                case Role.AccessMode.Special:
+                    break;
+
+                case Role.AccessMode.FullAccess:
+                    break;
+
+                case Role.AccessMode.ReadOnly:
+                default:
+                    break;
+            }
+
+            List<Button> buttons = UIUtil.GetVisualChilds<Button>(this.Content as DependencyObject);
+            if (buttons != null && buttons.Count > 0)
+            {
+                foreach (var button in buttons)
+                {
+                    var buttonTagList = UIUtil.GetTagList(button);
+                    var accessMode = Acl.FindTagAccessMode(buttonTagList);
+                    if (accessMode > userAccessMode)
+                    {
+                        button.IsEnabled = false;
+                    }
+                }
+            }
+        }
+
+        public void Destroy()
+        {
+            //отправляем сообщение о закрытии окна
+            Messenger.Default.Send(new ItemMessage()
+            {
+                ReceiverGroup= "ShipmentKshControl",
+                ReceiverName = "",
+                SenderName = "ShipmentKshMonitor",
+                Action = "Closed",
+            });
+
+            //отключаем обработчик сообщений
+            Messenger.Default.Unregister<ItemMessage>(this);
+            Central.Msg.UnRegister(ProcessMessages);
+
+            //останавливаем таймеры грида
+            StopAutoUpdateTimer();
+        }
+
+        private void OnLoad(object sender,RoutedEventArgs e)
+        {
+            UpdateNowMarker();
+        }
+
+        public void SetDefaults()
+        {
+            { 
+                var list = new Dictionary<string,string>();
+                list.Add("1","Все терминалы");
+                list.Add("2","Активные");
+                list.Add("3","С отгрузками");
+                
+                Terminals.Items=list;
+                Terminals.SelectedItem=list.FirstOrDefault((x)=>x.Key=="3");     
+            }
+            TodayDate.Text = DateTime.Now.ToString("dd.MM.yyyy");
+        }
+
+        /// <summary>
+        /// обработка сообщений
+        /// </summary>
+        /// <param name="message"></param>
+        public void ProcessMessages(ItemMessage message)
+        {
+            if(message!=null)
+            {
+                if(
+                    message.SenderName == "WindowManager"
+                    && message.ReceiverName == "ShipmentKshMonitor"
+                )
+                {
+                    switch (message.Action)
+                    {
+                        case "FocusGot":
+                            ItemsAutoUpdate=true;
+                            if(!FirstLoad)
+                            {
+                                LoadItems();
+                            }
+                            break;
+
+                        case "FocusLost":
+                            ItemsAutoUpdate=false;
+                            break;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// обработчик сообщений
+        /// </summary>
+        /// <param name="m"></param>
+        private void _ProcessMessages(ItemMessage m)
+        {
+        }
+
+        /// <summary>
+        /// обработчик клавиатуры
+        /// </summary>
+        public void ProcessKeyboard2()
+        {
+            var e=Central.WM.KeyboardEventsArgs;
+            switch (e.Key)
+            {
+                case Key.F5:
+                    LoadItems();
+                    e.Handled = true;
+                    break;
+
+                case Key.F1:
+                    ShowHelp();
+                    e.Handled = true;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// обработчик системы навигации по URL
+        /// </summary>
+        public void ProcessNavigation()
+        {
+
+        }
+
+        /// <summary>
+        /// обработчик клавиатуры
+        /// </summary>
+        /// <param name="m"></param>
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.F5:
+                    LoadItems();
+                    e.Handled = true;
+                    break;
+
+                case Key.F1:
+                    ShowHelp();
+                    e.Handled = true;
+                    break;
+            }
+        }
+
+        public void ShowHelp()
+        {
+            Central.ShowHelp("/doc/l-pack-erp/shipments/control/monitor");
+        }
+
+        public void Init()
+        {
+            LoadItems();
+            RunAutoUpdateTimer();
+        }
+
+        /// <summary>
+        /// получение записей
+        /// </summary>
+        public async void LoadItems()
+        {
+            if(ItemsAutoUpdate)
+            {
+                FirstLoad=true;
+
+                bool resume=true;                
+
+                if (resume)
+                {
+                    DisableControls();
+
+                    var p = new Dictionary<string, string>();
+                    //FIXME: naming
+                    p.Add("Today", TodayDate.Text);
+                    p.Add("FACTORY_ID", $"{FactoryId}");
+
+                    var q = new LPackClientQuery();
+                    q.Request.SetParam("Module", "Shipments/ShipmentKsh");
+                    q.Request.SetParam("Object","Shipment");
+                    q.Request.SetParam("Action", "ListMonitor");
+                    q.Request.SetParams(p);
+
+                    q.Request.Timeout = Central.Parameters.RequestGridTimeout;
+                    q.Request.Attempts= Central.Parameters.RequestAttemptsDefault;
+
+                    await Task.Run(() =>
+                    {
+                       q.DoQuery();
+                    });
+
+                    if(q.Answer.Status == 0)                
+                    {
+                        var result = JsonConvert.DeserializeObject<Dictionary<string, ListDataSet>>(q.Answer.Data);
+                        if (result!=null)
+                        {
+                            var ds = ListDataSet.Create(result, "ITEMS");
+                            Items=ds.Items;
+                            UpdateItems(Items);
+
+                            {
+                                var tm = Profiler.GetDelta(); 
+                                Central.Dbg($"SH:Monitor [{tm}] UpdateItems Complete");
+                            }
+
+                            UpdateNowMarker();
+
+                            {
+                                var tm = Profiler.GetDelta(); 
+                                Central.Dbg($"SH:Monitor [{tm}] UpdateNowMarker Complete");
+                            }
+                            FirstTimeLoaded=true;
+                        }
+                  
+                    }
+                }
+
+                EnableControls();
+
+            }
+        }
+
+        public void DisableControls()
+        {
+            GridToolbar.IsEnabled = false;
+            Splash.Visibility=Visibility.Visible;        
+        }
+
+        public void EnableControls()
+        {
+            GridToolbar.IsEnabled = true;
+            Splash.Visibility=Visibility.Collapsed;
+        }
+        
+        public void RunAutoUpdateTimer()
+        {
+            if(AutoUpdateInterval!=0)
+            {
+                if(AutoUpdateTimer == null)
+                {
+                    AutoUpdateTimer = new DispatcherTimer
+                    {
+                        Interval = new TimeSpan(0,0,AutoUpdateInterval)
+                    };
+
+                    {
+                        var row = new Dictionary<string, string>();
+                        row.CheckAdd("TIMEOUT", AutoUpdateInterval.ToString());
+                        row.CheckAdd("DESCRIPTION", "");
+                        Central.Stat.TimerAdd("ShipmentsMonitorKsh_RunAutoUpdateTimer", row);
+                    }
+
+                    AutoUpdateTimer.Tick += (s,e) =>
+                    {
+                        LoadItems();
+                    };
+                }
+
+                if(AutoUpdateTimer.IsEnabled)
+                {
+                    AutoUpdateTimer.Stop();
+                }
+                AutoUpdateTimer.Start();
+            }
+        }
+
+        public void StopAutoUpdateTimer()
+        {
+            if(AutoUpdateTimer != null)
+            {
+                if(AutoUpdateTimer.IsEnabled)
+                {
+                    AutoUpdateTimer.Stop();
+                }
+            }
+        }
+
+        
+        /// <summary>
+        /// При обновлении списка строк, производим перерисовку "монитора"
+        /// </summary>
+        /// <param name="items"></param>
+        private void UpdateItems(List<Dictionary<string, string>> items)
+        {
+            DisableControls();
+            
+
+            /*
+                Верстка монитора проста и бесхитростна
+                горизонтальный таймлайн:
+                -- по горизонтали: время, от 7:30 до 8 утра следующего дня
+                -- по вертикали терминалы отгрузки
+
+                ---------------------------------------------------------------------------------------------
+                | Column1                 | Column2
+                ---------------------------------------------------------------------------------------------
+                |                         | MonitorTimelineContainer
+                ---------------------------------------------------------------------------------------------
+                | MonitorHeadersContainer | MonitorDataContainer
+                |                         | 
+                ---------------------------------------------------------------------------------------------
+                |                         | MonitorDataContainerAreaScroll
+                ---------------------------------------------------------------------------------------------
+                
+
+                Column1,Column2 -- макетные, по ним определяем ширину колонок
+                MonitorTimelineContainer
+                MonitorHeadersContainer
+                MonitorDataContainer
+
+                Содержат скроллеры. Их ширина берется из Column2.
+                MonitorHeadersContainer и MonitorTimelineContainer имеют скрытые скроллбары.
+                Ширина MonitorDataContainerAreaScroll синхронизирована с MonitorTimelineContainer.
+                При прокрутке MonitorDataContainerAreaScroll, офсет прокрутки передается в 
+                MonitorTimelineContainer и MonitorDataContainer.
+
+             */
+
+            //значение фильтра: текушая или иная дата
+            var today = DateTime.Now;
+            if (!string.IsNullOrEmpty(TodayDate.Text))
+            {
+                today = TodayDate.Text.ToDateTime();
+            }
+            Central.Dbg($"Today={today.ToString()}");
+
+
+            var terminalType=1;
+            if(!string.IsNullOrEmpty(Terminals.SelectedItem.Key))
+            {
+                terminalType=Terminals.SelectedItem.Key.ToInt();
+            }
+            
+
+            //контейнеры
+            Monitor = new ShipmentMonitorGrid(today, FactoryId)
+            {
+                HeadersContainer = MonitorHeadersContainer,
+                DataContainer = MonitorDataContainer,
+                TimelineContainer = MonitorTimelineContainer,
+                ShowAll = true,
+                TerminalType =terminalType,
+            };
+
+
+            //фильтр: отобразить все терминалы (по умолчанию только те, где есть отгрузки)
+            //Monitor.TerminalType=0;
+
+            //загрузка данных и рендер
+            Monitor.Clear();
+            Monitor.LoadItems(items);
+            //Profiler.AddPoint($"LoadItems complete");
+
+            Monitor.RenderGrid();
+            //Profiler.AddPoint($"RenderGrid complete");
+
+            Monitor.RenderData();
+            //Profiler.AddPoint($"RenderData complete");
+
+            Central.Dbg($"RowsCount=[{Monitor.RowsCount}]");
+            MonitorDataContainer.Height = Monitor.RowsCount * 60;
+            MonitorHeadersContainer.Height = Monitor.RowsCount * 60;
+            MonitorContainer.Height = Monitor.RowsCount * 60;
+
+            EnableControls();
+
+        }
+
+
+        private void UpdateNowMarker()
+        {
+            //прокрутка к текущему времени
+            if (Monitor != null)
+            {
+                if (Monitor.CenterCol != 0)
+                {
+                    /*
+                        положение курсора "текущее время"+90% ширины таблицы
+                        курсор окажется у правого края
+                    */
+                    double c = Column2.ActualWidth;
+                    c *= 0.9;
+
+                    /*
+                    int offset = Monitor.CenterCol - (int)c;
+                    if (offset < 0)
+                    {
+                        offset = 0;
+                    }
+                    */
+                    int offset=Monitor.GetCenter();
+                    offset=offset-(int)c;
+                    if (offset < 0)
+                    {
+                        offset = 0;
+                    }
+                   
+                    Central.Dbg($"Scroll monitor CenterCol=[{Monitor.GetCenter()}] col2=[{c}] offset=[{offset}]");
+
+                    if(offset>120)
+                    {
+                        //MonitorScrollTo(offset);
+                    }
+                    
+                }
+            }
+        }
+
+        /// <summary>
+        /// Прокрутка к указанной позиции (пикс) блока данных
+        /// </summary>
+        /// <param name="offset"></param>
+        private void MonitorScrollTo(int offset)
+        {
+            MonitorDataContainerAreaScroll.ScrollToHorizontalOffset(offset);
+            MonitorDataContainerScroll.ScrollToHorizontalOffset(offset);
+            MonitorTimelineContainerScroll.ScrollToHorizontalOffset(offset);
+        }
+
+        /// <summary>
+        /// Синхронизация блоков прокрутки
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MonitorScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (sender == MonitorDataContainerAreaScroll)
+            {
+                MonitorDataContainerScroll.ScrollToVerticalOffset(e.VerticalOffset);
+                MonitorDataContainerScroll.ScrollToHorizontalOffset(e.HorizontalOffset);
+
+                MonitorTimelineContainerScroll.ScrollToVerticalOffset(e.VerticalOffset);
+                MonitorTimelineContainerScroll.ScrollToHorizontalOffset(e.HorizontalOffset);
+            }
+        }
+
+        private void ResreshButton_Click(object sender,RoutedEventArgs e)
+        {
+            LoadItems();
+        }
+
+        private void Terminals_SelectedItemChanged(DependencyObject d,DependencyPropertyChangedEventArgs e)
+        {
+            if(FirstTimeLoaded)
+            {
+                UpdateItems(Items);
+            }            
+        }
+
+        private void HelpButton_Click(object sender,RoutedEventArgs e)
+        {
+            ShowHelp();
+        }
+    }
+}

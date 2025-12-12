@@ -1,0 +1,240 @@
+<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports"
+              xmlns:xrbc="clr-namespace:CodeReason.Reports.Document.Barcode;assembly=CodeReason.Reports"
+             PageWidth="29.7cm"  PageHeight="21cm"  ColumnWidth="29.7cm" FontFamily="Verdana" FontSize="11" >
+    <FlowDocument.Resources>
+
+        <ResourceDictionary>
+
+            <Style x:Key="HeaderTableCell" TargetType="{x:Type TableCell}">
+                <Setter Property="Padding" Value="0.0cm,0.01cm,0.0cm,0.01cm"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="0.04cm"/>
+                <Setter Property="TextAlignment" Value="Left"/>
+            </Style>
+
+            <Style TargetType="{x:Type TableCell}">
+                <Setter Property="Padding" Value="0.0cm,0.01cm,0.0cm,0.01cm"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="0.02cm"/>
+                <Setter Property="TextAlignment" Value="Left"/>
+            </Style>
+
+        </ResourceDictionary>
+
+    </FlowDocument.Resources>
+
+    <xrd:ReportProperties >
+        <xrd:ReportProperties.ReportName>Idles</xrd:ReportProperties.ReportName>
+        <xrd:ReportProperties.ReportTitle>Список простоев</xrd:ReportProperties.ReportTitle>
+    </xrd:ReportProperties>
+
+    <xrd:SectionReportHeader PageHeaderHeight="9.3" Padding="15,15,15,0" FontFamily="Verdana" FontSize="10" Margin="0,0,0,0" >
+
+        <Table CellSpacing="0" Margin="0,0,0,10" >
+            <Table.Columns>
+                <TableColumn Width="1*" />
+                <TableColumn Width="3*" />
+                <TableColumn Width="1*" />
+            </Table.Columns>
+            <TableRowGroup>
+                <TableRow>
+                    <TableCell>
+                        <Paragraph>
+                            <xrd:InlineDocumentValue PropertyName="SystemName" /> (
+                            <xrd:InlineContextValue PropertyName="ReportName" /> )
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph FontWeight="Bold" TextAlignment="Center">
+                            <xrd:InlineDocumentValue PropertyName="Title"  />
+                            <xrd:InlineDocumentValue PropertyName="FromDate" Format="dd.MM.yyyy" /> -
+                            <xrd:InlineDocumentValue PropertyName="ToDate" Format="dd.MM.yyyy" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Right">
+                            <xrd:InlineDocumentValue PropertyName="Today" Format="dd.MM.yyyy HH:mm:ss" />
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+            </TableRowGroup>
+        </Table>
+
+        <Table CellSpacing="0" Margin="0"  >
+            <Table.Columns>
+                <!-- Станок -->
+                <TableColumn Width="4*" />
+                <!--  Смена -->
+                <TableColumn Width="2*" />
+                <!-- Начало -->
+                <TableColumn Width="7*" />
+                <!-- Конец -->
+                <TableColumn Width="7*" />
+                <!-- Время -->
+                <TableColumn Width="3*" />
+                <!-- Причина простоя -->
+                <TableColumn Width="16*" />
+                <!-- Комментарий -->
+                <TableColumn Width="12*" />
+                <!-- Ответственная служба -->
+                <TableColumn Width="3*" />
+                <!-- Комментарии технической службы -->
+                <TableColumn Width="12*" />
+            </Table.Columns>
+            <TableRowGroup >
+
+                <TableRow>
+                    <TableCell Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            Станок
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            Смена
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            Начало
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            Конец
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            Время
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            Причина простоя
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            Комментарий
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            Ответственная служба
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            Комментарии технической службы
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+            </TableRowGroup>
+        </Table>
+
+    </xrd:SectionReportHeader>
+
+    <Section BreakPageBefore="True" Margin="1.5,0,1.5,0" FontSize="10">
+
+        <Table CellSpacing="0" Margin="0" >
+            <Table.Columns>
+                <!-- Станок -->
+                <TableColumn Width="4*" />
+                <!--  Смена -->
+                <TableColumn Width="2*" />
+                <!-- Начало -->
+                <TableColumn Width="7*" />
+                <!-- Конец -->
+                <TableColumn Width="7*" />
+                <!-- Время -->
+                <TableColumn Width="3*" />
+                <!-- Причина простоя -->
+                <TableColumn Width="16*" />
+                <!-- Комментарий -->
+                <TableColumn Width="12*" />
+                <!-- Ответственная служба -->
+                <TableColumn Width="3*" />
+                <!-- Комментарии технической службы -->
+                <TableColumn Width="12*" />
+            </Table.Columns>
+
+            <TableRowGroup >
+                <xrd:TableRowForDataTable TableName="Items">
+
+                    <!-- Станок -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Left" FontSize="10">
+                            <xrd:InlineTableCellValue PropertyName="machine_name" />
+                        </Paragraph>
+                    </TableCell>
+
+                    <!--  Смена -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Left">
+                            <xrd:InlineTableCellValue PropertyName="wote_id" />
+                        </Paragraph>
+                    </TableCell>
+
+                    <!-- Начало -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Left" FontSize="10">
+                            <xrd:InlineTableCellValue PropertyName="fromdt" />
+                        </Paragraph>
+                    </TableCell>
+
+                    <!-- Конец -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Left">
+                            <xrd:InlineTableCellValue PropertyName="todt" />
+                        </Paragraph>
+                    </TableCell>
+
+                    <!-- Время -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Left">
+                            <xrd:InlineTableCellValue PropertyName="dt" />
+                        </Paragraph>
+                    </TableCell>
+
+                    <!-- Причина простоя -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Left">
+                            <xrd:InlineTableCellValue PropertyName="name" />
+                            <Run>/</Run>
+                            <xrd:InlineTableCellValue PropertyName="description" />
+                        </Paragraph>
+                    </TableCell>
+
+                    <!-- Комментарий -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Left">
+                            <xrd:InlineTableCellValue PropertyName="reason" />
+                        </Paragraph>
+                    </TableCell>
+
+                    <!-- Ответственная служба -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Left">
+                            <xrd:InlineTableCellValue PropertyName="defect_type" />
+                        </Paragraph>
+                    </TableCell>
+
+                    <!-- Комментарии технической службы -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Left">
+                            <xrd:InlineTableCellValue PropertyName="measures_taken" />
+                        </Paragraph>
+                    </TableCell>
+                </xrd:TableRowForDataTable>
+            </TableRowGroup>
+
+        </Table>
+
+    </Section>
+
+</FlowDocument>
+
+

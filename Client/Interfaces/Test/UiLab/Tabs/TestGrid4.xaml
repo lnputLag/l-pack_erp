@@ -1,0 +1,128 @@
+﻿<controls:ControlBase 
+    x:Class="Client.Interfaces.Test.TestGrid4"
+    xmlns:local="clr-namespace:Client.Interfaces.Accounts"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+
+    mc:Ignorable="d" 
+    d:DesignWidth="1024" d:DesignHeight="200" 
+    Style="{DynamicResource UserControlCanvas}"    
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="6*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}" >
+            </Grid>
+
+            <Grid Grid.Row="0"  Grid.Column="2" Style="{DynamicResource GridControlPanel}" >
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border >
+                    <Grid HorizontalAlignment="Left" Width="844" >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="AccountGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Width="770" >
+                            <Button Name="RefreshAccountsButton" Tag="account_refresh"   Content="Обновить"  Style="{DynamicResource Button}" Click="ButtonOnClick" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            
+                            <Button Name="CreateButton"  Tag="account_create"  Content="Создать"   Style="{DynamicResource Button}" Click="ButtonOnClick" />
+                            <Button Name="EditButton"    Tag="account_edit"  Content="Изменить"  Style="{DynamicResource Button}" Click="ButtonOnClick" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" MinWidth="120" MaxWidth="180"  TextWrapping="NoWrap" Name="AccountGridSearch" Text=""  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Тип:"  Style="{DynamicResource TopLabel}" />
+                            <controls:SelectBox x:Name="AccountType"   Style="{DynamicResource CustomFormField}" ListBoxMinWidth="190" ListBoxMinHeight="120"  MinWidth="80" MaxWidth="150" Autocomplete="True" VerticalAlignment="Bottom"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="2" Style="{DynamicResource GridControlPanel}">
+                <Border >
+                    <Grid >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="0*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="RoleGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Width="923"  >
+                            <TextBlock Height="24" Padding="0,4,0,0">Роли</TextBlock>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Name="RoleGridSearch" Style="{DynamicResource FormFieldTopPanel}" Width="120" MaxWidth="180" MinWidth="30" TextWrapping="NoWrap" Text=""  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            
+                            <Label Content="Группа:"  Style="{DynamicResource TopLabel}" />
+                            <controls:SelectBox x:Name="RoleGroup"   Style="{DynamicResource CustomFormField}" ListBoxMinWidth="250" ListBoxMinHeight="255"  Width="250" Autocomplete="True" VerticalAlignment="Bottom"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" Width="24" >
+                            <Button Name="HelpButton" Tag="help" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Margin="0" Click="ButtonOnClick" />
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="2"  Grid.Column="0" >
+                <Border Style="{DynamicResource DataGridMainHolder}">
+                    <controls:GridBox4 x:Name="AccountGrid" />
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="2"  Grid.Column="2" >
+                <Border Style="{DynamicResource DataGridMainHolder}">
+                    <controls:GridBox4 x:Name="RoleGrid" />
+                </Border>
+            </Grid>
+
+        </Grid>
+    </Border>
+
+</controls:ControlBase>

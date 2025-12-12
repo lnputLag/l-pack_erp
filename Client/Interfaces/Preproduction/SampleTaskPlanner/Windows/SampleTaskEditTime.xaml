@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="Client.Interfaces.Preproduction.SampleTaskEditTime"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+             Width="280" Height="70"
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid Style="{DynamicResource DataGridContainer}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0" Padding="0,0,6,0">
+                <Grid ShowGridLines="false" Grid.Row="0"  Grid.Column="0" Style="{DynamicResource FromGrid}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Время изготовления: " Style="{DynamicResource FormLabel}"  />
+                    </Border>
+                    <Border Grid.Row="0"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <TextBox Name="EstimateTime"  VerticalAlignment="Stretch" MaxLength="100" AcceptsReturn="True" Style="{DynamicResource FormField}"  />
+                    </Border>
+
+                </Grid>
+            </Border>
+            <Grid Grid.Row="1"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Right"  >
+                            <TextBlock  Name="FormStatus"  TextAlignment="Left" Style="{DynamicResource FStatusBar}" HorizontalAlignment="Stretch" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Button Name="SaveButton"   Click="Save_Click" Content="ОК"  Style="{DynamicResource FButtonPrimary}"    />
+                            <Button Name="CancelButton" Click="Cancel_Click"  Content="Отмена" Style="{DynamicResource FButtonCancel}"    />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

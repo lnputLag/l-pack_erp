@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="Client.Interfaces.Shipments.ShipmentAttributes"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+    
+    d:DesignWidth="350" d:DesignHeight="200" 
+    Width="350" Height="200"
+    Style="{DynamicResource UserControlCanvas}"
+    HorizontalAlignment="Left" VerticalAlignment="Top"    
+    >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" >
+                <Grid  HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource FromGrid}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Grid.Column="0" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0,0,5,0" Width="70">Angle1</TextBlock>
+                            <Slider Height="22" Width="160" Value="335" Minimum="0" Maximum="720"  Name="Angle1Slider" ValueChanged="Angle1Slider_ValueChanged"  Margin="0,0,0,0" />
+                            <TextBox Width="60" Name="Angle1Text" Text="335" TextChanged="Angle1Text_TextChanged"></TextBox>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="1" Grid.Column="0" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0,0,5,0" Width="70">Angle2</TextBlock>
+                            <Slider Height="22" Width="160" Value="35" Minimum="0" Maximum="180"  Name="Angle2Slider" ValueChanged="Angle2Slider_ValueChanged"  Margin="0,0,0,0" />
+                            <TextBox Width="60" Name="Angle2Text" Text="35" TextChanged="Angle2Text_TextChanged"></TextBox>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="0" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0,0,5,0" Width="70">Distance</TextBlock>
+                            <Slider Height="22" Width="160" Value="6000" Minimum="0" Maximum="30000"  Name="DistanceSlider" ValueChanged="DistanceSlider_ValueChanged"  Margin="0,0,0,0" />
+                            <TextBox Width="60" Name="DistanceText" Text="6000" TextChanged="DistanceText_TextChanged"></TextBox>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="3" Grid.Column="0"  >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0,0,5,0" Width="70">L1</TextBlock>
+                            <Slider Height="22" Width="160" Minimum="0" Maximum="255"  Name="L1IntensitySlider" ValueChanged="L1IntensitySlider_ValueChanged"  Margin="0,0,0,0" />
+                            <TextBox Width="60" Name="L1IntensityText" TextChanged="L1IntensityText_TextChanged"></TextBox>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="4" Grid.Column="0"  >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0,0,5,0" Width="70">L2</TextBlock>
+                            <Slider Height="22" Width="160" Minimum="0" Maximum="255"  Name="L2IntensitySlider" ValueChanged="L2IntensitySlider_ValueChanged"  Margin="0,0,0,0" />
+                            <TextBox Width="60" Name="L2IntensityText" TextChanged="L2IntensityText_TextChanged"></TextBox>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource DataGridMainHolder}">
+                <Grid Style="{DynamicResource GridControlPanel}">
+                    <Button Content="ОК" Name="OKButton" Style="{DynamicResource Button}" HorizontalAlignment="Right" Click="OKButton_Click"/>
+                </Grid>
+            </Border>
+
+        </Grid>
+    </Border>
+</UserControl>

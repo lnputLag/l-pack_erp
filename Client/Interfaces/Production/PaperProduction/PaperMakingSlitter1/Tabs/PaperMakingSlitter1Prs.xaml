@@ -1,0 +1,328 @@
+﻿<UserControl
+    x:Class="Client.Interfaces.Production.PmSlitter1List"
+    xmlns:local="clr-namespace:Client.Interfaces.Production"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"    
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+
+    mc:Ignorable="d" 
+    d:DesignWidth="1900" d:DesignHeight="1080"
+    Style="{DynamicResource UserControlCanvas}"             
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="0.4*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="0.45*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <!--0 Строка состояния-->
+                <RowDefinition Height="30"></RowDefinition>
+                <!--1 Текущее задание-->
+                <RowDefinition Height="45"></RowDefinition>
+                <!--2 Кнопки списка тамбуров/рулонов-->
+                <RowDefinition Height="auto"></RowDefinition>
+                <!--3 Список рулонов-->
+                <RowDefinition Height="380"></RowDefinition>
+
+                <!--4 Кнопки данных рулонов-->
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition  Height="5"></RowDefinition>
+                <!-- 6 Журнал-->
+                <RowDefinition  Height="*"></RowDefinition>
+                <RowDefinition  Height="5"></RowDefinition>
+            </Grid.RowDefinitions>
+
+
+            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Текущее ПЗ-->
+                <Border Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" >
+
+                    <TextBlock  Text="Текущее задание на ПРС" FontWeight="Bold"  FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" ></TextBlock>
+                </Border>
+                <!--Информация о пожаре-->
+                <Border Grid.Column="1" Style="{DynamicResource DataGridMainHolder}" >
+                    <TextBlock Name="FireStatus" Text="Сообщение о пожаре на БДМ1" Foreground="Red" VerticalAlignment="Center" FontSize="20" FontWeight="SemiBold" />
+                </Border>
+            </Grid>
+
+            <StackPanel Grid.Row="0"  Grid.Column="2" Grid.ColumnSpan="3"  Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Right" >
+                <!--<TextBlock Name="InfoDuty" Text="Дежурный СА:"  VerticalAlignment="Bottom" FontSize="20" FontWeight="Bold" />-->
+                <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                <TextBlock Name="CurrentMacine" Text="БДМ1"  VerticalAlignment="Bottom" FontSize="20" FontWeight="Bold" />
+                <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                <TextBlock Name="CurrentTime" Text="08:00"  VerticalAlignment="Bottom" FontSize="20" FontWeight="Bold" />
+                <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                <Button Name="FireAlarmButton" MinWidth="60" Content="Пожар" Margin="0" Style="{DynamicResource ButtonFire}" Click="FireAlarmButton_Click" />
+                <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                <Button Name="BurgerMenuButton" ToolTip="Настройка" Style="{DynamicResource ButtonGlyph}" Click="BurgerMenuButton_Click" Margin="0,0,5,0" >
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" >
+                        <Border >
+                            <Image Style="{DynamicResource SettingsImage}"  />
+                        </Border>
+                    </StackPanel>
+                    <Button.ContextMenu >
+                        <ContextMenu Name="BurgerMenu">
+                            <MenuItem Header="Настройка печати" Name="BurgerPrintSettings" FontSize="18" Height="32" Click="BurgerPrintSettings_Click"  FontWeight="SemiBold" Background="#ffffff" />
+                            <MenuItem Header="Информация" Name="InfoMenu"    Click="InfoMenu_Click"    FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold" />
+                            <MenuItem Header="Обновить"   Name="RestartMenu" Click="RestartMenu_Click" FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold" />
+                            <Separator />
+                            <MenuItem Header="Выход"      Name="ExitMenu"    Click="ExitMenu_Click"    FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold" />
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+
+                <Button Name="HelpButton" MinWidth="24" Content="?" Margin="0" Style="{DynamicResource Button}" Click="HelpButton_Click"  />
+            </StackPanel>
+
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" >
+                <!--Текущее ПЗ-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="85"/>
+                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="175"/>
+                    <ColumnDefinition Width="170"/>
+                    <ColumnDefinition Width="170"/>
+                    <ColumnDefinition Width="700"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition  Height="1.4*"></RowDefinition>
+                    <RowDefinition  Height="2*"></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <!--внешний контур-->
+                <Border  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="14" Grid.RowSpan="2"  Style="{DynamicResource CustomHolder}" BorderThickness="1" BorderBrush="Silver" Padding="0" VerticalAlignment="Stretch" >
+                </Border>
+                <TextBlock FontSize="16" FontWeight="SemiBold" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" >№ задания</TextBlock>
+                <TextBlock FontSize="16" FontWeight="SemiBold" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >Марка</TextBlock>
+                <TextBlock FontSize="16" FontWeight="SemiBold" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" >Вес</TextBlock>
+                <TextBlock FontSize="16" FontWeight="SemiBold" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" >Диаметр</TextBlock>
+                <TextBlock FontSize="16" FontWeight="SemiBold" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" >Формат</TextBlock>
+                <TextBlock FontSize="16" FontWeight="SemiBold" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" >Задание/Выполнено/Осталось</TextBlock>
+                <TextBlock FontSize="16" FontWeight="SemiBold" Grid.Row="0" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center" >Сумма (т.)</TextBlock>
+                <TextBlock FontSize="16" FontWeight="SemiBold" Grid.Row="0" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center" >Скорость</TextBlock>
+                <TextBlock FontSize="16" FontWeight="SemiBold" Grid.Row="0" Grid.Column="8" HorizontalAlignment="Center" VerticalAlignment="Center" >Закончить</TextBlock>
+                <TextBlock FontSize="16" FontWeight="SemiBold" Grid.Row="0" Grid.Column="9" HorizontalAlignment="Center" VerticalAlignment="Center" >Примечание</TextBlock>
+
+                <TextBlock Name="V0" FontSize="18" FontWeight="SemiBold" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,0,0,0">7843/</TextBlock>
+                <TextBlock Name="V1" FontSize="18" FontWeight="SemiBold" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">Б0</TextBlock>
+                <TextBlock Name="V2" FontSize="18" FontWeight="SemiBold" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">90</TextBlock>
+                <TextBlock Name="V3" FontSize="18" FontWeight="SemiBold" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">1260</TextBlock>
+                <TextBlock Name="V4" FontSize="18" FontWeight="SemiBold" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">2800</TextBlock>
+                <TextBlock Name="V7" FontSize="18" FontWeight="SemiBold" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">5 / 3 / 2</TextBlock>
+                <TextBlock Name="V10" FontSize="18" FontWeight="SemiBold" Grid.Row="1" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">20,30</TextBlock>
+                <TextBlock Name="V11" FontSize="18" FontWeight="SemiBold" Grid.Row="1" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">1000</TextBlock>
+                <TextBlock Name="V12" FontSize="18" FontWeight="SemiBold" Grid.Row="1" Grid.Column="8" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">ПТ 15:40</TextBlock>
+                <TextBlock Name="V13" FontSize="18" FontWeight="SemiBold" Grid.Row="1" Grid.Column="9" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"> КАППА РУС АО; ПОЛИГРАФИЯ-СЛАВЯНКА ООО</TextBlock>
+            </Grid>
+
+            <!--Кнопки данных по тамбурам/рулонам-->
+            <Grid Grid.Row="2"  Grid.Column="0" Name="Toolbar" Grid.ColumnSpan="6" Style="{DynamicResource GridControlPanel}">
+                <Border >
+                    <StackPanel Name="ToolbarRolls" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+                        <Button IsEnabled="True" Name="RefreshButton"  Content="Обновить 40"  Width="100" Style="{DynamicResource Button}" Click="RefreshButton_Click" />
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                        <Label Content="Дней:" Style="{DynamicResource TopLabel}" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <TextBox  Name="NumberDay" Text="1" Style="{DynamicResource FormFieldDigit}" MaxLength="2" MinWidth="20" MaxWidth="20" TextWrapping="NoWrap"   IsKeyboardFocusedChanged="NumberDay_IsKeyboardFocusedChanged" />
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                        <CheckBox Name="HideComplete" Content="Все рулоны" Click="ShowAllComplete_Click" Style="{DynamicResource CheckBoxTopPanel}"  />
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                        <Button  Name="PrintLabelButton"  Content="Печать ярлыка"  Style="{DynamicResource Button}" Click="PrintLabelButton_Click"  IsEnabled="False"/>
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                        <StackPanel Name="NewRollsPanel" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  IsEnabled="False" >
+                            <Button  Name="OnPrsButton"  Content="Поставить на ПРС"  Style="{DynamicResource Button}" Click="OnPrsButton_Click"  IsEnabled="False"/>
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                            <Button  Name="OffPrsButton"  Content="Снять с ПРС"  Style="{DynamicResource Button}" Click="OffPrsButton_Click"  IsEnabled="False"/>
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                            <Label Content="№:" Style="{DynamicResource TopLabel}" />
+                            <TextBox  Name="NumberRoll" Text="1" Style="{DynamicResource FormFieldDigit}" MaxLength="2" MinWidth="20" MaxWidth="20" TextWrapping="NoWrap"  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Label Content="Количество:" Style="{DynamicResource TopLabel}" />
+                            <TextBox  Name="CountRoll" Text="1" Style="{DynamicResource FormFieldDigit}" MaxLength="2" MinWidth="20" MaxWidth="20" TextWrapping="NoWrap"  />
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                            <Button  Name="NewRollButton"  Content="Создать рулоны"  Style="{DynamicResource Button}" Click="NewRollButton_Click"  IsEnabled="False"/>
+                        </StackPanel>
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                        <Button  Name="RollBreakageButton"  Content="Обрыв"  Style="{DynamicResource Button}" Click="RollBreakageButton_Click" IsEnabled="True" />
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                        <Button  Name="RollDeleteButton"  Content="Удалить рулон"  Style="{DynamicResource Button}" Click="RollDeleteButton_Click" IsEnabled="False" />
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                        <Button  Name="LogButton"  Content="Настройки"  Style="{DynamicResource Button}" Click="LogButton_Click" />
+                    </StackPanel>
+                </Border>
+
+            </Grid>
+
+            <!--Список тамбуров/рулонов-->
+            <Border Grid.Row="3"  Grid.Column="0" Grid.ColumnSpan="5" Style="{DynamicResource DataGridMainHolder}" >
+                <controls:GridBox4 x:Name="RollsGrid" />
+            </Border>
+
+            <!--Журнал и отладка-->
+            <Grid Grid.Row="6"  Grid.Column="0" Name="LogPanel" Grid.ColumnSpan="3"  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.4*"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition  Height="*"></RowDefinition>
+
+                </Grid.RowDefinitions>
+
+                <!--журнал лога-->
+                <Border  Grid.Column="0" Grid.Row="0"  Style="{DynamicResource CustomHolder}" Padding="0" VerticalAlignment="Stretch"  >
+                    <TextBox Name="Log" AcceptsReturn="True" HorizontalAlignment="Stretch" BorderThickness="0" Foreground="#ff555555"  FontFamily="consolas" FontSize="16" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" TextWrapping="Wrap" />
+                </Border>
+
+                <!--кнопки для управления логом-->
+                <Border   Grid.Column="2"  Grid.Row="0" Style="{DynamicResource CustomHolder}"  Padding="0" VerticalAlignment="Stretch"  >
+                    <StackPanel   Orientation="Vertical"  >
+                        <!--торцевой принтер-->
+                        <GroupBox  x:Name="GroupBoxOut" Header="Торцевой принтер" Margin="5" Padding="5" VerticalAlignment="Top">
+                            <StackPanel  Orientation="Horizontal"  >
+                                <Button  Name="PrepareDataInsidePrinterButton"  Content="Данные на принтер"  Style="{DynamicResource Button}" Click="PrepareDataInsidePrinterButton_Click" />
+                                <Button  Name="StartToInsidePrinterButton"  Content="Напечатать"  Style="{DynamicResource Button}" Click="StartToInsidePrinterButton_Click" IsEnabled="False" />
+                                <CheckBox Name="AutoPrint" Content="Автом. печать" IsChecked="True"  Style="{DynamicResource CheckBoxTopPanel}"  />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!--лог кнопки-->
+                        <GroupBox  x:Name="GroupBoxLog" Header="Логирование" Margin="5" Padding="5" VerticalAlignment="Top">
+                            <StackPanel  Orientation="Horizontal"  >
+                                <Button  Name="ClearLogButton"  Content="Очистить лог"  Style="{DynamicResource Button}" Click="ClearLogButton_Click" />
+                                <Button  Name="SaveLogButton"  Content="Сохранить"  Style="{DynamicResource Button}" Click="SaveLogButton_Click" />
+                                <CheckBox Name="LogEnable" Content="Вести лог" IsChecked="False"  Style="{DynamicResource CheckBoxTopPanel}"  />
+                                <Button  Name="TestButton" Content="Тест"  Style="{DynamicResource Button}" Click="TestButton_Click" />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <TextBox  Name="WeightRollCur" Visibility="Collapsed" Text="" Style="{DynamicResource FormFieldDigit}" MaxLength="6" MinWidth="50" MaxWidth="50" TextWrapping="NoWrap"  IsReadOnly="True" />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!--разное-->
+                        <GroupBox  x:Name="GroupBoxSetup" Header="Разное" Margin="5" Padding="5" VerticalAlignment="Top">
+                            <StackPanel  Orientation="Vertical"  >
+                                <CheckBox Name="PrintPreviewEnable" Content="Просмотр перед печатью ярлыка" IsChecked="False"  Style="{DynamicResource CheckBoxTopPanel}"  />
+                                <CheckBox Name="ArrivialConfirmation" Content="Оприходовать с подтверждением" IsChecked="False"  Style="{DynamicResource CheckBoxTopPanel}"  />
+                                <CheckBox Name="PrintAlternative" Content="Альтернативная печать" IsChecked="False"  Style="{DynamicResource CheckBoxTopPanel}"  />
+                                <CheckBox Name="ComPortEnable" Content="Включить Com порт" Visibility="Hidden" IsChecked="False" Click="ComPortEnable_Checked" Style="{DynamicResource CheckBoxTopPanel}"  />
+                            </StackPanel>
+                        </GroupBox>
+
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Кнопки установки данных по рулону-->
+            <Grid Grid.Row="6"  Grid.Column="4" Name="SettingPanel"  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition  Height="40"></RowDefinition>
+                    <RowDefinition  Height="40"></RowDefinition>
+                    <RowDefinition  Height="40"></RowDefinition>
+                    <RowDefinition  Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="3" Grid.Column="0"  Height="100" VerticalAlignment="Top" HorizontalAlignment="Center" Panel.ZIndex="10">
+                    <controls:SplashControl x:Name="SplashControl"/>
+                </Grid>
+
+                <!--внешний бордюр-->
+                <Border  Grid.Column="0" Grid.Row="0"  Grid.RowSpan="4"  Style="{DynamicResource CustomHolder}" BorderThickness="1" BorderBrush="Silver" Padding="0" VerticalAlignment="Stretch" >
+                </Border>
+
+                <Border  Grid.Column="0" Grid.Row="0"  Style="{DynamicResource DataGridMainHolder}"  >
+                    <StackPanel  Name="RollSettingPanel" Orientation="Horizontal"  Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" IsEnabled="False" Margin="10,0,0,0" >
+                        <Label Content="Длина" Style="{DynamicResource TopLabel}" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <TextBox  Name="LenRoll" Text="" GotFocus="LenRoll_GotFocus"  Style="{DynamicResource FormFieldDigit}" MaxLength="5" MinWidth="50" MaxWidth="50" TextWrapping="NoWrap"  />
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                        
+                        <Label Content="Диаметр" Style="{DynamicResource TopLabel}" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <TextBox  Name="DiameterRoll" Text="" GotFocus="LenRoll_GotFocus" Style="{DynamicResource FormFieldDigit}" MaxLength="5" MinWidth="50" MaxWidth="50" TextWrapping="NoWrap"  />
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                        
+                        <Label Content="Формат" Style="{DynamicResource TopLabel}" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <TextBox  Name="FormatRoll" Text="" GotFocus="LenRoll_GotFocus" Style="{DynamicResource FormFieldDigit}" MaxLength="4" MinWidth="40" MaxWidth="40" TextWrapping="NoWrap"  />
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                        
+                        <Label Content="Съем №" Style="{DynamicResource TopLabel}" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <TextBox  Name="SegmentRoll" Text="" GotFocus="LenRoll_GotFocus" Style="{DynamicResource FormFieldDigit}" MaxLength="2" MinWidth="20" MaxWidth="20" TextWrapping="NoWrap"  />
+
+                    </StackPanel>
+                </Border>
+
+                <Border  Grid.Column="0" Grid.Row="1"  Style="{DynamicResource DataGridMainHolder}"  >
+                    <StackPanel  Name="RollSettingPanel2" Orientation="Horizontal"  Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Margin="10,0,0,0" >
+                        <Button  Name="WeightButton"  Content="Вес"  Style="{DynamicResource Button}" Click="WeightButton_Click"  />
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                        <Label Content="Брутто" Style="{DynamicResource TopLabel}" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <TextBox  Name="WeightRoll" Text="" GotFocus="LenRoll_GotFocus" Style="{DynamicResource FormFieldDigit}" MaxLength="5" MinWidth="40" MaxWidth="40" TextWrapping="NoWrap"  TextChanged="WeightRoll_TextChanged" />
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                        <Label Content="Нетто" Style="{DynamicResource TopLabel}" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <TextBox  Name="WeightNettoRoll" Text="" Style="{DynamicResource FormFieldDigit}" MaxLength="5" MinWidth="40" MaxWidth="40" TextWrapping="NoWrap"  IsReadOnly="True" />
+                    </StackPanel>
+                </Border>
+
+                <Border  Grid.Column="0" Grid.Row="2"  Style="{DynamicResource DataGridMainHolder}"  >
+                    <StackPanel  Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Margin="10,0,0,0" >
+                        <Button  Name="RollSetButton"  Content="Установить данные рулона"  Style="{DynamicResource Button}" Click="RollSetButton_Click" IsEnabled="False" />
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                        <Button  Name="RollArrivialButton"  Content="Оприходовать рулон"  Style="{DynamicResource Button}" Click="RollArrivialButton_Click"  IsEnabled="False"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!--картинка с пожаром-->
+            <Border Grid.Row="1" Grid.Column="0"  Grid.RowSpan="9" Grid.ColumnSpan="7" Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image x:Name="FireAlarmImage" Style="{DynamicResource FireAlarmImage}" Width="auto" Height="auto" Visibility="Collapsed"  MouseDown="FireAlarmImage_MouseDown"  />
+            </Border>
+
+        </Grid>
+    </Border>
+
+</UserControl>

@@ -1,0 +1,1552 @@
+﻿<controls:ControlBase  
+    x:Class="Client.Interfaces.Preproduction.TechnologicalMap"
+    xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+    xmlns:lib="clr-namespace:Client.Common"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"             
+    
+    mc:Ignorable="d"
+    
+    d:DesignWidth="1920" d:DesignHeight="1080" 
+
+    
+    Style="{DynamicResource UserControlCanvas}"
+    VerticalAlignment="Top">
+
+    <!--
+    
+    d:DesignWidth="1500" d:DesignHeight="850" 
+    
+    Width="1500" Height="850"
+    -->
+
+    <!--
+    d:DesignWidth="1400" d:DesignHeight="800"
+    Width="640" Height="800"
+    -->
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Style="{DynamicResource DataGridContainer}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0"  Style="{DynamicResource GridControlPanel}" Margin="0,5,0,5">
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" Name="FormToolbar">
+                        <Button Content="Сохранить" Tag="access_mode_full_access" Name="SaveButton" Style="{DynamicResource FButtonPrimary}" ToolTip="Сохранить/пересохранить и закрыть"/>
+                        <Button Content="Применить" Tag="access_mode_full_access" Name="EditButton" Style="{DynamicResource Button}" ToolTip="Сохранить/пересохранить без закрытия"/>
+                        <Button Content="Отмена"    Name="CancelButton" Style="{DynamicResource Button}" ToolTip="Закрывает окно без сохранения"/>
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Button Content="(Демо)" Name="DemoButton" Style="{DynamicResource Button}" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Right" >
+                        <Button Visibility="Visible" Name="HelpButton" ToolTip="Документация" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click"  Margin="0,0,0,0" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="1" Grid.Column="0"  Style="{DynamicResource FormVerticalPanelSpacer}" Margin="0,5,0,5"/>
+
+        <Grid Grid.Row="2" Grid.Column="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="304 px"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="304 px"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="285.2 px"/>
+                <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/> <!--<ColumnDefinition Width="260 px"/>-->
+                <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/> <!--<ColumnDefinition Width="260 px"/>-->
+                <ColumnDefinition Width="auto"/>
+                <!--<ColumnDefinition Width="164 px"/>-->
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3">
+                <Grid Style="{DynamicResource FromGrid}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="304 px"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="304 px"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!--1.Общие для первой решётки-->
+                    <Border Grid.Row="0" Grid.Column="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="7*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Покупатель :" Style="{DynamicResource FormLabel}" />
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox  x:Name="TkGridClient" Style="{DynamicResource CustomFormField}" Autocomplete="True" HorizontalAlignment="Stretch"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Вид изделия :" Style="{DynamicResource FormLabel}" />
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="1" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox  x:Name="TkGridTypeProduct" Style="{DynamicResource CustomFormField}" Autocomplete="False" HorizontalAlignment="Stretch" ListBoxMinWidth="250"/>
+                            </Border>
+
+                            <Border Name="www" Tag="partition_assembled partition_not_assembled not_boxed not_for_sheet_ream" Grid.Column="0" Grid.Row="2" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Вид исполнения :" Style="{DynamicResource FormLabel}" />
+                            </Border>
+                            <Border Tag="partition_assembled partition_not_assembled not_boxed not_for_sheet_ream" Grid.Column="1" Grid.Row="2" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox  x:Name="TkGridTypeExecution" Style="{DynamicResource CustomFormField}" Autocomplete="True" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+                            </Border>
+                            <Border Grid.Column="0" Grid.Row="3" Style="{DynamicResource FormLabelContainer}">
+                                <TextBlock Text="Артикул :" TextDecorations="Underline"  Name="LabelArticul" MouseDown="LabelArticul_MouseDown" Padding="0,0,0,0" Margin="10,0,7,0" HorizontalAlignment="Right" VerticalAlignment="Top" ToolTip="При нажатии получает артикул"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="3" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkGridNumberFirst"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" Style="{DynamicResource FormField}" IsReadOnly="True"/>
+                            </Border>
+
+                            <Border Tag="partition_not_assembled not_for_sheet_ream" Grid.Column="0" Grid.Row="4" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Артикул :" Style="{DynamicResource FormLabel}" />
+                            </Border>
+                            <Border Tag="partition_not_assembled not_for_sheet_ream" Grid.Column="1" Grid.Row="4" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkGridNumberSecond"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" Style="{DynamicResource FormField}" IsReadOnly="True"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+                    <!--Размеры и просечки Первой решётки-->
+                    <Border Grid.Row="2" Grid.Column="0">
+                        <Grid Style="{DynamicResource FromGrid}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!--Резмеры для первой решётки-->
+                            <Border Grid.Row="0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="7*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Border Tag="partition_assembled partition_not_assembled" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource FormLabelContainer}">
+                                        <Label Content="Размеры решётки 1 :" Style="{DynamicResource FormLabel}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                                    </Border>
+                                    <Border Tag="gasket_pack gasket_stack partition_single"  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource FormLabelContainer}">
+                                        <Label Content="Размеры :" Style="{DynamicResource FormLabel}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                                    </Border>
+
+                                    <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                                        <Label Content="Длина :" Style="{DynamicResource FormLabel}" />
+                                    </Border>
+                                    <Border Grid.Column="1" Grid.Row="1" Style="{DynamicResource FormFieldContainer}">
+                                        <TextBox Name="TkGridLengthFirst" Width="120" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                                    </Border>
+                                    <Border Tag="gasket_stack gasket_pack sheet_ream" Grid.Row="2" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                                        <Label Content="Ширина :" Style="{DynamicResource FormLabel}"/>
+                                    </Border>
+                                    <Border Grid.Column="0" Grid.Row="2" Tag="partition_assembled partition_not_assembled partition_single not_for_sheet_ream" Style="{DynamicResource FormLabelContainer}">
+                                        <Label Content="Высота :" Style="{DynamicResource FormLabel}" />
+                                    </Border>
+                                    <Border Grid.Column="1" Grid.Row="2" Style="{DynamicResource FormFieldContainer}">
+                                        <TextBox Name="TkGridHeightFirst" Width="120" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                                    </Border>
+
+                                    <Border Tag="box not_for_sheet_ream" Grid.Column="0" Grid.Row="3" Style="{DynamicResource FormLabelContainer}">
+                                        <Label Content="Ширина :" Style="{DynamicResource FormLabel}" />
+                                    </Border>
+                                    <Border Tag="box" Grid.Column="1" Grid.Row="3" Style="{DynamicResource FormFieldContainer}">
+                                        <TextBox Name="TkGridWidthFirst" Width="120" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                                    </Border>
+                                    
+                                    <Border Tag="sheet_ream" Grid.Column="0" Grid.Row="3" Style="{DynamicResource FormLabelContainer}">
+                                        <Label Content="Рилёвка :" Style="{DynamicResource FormLabel}" />
+                                    </Border>
+                                    <Border Tag="sheet_ream" Grid.Column="1" Grid.Row="3" Style="{DynamicResource FormFieldContainer}">
+                                        <TextBox Name="TkGridOneNotch" Width="120" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                                    </Border>
+
+                                    <Border Tag="partition_assembled partition_not_assembled" Grid.Column="0" Grid.Row="4" Style="{DynamicResource FormLabelContainer}">
+                                        <Label Content="Кол-во просечек :" Style="{DynamicResource FormLabel}" />
+                                    </Border>
+                                    <Border Tag="partition_assembled partition_not_assembled"  Grid.Column="1" Grid.Row="4" Style="{DynamicResource FormFieldContainer}">
+                                        <TextBox Name="TkGridQuantityNotchesFirst"  Width="120" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                                    </Border>
+
+                                    <Border Tag="partition_assembled partition_not_assembled"  Grid.Column="0" Grid.Row="5" Style="{DynamicResource FormLabelContainer}">
+                                        <Label Content="Кол-во в комплекте :" ToolTip="штук в комплекте" Style="{DynamicResource FormLabel}" />
+                                    </Border>
+                                    <Border Tag="partition_assembled partition_not_assembled"  Grid.Column="1" Grid.Row="5" Style="{DynamicResource FormFieldContainer}">
+                                        <TextBox Name="TkGridQuantityFirst" Width="120" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                                    </Border>
+                                </Grid>
+                            </Border>
+
+                            <Border Tag="partition_assembled partition_not_assembled" Grid.Row="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="7*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                                        <TextBlock Text="Сумма просечек :" Name="SumNotchesFirstLable" Padding="0,0,0,0" Margin="10,0,7,0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                                    </Border>
+
+                                    <Border Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormLabelContainer}">
+                                        <TextBlock Text="" Name="SumNotchesFirstTextBlock" Padding="0,0,0,0" Margin="10,0,7,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    </Border>
+                                </Grid>
+                            </Border>
+
+                            <!--Просечки для первой решётки-->
+                            <Border Tag="partition_assembled partition_not_assembled" Height="210" Grid.Row="2" Margin="4.4,0,0,0" Style="{DynamicResource DataGridMainHolder}">
+                                <controls:GridBox x:Name="NotchesFirstGrid" />
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Width="1" BorderBrush="#ffcccccc" Padding="0,0,0,0" Margin="5,0,5,0" BorderThickness="1,0,1,0"/>
+
+                    <Border Grid.Column="1" Grid.Row="2" Width="1" BorderBrush="#ffcccccc" Padding="0,0,0,0" Margin="5,0,5,0" BorderThickness="1,0,1,0"/>
+
+                    <!--1.Общие для второй решётки-->
+                    <Border Grid.Row="0" Grid.Column="2">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="7*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                                <TextBlock Text="Потребитель :" TextDecorations="Underline"  Name="LabelCustomer" MouseDown="LabelCustomer_MouseDown" Padding="0,0,0,0" Margin="10,0,7,0" HorizontalAlignment="Right" VerticalAlignment="Top" ToolTip="При нажатии открывает окно работы с потребителем"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox  x:Name="TkGridCustomer" Style="{DynamicResource CustomFormField}" Autocomplete="True" HorizontalAlignment="Stretch" ListBoxMinWidth="250"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Описание :" Style="{DynamicResource FormLabel}" />
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="1" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkGridDetails"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="2" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Наименование :" Style="{DynamicResource FormLabel}" />
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="2" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkGridNameFirst"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                            </Border>
+
+                            <Border Tag="partition_not_assembled not_for_sheet_ream" Grid.Column="0" Grid.Row="3" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Наименование :" Style="{DynamicResource FormLabel}" />
+                            </Border>
+                            <Border Tag="partition_not_assembled not_for_sheet_ream" Grid.Column="1" Grid.Row="3" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkGridNameSecond" HorizontalAlignment="Stretch" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="2" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+                    <!--Размеры и просечки Второй решётки-->
+                    <Border Tag="partition_assembled partition_not_assembled" Grid.Row="2" Grid.Column="2">
+                        <Grid Style="{DynamicResource FromGrid}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="210"/>
+                            </Grid.RowDefinitions>
+
+                            <!--Резмеры для второй решётки-->
+                            <Border Grid.Row="0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="7*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource FormLabelContainer}">
+                                        <Label Content="Размеры решётки 2 :" Style="{DynamicResource FormLabel}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                                    </Border>
+
+                                    <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                                        <Label Content="Длина :" Style="{DynamicResource FormLabel}" />
+                                    </Border>
+                                    <Border Grid.Column="1" Grid.Row="1" Style="{DynamicResource FormFieldContainer}">
+                                        <TextBox Name="TkGridLengthSecond" Width="120" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                                    </Border>
+
+                                    <Border Grid.Column="0" Grid.Row="2" Style="{DynamicResource FormLabelContainer}">
+                                        <Label Content="Высота :" Style="{DynamicResource FormLabel}" />
+                                    </Border>
+                                    <Border Grid.Column="1" Grid.Row="2" Style="{DynamicResource FormFieldContainer}">
+                                        <TextBox Name="TkGridHeightSecond" Width="120" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                                    </Border>
+
+                                    <Border Grid.Column="0" Grid.Row="3" Style="{DynamicResource FormLabelContainer}">
+                                        <Label Content="Кол-во просечек :" Style="{DynamicResource FormLabel}" />
+                                    </Border>
+                                    <Border Grid.Column="1" Grid.Row="3" Style="{DynamicResource FormFieldContainer}">
+                                        <TextBox Name="TkGridQuantityNotchesSecond"  Width="120" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                                    </Border>
+
+                                    <Border Grid.Column="0" Grid.Row="4" Style="{DynamicResource FormLabelContainer}">
+                                        <Label Content="Кол-во в комплекте :" ToolTip="штук в комплекте" Style="{DynamicResource FormLabel}" />
+                                    </Border>
+                                    <Border Grid.Column="1" Grid.Row="4" Style="{DynamicResource FormFieldContainer}">
+                                        <TextBox Name="TkGridQuantitySecond" Width="120" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                                    </Border>
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Row="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="7*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                                        <TextBlock Text="Сумма просечек :" Name="SumNotchesSecondLable" Padding="0,0,0,0" Margin="10,0,7,0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                                    </Border>
+
+                                    <Border Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormLabelContainer}">
+                                        <TextBlock Text="" Name="SumNotchesSecondTextBlock" Padding="0,0,0,0" Margin="10,0,7,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    </Border>
+                                </Grid>
+                            </Border>
+
+                            <!--Просечки для второй решётки-->
+                            <Border Grid.Row="2" Style="{DynamicResource DataGridMainHolder}">
+
+                                <controls:GridBox x:Name="NotchesSecondGrid"/>
+
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!--Рилёвки-->
+                    <Border VerticalAlignment="Top" Grid.Row="2" Grid.Column="2">
+                        <Grid Style="{DynamicResource FromGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="7*"/>
+                                <ColumnDefinition Width="8*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Tag="gasket_pack gasket_stack sheet_ream" Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Рилёвки :" Style="{DynamicResource FormLabel}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+
+                            <Border Tag="partition_single" Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Просечки :" Style="{DynamicResource FormLabel}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+
+                            <Border Tag="gasket_pack gasket_stack sheet_ream" Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Кол-во рилёвок :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Tag="partition_single not_for_sheet_ream" Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Кол-во просечек :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+
+                            <Border Tag="gasket_pack gasket_stack partition_single sheet_ream" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkGridQuantityCrease"  Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                            </Border>
+
+                            <Border Tag="gasket_pack gasket_stack partition_single sheet_ream" Height="210" Grid.Row="2" Grid.ColumnSpan="2" Style="{DynamicResource DataGridMainHolder}" Margin="0 5 0 0">
+                                <controls:GridBox x:Name="CreaseGrid" />
+                            </Border>
+                            <Border Tag="gasket_pack gasket_stack partition_single sheet_ream" Grid.Column="0" Grid.Row="3" Style="{DynamicResource FormLabelContainer}" Margin="0 5 0 0">
+                                <Label Content="Расстояние до края :" Style="{DynamicResource FormLabel}" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border Tag="gasket_pack gasket_stack partition_single sheet_ream" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource FormFieldContainer}" Margin="0 5 0 0">
+                                <TextBox Name="TkGridLastCrease"  Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                            </Border>
+
+                        </Grid>
+                    </Border>
+
+                    <!--Заготовки-->
+                    <Border Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+                            <!--5.Заготовка первая-->
+                            <Border Grid.Row="1" Grid.Column="0">
+                                <Grid x:Name="GridBilletFirst">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource FormFieldContainer}">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                            <Button Tag="access_mode_full_access for_boxed not_for_sheet_ream" Content="Рассчитать размеры заготовок" Name="CalculateBlankSizeButton" HorizontalAlignment="Stretch" Style="{DynamicResource Button}" />
+                                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                            <Button Tag="access_mode_full_access for_boxed not_for_sheet_ream" Content="Создать заготовку" Name="SaveBilletButton" HorizontalAlignment="Stretch" Style="{DynamicResource Button}" />
+                                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                            <Button Content="Создать товар" Tag="access_mode_full_access" Name="ConfirmButton"  Style="{DynamicResource Button}" />
+                                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                            <Button Tag="access_mode_full_access for_boxed not_for_sheet_ream" Content="Пересоздать заготовку" Name="ReSaveBillet"  HorizontalAlignment="Stretch" Style="{DynamicResource Button}" />
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Tag="access_mode_full_access for_boxed not_for_sheet_ream" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="4*"/>
+                                                <ColumnDefinition Width="8*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                                                <Label Content="Заготовка 1 :" Style="{DynamicResource FormLabel}" HorizontalAlignment="Right" FontWeight="Bold"/>
+                                            </Border>
+
+                                            <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                                                <TextBox Name="TkBilletNameFirst" HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+
+
+                                    <Border Tag="access_mode_full_access for_boxed not_for_sheet_ream" Grid.Column="0" Grid.Row="2">
+                                        <Grid  Grid.Row="2" Grid.Column="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                                                <Label Content="Длина :" Style="{DynamicResource FormLabel}"/>
+                                            </Border>
+                                            <Border Grid.Column="1" Grid.Row="1" Style="{DynamicResource FormFieldContainer}">
+                                                <TextBox Name="TkBilletLegthFirst" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                                            </Border>
+
+                                            <Border Grid.Column="0" Grid.Row="2" Style="{DynamicResource FormLabelContainer}">
+                                                <Label Content="Ширина :" Style="{DynamicResource FormLabel}"/>
+                                            </Border>
+                                            <Border Grid.Column="1" Grid.Row="2" Style="{DynamicResource FormFieldContainer}">
+                                                <TextBox Name="TkBilletWidthFirst" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                                            </Border>
+
+                                            <Border Grid.Column="0" Grid.Row="3" Style="{DynamicResource FormLabelContainer}">
+                                                <Label Content="Площадь :" Style="{DynamicResource FormLabel}"/>
+                                            </Border>
+                                            <Border Grid.Column="1" Grid.Row="3" Style="{DynamicResource FormFieldContainer}">
+                                                <TextBox Name="TkBilletSquareFirst" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                                            </Border>
+                                        </Grid>
+
+                                    </Border>
+
+                                    <Border Tag="access_mode_full_access for_boxed not_for_sheet_ream" Grid.Column="1" Grid.Row="2">
+                                        <Grid Grid.Row="2" Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Border Tag="partition_assembled partition_not_assembled" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource FormFieldContainer}">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                    <CheckBox Name="TkBilletCalculateTwoFirst" HorizontalAlignment="Center" Style="{DynamicResource FormCheckBox}"/>
+                                                    <Label Content="Считать для двух решёток" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{DynamicResource FormLabel}"/>
+                                                </StackPanel>
+                                            </Border>
+
+                                            <Border Tag="partition_assembled partition_not_assembled" Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                                                <Label Content="Решётка 1 :" Style="{DynamicResource FormLabel}" Margin="0,0,6,0" ToolTip="Количество решёток 1 из первой заготовки"/>
+                                            </Border>
+                                            <Border Tag="gasket_pack gasket_stack" Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                                                <Label Content="Изделий :" Style="{DynamicResource FormLabel}" Margin="0,0,6,0" ToolTip="Количество изделий из заготовки"/>
+                                            </Border>
+                                            <Border Grid.Column="1" Grid.Row="1" Style="{DynamicResource FormFieldContainer}">
+                                                <TextBox Name="TkBilletQuantityFirst1" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                                            </Border>
+
+                                            <Border Tag="partition_assembled partition_not_assembled" Grid.Column="0" Grid.Row="2" Style="{DynamicResource FormLabelContainer}">
+                                                <Label Content="Решётка 2 :" Style="{DynamicResource FormLabel}" Margin="0,0,6,0" ToolTip="Количество решёток 2 из первой заготовки"/>
+                                            </Border>
+                                            <Border Tag="partition_assembled partition_not_assembled" Grid.Column="1" Grid.Row="2" Style="{DynamicResource FormFieldContainer}">
+                                                <TextBox Name="TkBilletQuantityFirst2" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                                            </Border>
+                                        </Grid>
+
+                                    </Border>
+                                </Grid>
+                            </Border>
+
+                            <Border Tag="partition_assembled partition_not_assembled for_boxed" Grid.Row="2" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+                            <!--5.Заготовка вторая-->
+                            <Border Tag="partition_assembled partition_not_assembled for_boxed not_for_sheet_ream" Grid.Row="3" Grid.Column="0">
+                                <Grid x:Name="GridBilletSecond">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="4*"/>
+                                                <ColumnDefinition Width="8*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                                                <Label Content="Заготовка 2 :" Style="{DynamicResource FormLabel}" HorizontalAlignment="Right" FontWeight="Bold"/>
+                                            </Border>
+
+                                            <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                                                <TextBox Name="TkBilletNameSecond" HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+
+                                    <Grid Grid.Row="1" Grid.Column="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                                            <Label Content="Длина :" Style="{DynamicResource FormLabel}"/>
+                                        </Border>
+                                        <Border Grid.Column="1" Grid.Row="1" Style="{DynamicResource FormFieldContainer}">
+                                            <TextBox Name="TkBilletLegthSecond" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                                        </Border>
+
+                                        <Border Grid.Column="0" Grid.Row="2" Style="{DynamicResource FormLabelContainer}">
+                                            <Label Content="Ширина :" Style="{DynamicResource FormLabel}"/>
+                                        </Border>
+                                        <Border Grid.Column="1" Grid.Row="2" Style="{DynamicResource FormFieldContainer}">
+                                            <TextBox Name="TkBilletWidthSecond" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                                        </Border>
+
+                                        <Border Grid.Column="0" Grid.Row="3" Style="{DynamicResource FormLabelContainer}">
+                                            <Label Content="Площадь :" Style="{DynamicResource FormLabel}"/>
+                                        </Border>
+                                        <Border Grid.Column="1" Grid.Row="3" Style="{DynamicResource FormFieldContainer}">
+                                            <TextBox Name="TkBilletSquareSecond" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                                        </Border>
+                                    </Grid>
+
+                                    <Grid Grid.Row="1" Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource FormFieldContainer}">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <CheckBox Name="TkBilletCalculateTwoSecond" HorizontalAlignment="Center" Style="{DynamicResource FormCheckBox}"/>
+                                                <Label Content="Считать для двух решёток" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{DynamicResource FormLabel}"/>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border  Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                                            <Label Content="Решётка 2 :" Style="{DynamicResource FormLabel}" Margin="0,0,6,0" ToolTip="Количество решёток 2 из второй заготовки"/>
+                                        </Border>
+                                        <Border  Grid.Column="1" Grid.Row="1" Style="{DynamicResource FormFieldContainer}">
+                                            <TextBox Name="TkBilletQuantitySecond2" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                                        </Border>
+
+                                        <Border Grid.Column="0" Grid.Row="2" Style="{DynamicResource FormLabelContainer}">
+                                            <Label Content="Решётка 1 :" Style="{DynamicResource FormLabel}" Margin="0,0,6,0" ToolTip="Количество решёток 1 из второй заготовки"/>
+                                        </Border>
+                                        <Border Grid.Column="1" Grid.Row="2" Style="{DynamicResource FormFieldContainer}">
+                                            <TextBox Name="TkBilletQuantitySecond1" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                                        </Border>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+
+                            <Border Tag="partition_assembled partition_not_assembled for_boxed not_for_sheet_ream" Grid.Row="4" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+                            <Border Grid.Row="5" Grid.Column="0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="4*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                                        <Label Content="Товар :" Style="{DynamicResource FormLabel}" HorizontalAlignment="Right" FontWeight="Bold"/>
+                                    </Border>
+                                    <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                                        <TextBox Name="TkTovarName" HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                                    </Border>
+
+                                    <Border Name="TkTovarName2LabelBorder" Tag="partition_not_assembled" Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                                        <Label Content="Товар 2 :" Style="{DynamicResource FormLabel}" HorizontalAlignment="Right" FontWeight="Bold"/>
+                                    </Border>
+                                    <Border Name="TkTovarName2Border" Tag="partition_not_assembled" Grid.Column="1" Grid.Row="1" Style="{DynamicResource FormFieldContainer}">
+                                        <TextBox Name="TkTovarName2" HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                                    </Border>
+
+                                    <Border Name="SetNameLable" Grid.Column="0" Grid.Row="2" Style="{DynamicResource FormLabelContainer}">
+                                        <Label Content="Комплект :" Style="{DynamicResource FormLabel}" HorizontalAlignment="Right" FontWeight="Bold" Visibility="Hidden"/>
+                                    </Border>
+                                    <Border Grid.Column="1" Grid.Row="2" Style="{DynamicResource FormFieldContainer}">
+                                        <TextBox Name="SetNameTextBox" HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                                    </Border>
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Row="6" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+                            
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" Width="1" BorderBrush="#ffcccccc" Padding="0,0,0,0" Margin="5,0,5,0" BorderThickness="1,0,1,0"/>
+
+            <!--3 Столбик (Картон; Производство.)-->
+            <Border Grid.Column="4" Grid.Row="0">
+                <Grid Style="{DynamicResource FromGrid}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!--1.Картон-->
+                    <Border Grid.Row="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="5*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Картон :" Style="{DynamicResource FormLabel}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="1"  Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Профиль :" Style="{DynamicResource FormLabel}" />
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="2"  Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Марка :" Style="{DynamicResource FormLabel}" />
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="3"  Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Цвет :" Style="{DynamicResource FormLabel}" />
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="4"  Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Картон :" Style="{DynamicResource FormLabel}" />
+                            </Border>
+
+                            <Border Grid.Column="1" Grid.Row="1" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox  x:Name="TkProfile" Style="{DynamicResource CustomFormField}" Width="158" Autocomplete="True" HorizontalAlignment="Left"/>
+                            </Border>
+
+                            <Border Grid.Column="1" Grid.Row="2" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox  x:Name="TkBrand" Style="{DynamicResource CustomFormField}" Width="158" Autocomplete="True" HorizontalAlignment="Left"/>
+                            </Border>
+
+                            <Border Grid.Column="1" Grid.Row="3" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox  x:Name="TkCollor" Style="{DynamicResource CustomFormField}" Width="158" Autocomplete="True" HorizontalAlignment="Left"/>
+                            </Border>
+
+                            <Border Grid.Column="1" Grid.Row="4" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox  x:Name="TkCardboard" Style="{DynamicResource CustomFormField}" Width="158" Autocomplete="True" HorizontalAlignment="Left" ListBoxMinWidth="180"/>
+                            </Border>
+
+                            <Border Grid.Column="1" Grid.Row="5" Style="{DynamicResource FormFieldContainer}">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <CheckBox Name="TkSpecialMaterial" Style="{DynamicResource FormCheckBox}" />
+                                    <Label Content="Спецкартон" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}" ToolTip="Спецсырьё"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="5" Style="{DynamicResource FormFieldContainer}" Margin="0 0 10 0">
+                                <TextBox x:Name="TkSpecialMaterialName" Width="90" HorizontalAlignment="Right" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="1" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+                    <!--Производство-->
+                    <Border Grid.Row="2">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="5.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Производство :" Style="{DynamicResource FormLabel}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Схемы :" Style="{DynamicResource FormLabel}" />
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="1" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox  x:Name="TkProductionScheme" Style="{DynamicResource CustomFormField}" Width="164" Autocomplete="True" HorizontalAlignment="Left" ListBoxMinWidth="170"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="2" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Площадь изделия :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="2" Style="{DynamicResource FormFieldContainer}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox Name="TkBilletSProduct" Width="84" HorizontalAlignment="Left" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                    <Button Content="Рассчитать" Name="CalculateBilletSProductButton" Click="CalculateBilletSProductButton_Click" Style="{DynamicResource Button}" />
+                                </StackPanel>
+                            </Border>
+
+                        </Grid>
+                    </Border>
+
+                    <Border Tag="not_for_sheet_ream" Grid.Row="3" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+                    <!--Производство2-->
+                    <Border Grid.Row="4" Tag="partition_not_assembled not_for_sheet_ream">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="5.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Производство 2 :" Style="{DynamicResource FormLabel}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Схемы :" Style="{DynamicResource FormLabel}" />
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="1" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox  x:Name="TkProductionScheme2" Style="{DynamicResource CustomFormField}" Width="164" Autocomplete="True" HorizontalAlignment="Left" ListBoxMinWidth="164"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="2" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Площадь изделия :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="2" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkBilletSProduct2" Width="70" HorizontalAlignment="Left" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                            </Border>
+
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="5" Tag="partition_not_assembled not_for_sheet_ream" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+                    <Border Grid.Row="6" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="5*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Подтверждение производством:" Style="{DynamicResource FormLabel}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+
+                            <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Border Style="{DynamicResource FormFieldContainer}">
+                                    <CheckBox Name="TkProductionConfirmProcessingCheckBox" IsEnabled="False" Style="{DynamicResource CheckBoxStyle}"/>
+                                </Border>
+                                <Border Style="{DynamicResource FormLabelContainer}">
+                                    <Label Name="TkProductionConfirmProcessingLabel" Content="На подтверждении" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                                </Border>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Border Grid.Column="0" Grid.Row="2" Style="{DynamicResource FormLabelContainer}">
+                                    <Label Content="Дата подтверждения:" Style="{DynamicResource FormLabel}"/>
+                                </Border>
+                                <Border Grid.Column="1" Grid.Row="2" Style="{DynamicResource FormFieldContainer}">
+                                    <TextBox Name="TkProductionConfirmDateTextBox" IsReadOnly="True" Width="84" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                                </Border>
+                            </StackPanel>
+
+                            <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource FormFieldContainer}">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Button Content="Отправить на подтверждение" Tag="access_mode_full_access" Name="SendTkToProductionConfirmButton" Margin="1" Click="SendTkToProductionConfirmButton_Click"  Style="{DynamicResource Button}" />
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="7" Tag="not_for_sheet_ream" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+                    <Border Grid.Row="8">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="5*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Комментарий:" Style="{DynamicResource FormLabel}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkCommentTextBox" Height="60" HorizontalAlignment="Stretch" TextWrapping="Wrap" Style="{DynamicResource FormField}"/>
+                            </Border>
+
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="9" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="5" Grid.Row="0" Width="1" BorderBrush="#ffcccccc" Padding="0,0,0,0" Margin="5,0,5,0" BorderThickness="1,0,1,0"/>
+
+            <!--4 Столбик (Укладка; Упаковка; )-->
+            <Border Grid.Column="6" Grid.Row="0">
+                <Grid Style="{DynamicResource FromGrid}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!--8.Укладка-->
+                    <Border Grid.Row="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="6*"/>
+                                <ColumnDefinition Width="6*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Укладка :" Style="{DynamicResource FormLabel}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Поддон :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="1" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox  x:Name="TkPallet" Style="{DynamicResource CustomFormField}" Width="120" Autocomplete="True" HorizontalAlignment="Left" ListBoxMinWidth="150"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="2" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Схема укладки :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="2" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox  x:Name="TkLayingScheme" Style="{DynamicResource CustomFormField}" Width="120" Autocomplete="True" HorizontalAlignment="Left"/>
+                            </Border>
+
+                            <Border Tag="partition_assembled partition_not_assembled gasket_pack partition_single" Grid.Column="0" Grid.Row="3" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Кол-во в пачке :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Tag="gasket_stack sheet_ream" Grid.Column="0" Grid.Row="3" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Кол-во в стопе :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="3" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkQuantity" Width="120" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="4" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Кол-во в ряду :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="4" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkQuantityPack" Width="120" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="5" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Кол-во рядов :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="5" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkQuantityRows" Width="120" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="6" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Кол-во изд. на поддон :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="6" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkQuantityBox" Width="120" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}" />
+                            </Border>
+
+                            <Border Tag="gasket_stack gasket_pack" Grid.Column="0" Grid.Row="7" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Картинка укладки :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Tag="gasket_stack gasket_pack" Grid.Row="7" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                                <Image Margin="5" Name="StackingImage" HorizontalAlignment="Stretch" Height="100" Width="100"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="1" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+                    <!--9.Упаковка-->
+                    <Border Grid.Row="2">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="6*"/>
+                                <ColumnDefinition Width="6*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Упаковка :" Style="{DynamicResource FormLabel}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+
+                            <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Border Style="{DynamicResource FormFieldContainer}">
+                                    <CheckBox Name="TkPrepressing" Style="{DynamicResource FormCheckBox}"/>
+                                </Border>
+                                <Border Style="{DynamicResource FormLabelContainer}" Width="155">
+                                    <Label Content="Подпрессовка поддона" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                                </Border>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Border Style="{DynamicResource FormFieldContainer}">
+                                    <CheckBox Name="TkCorners" Style="{DynamicResource FormCheckBox}"/>
+                                </Border>
+                                <Border Style="{DynamicResource FormLabelContainer}" Width="155">
+                                    <Label Content="Уголки из гофрокартона" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                                </Border>
+                            </StackPanel>
+
+                            <Border Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Tag="partition_not_assembled">
+                                <StackPanel  Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Border Style="{DynamicResource FormFieldContainer}">
+                                        <CheckBox Name="OnEdgeCheckBox" Style="{DynamicResource FormCheckBox}"/>
+                                    </Border>
+                                    <Border Style="{DynamicResource FormLabelContainer}" Width="155">
+                                        <Label Content="Укладка на ребро" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+
+
+                            <Border Grid.Column="0" Grid.Row="4" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Упаковка :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="4" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox  x:Name="TkPackaging" Style="{DynamicResource CustomFormField}" Width="130" Autocomplete="True" HorizontalAlignment="Left" ListBoxMinWidth="200"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="5" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Обвязка :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="5" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox  x:Name="TkStrapping" Style="{DynamicResource CustomFormField}" Width="130" Autocomplete="True" HorizontalAlignment="Left" ListBoxMinWidth="200"/>
+                            </Border>
+
+                            <Border Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
+                                <Grid Grid.Column="0" HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Name="TkTypePackage" Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <RadioButton Padding="5,0,0,0" Name="tmp1" Margin="10,5,10,8" Tag="1" Content="С упаковкой" GroupName="TkTypePackage" Style="{StaticResource  RadioBoxTopPanel}"/>
+                                        <RadioButton Padding="5,0,0,0" Name="tmp2" Margin="10,5,10,8" Tag="0" Content="Без упаковки" GroupName="TkTypePackage" Style="{StaticResource  RadioBoxTopPanel}" />
+                                    </StackPanel>
+
+                                </Grid>
+                            </Border>
+                            
+                            <Border Grid.Column="0" Grid.Row="7" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Длина ТП :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="7" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkPackageLength" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="8" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Ширина ТП :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="8" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkPackageWidth" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="9" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Высота ТП :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="9" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkPackageHeigth" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="10" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Максимальная высота ТП :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="10" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkMaxPackageHeigth" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                            </Border>
+
+                            <Border Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource FormFieldContainer}" Tag="partition_not_assembled gasket_pack gasket_stack sheet_ream" >
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button Content="Рассчитать укладку" Name="CalculatePackingButton" Click="CalculatePackingButton_Click" Style="{DynamicResource Button}"/>
+                                    <Button Content="Рассчитать ТП" Name="CalculateDimensionOfTransportPackageButton" Style="{DynamicResource Button}" />
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="3" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="7" Grid.Row="0" Width="1" BorderBrush="#ffcccccc" Padding="0,0,0,0" Margin="5,0,5,0" BorderThickness="1,0,1,0"/>
+
+            <Border Grid.Column="8" Grid.Row="0" Tag="partition_not_assembled">
+                <Grid Style="{DynamicResource FromGrid}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!--8.Укладка-->
+                    <Border Grid.Row="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="6*"/>
+                                <ColumnDefinition Width="6*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Укладка 2 :" Style="{DynamicResource FormLabel}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Поддон :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="1" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox  x:Name="TkPallet2" Style="{DynamicResource CustomFormField}" Width="120" Autocomplete="True" HorizontalAlignment="Left" ListBoxMinWidth="150"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="2" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Схема укладки :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="2" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox  x:Name="TkLayingScheme2" Style="{DynamicResource CustomFormField}" Width="120" Autocomplete="True" HorizontalAlignment="Left"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="3" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Кол-во в пачке :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="3" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkQuantity2" Width="120" HorizontalAlignment="Left" TextWrapping="NoWrap"  Style="{DynamicResource FormField}"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="4" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Кол-во в ряду :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="4" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkQuantityPack2" Width="120" HorizontalAlignment="Left" TextWrapping="NoWrap"  Style="{DynamicResource FormField}"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="5" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Кол-во рядов :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="5" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkQuantityRows2" Width="120" HorizontalAlignment="Left" TextWrapping="NoWrap"  Style="{DynamicResource FormField}"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="6" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Кол-во изд. на поддон :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="6" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkQuantityBox2" Width="120" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}" />
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="1" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+                    <!--9.Упаковка-->
+                    <Border Grid.Row="2">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="6*"/>
+                                <ColumnDefinition Width="6*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Упаковка 2 :" Style="{DynamicResource FormLabel}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+
+                            <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Border Style="{DynamicResource FormFieldContainer}">
+                                    <CheckBox Name="TkPrepressing2" Style="{DynamicResource FormCheckBox}"/>
+                                </Border>
+                                <Border Style="{DynamicResource FormLabelContainer}" Width="155">
+                                    <Label Content="Подпрессовка поддона" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                                </Border>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Border Style="{DynamicResource FormFieldContainer}">
+                                    <CheckBox Name="TkCorners2" Style="{DynamicResource FormCheckBox}"/>
+                                </Border>
+                                <Border Style="{DynamicResource FormLabelContainer}" Width="155">
+                                    <Label Content="Уголки из гофрокартона" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                                </Border>
+                            </StackPanel>
+
+                            <Border Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Tag="partition_not_assembled">
+                                <StackPanel  Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Border Style="{DynamicResource FormFieldContainer}">
+                                        <CheckBox Name="OnEdge2CheckBox" Style="{DynamicResource FormCheckBox}"/>
+                                    </Border>
+                                    <Border Style="{DynamicResource FormLabelContainer}" Width="155">
+                                        <Label Content="Укладка на ребро" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="4" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Упаковка :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="4" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox  x:Name="TkPackaging2" Style="{DynamicResource CustomFormField}" Width="130" Autocomplete="True" HorizontalAlignment="Left" ListBoxMinWidth="200"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="5" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Обвязка :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="5" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox  x:Name="TkStrapping2" Style="{DynamicResource CustomFormField}" Width="130" Autocomplete="True" HorizontalAlignment="Left"/>
+                            </Border>
+
+                            <Border Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
+                                <Grid Grid.Column="0" HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Name="TkTypePackage2">
+                                        <RadioButton Padding="5,0,0,0" Margin="10,5,10,8" Tag="1" Content="С упаковкой" GroupName="TkTypePackage2" Style="{DynamicResource RadioBoxTopPanel}" />
+                                        <RadioButton Padding="5,0,0,0" Margin="10,5,10,8" Tag="0" Content="Без упаковки" GroupName="TkTypePackage2" Style="{DynamicResource RadioBoxTopPanel}" />
+                                    </StackPanel>
+
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="7" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Длина ТП :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="7" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkPackageLength2" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="8" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Ширина ТП :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="8" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkPackageWidth2" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="9" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Высота ТП :" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="9" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="TkPackageHeigth2" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                            </Border>
+
+                            <Border Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource FormFieldContainer}" Tag="partition_not_assembled" >
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button Content="Рассчитать укладку" Name="CalculatePacking2Button" Click="CalculatePacking2Button_Click" Style="{DynamicResource Button}"/>
+                                    <Button Content="Рассчитать ТП" Name="CalculateDimensionOfTransportPackage2Button" Style="{DynamicResource Button}" />
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="3" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+                </Grid>
+            </Border>
+
+            <Border Tag="partition_not_assembled" Grid.Column="9" Grid.Row="0" Width="1" BorderBrush="#ffcccccc" Padding="0,0,0,0" Margin="5,0,5,0" BorderThickness="1,0,1,0"/>
+
+            <!--6 Столбик (Excel; Доп требования)-->
+            <Border Grid.Column="10" Grid.Row="0">
+                <Grid Style="{DynamicResource FromGrid}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0">
+                        <Grid HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Excel :" Style="{DynamicResource FormLabel}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormFieldContainer}">
+                                <Button Content="Создать Excel" Tag="access_mode_full_access" Name="CreateExcelButton" HorizontalAlignment="Stretch" Style="{DynamicResource Button}" />
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="2" Style="{DynamicResource FormFieldContainer}">
+                                <Button Content="Открыть Excel" Name="OpenExcelButton" HorizontalAlignment="Stretch" Style="{DynamicResource Button}" />
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="3" Style="{DynamicResource FormFieldContainer}">
+                                <Button Content="Перенести данные в Excel" Tag="access_mode_full_access" Name="UpdateExcelButton" HorizontalAlignment="Stretch" Style="{DynamicResource Button}" />
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="6" Style="{DynamicResource FormFieldContainer}">
+                                <Button Content="В рабочую папку" Tag="access_mode_full_access" Name="MoveExcelButton" HorizontalAlignment="Stretch" ToolTip="Переместить эксель файл в рабочую папку" Style="{DynamicResource Button}" />
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="7" Style="{DynamicResource FormFieldContainer}">
+                                <Button Content="В архив" Tag="access_mode_full_access" Name="MoveToArchiveButton" HorizontalAlignment="Stretch" ToolTip="Переместить эксель файл в архив" Style="{DynamicResource Button}" />
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="1" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+                    <Border Grid.Row="2">
+                        <Grid HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Доп. требования :" Style="{DynamicResource FormLabel}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormFieldContainer}">
+                                <Button Content="Добавить требования" Name="AddDemandsButton" Click="AddDemandsButton_Click"  HorizontalAlignment="Stretch" Style="{DynamicResource Button}" />
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="3" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+                    <Border Grid.Row="4" Tag="gasket_stack gasket_pack partition_single sheet_ream">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Примечание:" Style="{DynamicResource FormLabel}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="1">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                                        <Label Content="Прим. 1:" Style="{DynamicResource FormLabel}"/>
+                                    </Border>
+                                    <Border Grid.Column="1" Grid.Row="6" Style="{DynamicResource FormFieldContainer}">
+                                        <TextBox Name="Note1ForExcelTextBox" Width="120" Height="40" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{DynamicResource FormField}" />
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="2">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                                        <Label Content="Прим. 2:" Style="{DynamicResource FormLabel}"/>
+                                    </Border>
+                                    <Border Grid.Column="1" Grid.Row="6" Style="{DynamicResource FormFieldContainer}">
+                                        <TextBox Name="Note2ForExcelTextBox" Width="120" Height="40" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{DynamicResource FormField}" />
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="3">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                                        <Label Content="Прим. 3:" Style="{DynamicResource FormLabel}"/>
+                                    </Border>
+                                    <Border Grid.Column="1" Grid.Row="6" Style="{DynamicResource FormFieldContainer}">
+                                        <TextBox Name="Note3ForExcelTextBox" Width="120" Height="40" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{DynamicResource FormField}" />
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="5" Tag="gasket_stack gasket_pack sheet_ream" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="11" Grid.Row="0" Width="1" BorderBrush="#ffcccccc" Padding="0,0,0,0" Margin="5,0,5,0" BorderThickness="1,0,1,0"/>
+
+        </Grid>
+
+    </Grid>
+</controls:ControlBase>

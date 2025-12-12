@@ -1,0 +1,86 @@
+﻿<UserControl
+    x:Class="Client.Interfaces.Service.Mail.AddressList"
+    xmlns:local="clr-namespace:Client.Interfaces.Service.Mail"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"    
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+
+    mc:Ignorable="d" 
+    d:DesignWidth="1024" d:DesignHeight="768" 
+    Style="{DynamicResource UserControlCanvas}"    
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}" >
+            </Grid>
+
+            <Grid Grid.Row="0"  Grid.Column="2" Style="{DynamicResource GridControlPanel}" >
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border >
+                    <Grid HorizontalAlignment="Left" Width="844" >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Width="770" >
+
+                            <Label Content="Получатель:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" MinWidth="150" MaxWidth="150"  TextWrapping="NoWrap" Name="KeywordText" Text=""  />
+                            <Button Tag="Refresh" Name="RefreshButton"   Content="Искать"  Style="{DynamicResource Button}" Click="ButtonOnClick" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            
+                            <Button Tag="Select" Name="SelectButton"   Content="Выбрать"  Style="{DynamicResource Button}" Click="ButtonOnClick" />
+                            
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="2"  Grid.Column="0" >
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="Grid" />
+                </Border>
+            </Grid>
+           
+
+
+        </Grid>
+    </Border>
+
+</UserControl>

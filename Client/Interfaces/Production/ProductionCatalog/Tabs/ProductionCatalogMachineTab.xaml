@@ -1,0 +1,72 @@
+﻿<controls:ControlBase
+    x:Class="Client.Interfaces.ProductionCatalog.ProductionCatalogMachineTab"
+    xmlns:local="clr-namespace:Client.Interfaces.ProductionCatalog"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"   
+
+    mc:Ignorable="d" 
+    d:DesignWidth="1024" d:DesignHeight="200"  
+    Style="{DynamicResource UserControlCanvas}"  >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="ProductionMachineGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                            <Button Name="ProductionMachineRefreshButton" Content="Обновить" Tag="reseller_client_refresh"  Style="{DynamicResource Button}"/>
+
+                            <Button Name="ProductionMachineAddButton" Content="Создать" Style="{DynamicResource Button}" />
+                            <Button Name="ProductionMachineEditButton" Content="Изменить" IsEnabled="False" Style="{DynamicResource Button}" />
+                            <Button Name="ProductionMachineDeleteButton" Content="Удалить" IsEnabled="False" Style="{DynamicResource Button}" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="ProductionMachineSearchText" Text=""/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+
+            <Grid Grid.Row="1"  Grid.Column="0">
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="ProductionMachineGrid" />
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+
+</controls:ControlBase>

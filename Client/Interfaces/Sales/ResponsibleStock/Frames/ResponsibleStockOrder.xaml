@@ -1,0 +1,177 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Sales.ResponsibleStockOrder"
+    xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"    
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+
+    mc:Ignorable="d" 
+    d:DesignWidth="1600" d:DesignHeight="800"  
+    Style="{DynamicResource UserControlCanvas}"  >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  Margin="1">
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="11.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="FormToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                            <Button Name="SaveButton" Content="Сохранить" Click="SaveButton_Click"  Style="{DynamicResource FButtonPrimary}" />
+
+                            <Button Name="CancelButton" Content="Отмена" Click="CancelButton_Click"  Style="{DynamicResource Button}" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                            <Button Name="HelpButton" ToolTip="Документация" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click"  Margin="0,0,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+            <Border Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left">
+                <Grid Style="{DynamicResource FromGrid}" Name="MainGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Дата доставки:" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Left">
+                        <Grid Style="{DynamicResource FormFieldDateHolder}" Margin="0">
+                            <!--<TextBox Name="DeliveryDateTextBox"  MaxLength="10"  Style="{DynamicResource FormFieldDate}" IsReadOnly="False" />
+                            <DatePicker  SelectedDate="{Binding Path=Text, Mode=OneWayToSource, ElementName=DeliveryDateTextBox, Converter={StaticResource DateDate} }"  Style="{DynamicResource FormFieldDP}"  Margin="0,1,0,0">
+                            </DatePicker>-->
+
+                            <controls:DatePicker x:Name="DeliveryDateTextBox" Style="{DynamicResource DateEditStyle}" >
+                            </controls:DatePicker>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Время доставки:" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Column="1" Grid.Row="1" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Left">
+                        <Grid HorizontalAlignment="Left">
+                            <xctk:MaskedTextBox x:Name="DeliveryTimeTextBox"
+                                        Mask="00:00"
+                                        ValueDataType="{x:Type s:String}" Padding="0,3,0,0" Width="70" HorizontalContentAlignment="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Column="0" Grid.Row="2" Style="{DynamicResource FormFieldContainer}">
+                        <CheckBox Name="SelfShipCheckBox" HorizontalAlignment="Right" Style="{DynamicResource FormCheckBox}"/>
+                    </Border>
+                    <Border Grid.Column="1" Grid.Row="2" Style="{DynamicResource FormLabelContainer}" Width="155" HorizontalAlignment="Left">
+                        <Label Content="Самовывоз" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                    </Border>
+
+                    <Border Grid.Column="0" Grid.Row="3" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Номер заявки:" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Column="1" Grid.Row="3" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Left">
+                        <TextBox Name="OrderNumberTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" MaxLength="32" Text="апр. К0 125/1750,1250,К0 112/107" Width="200" Style="{DynamicResource FormField}"/>
+                    </Border>
+
+                    <Border Grid.Column="0" Grid.Row="4" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Примечание кладовщику:" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Column="1" Grid.Row="4" Style="{DynamicResource FormFieldContainer}">
+                        <TextBox Name="NoteStockmanTextBox"  HorizontalAlignment="Stretch" TextWrapping="Wrap" 
+                                 Text="Прошу Вас откорректировать данные по точке выгрузки - оставить только:
+                                    Россия, 302038, Орловская область, г. Орёл, ул. Раздольная, д. 105, пом. 16.
+                                    (Работа склада: Пн-Пт с 8.00-17.00, перерыв 12.00-13.00). ВЫГРУЗКА ЗАДНЯЯ. Низкорамники  - нет.  
+                                    Необходимы данные для заказа пропуска: Марка и Гос № Авто, ФИО водителя, номер водительского удостоверения (или паспортные данные водителя). 
+                                    Контактный телефон ООО Модуль Сервис 8-953-413-27-14 - Герштейн Артём; 8-953-812-07-28 - Бобкова Маргарита."
+                                 MaxLength="512" Height="55" Width="300" Style="{DynamicResource FormField}"/>
+                    </Border>
+
+                    <Border Grid.Column="0" Grid.Row="5" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Примечание грузчику:" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Column="1" Grid.Row="5" Style="{DynamicResource FormFieldContainer}">
+                        <TextBox Name="NoteLoaderTextBox"  HorizontalAlignment="Stretch" TextWrapping="Wrap"  MaxLength="512" 
+                                 Text="Прошу грузить в данном порядке:
+                                    1. 357*285*273 - 5280 шт
+                                    2. к/реш 352*165.. - 5280 штук
+                                    3. 360*246*203 - 2640 штук
+                                    4. к/реш Прошу грузить в данном порядке с головы:
+                                    1. 357*285*273 - 5280 шт
+                                    2. к/реш 352*165.. - 5280 штук 
+                                    3. 360*246*203 - 2640 штук   
+                                    4. к/реш 355*160.. - 2640 штук
+                                    5. 417*245*275 - 2800 штук     
+                                    6. к./реш 412*150.. - 2800 штук Отделить
+                                    7. 275*160*80 - 5500 штук
+                                    8. 380*140*95 - 5500 штук    
+                                    9. 510*510*810 - 1000 на" 
+                                 Height="55" Width="300" Style="{DynamicResource FormField}"/>
+                    </Border>
+
+                    <Border Grid.Column="0" Grid.Row="6" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Примечание логисту:" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Column="1" Grid.Row="6" Style="{DynamicResource FormFieldContainer}">
+                        <TextBox Name="NoteLogisticianTextBox"  HorizontalAlignment="Stretch" TextWrapping="Wrap" MaxLength="512" 
+                                 Text="ставка 50 000без НДС
+                                    Загрузка Л-Пак-- за документами Офис Факел (ул. Ковалева 125 контакты операторов 8-900-986-79-82 Екатерина, 8-904-681-62-60 Надежда офис работает круглосуточно) -
+                                    Санкт-Петербург, поселок Петро-Славянка, Софийская улица, дом 118, корпус 2  
+                                    Санкт-Петербург, поселок Петро-Славянка, Софийская улица, дом 118, корпус 2  
+                                    Капытин Константин +7 (981) 690-3564
+                                    Татьяна Маркачева +7 (4822) 63-83-81, доб. 72728
+                                    Время работы склада:
+                                    с 08:00 до 20:00 с 7 дней в неделю.
+                                    Приход не позднее "
+                                 Height="55" Width="300" Style="{DynamicResource FormField}"/>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+
+</UserControl>

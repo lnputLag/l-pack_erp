@@ -1,0 +1,58 @@
+﻿<controls:ControlBase x:Class="Client.Interfaces.Preproduction.Rig.RigTransferPackages"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Preproduction.Rig"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             Height="350" Width="600"
+             Style="{DynamicResource UserControlCanvas}"
+             Background="White">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="300"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0"  Grid.Column="0" Style="{DynamicResource DataGridMainHolder}">
+                <controls:GridBox4 x:Name="Grid" />
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Style="{DynamicResource FormVerticalPanelSpacer}"></Border>
+
+            <Grid Grid.Row="2" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="230"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Border>
+                    <TextBlock Text="Не все поля заполнены верно" Name="FormStatus"  TextAlignment="Left" Style="{DynamicResource FStatusBar}" HorizontalAlignment="Stretch" />
+                </Border>
+
+                <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Right"  >
+                    <Button Name="InsertButton"  Content="Добавить" Tag="Insert" Click="ButtonOnClick"  Style="{DynamicResource FButtonPrimary}"    />
+                    <Button Name="CreateButton"  Content="Создать"  Tag="Create" Click="ButtonOnClick"  Style="{DynamicResource FButtonCancel}"    />
+                    <Button Name="CancelButton"  Content="Отмена"   Tag="Close"  Click="ButtonOnClick"  Style="{DynamicResource FButtonCancel}"    />
+                </StackPanel>
+            </Grid>
+
+        </Grid>
+    </Border>
+</controls:ControlBase>

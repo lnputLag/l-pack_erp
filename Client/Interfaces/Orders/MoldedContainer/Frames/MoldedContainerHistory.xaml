@@ -1,0 +1,39 @@
+﻿<controls:ControlBase x:Class="Client.Interfaces.Orders.MoldedContainer.Frames.MoldedContainerHistory"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d"
+             d:DesignHeight="800" d:DesignWidth="1200">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Border Style="{DynamicResource FormContainerHolder}">
+        <Grid Style="{DynamicResource FormContainer}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0" Style="{DynamicResource FormControlPanel}">
+                <StackPanel HorizontalAlignment="Left">
+                    <Button Content="Закрыть" Name="CloseButton" Style="{DynamicResource FButtonPrimary}"/>
+                </StackPanel>
+            </Grid>
+            
+            <Border Grid.Row="1" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+            
+            <Border Grid.Row="2" Style="{DynamicResource DataGridMainHolder}" >
+                <controls:GridBox4 x:Name="HistoryGrid" />
+            </Border>
+        </Grid>
+    </Border>
+</controls:ControlBase>

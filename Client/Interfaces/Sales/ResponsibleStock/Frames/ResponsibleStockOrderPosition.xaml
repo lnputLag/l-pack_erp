@@ -1,0 +1,161 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Sales.ResponsibleStockOrderPosition"
+    xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"    
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+
+    mc:Ignorable="d" 
+    d:DesignWidth="1600" d:DesignHeight="800"  
+    Style="{DynamicResource UserControlCanvas}"  >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5px"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="11.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+
+                            <Button Name="SaveButton" Content="Сохранить" Click="SaveButton_Click"  Style="{DynamicResource FButtonPrimary}" />
+
+                            <Button Name="CancelButton" Content="Отмена" Click="CancelButton_Click"  Style="{DynamicResource Button}" />
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"/>
+
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="SearchText" Text=""/>
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                            <Button Name="HelpButton" ToolTip="Документация" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click"  Margin="0,0,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="0">
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="Grid" />
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="3" Grid.Column="0">
+                <Border>
+                    <Grid HorizontalAlignment="Left">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5px"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Количество, шт:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Left">
+                            <TextBox Name="QuantityTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" Width="60" Text="129600" TextChanged="QuantityTextBox_TextChanged" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Column="2" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Факт. спец.:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="3" Grid.Row="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Stretch">
+                            <TextBox Name="ActualSpecificationTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" Width="200" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Column="2" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Спецификация:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="3" Grid.Row="1" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Stretch">
+                            <TextBox Name="SpecificationTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" Width="200" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Паллет, шт:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="1" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Left">
+                            <TextBox Name="CountPalletTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" Width="60" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Column="4" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Факт. цена без НДС, руб:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="5" Grid.Row="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Left">
+                            <TextBox Name="ActualPriceWithoutNdsTextBox"  HorizontalAlignment="Stretch" MaxLength="17" Text="113623,33" TextWrapping="NoWrap" Width="100" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Column="4" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Цена по спец. без НДС, руб:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="5" Grid.Row="1" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Left">
+                            <TextBox Name="PriceBySpecificationWithoNdsTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" MaxLength="17" Text="113623,33" TextChanged="PriceBySpecificationWithoNdsTextBox_TextChanged"  Width="100" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Column="0" Grid.Row="2" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Примечание кладовщику:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="5" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Stretch">
+                            <TextBox Name="NoteStockmanTextBox"  HorizontalAlignment="Stretch" MaxLength="512"
+                                     Text="(с остатка, отгрузить 2 поддона) Строго полные поддоны! Строго полные пачки! Ровные ряды! При комплектации убрать старый перестил. Друг на друга поддоны не ставить Строго полные поддоны! Строго полные пачки! Ровные ряды! При комплектации убрать старый перестил. Друг на друга поддоны не ставить Строго полные поддоны! Строго полные пачки! Ровные ряды! При комплектации убрать старый перестил. Друг на друга поддоны не ставить"
+                                     TextWrapping="Wrap" Height="55" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Column="0" Grid.Row="3" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Примечание грузчику:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="5" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Stretch">
+                            <TextBox Name="NoteLoaderTextBox"  HorizontalAlignment="Stretch" MaxLength="512"
+                                     Text="недопустимы применения стандартной процедуры перемаркировки паллеты в случаях повреждения готовой продукции.  недопустимы применения стандартной процедуры перемаркировки паллеты в случаях повреждения готовой продукции. недопустимы применения стандартной процедуры перемаркировки паллеты в случаях повреждения готовой продукции. недопустимы применения стандартной процедуры перемаркировки паллеты в случаях повреждения готовой продукции.  недопустимы применения стандартной процедуры перемаркировки па"
+                                     TextWrapping="Wrap" Height="55" Style="{DynamicResource FormField}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Grid>
+            
+        </Grid>
+    </Border>
+
+</UserControl>

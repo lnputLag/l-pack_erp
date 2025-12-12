@@ -1,0 +1,96 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Service.Mail.LabelBlock"
+    xmlns:local="clr-namespace:Client.Interfaces.Service.Mail"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    mc:Ignorable="d"   
+    Background="#ffffffff"
+    Width="7cm" Height="4.2cm"
+    Margin="0,0,0,0"
+    Padding="0.5cm,0.5cm,0.5cm,0.5"
+    BorderBrush="#ffcccccc" BorderThickness="0,0,0,0" 
+>
+
+    <!--
+    d:DesignWidth="200" d:DesignHeight="175" 
+    ="{StaticResource Canvas}"           
+    -->
+    
+    <UserControl.Resources>
+        <!--
+        <Style x:Key="Canvas" TargetType="{x:Type UserControl}">
+            <Setter Property="Background" Value="#ffffffff"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Padding" Value="0,0,0,0" />
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="BorderBrush" Value="#ff900000" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+        -->
+        <Style x:Key="Block" TargetType="{x:Type Border}">
+            <Setter Property="Margin" Value="0,0,0,0" />
+        </Style>
+        <Style x:Key="Text" TargetType="{x:Type TextBox}" >
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="#ffcccccc" />
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="FontStyle" Value="Italic" />
+            <Setter Property="IsReadOnly" Value="true" />
+        </Style>
+        <Style x:Key="Label" TargetType="{x:Type TextBox}" BasedOn="{StaticResource Text}">
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <Style x:Key="Index" TargetType="{x:Type TextBox}" BasedOn="{StaticResource Text}">
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="17" />
+        </Style>
+    </UserControl.Resources>
+
+    <Border BorderBrush="#ff900000" BorderThickness="0"  >
+        
+        <Grid ShowGridLines="False">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource Block}"  >
+                <TextBox  x:Name="RecipientLabel" Text="Получатель:" Style="{StaticResource Text}" />
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Style="{StaticResource Block}"  >
+                <TextBox  x:Name="RecipientNameLabel" Text="Кому:" Style="{StaticResource Label}" />
+            </Border>
+            <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Style="{StaticResource Block}"  >
+                <TextBox x:Name="RecipientName" Text="Дирекция по Управлению Терминально-Складским КомплексомЮВжд филиала ОАО Российские железные дороги" Style="{StaticResource Text}" TextWrapping="Wrap" />
+            </Border>
+            
+            <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1" Style="{StaticResource Block}"  Margin="0,5,0,0">
+                <TextBox  x:Name="RecipientAddressLabel" Text="Куда:" Style="{StaticResource Label}" />
+            </Border>
+            <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Style="{StaticResource Block}"  Margin="0,5,0,0">
+                <TextBox x:Name="RecipientAddress" Text="Белгородская обл, г Старый Оскол, тер станция Котел промузел, пл-ка Монтажная проезд Ш-6, д 19" Style="{StaticResource Text}" TextWrapping="Wrap" />
+            </Border>
+
+            <Border Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="1" Style="{StaticResource Block}"  >
+                <TextBox x:Name="RecipientIndex" Text="398005" Style="{StaticResource Index}" HorizontalAlignment="Right" />
+            </Border>
+
+        </Grid>
+    </Border>
+
+</UserControl>

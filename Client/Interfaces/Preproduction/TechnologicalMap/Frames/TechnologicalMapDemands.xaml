@@ -1,0 +1,1128 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Preproduction.TechnologicalMapDemands"
+    xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+    xmlns:lib="clr-namespace:Client.Common"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"             
+    
+    mc:Ignorable="d"
+    
+    d:DesignWidth="1920" d:DesignHeight="1080" 
+    
+    Style="{DynamicResource UserControlCanvas}"
+    HorizontalAlignment="Left" VerticalAlignment="Top">
+
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource DataGridContainerHolder}" Margin="1" >
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="11.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" Name="FormToolbar">
+                            <Button Content="Сохранить" Tag="access_mode_full_access" Name="SaveButton"  Click="SaveButton_Click"  Style="{DynamicResource FButtonPrimary}" ToolTip="Сохраняет изменения и закрывает окно"/>
+                            <Button Content="Отмена"    Name="CancelButton" Click="CancelButton_Click"  Style="{DynamicResource Button}" ToolTip="Закрывает окно без сохранения"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Right" >
+                            <Button Name="HelpButton" ToolTip="Документация" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click"  Margin="0,0,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+            <Grid Grid.Row="2" Grid.Column="0" Name="GridOfDemandsFirst" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350px"/>
+                    <ColumnDefinition Width="350px"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Требование 1 :" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                            <controls:SelectBox  x:Name="DemandFirstSelectBox" Style="{DynamicResource CustomFormField}" Autocomplete="True" HorizontalAlignment="Stretch" ListBoxMinWidth="250"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="1">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Требование 2 :" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                            <controls:SelectBox  x:Name="DemandSecondSelectBox" Style="{DynamicResource CustomFormField}" Autocomplete="True" HorizontalAlignment="Stretch" ListBoxMinWidth="250"/>
+                        </Border>
+                    </Grid>
+                </Border>
+                
+                <Border Grid.Column="0" Grid.Row="2">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="SpecialLabelCheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Спецярлык" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="3">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="ArhiveCheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Отправить в архив после отгрузки" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="4" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="ГА :" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                            <controls:SelectBox  x:Name="CorrugatingMachineSelectBox" Style="{DynamicResource CustomFormField}" Autocomplete="True" HorizontalAlignment="Stretch" ListBoxMinWidth="250"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="5" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="FEFCO :" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                            <controls:SelectBox  x:Name="FEFCOSelectBox" Style="{DynamicResource CustomFormField}" Autocomplete="True" HorizontalAlignment="Stretch" ListBoxMinWidth="250"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="6" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Ко-во образцов :" Style="{DynamicResource FormLabel}" ToolTip="Количество образцов на паллете"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="QtySampleTextBox" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+                
+                <Border Grid.Column="0" Grid.Row="7" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="PrintDateCreatedCheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Печать даты изготовления" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="8" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="ReferenceSampleCheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Эталонный образец" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="9" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="OldProductCheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Старое изделие" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="10" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Рилёвка :" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                            <controls:SelectBox  x:Name="ScoringSelectBox" Style="{DynamicResource CustomFormField}" Autocomplete="True" HorizontalAlignment="Stretch" ListBoxMinWidth="250"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="11" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Целевое BTC, H :" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="TargetBTCTextBox" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+                
+                
+
+                <Border Grid.Column="1" Grid.Row="0">
+                    <Grid Style="{DynamicResource FromGrid}" IsEnabled="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Рамка :" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                            <controls:SelectBox  x:Name="FrameSelectBox" Style="{DynamicResource CustomFormField}" Autocomplete="True" HorizontalAlignment="Stretch" ListBoxMinWidth="250"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="1">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Кол-во ярлыков :" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                            <controls:SelectBox  x:Name="QtyLabelSelectBox" Style="{DynamicResource CustomFormField}" Autocomplete="True" HorizontalAlignment="Stretch" ListBoxMinWidth="250"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="2">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="StrictlyQtyOnPalletCheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Количество на поддоне строго по ТК" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="3">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="OnEdgeCheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Укладка на ребро" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="4" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="AutomaticAssemblyCheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Автоматическая сборка" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="5" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="FullStampCheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Полный штамп" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="6" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="CorrugatedAcrossCheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Гофрослой поперёк" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="7" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="SupplyOneCheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Подача через одну" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="8" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="TwoSidePrintCheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Двухсторонняя печать" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="9" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="UncutEdgeCheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Необрезная кромка" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="10" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="HotCheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Ехать горячим" HorizontalAlignment="Left" Foreground="Red" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="11" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="ReverseCuttingCheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Обратный раскрой" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                
+
+                <Border Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+                
+                
+
+                <Border Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Примечание для производства :" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="ProductionNoteTextBox" HorizontalAlignment="Stretch" Height="55" TextWrapping="Wrap" Style="{DynamicResource FormField}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+                
+                <Border Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Примечание для ГА :" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="CorrugatingMachineNoteTextBox" HorizontalAlignment="Stretch" Height="55" TextWrapping="Wrap" Style="{DynamicResource FormField}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+                
+            </Grid>
+
+            <Border Grid.Column="1" Grid.Row="2" Width="1" BorderBrush="#ffcccccc" Padding="0,0,0,0" Margin="5,0,5,0" BorderThickness="1,0,1,0"/>
+
+            <Grid Grid.Row="2" Grid.Column="2" Name="GridOfDemandsSecond" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350px"/>
+                    <ColumnDefinition Width="350px"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Требование 1 :" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                            <controls:SelectBox  x:Name="DemandFirst2SelectBox" Style="{DynamicResource CustomFormField}" Autocomplete="True" HorizontalAlignment="Stretch" ListBoxMinWidth="250"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="1">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Требование 2 :" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                            <controls:SelectBox  x:Name="DemandSecond2SelectBox" Style="{DynamicResource CustomFormField}" Autocomplete="True" HorizontalAlignment="Stretch" ListBoxMinWidth="250"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="2">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="SpecialLabel2CheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Спецярлык" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="3">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="Arhive2CheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Отправить в архив после отгрузки" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="4" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="ГА :" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                            <controls:SelectBox  x:Name="CorrugatingMachine2SelectBox" Style="{DynamicResource CustomFormField}" Autocomplete="True" HorizontalAlignment="Stretch" ListBoxMinWidth="250"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="5" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="FEFCO :" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                            <controls:SelectBox  x:Name="FEFCO2SelectBox" Style="{DynamicResource CustomFormField}" Autocomplete="True" HorizontalAlignment="Stretch" ListBoxMinWidth="250"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="6" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Ко-во образцов :" Style="{DynamicResource FormLabel}" ToolTip="Количество образцов на паллете"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="QtySample2TextBox" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="7" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="PrintDateCreated2CheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Печать даты изготовления" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="8" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="ReferenceSample2CheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Эталонный образец" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="9" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="OldProduct2CheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Старое изделие" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="10" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Рилёвка :" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                            <controls:SelectBox  x:Name="Scoring2SelectBox" Style="{DynamicResource CustomFormField}" Autocomplete="True" HorizontalAlignment="Stretch" ListBoxMinWidth="250"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="11" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Целевое BTC, H :" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="TargetBTC2TextBox" Width="100" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+
+
+                <Border Grid.Column="1" Grid.Row="0">
+                    <Grid Style="{DynamicResource FromGrid}" IsEnabled="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Рамка :" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                            <controls:SelectBox  x:Name="Frame2SelectBox" Style="{DynamicResource CustomFormField}" Autocomplete="True" HorizontalAlignment="Stretch" ListBoxMinWidth="250"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="1">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Кол-во ярлыков :" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                            <controls:SelectBox  x:Name="QtyLabel2SelectBox" Style="{DynamicResource CustomFormField}" Autocomplete="True" HorizontalAlignment="Stretch" ListBoxMinWidth="250"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="2">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="StrictlyQtyOnPallet2CheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Количество на поддоне строго по ТК" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="3">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="OnEdge2CheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Укладка на ребро" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="4" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="AutomaticAssembly2CheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Автоматическая сборка" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="5" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="FullStamp2CheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Полный штамп" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="6" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="CorrugatedAcross2CheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Гофрослой поперёк" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="7" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="SupplyOne2CheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Подача через одну" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="8" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="TwoSidePrint2CheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Двухсторонняя печать" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="9" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="UncutEdge2CheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Необрезная кромка" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="10" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="Hot2CheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Ехать горячим" HorizontalAlignment="Left" Foreground="Red" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Grid.Row="11" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormFieldContainer}" HorizontalAlignment="Right">
+                            <CheckBox Name="ReverseCutting2CheckBox" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormLabelContainer}" HorizontalAlignment="Left">
+                            <Label Content="Обратный раскрой" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+
+
+                <Border Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+
+
+                <Border Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Примечание для производства :" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="ProductionNote2TextBox" HorizontalAlignment="Stretch" Height="55" TextWrapping="Wrap" Style="{DynamicResource FormField}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2" Visibility="Collapsed">
+                    <Grid Style="{DynamicResource FromGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Примечание для ГА :" Style="{DynamicResource FormLabel}"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="CorrugatingMachineNote2TextBox" HorizontalAlignment="Stretch" Height="55" TextWrapping="Wrap" Style="{DynamicResource FormField}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+            </Grid>
+        </Grid>
+    </Border>
+    
+</UserControl>

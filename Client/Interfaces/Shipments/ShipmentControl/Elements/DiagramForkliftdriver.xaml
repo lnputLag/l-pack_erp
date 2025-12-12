@@ -1,0 +1,70 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Shipments.DiagramForkliftdriver"
+    xmlns:local="clr-namespace:Client.Interfaces.Shipments"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"     
+    mc:Ignorable="d"   
+    Style="{DynamicResource UserControlCanvasStatic}"          
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border  Style="{DynamicResource SHMonLabel}"  >
+
+            <Border.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Отправить на общецеховые задачи"  Click="ToGeneralTask" Name="SendMenuItem" />
+                    <MenuItem Header="Вернуть с общецеховых задач"      Click="BackFromTask"  Name="BackMenuItem" />
+                </ContextMenu>
+            </Border.ContextMenu>
+            <Grid  Background="White" >
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.7*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="15" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Style="{DynamicResource SHMonBlockItem}"   >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox  x:Name="DriverName" FontWeight="Bold"  Text="Иванов И.В." Style="{DynamicResource SHMonBlockItemText}" ContextMenu="{x:Null}" />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"  Style="{DynamicResource SHMonBlockItem}"   >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox  x:Name="DriverPhone" Text="+79202445566" Style="{DynamicResource SHMonBlockItemText}" ContextMenu="{x:Null}" />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Style="{DynamicResource SHMonBlockItem}"   >
+                    <StackPanel Name="DriverNoteBlock" Orientation="Horizontal">
+                        <TextBox  x:Name="DriverNote" Text="обед" Style="{DynamicResource SHMonBlockItemText}" ContextMenu="{x:Null}" />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Row="3" Grid.Column="0"  Style="{DynamicResource SHMonBlockItem}"  >
+                    <TextBox  x:Name="DriverStatCnt" Text="99" ToolTip="Завершено отгрузок" HorizontalAlignment="Right" Style="{DynamicResource SHMonBlockItemText}"  ContextMenu="{x:Null}" />
+                </Border>
+                <Border Grid.Row="3" Grid.Column="2"  Style="{DynamicResource SHMonBlockItem}"  >
+                    <TextBox  x:Name="DriverStatSquare" Text="99000"  HorizontalAlignment="Right" ToolTip="Отгружено кв.м." Style="{DynamicResource SHMonBlockItemText}" ContextMenu="{x:Null}" />
+                </Border>
+
+            </Grid>
+
+    </Border>
+
+</UserControl>

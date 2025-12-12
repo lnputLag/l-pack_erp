@@ -1,0 +1,151 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Shipments.ShipmentsMonitorItem"
+    xmlns:local="clr-namespace:Client.Interfaces.Shipments"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"     
+    mc:Ignorable="d"   
+    d:DesignWidth="90" d:DesignHeight="60" 
+    Style="{DynamicResource UserControlCanvas}"   
+    Background="Transparent"
+    HorizontalAlignment="Left"    
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border  Style="{DynamicResource SHMonTermGridDataElement}"   x:Name="MonBlock" Width="200" >
+
+<!--
+        <Border.ContextMenu>
+            <ContextMenu x:Name="ContextMenu">
+                <MenuItem Header="Открыть"                x:Name="ContextMenu_View"         Click="ContextMenu_View_Click"  CommandParameter=""  IsEnabled="{Binding Path=ActionsEnabled[View]}"              Visibility="{Binding Path=ActionsVisible[View]}"></MenuItem>
+            </ContextMenu>
+        </Border.ContextMenu>
+-->
+        <Border.ToolTip>
+            <StackPanel HorizontalAlignment="Stretch" Width="370" Height="200">
+
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.2*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label     Grid.Row="0" Grid.Column="0"  x:Name="LId"               Content="#"     Style="{DynamicResource SHMonTooltipLabel}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1"  x:Name="TId"                               Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                    <Label     Grid.Row="1" Grid.Column="0"  x:Name="LShipmentStart"    Content="Начало отгрузки:"  Style="{DynamicResource SHMonTooltipLabel}" />
+                    <TextBlock Grid.Row="1" Grid.Column="1"  x:Name="TShipmentStart"                                Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                    <Label     Grid.Row="2" Grid.Column="0"  x:Name="LShipmentFinish"   Content="Окончание отгрузки:"   Style="{DynamicResource SHMonTooltipLabel}" />
+                    <TextBlock Grid.Row="2" Grid.Column="1"  x:Name="TShipmentFinish"                                   Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                    <Label     Grid.Row="3" Grid.Column="0"  x:Name="LBayerName"        Content="Покупатель:"   Style="{DynamicResource SHMonTooltipLabel}" />
+                    <TextBlock Grid.Row="3" Grid.Column="1"  x:Name="TBayerName"                                Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                    <Label     Grid.Row="4" Grid.Column="0"  x:Name="LDriver"           Content="Водитель:"         Style="{DynamicResource SHMonTooltipLabel}" />
+                    <TextBlock Grid.Row="4" Grid.Column="1"  x:Name="TDriver"                                       Style="{DynamicResource SHMonTooltipContent}"></TextBlock>
+
+                    <Label     Grid.Row="5" Grid.Column="0"  x:Name="LProductionType"   Content="Тип продукции:"    Style="{DynamicResource SHMonTooltipLabel}" />
+                    <TextBlock Grid.Row="5" Grid.Column="1"  x:Name="TProductionType"                               Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                    <Label     Grid.Row="6" Grid.Column="0"  x:Name="LPackaging"        Content="Упаковка:"         Style="{DynamicResource SHMonTooltipLabel}" />
+                    <TextBlock Grid.Row="6" Grid.Column="1"  x:Name="TPackaging"                                    Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                    <Label     Grid.Row="7" Grid.Column="0"  x:Name="LShipmentType"     Content="Тип отгрузки:"     Style="{DynamicResource SHMonTooltipLabel}" />                    
+                    <TextBlock Grid.Row="7" Grid.Column="1"  x:Name="TShipmentType"                                 Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                    <Label     Grid.Row="8" Grid.Column="0"  x:Name="LTerminal"         Content="Терминал:"         Style="{DynamicResource SHMonTooltipLabel}" />
+                    <TextBlock Grid.Row="8" Grid.Column="1"  x:Name="TTerminal"                                     Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                    <Label     Grid.Row="9" Grid.Column="0"  x:Name="LForkliftDriver"   Content="Водитель погрузчика:"           Style="{DynamicResource SHMonTooltipLabel}" />
+                    <TextBlock Grid.Row="9" Grid.Column="1"  x:Name="TForkliftDriver"                                  Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+                    
+                    <Label     Grid.Row="10" Grid.Column="0" x:Name="LStatus"           Content="Статус:"           Style="{DynamicResource SHMonTooltipLabel}" />
+                    <TextBlock Grid.Row="10" Grid.Column="1" x:Name="TStatus"                                       Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                    <Label     Grid.Row="11" Grid.Column="0" x:Name="LProgress"     Content="Степень загруженности:"    Style="{DynamicResource SHMonTooltipLabel}" />
+                    <TextBlock Grid.Row="11" Grid.Column="1" x:Name="TProgress"                                         Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                    <TextBlock Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2" x:Name="TDebug" TextWrapping="Wrap" Width="250" Height="60" HorizontalAlignment="Left" Style="{DynamicResource SHMonTooltipContent}" ></TextBlock>
+
+                </Grid>
+              
+            </StackPanel>
+        </Border.ToolTip>
+
+        <Border x:Name="InnerContainer" Style="{DynamicResource SHMonTermGridDataElementInner}">
+            <Grid  Style="{DynamicResource SHMonBlockGrid}">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="4*" />
+                </Grid.ColumnDefinitions>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="15" />
+                </Grid.RowDefinitions>
+
+
+                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Style="{DynamicResource SHMonBlockItem}"  >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox  x:Name="Id" Text="123456" FontWeight="Bold" Style="{DynamicResource SHMonBlockItemText}" ContextMenu="{x:Null}" />
+                        <TextBox  x:Name="BayerName" Text="Гофропак" Style="{DynamicResource SHMonBlockItemText}" ContextMenu="{x:Null}" />
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource SHMonBlockItem}"  >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox  x:Name="LDriverName"  Text="В:" Style="{DynamicResource SHMonBlockItemText}" Margin="0" ContextMenu="{x:Null}" />
+                        <TextBox  x:Name="DriverName" FontWeight="Bold"  Text="Иванов И.В." Style="{DynamicResource SHMonBlockItemText}" ContextMenu="{x:Null}" />
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource SHMonBlockItem}"  >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox  x:Name="LForkliftDriverName" Text="П:" Style="{DynamicResource SHMonBlockItemText}" Margin="0" ContextMenu="{x:Null}" />
+                        <TextBox  x:Name="ForkliftDriverName" FontWeight="Bold"  Text="Петров И.С." Style="{DynamicResource SHMonBlockItemText}" ContextMenu="{x:Null}" />
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource SHMonBlockItem}"  >
+                    <TextBox  x:Name="Packaging" Text="ПАЛ" FontWeight="Bold" Style="{DynamicResource SHMonBlockItemText}" ContextMenu="{x:Null}" />
+                </Border>
+
+                <Border Grid.Row="3" Grid.Column="1" Style="{DynamicResource SHMonBlockItem}"  >
+                    <TextBox  x:Name="Progress" Text="100%" Style="{DynamicResource SHMonBlockItemText}" HorizontalAlignment="Right" TextAlignment="Right" ContextMenu="{x:Null}" />
+                </Border>
+
+            </Grid>
+        </Border>
+        
+    </Border>
+
+</UserControl>

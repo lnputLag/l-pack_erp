@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="Client.Interfaces.Preproduction.SampleChatRow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource ChatMsgBoxContainer}">
+        <Grid Margin="0,10,0,0" Style="{DynamicResource ChatBlockGrid}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Style="{DynamicResource ChatUserBlock}">
+                    <TextBox Name="User" Text="Иванов И.В." Style="{DynamicResource ChatBlockUser}" Margin="10,0,0,0" VerticalAlignment="Center" />
+                </Border>
+
+                <Border Name="RecipientBlock" Grid.Row="1" Style="{DynamicResource ChatUserBlock}">
+                    <TextBox Name="Recipients" Text="Иванов И.В." Style="{DynamicResource ChatBlockUser}" Margin="10,0,0,0" VerticalAlignment="Center" />
+                </Border>
+
+                <Border Grid.Row="2" Style="{DynamicResource ChatMsgBlock}">
+                    <TextBox Name="Message" Text="Не хватает новых файлов для принятых макетов"  Style="{DynamicResource ChatMsgBox}" />
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

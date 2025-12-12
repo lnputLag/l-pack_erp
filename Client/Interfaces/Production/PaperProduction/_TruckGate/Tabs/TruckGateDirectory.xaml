@@ -1,0 +1,124 @@
+﻿<UserControl x:Class="Client.Interfaces.Production.PaperProduction.TruckGateDirectory"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Production.PaperProduction"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             d:DesignWidth="1200"
+             d:DesignHeight="768" 
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="430" MinWidth="420" MaxWidth="500"/>
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" MinWidth="420" MaxWidth="600"/>
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition MinWidth="320"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+
+            </Grid.RowDefinitions>
+
+
+
+            <Grid Grid.Row="1"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border >
+                    <Grid HorizontalAlignment="Left" >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="AccountGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Width="770" >
+
+                            <Label Content="Автомобили"  Style="{DynamicResource TopLabel}" />
+
+                            <Button Name="RefresCarsNumberButton" Content="Обновить"  Style="{DynamicResource Button}" Width="75" Click="RefresCarsNumberButton_Click"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" MinWidth="80" MaxWidth="150"  TextWrapping="NoWrap" Name="CarSearchBox" Text=""  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="4" Style="{DynamicResource GridControlPanel}">
+                <Border >
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="0*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                       
+
+                        <StackPanel Grid.Row="0" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" Width="24" >
+                            <Button Name="HelpButton"  Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click" Margin="0"  />
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Border Style="{DynamicResource DataGridMainHolder}" Grid.Row="2" Grid.Column="4" Grid.RowSpan="3">
+                    <controls:GridBox x:Name="CarsNumberGrid" />
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="2" Grid.Column="2">
+                <Border Style="{DynamicResource DataGridMainHolder}" Grid.Row="2" Grid.Column="4" Grid.RowSpan="3">
+                    <controls:GridBox x:Name="PositionGrid" />
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="2" Grid.Column="4">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Style="{DynamicResource DataGridMainHolder}" >
+                        <controls:GridBox x:Name="ScaleGrid" />
+                    </Border>
+                    <Border Grid.Row="2" Style="{DynamicResource DataGridMainHolder}" >
+                        <controls:GridBox x:Name="PanelGrid" />
+                    </Border>
+                    <Border Grid.Row="1" Style="{DynamicResource DataGridMainHolder}" >
+                        <controls:GridBox x:Name="BarrierGrid" />
+                    </Border>
+                </Grid>
+            </Grid>
+
+
+
+        </Grid>
+    </Border>
+</UserControl>

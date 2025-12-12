@@ -1,0 +1,333 @@
+<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports"
+              xmlns:xrbc="clr-namespace:CodeReason.Reports.Document.Barcode;assembly=CodeReason.Reports"
+              PageHeight="29.7cm" PageWidth="21cm" ColumnWidth="21cm" FontFamily="Verdana" FontSize="18">
+    
+  <FlowDocument.Resources>
+    
+    <Style x:Key="headerFooterRowStyle" TargetType="{x:Type TableRowGroup}">    
+    </Style>
+
+    <Style x:Key="dataRowStyle" TargetType="{x:Type TableRowGroup}">      
+    </Style>
+
+    <Style TargetType="{x:Type TableCell}">
+      <Setter Property="Padding" Value="0cm,0cm,0cm,0.5cm"/>      
+    </Style>
+
+        <Style x:Key="VisitingRulesTitle" TargetType="{x:Type Paragraph}">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+
+        <Style x:Key="VisitingRulesListTitle" TargetType="{x:Type Paragraph}">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+
+        <Style x:Key="VisitingRulesListElement" TargetType="{x:Type Paragraph}">
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+      
+  </FlowDocument.Resources>
+  
+    <xrd:ReportProperties>
+        <xrd:ReportProperties.ReportName>Загрузочная карта</xrd:ReportProperties.ReportName>
+        <xrd:ReportProperties.ReportTitle>Загрузочная карта водителя-перевозчика</xrd:ReportProperties.ReportTitle>
+    </xrd:ReportProperties>
+  
+    <xrd:SectionReportHeader PageHeaderHeight="2" Padding="15,20,15,0" FontFamily="Verdana" FontSize="12" >
+        <Table CellSpacing="0">
+            <Table.Columns>
+                <TableColumn Width="*" />
+                <TableColumn Width="*" />
+            </Table.Columns>
+            <TableRowGroup>
+                <TableRow>
+                    <TableCell>
+                      <Paragraph>
+                        <xrd:InlineDocumentValue PropertyName="SystemName" /> (<xrd:InlineContextValue PropertyName="ReportName" />)
+                      </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Right">
+                            <xrd:InlineDocumentValue PropertyName="Today" Format="dd.MM.yyyy HH:mm:ss" />
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+            </TableRowGroup>
+        </Table>
+    </xrd:SectionReportHeader>
+    
+    <Section BreakPageBefore="True" Margin="2,0,2,0">
+        <Paragraph FontSize="22" FontWeight="Bold">
+            <xrd:InlineContextValue PropertyName="ReportTitle" /> №
+            <xrd:InlineDocumentValue PropertyName="Id"  />
+        </Paragraph>
+    </Section>
+
+    <Section Margin="0,0,0,0" Name="Payment">
+        <Paragraph FontSize="10" FontWeight="Bold">
+            Оплата:
+            <xrd:InlineDocumentValue PropertyName="Payment"  />
+        </Paragraph>
+    </Section>
+  
+    <Section Margin="2,0,2,0">
+      
+    <Table CellSpacing="0" Margin="0" Padding="0">
+      <Table.Columns>
+        <TableColumn Width="1*" />
+        <TableColumn Width="0.1*" />
+        <TableColumn Width="2*" />
+      </Table.Columns>
+        
+      <TableRowGroup>
+
+        <TableRow>
+          <TableCell>
+            <Paragraph TextAlignment="Right">
+              Грузоотправитель:
+            </Paragraph>
+          </TableCell>
+          <TableCell></TableCell>
+          <TableCell>
+            <Paragraph >
+                <xrd:InlineDocumentValue PropertyName="ShipperName"  />
+            </Paragraph>
+            <Paragraph TextAlignment="Left">
+                <xrd:InlineDocumentValue PropertyName="ShipperAddress"  />
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+
+        <TableRow>
+          <TableCell>
+            <Paragraph TextAlignment="Right">
+              Грузополучатель:
+            </Paragraph>
+          </TableCell>
+          <TableCell></TableCell>
+          <TableCell>
+            <Paragraph >
+              <xrd:InlineDocumentValue PropertyName="BuyerName"  />
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+
+        <TableRow>
+          <TableCell>
+            <Paragraph TextAlignment="Right">
+
+            </Paragraph>
+          </TableCell>
+          <TableCell></TableCell>
+          <TableCell>
+            <Paragraph >
+              <xrd:InlineDocumentValue PropertyName="ShipmentType"  />
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+
+        <TableRow>
+          <TableCell>
+            <Paragraph TextAlignment="Right">
+              Водитель:
+            </Paragraph>
+          </TableCell>
+          <TableCell></TableCell>
+          <TableCell>
+            <Paragraph >
+              <xrd:InlineDocumentValue PropertyName="DriverName"  />
+              <xrd:InlineDocumentValue PropertyName="DriverPhone"  />
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+
+        <TableRow>
+          <TableCell>
+            <Paragraph TextAlignment="Right">
+              Автомобиль:
+            </Paragraph>
+          </TableCell>
+          <TableCell></TableCell>
+          <TableCell>
+            <Paragraph >
+              <xrd:InlineDocumentValue PropertyName="Car"  />
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+
+        <TableRow>
+          <TableCell>
+            <Paragraph TextAlignment="Right">
+              Количество паллет:
+            </Paragraph>
+          </TableCell>
+          <TableCell></TableCell>
+          <TableCell>
+            <Paragraph >
+              ________
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+
+        <TableRow>
+          <TableCell>
+            <Paragraph TextAlignment="Right">
+              За погрузкой наблюдал
+            </Paragraph>
+          </TableCell>
+          <TableCell></TableCell>
+          <TableCell>
+            <Paragraph >
+              __________________ , претензий не имею.
+            </Paragraph>
+            <Paragraph FontSize="12" Margin="2cm,0cm,0cm,0cm">
+              подпись
+            </Paragraph>                    
+          </TableCell>
+        </TableRow>
+
+        <TableRow>
+            <TableCell>
+                <Paragraph TextAlignment="Right">
+                    Отказываюсь наблюдать за погрузкой
+                </Paragraph>
+            </TableCell>
+            <TableCell></TableCell>
+            <TableCell>
+                <Paragraph >
+                    __________________ , претензий не имею.
+                </Paragraph>
+                <Paragraph FontSize="12" Margin="2cm,0cm,0cm,0cm">
+                    подпись
+                </Paragraph>
+            </TableCell>
+        </TableRow>
+
+      </TableRowGroup>
+    </Table>
+
+    <Table CellSpacing="0" BorderThickness="1" BorderBrush="Black" Margin="0" Padding="0">
+        <Table.Columns>
+            <TableColumn Width="2*" />
+            <TableColumn Width="0.1*" />
+            <TableColumn Width="1*" />
+        </Table.Columns>
+            
+        <TableRowGroup>
+            <TableRow>
+                <TableCell>
+                    <Paragraph TextAlignment="Right" Margin="0" Padding="0">
+                        С правилами нахождения на складе и территории предприятия ознакомлен
+                    </Paragraph>
+                </TableCell>
+                <TableCell></TableCell>
+                <TableCell>
+                    <Paragraph Margin="0" Padding="0">
+                        __________________ .
+                    </Paragraph>
+                    <Paragraph FontSize="12" Margin="2cm,0cm,0cm,0cm" Padding="0">
+                        подпись
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+      
+    <Paragraph FontWeight="Bold" Margin="0cm, 0.2cm, 0cm, 0.2cm" Padding="0" TextAlignment="Left">
+      В процессе загрузки водитель обязан считать количество загружаемых паллет.
+      После загрузки авто необходимо отъехать от погрузочных ворот, а уже затем идти получать документы.
+    </Paragraph>
+
+    <Paragraph TextAlignment="Center"  >
+      <Image Name="ImageBarcode" Width="13cm" Height="7cm"  />
+    </Paragraph>
+    <Paragraph TextAlignment="Center" Margin="0" Padding="0">      
+      <xrd:InlineDocumentValue PropertyName="TransportIdCodeFull" />
+    </Paragraph>
+
+  </Section>
+
+    <Section Margin="0" Name="VisitingRulesSection" BreakPageBefore="True">
+        <Paragraph Style="{DynamicResource VisitingRulesTitle}">
+            ПРАВИЛА НАХОЖДЕНИЯ НА СКЛАДЕ И ТЕРРИТОРИИ ПРЕДПРИЯТИЯ.
+        </Paragraph>
+
+        <Paragraph Style="{DynamicResource VisitingRulesListTitle}">
+            1.  Порядок работы с пропуском и автоматическим турникетом
+        </Paragraph>
+        <Paragraph Style="{DynamicResource VisitingRulesListElement}">
+            •   Пропуск необходимо получить непосредственно перед началом загрузки.
+        </Paragraph>
+        <Paragraph Style="{DynamicResource VisitingRulesListElement}">
+            •   Проход на территорию осуществляется через автоматический турникет по индивидуальному пропуску.
+        </Paragraph>
+        <Paragraph Style="{DynamicResource VisitingRulesListElement}">
+            •   Проход за другим лицом («в хвост») запрещен.
+        </Paragraph>
+        <Paragraph Style="{DynamicResource VisitingRulesListElement}">
+            •   По окончании загрузки/разгрузки, после получения всех сопроводительных документов на груз, пропуск подлежит обязательной сдаче.
+        </Paragraph>
+        <Paragraph Style="{DynamicResource VisitingRulesListElement}">
+            •   Вынос пропуска за территорию предприятия запрещен.
+        </Paragraph>
+
+        <Paragraph Style="{DynamicResource VisitingRulesListTitle}">
+            2.  При срабатывании системы пожарной сигнализации или звукового оповещения необходимо:
+        </Paragraph>
+        <Paragraph Style="{DynamicResource VisitingRulesListElement}">
+            •   Немедленно прекратить все работы.
+        </Paragraph>
+        <Paragraph Style="{DynamicResource VisitingRulesListElement}">
+            •   Без паники и быстро покинуть здание Склада через ближайший запасный выход.
+        </Paragraph>
+        <Paragraph Style="{DynamicResource VisitingRulesListElement}">
+            •   Немедленно отойти на безопасное расстояние от загрузочного терминала и всех складских построек
+        </Paragraph>
+        <Paragraph Style="{DynamicResource VisitingRulesListElement}">
+            •   Не возвращаться в здание до официального разрешения ответственного лица предприятия.
+        </Paragraph>
+
+        <Paragraph Style="{DynamicResource VisitingRulesListTitle}">
+            3.  Запрещено:
+        </Paragraph>
+        <Paragraph Style="{DynamicResource VisitingRulesListElement}">
+            •   Находиться на территории Склада без светоотражающего жилета и закрытой обуви.
+        </Paragraph>
+        <Paragraph Style="{DynamicResource VisitingRulesListElement}">
+            •   Самостоятельно ходить по Складу, особенно в зонах хранения товарно-материальных ценностей (ТМЦ).
+        </Paragraph>
+        <Paragraph Style="{DynamicResource VisitingRulesListElement}">
+            •   Курение и употребление алкогольных, слабоалкогольных напитков и наркотических веществ на всей территории предприятия.
+        </Paragraph>
+        <Paragraph Style="{DynamicResource VisitingRulesListElement}">
+            •   Заходить в кузов транспортного средства во время погрузки.
+        </Paragraph>
+
+        <Paragraph Style="{DynamicResource VisitingRulesListTitle}">
+            4.  Разрешается:
+        </Paragraph>
+        <Paragraph Style="{DynamicResource VisitingRulesListElement}">
+            •   Перемещение по территории Склада допускается в сопровождении сотрудника Компании по утверждённым пешеходным маршрутам (пешеходным дорожкам).
+        </Paragraph>
+        <Paragraph Style="{DynamicResource VisitingRulesListElement}">
+            •   Курение только в специально отведенных и обозначенных для этого местах за пределами складских помещений.
+        </Paragraph>
+        <Paragraph Style="{DynamicResource VisitingRulesListElement}">
+            •   Присутствие доверенных лиц других организаций (не сотрудников склада) при загрузке/разгрузке транспортных средств разрешено исключительно с целью контроля качества отгружаемых ТМЦ.
+        </Paragraph>
+        <Paragraph Style="{DynamicResource VisitingRulesListElement}">
+            •   Находиться в зоне погрузки в непосредственной близости от загрузочного терминала, в специально отведенном месте, обозначенном разметкой в виде квадрата.
+        </Paragraph>
+        <Paragraph Style="{DynamicResource VisitingRulesListElement}">
+            •   Присутствие доверенных лиц других организаций (не сотрудников склада), имеющих право указывать на брак изделия, неправильную упаковку, несоответствие маркировки и другие отклонения сотруднику склада для их устранения, исключительно с целью контроля качества отгружаемых, выгружаемых ТМЦ.
+        </Paragraph>
+    </Section>
+</FlowDocument>
+

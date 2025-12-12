@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Client.Interfaces.Stock.Cell"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Stock"
+             mc:Ignorable="d" 
+             d:DesignHeight="80" d:DesignWidth="80">
+    <Grid>
+        <Button BorderThickness="5" BorderBrush="Black" Grid.Column="1" Grid.Row="1"  Name="Button" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="1" Padding="0">
+
+            <Grid x:Name="GridContainer">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height=".4*"/>
+                    <RowDefinition Height=".6*"/>
+                </Grid.RowDefinitions>
+
+                <Viewbox Grid.Row="0">
+                    <TextBlock Grid.Row="0" Name="TextCount" Text="???" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="8" />
+                </Viewbox>
+                <Viewbox Grid.Row="1">
+                    <TextBlock  Name="TextName"  Text="????" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="9" />
+                </Viewbox>
+            </Grid>
+
+        </Button>
+
+    </Grid>
+</UserControl>

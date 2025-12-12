@@ -1,0 +1,1038 @@
+﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports"
+              xmlns:xrbc="clr-namespace:CodeReason.Reports.Document.Barcode;assembly=CodeReason.Reports"
+              PageHeight="29.7cm" PageWidth="21cm" ColumnWidth="21cm" FontFamily="Verdana" FontSize="12" >
+    
+    <!-- Стили -->
+    <FlowDocument.Resources>
+
+
+        <Style x:Key="paragraphStyle" TargetType="{x:Type Paragraph}">
+            <Setter Property="TextAlignment" Value="Left"/>
+        </Style>
+
+        <Style x:Key="tableStyle" TargetType="{x:Type Table}">
+            <Setter Property="Margin" Value="0cm,0cm,0cm,0cm"/>
+        </Style>
+
+
+        <Style x:Key="headerFooterRowStyle" TargetType="{x:Type TableRowGroup}">
+        </Style>
+
+        <Style x:Key="dataRowStyle" TargetType="{x:Type TableRowGroup}">
+        </Style>
+
+        <Style TargetType="{x:Type TableCell}">
+            <Setter Property="Padding" Value="0.0cm,0.01cm,0.0cm,0.01cm"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0.02cm"/>
+            <Setter Property="TextAlignment" Value="Left"/>
+        </Style>
+
+    </FlowDocument.Resources>
+
+
+    <Section BreakPageBefore="False" Margin="2,0,2,0">
+        <Table CellSpacing="0">
+            <Table.Columns>
+                <TableColumn Width="1*"/>
+                <TableColumn Width="1*"/>
+                <TableColumn Width="1*"/>
+                <TableColumn Width="1*"/>
+            </Table.Columns>
+
+            <TableRowGroup>
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Left" >
+                            <!--Штрихкод-->
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Right" FontSize="10">
+                            к Правилам перевозок грузов автомобильным транспортом
+                        </Paragraph>
+                        <Paragraph TextAlignment="Right" FontSize="10">
+                            (в ред. Постановления Правительства РФ от 30.11.2021 № 2116)
+                        </Paragraph>
+                        <Paragraph TextAlignment="Right" FontSize="10">
+                            Форма
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+                
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10" FontWeight="Bold">
+                            ТРАНСПОРТНАЯ НАКЛАДНАЯ
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            Транспортная накладная
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            Заказ (заявка)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,1">
+                        <Paragraph TextAlignment="Left" FontSize="10">
+                            Дата
+                            <xrd:InlineDocumentValue PropertyName="DT" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,1,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="10">
+                            Дата
+                            <xrd:InlineDocumentValue PropertyName="DT" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="10">
+                            №
+                            <xrd:InlineDocumentValue PropertyName="DOCUMENT_NUMBER" />
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            Экземпляр №
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="10" FontWeight="Bold">
+                            1. Грузоотправитель
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            1а Заказчик услуг по организации перевозки груза (при наличии)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Left" FontSize="10">
+                            является экспедитором
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Left" FontSize="10">
+                            [ ]
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            <xrd:InlineDocumentValue PropertyName="SENDER" />                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (реквизиты, позволяющие идентифицировать Грузоотправителя)
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (реквизиты, позволяющие идентифицировать Заказчика услуг по организации перевозки груза)
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            реквизиты документа, определяющего основания осуществления расчетов по договору перевозки иным лицом, отличным от грузоотправителя (при наличии)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (реквизиты договора на выполнение услуг по организации перевозки груза)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10" FontWeight="Bold">
+                            2. Грузополучатель
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            <xrd:InlineDocumentValue PropertyName="RECIPIENT" />
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (реквизиты, позволяющие идентифицировать Грузополучателя)
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            <xrd:InlineDocumentValue PropertyName="DELIVERY_ADDRESS" />
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (адрес места доставки груза)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="10" FontWeight="Bold">
+                            3. Груз
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            133005 Изделия из бумаги и картона
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            <xrd:InlineDocumentValue PropertyName="PRODUCT_QUANTITY" /> шт
+                            <xrd:InlineDocumentValue PropertyName="PALLET_QUANTITY" /> паллет
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,0,0">
+                        <Paragraph TextAlignment="Center"  FontSize="7">
+                            (отгрузочное наименование груза (для опасных грузов - в соответствии с ДОПОГ), его состояние и другая необходимая информация о грузе)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (количество грузовых мест, маркировка, вид тары и способ упаковки)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            Масса брутто
+                            <xrd:InlineDocumentValue PropertyName="MASS_BRUTTO" /> т
+                            Масса нетто
+                            <xrd:InlineDocumentValue PropertyName="MASS_NETTO" /> т
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (масса груза брутто в килограммах, масса груза нетто в килограммах (при возможности ее определения), размеры (высота, ширина, длина) в метрах (при перевозке крупногабаритного груза)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (в случае перевозки опасного груза - информация по каждому опасному веществу, материалу или изделию в соответствии с пунктом 5.4.1 ДОПОГ)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (объявленная стоимость (ценность) груза (при необходимости)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10" FontWeight="Bold">
+                            4. Сопроводительные документы на груз
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center"  FontSize="7">
+                            (перечень прилагаемых к транспортной накладной документов, предусмотренных ДОПОГ, санитарными, таможенными (при наличии), карантинными, иными правилами в соответствии с законодательством Российской Федерации, либо регистрационные номера указанных документов, если такие документы (сведения о таких документах) содержатся в государственных информационных системах)
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center"  FontSize="10">
+                            --
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (перечень прилагаемых к грузу сертификатов, паспортов качества, удостоверений и других документов, наличие которых установлено законодательством Российской Федерации, либо регистрационные номера указанных документов, если такие документы (сведения о таких документах) содержатся в государственных информационных системах)                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            ТОРГ-13:
+                            <xrd:InlineDocumentValue PropertyName="MOVEMENT_INVOICE_13_NUMBER" />, ИНН составителя:
+                            <xrd:InlineDocumentValue PropertyName="SENDER_INN" />
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (реквизиты, позволяющие идентифицировать документ(-ы), подтверждающий(-ие) отгрузку товаров) (при наличии), реквизиты сопроводительной ведомости (при перевозке груженых контейнеров или порожних контейнеров)                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10" FontWeight="Bold">
+                            5. Указания грузоотправителя по особым условиям перевозки
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (маршрут перевозки, дата и время/сроки доставки груза (при необходимости)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (контактная информация о лицах, по указанию которых может осуществляться переадресовка)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (указания, необходимые для выполнения фитосанитарных, санитарных, карантинных, таможенных и прочих требований, установленных законодательством Российской Федерации)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (температурный режим перевозки груза (при необходимости), сведения о запорно-пломбировочных устройствах (в случае их предоставления грузоотправителем), запрещение перегрузки груза)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="10" FontWeight="Bold">
+                            6. Перевозчик
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            <xrd:InlineDocumentValue PropertyName="TRANSPORTER_FULL" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            <xrd:InlineDocumentValue PropertyName="DRIVER_FULL" />
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (реквизиты, позволяющие идентифицировать Перевозчика)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (реквизиты, позволяющие идентифицировать водителя(-ей)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10" FontWeight="Bold">
+                            7. Транспортное средство
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            <xrd:InlineDocumentValue PropertyName="TRUCK_MARKA" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            <xrd:InlineDocumentValue PropertyName="TRUCK_NUM" />
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (тип, марка, грузоподъемность (в тоннах), вместимость (в кубических метрах)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (регистрационный номер транспортного средства)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="3" BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="8">
+                            Тип владения: 1 - собственность; 2 - совместная собственность супругов; 3 - аренда; 4 - лизинг; 5 - безвозмездное пользование
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            [<xrd:InlineDocumentValue PropertyName="DRIVER_OWN" />]
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (реквизиты документа(-ов), подтверждающего(-их) основание владения грузовым автомобилем (тягачом, а также прицепом (полуприцепом) (для типов владения 3, 4, 5)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (номер, дата и срок действия специального разрешения, установленный маршрут движения тяжеловесного и (или) крупногабаритного транспортного средства или транспортного средства, перевозящего опасный груз) (при наличии)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+            </TableRowGroup>
+        </Table>
+    </Section>
+
+    <Section BreakPageBefore="True" Margin="2,0,2,0">
+        <Table CellSpacing="0">
+            <Table.Columns>
+                <TableColumn Width="*" />
+                <TableColumn Width="*" />
+                <TableColumn Width="*" />
+                <TableColumn Width="*" />
+            </Table.Columns>
+
+            <TableRowGroup>
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Right" FontSize="10">
+                            Продолжение приложения № 4
+                        </Paragraph>
+                        <Paragraph TextAlignment="Right" FontSize="10">
+                            Оборотная сторона
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10" FontWeight="Bold">
+                            8. Прием груза
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            <xrd:InlineDocumentValue PropertyName="SENDER" />
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (реквизиты лица, осуществляющего погрузку груза в транспортное средство)
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            <xrd:InlineDocumentValue PropertyName="SENDER" />
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (наименование (ИНН) владельца объекта инфраструктуры пункта погрузки)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            <xrd:InlineDocumentValue PropertyName="SENDER_ADDRESS" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            <xrd:InlineDocumentValue PropertyName="SHIPMENT_PLAN_DTTM" />
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (адрес места погрузки)
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            <xrd:InlineDocumentValue PropertyName="DRIVER_ARRIVAL_DTTM" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (заявленные дата и время подачи транспортного средства под погрузку)
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            <xrd:InlineDocumentValue PropertyName="DRIVER_DEPARTURE_DTTM" />
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (фактические дата и время прибытия под погрузку)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (фактические дата и время убытия)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            'Расчетная масса'
+                            <xrd:InlineDocumentValue PropertyName="MASS_BRUTTO_IN_KILO" /> кг.
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (масса груза брутто в килограммах и метод ее определения (определение разницы между массой транспортного средства после погрузки и перед погрузкой по общей массе или взвешиванием)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            <xrd:InlineDocumentValue PropertyName="PALLET_QUANTITY" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            Паллеты
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (количество грузовых мест)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (тара, упаковка (при наличии)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (оговорки и замечания перевозчика (при наличии) о дате и времени прибытия/убытия, о состоянии, креплении груза, тары, упаковки, маркировки, опломбирования, о массе груза и количестве грузовых мест, о проведении погрузочных работ)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell  BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="10">
+                            кладовщик
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell  BorderThickness="0,0,1,1">
+                        <Paragraph TextAlignment="Right" FontSize="10">
+                            <xrd:InlineDocumentValue PropertyName="USER_FIO" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Right" FontSize="10">
+                            <xrd:InlineDocumentValue PropertyName="DRIVER_FIO" />
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (подпись, расшифровка подписи лица, осуществившего погрузку груза, с указанием реквизитов документа, подтверждающего полномочия лица на погрузку груза)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (подпись, расшифровка подписи водителя, принявшего груз для перевозки)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="10" FontWeight="Bold">
+                            9. Переадресовка                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (дата, вид переадресовки на бумажном носителе или в электронном виде (с указанием вида доставки документа)                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (адрес нового пункта выгрузки, новые дата и время подачи транспортного средства под выгрузку)                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (реквизиты лица, от которого получено указание на переадресовку)                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (при изменении получателя груза - реквизиты нового получателя)                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="10" FontWeight="Bold">
+                            10. Выдача груза                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2"  BorderThickness="0,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            <xrd:InlineDocumentValue PropertyName="DELIVERY_ADDRESS" />                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (адрес места выгрузки)                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (заявленные дата и время подачи транспортного средства под выгрузку)                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (фактические дата и время прибытия)                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (фактические дата и время убытия)                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">                            <xrd:InlineDocumentValue PropertyName="PALLET_QUANTITY" />                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (фактическое состояние груза, тары, упаковки, маркировки, опломбирования)                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">                            <xrd:InlineDocumentValue PropertyName="MASS_BRUTTO_IN_KILO" /> кг                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (количество грузовых мест)                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (масса груза брутто в килограммах, масса груза нетто в килограммах (при возможности ее определения), плотность груза в соответствии с документацией на груз (при необходимости)                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,1">
+                        <Paragraph TextAlignment="Right" FontSize="7">
+                            (оговорки и замечания перевозчика (при наличии) о дате и времени прибытия/убытия, о состоянии груза, тары, упаковки, маркировки, опломбирования, о массе груза и количестве грузовых мест)                        </Paragraph>
+                        <Paragraph TextAlignment="Right" FontSize="10">                            <xrd:InlineDocumentValue PropertyName="DRIVER_FIO" />                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (должность, подпись, расшифровка подписи грузополучателя или уполномоченного грузоотправителем лица)                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (подпись, расшифровка подписи водителя, сдавшего груз грузополучателю или уполномоченному грузополучателем лицу)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="10" FontWeight="Bold">
+                            11. Отметки грузоотправителей, грузополучателей, перевозчиков (при необходимости)                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (краткое описание обстоятельств, послуживших основанием для отметки, сведения о коммерческих и иных актах, в том числе о погрузке/выгрузке груза)                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (расчет и размер штрафа)                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (подпись, дата)                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="4" BorderThickness="0,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="10" FontWeight="Bold">
+                            12. Стоимость перевозки груза (установленная плата) в рублях (при необходимости)                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            согласно договора                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (стоимость перевозки без налога - всего)                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (налоговая ставка)                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (сумма налога, предъявляемая покупателю)                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (стоимость перевозки с налогом - всего)                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            <xrd:InlineDocumentValue PropertyName="TRANSPORTER_FULL" />                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">                            <xrd:InlineDocumentValue PropertyName="PAYER_FULL" />                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (реквизиты, позволяющие идентифицировать Экономического субъекта, составляющего первичный учетный документ о факте хозяйственной жизни со стороны Перевозчика)                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">                            (реквизиты, позволяющие идентифицировать Экономического субъекта, составляющего первичный учетный документ о факте хозяйственной жизни со стороны Грузоотправителя)                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2"  BorderThickness="0,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            договор
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="10">                            договор
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (основание, по которому Экономический субъект является составителем документа о факте хозяйственной жизни)
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="7">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            --
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">                            (основание, по которому Экономический субъект является составителем документа о факте хозяйственной жизни)
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="7">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+                            <xrd:InlineDocumentValue PropertyName="PAYER_FULL" />
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            --
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">                            (реквизиты, позволяющие идентифицировать лицо, от которого будут поступать денежные средства)
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (подпись, расшифровка подписи лица, ответственного за оформление факта хозяйственной жизни со стороны Перевозчика (уполномоченного лица)
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">                            (подпись, расшифровка подписи лица, ответственного за оформление факта хозяйственной жизни со стороны Грузоотправителя (уполномоченного лица)
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="10">
+
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (должность, основание полномочий физического лица, уполномоченного Перевозчиком (уполномоченным лицом), дата подписания)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="1,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">                            (должность, основание полномочий физического лица, уполномоченного Грузоотправителем (уполномоченным лицом), дата подписания)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+            </TableRowGroup>
+        </Table>
+    </Section>
+</FlowDocument>
+
+

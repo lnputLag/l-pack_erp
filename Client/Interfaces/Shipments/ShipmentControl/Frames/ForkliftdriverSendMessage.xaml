@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="Client.Interfaces.Shipments.ForkliftdriverSendMessage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="500"
+             Style="{DynamicResource UserControlCanvas}"  
+             >
+
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+
+            </Grid.RowDefinitions>
+
+            <!--
+            <StackPanel Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+                <Label Content="Продолжительность:"  Style="{DynamicResource TopLabel}" />
+                <xctk:IntegerUpDown Name="MessageLifetimeBox" Value="0"  Minimum="0" Maximum="24" Increment="1" Width="50" HorizontalAlignment="Left" />
+                <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                <Label Content="ч"  Style="{DynamicResource TopLabel}"/>
+            </StackPanel>
+
+-->
+
+            <StackPanel  Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5,0,5,0"  >
+
+                <TextBox Name="MessageBox" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  Height="265" TextWrapping="Wrap" AcceptsReturn="True" />
+
+            </StackPanel>
+
+
+            <Grid Grid.Row="2"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Right"  >
+                            <TextBlock  Name="FormStatus"  TextAlignment="Left" Style="{DynamicResource FStatusBar}" HorizontalAlignment="Stretch" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Button Name="SaveButton"   Click="SaveButton_Click" Content="ОК"  Style="{DynamicResource FButtonPrimary}"    />
+                            <Button Name="CancelButton" Click="CancelButton_Click"  Content="Отмена"     Style="{DynamicResource FButtonCancel}"    />
+                        </StackPanel>
+
+
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+        </Grid>
+    </Border>
+</UserControl>

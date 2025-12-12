@@ -1,0 +1,127 @@
+﻿<UserControl x:Class="Client.Interfaces.Production.ComplectationPalletAdd"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:main="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             d:DesignWidth="480" d:DesignHeight="280"
+             MinWidth="480"  MinHeight="200"
+             Style="{DynamicResource UserControlCanvas}"
+             >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid Style="{DynamicResource DataGridContainer}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="11*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                            <Button Name="HelpButton" ToolTip="Документация" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click"  Margin="0,0,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Border Grid.Row="1" Grid.Column="0">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Name="ThiknessLabelBorder" Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Name="ThiknessLabel" Content="Толщина картона :" FontWeight="SemiBold" FontSize="24" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Name="ThiknessTextBoxBorder" Grid.Row="1" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <TextBox Name="ThiknessTextBox" Height="auto" FontWeight="SemiBold" FontSize="24" Text="4.703" Width="90" HorizontalAlignment="Left" IsReadOnly="False" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                    </Border>
+
+                    <Border Name="StackQuantityLabelBorder" Grid.Row="2" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Name="StackQuantityLabel" Content="Стоп на поддоне :" FontWeight="SemiBold" FontSize="24" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Name="StackQuantityTextBoxBorder" Grid.Row="2" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <TextBox Name="StackQuantityTextBox" Height="auto" FontWeight="SemiBold" FontSize="24" Text="4" Width="90" HorizontalAlignment="Left" IsReadOnly="False" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                    </Border>
+
+
+                    <Border Grid.Row="3" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="На поддоне по умолчанию, шт :" FontWeight="SemiBold" FontSize="24" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <TextBox Name="DefaultQuantityOnPalletTextBox" Height="auto" FontWeight="SemiBold" FontSize="24" Text="1200" Width="90" HorizontalAlignment="Left" IsReadOnly="True" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                    </Border>
+                    
+                    <Border Grid.Row="4" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="После комплектации, шт :" FontWeight="SemiBold" FontSize="24" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <TextBox Name="QuantityOnPalletTextBox" Height="auto" FontWeight="SemiBold" FontSize="24" Text="1200" Width="90" HorizontalAlignment="Left" IsReadOnly="False" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="2" Grid.Column="0" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+            <Grid Grid.Row="3"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Height="auto" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Right">
+                            <Button Name="SaveButton"   Click="SaveButton_Click"  Content="Добавить"  Style="{DynamicResource ComplectationPrimaryButton}"/>
+                            <Button Name="CancelButton" Click="CancelButton_Click"  Content="Отмена" Style="{DynamicResource ComplectationButton}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Height="auto" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                            <Button Name="GetQuantityByScanerButton" Click="GetQuantityByScanerButton_Click"  Content="Со сканера" Style="{DynamicResource ComplectationButton}"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>
+

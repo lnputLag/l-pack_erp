@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=0ce7bc34-d4d3-448a-ba1e-8d673d87bb2e&lang=ru_RU" type="text/javascript"></script>
+    <script type="text/javascript">
+        var myMap;
+        var myPlacemark;
+        var Latitude = '52.657874';//Если открываем адрес на изменение, то заменить на значение из базы адресов
+        var Longitude = '39.616306';//Если открываем адрес на изменение, то заменить на значение из базы адресов
+
+        ymaps.ready(init);
+
+        function init() {
+            // создаем карту
+            myMap = new ymaps.Map('map', {
+                center: [Latitude, Longitude],
+                zoom: 16, controls: ['smallMapDefaultSet']
+            }, {
+                searchControlProvider: 'yandex#search'
+            });
+            myMap.container.enterFullscreen();
+
+            // Создание метки.
+            myPlacemark = new ymaps.Placemark([Latitude, Longitude], {
+                iconCaption: ''
+            }, {
+                preset: 'islands#violetDotIconWithCaption',
+                draggable: false
+            });
+            myMap.geoObjects.add(myPlacemark);
+
+            // Слушаем клик на карте.
+            myMap.events.add('click', function (e) {
+                var coords = e.get('coords');
+
+                //Перемещаем метку
+                myPlacemark.geometry.setCoordinates(coords);
+
+                //Отправляем координаты в .NET
+                if (window.chrome.webview) {
+                    window.chrome.webview.postMessage('LtnC=' + coords[0] + ',' + coords[1]);
+                }
+
+                getDistance(coords);
+
+                getAddress(coords);
+            });
+            window.chrome.webview.postMessage('Ready');
+        }
+
+        function setCenterC(coords, zoom) {
+            //Перемещаем карту
+            myMap.setCenter(coords, zoom);
+
+            //Перемещаем метку
+            myPlacemark.geometry.setCoordinates(coords);
+
+            getDistance(coords);
+
+            getAddress(coords);
+        }
+
+        function setCenterA(address, zoom) {
+            ymaps.geocode(address).then(function (res) {
+                var coords = res.geoObjects.get(0).geometry.getCoordinates();
+
+                //Перемещаем карту
+                myMap.setCenter(coords, zoom);
+
+                //Перемещаем метку
+                myPlacemark.geometry.setCoordinates(coords);
+
+                getDistance(coords);
+
+                window.chrome.webview.postMessage('LtnA=' + coords[0] + ',' + coords[1]);
+            });
+        }
+
+        function setCenterI(address, zoom) {
+            ymaps.geocode(address).then(function (res) {
+                var coords = res.geoObjects.get(0).geometry.getCoordinates();
+
+                //Перемещаем карту
+                myMap.setCenter(coords, zoom);
+
+                //Перемещаем метку
+                myPlacemark.geometry.setCoordinates(coords);
+            });
+        }
+
+        //Получаем дистанцию и отправляем в .NET
+        function getDistance(coords) {
+            ymaps.route(['Липецк, ул.Ковалева, 125а', coords[0] + ',' + coords[1]]).then(function (route) {
+                var t = route.getLength() / 1000;
+                if (window.chrome.webview) {
+                    window.chrome.webview.postMessage('Dist=' + t);
+                }
+            });
+        }
+
+        //Получаем адрес и отправляем в .NET
+        function getAddress(coords) {
+            ymaps.geocode(coords).then(function (res) {
+                var t = res.geoObjects.get(0).getAddressLine();
+                if (window.chrome.webview) {
+                    window.chrome.webview.postMessage('Addr=' + t);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div id="map"></div>
+</body>
+</html>

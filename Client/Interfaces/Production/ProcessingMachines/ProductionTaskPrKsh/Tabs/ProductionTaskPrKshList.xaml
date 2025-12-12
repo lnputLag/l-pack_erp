@@ -1,0 +1,115 @@
+﻿<UserControl  x:Class="Client.Interfaces.Production.ProcessingMachines.ProductionTaskPrKshList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Client.Interfaces.Production.ProcessingMachines"
+      xmlns:controls="clr-namespace:Client.Interfaces.Main"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      
+              Style="{DynamicResource UserControlCanvas}">
+
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border >
+                    <Grid >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="11.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+
+                            <Label Content="Дата создания С:"  Style="{DynamicResource TopLabel}"/>
+                            <Grid Style="{DynamicResource FormFieldDateHolder}">
+                                <!--<TextBox Name="Today_from"  MaxLength="10"  Style="{DynamicResource FormFieldDate}" IsReadOnly="True" />
+                                <DatePicker  SelectedDate="{Binding Path=Text, Mode=OneWayToSource, ElementName=Today_from, Converter={StaticResource DateDate} }"  Style="{DynamicResource FormFieldDP}"  Margin="0,1,0,0">
+                                </DatePicker>-->
+
+                                <controls:DatePicker x:Name="Today_from" Style="{DynamicResource DateEditStyle}" >
+                                </controls:DatePicker>
+                            </Grid>
+                            
+                            
+                            <Label Content="По:"  Style="{DynamicResource TopLabel}"/>
+                            <Grid Style="{DynamicResource FormFieldDateHolder}">
+                                <!--<TextBox Name="Today_to"  MaxLength="10"  Style="{DynamicResource FormFieldDate}" IsReadOnly="True" />
+                                <DatePicker  SelectedDate="{Binding Path=Text, Mode=OneWayToSource, ElementName=Today_to, Converter={StaticResource DateDate} }"  Style="{DynamicResource FormFieldDP}"  Margin="0,1,0,0">
+                                </DatePicker>-->
+                                <controls:DatePicker x:Name="Today_to" Style="{DynamicResource DateEditStyle}" >
+                                </controls:DatePicker>
+                            </Grid>
+                            <Button Name="ResreshButton"    Content="Показать" Click="ShowButton_Click" Style="{DynamicResource Button}" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Button Name="AddButton"  Tag="access_mode_full_access"  Content="Добавить" Click="AddButton_Click" Style="{DynamicResource Button}" />
+                            <Button Name="PostingButton"  Tag="access_mode_full_access"  Content="Закрыть" Click="PostingButton_Click"  Style="{DynamicResource Button}" />
+                            <Button Name="DeleteButton"  Tag="access_mode_full_access"  Content="Удалить" Click="DeleteButton_Click" Style="{DynamicResource Button}" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="SearchText" Text=""  />
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                            <Label Content="Станок:" Style="{DynamicResource TopLabel}" />
+                            <controls:SelectBox  x:Name="Machine"  Style="{DynamicResource CustomFormField}"  ListBoxMinWidth="180" ListBoxMinHeight="250" Width="80" Autocomplete="False" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}" Height="24" VerticalAlignment="Top"></Border>
+
+                            <Label Content="Статус:" Style="{DynamicResource TopLabel}" />
+                            <controls:SelectBox  x:Name="Statuses" Style="{DynamicResource CustomFormField}" ListBoxMinWidth="205" ListBoxMinHeight="200" Width="140" Autocomplete="False" />
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                            <Button Name="ExportButton" Click="ExportButton_Click" Content="В Excel"   Style="{DynamicResource Button}" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                            <Button Name="HelpButton"  Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click" Margin="0" />
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="0" >
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="Grid" />
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="0" Height="100" VerticalAlignment="Top" HorizontalAlignment="Center" Panel.ZIndex="10">
+                <controls:SplashControl x:Name="SplashControl"/>
+            </Grid>
+            
+        </Grid>
+    </Border>
+</UserControl>

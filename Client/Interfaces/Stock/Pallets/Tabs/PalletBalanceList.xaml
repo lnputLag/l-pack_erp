@@ -1,0 +1,146 @@
+﻿<UserControl x:Class="Client.Interfaces.Stock.PalletBalanceList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Stock"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1200"
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="5"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="3" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="11.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+
+                            <Label Content="Завод:"  Style="{DynamicResource TopLabel}" Margin="4 0 0 0"/>
+                            <controls:SelectBox  x:Name="FactIdSelectBox" Style="{DynamicResource CustomFormField}" ListBoxMinHeight="160" Width="145" Autocomplete="False"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            
+                            <Label Content="С:"  Style="{DynamicResource TopLabel}"/>
+                            <Grid Style="{DynamicResource FormFieldDateHolder}">
+                                <controls:DatePicker x:Name="DateFrom" Style="{DynamicResource DateEditStyle}" >
+                                </controls:DatePicker>
+                            </Grid>
+
+                            <Label Content="по:"  Style="{DynamicResource TopLabel}"/>
+                            <Grid Style="{DynamicResource FormFieldDateHolder}">
+                                <controls:DatePicker x:Name="DateTo" Style="{DynamicResource DateEditStyle}" >
+                                </controls:DatePicker>
+                            </Grid>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="RefreshButton"    Content="Показать"  Style="{DynamicResource Button}" Click="RefreshButton_Click"  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="SearchText" Text=""  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="ExcelBalanceButton"    Content="B Excel"  Style="{DynamicResource Button}" Click="ExcelBalanceButton_Click" VerticalAlignment="Bottom" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Right" >
+                            <Button Name="HelpButton"  Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click"  />
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="0" Grid.ColumnSpan="3" >
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="GridBalance" />
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="3"  Grid.Column="0">
+                <Border Style="{DynamicResource DataGridContainerHolder}" >
+                    <Grid Style="{DynamicResource DataGridContainer}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                            <Border>
+                                <StackPanel  Style="{DynamicResource FormHeaderButtonsPanel}">
+                                    <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                                    <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="SearchReceipt" Text=""  />
+                                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                    <Button Name="ReceiptToExcelButton" Content="B Excel" Style="{DynamicResource Button}" Click="ReceiptToExcelButton_Click" />
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+
+                        <Grid Grid.Row="1" Grid.Column="0">
+                            <Border Style="{DynamicResource DataGridMainHolder}" >
+                                <controls:GridBox x:Name="GridReceipt" />
+                            </Border>
+                        </Grid>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="3"  Grid.Column="2" >
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                            <Border>
+                                <StackPanel  Style="{DynamicResource FormHeaderButtonsPanel}">
+                                    <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                                    <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="SearchExpenditure" Text=""  />
+                                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                    <Button Name="ExpenditureToExcelButton" Content="B Excel" Style="{DynamicResource Button}" Click="ExpenditureToExcelButton_Click" />
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+
+                        <Grid Grid.Row="1" Grid.Column="0">
+                            <Border Style="{DynamicResource DataGridMainHolder}" >
+                                <controls:GridBox x:Name="GridExpenditure" />
+                            </Border>
+                        </Grid>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+        </Grid>
+    </Border>
+</UserControl>

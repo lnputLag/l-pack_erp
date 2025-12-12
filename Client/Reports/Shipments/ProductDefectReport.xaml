@@ -1,0 +1,248 @@
+<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports"
+              xmlns:xrbc="clr-namespace:CodeReason.Reports.Document.Barcode;assembly=CodeReason.Reports"
+              PageHeight="29.7cm" PageWidth="21cm" ColumnWidth="21cm" FontFamily="Arial" FontSize="14" >
+    <FlowDocument.Resources>
+
+
+        <Style x:Key="paragraphStyle" TargetType="{x:Type Paragraph}">
+            <Setter Property="TextAlignment" Value="Left"/>
+        </Style>
+
+        <Style x:Key="tableStyle" TargetType="{x:Type Table}">
+            <Setter Property="Margin" Value="0cm,0cm,0cm,0cm"/>
+        </Style>
+
+
+        <Style x:Key="headerFooterRowStyle" TargetType="{x:Type TableRowGroup}">
+        </Style>
+
+        <Style x:Key="dataRowStyle" TargetType="{x:Type TableRowGroup}">
+        </Style>
+
+        <Style TargetType="{x:Type TableCell}">
+            <Setter Property="Padding" Value="0.0cm,0.01cm,0.0cm,0.01cm"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0.02cm"/>
+            <Setter Property="TextAlignment" Value="Left"/>
+        </Style>
+
+    </FlowDocument.Resources>
+
+    <xrd:ReportProperties>
+        <xrd:ReportProperties.ReportName>ProductDefectReport</xrd:ReportProperties.ReportName>
+        <xrd:ReportProperties.ReportTitle>Списание</xrd:ReportProperties.ReportTitle>
+    </xrd:ReportProperties>
+
+    <xrd:SectionReportHeader PageHeaderHeight="2" Padding="15,20,15,0" FontFamily="Verdana" FontSize="12">
+        <Table CellSpacing="0">
+            <Table.Columns>
+                <TableColumn Width="*" />
+                <TableColumn Width="*" />
+            </Table.Columns>
+            <TableRowGroup>
+                <TableRow>
+                    <TableCell>
+                        <Paragraph>
+                            <xrd:InlineDocumentValue PropertyName="SystemName" /> (
+                            <xrd:InlineContextValue PropertyName="ReportName" /> )
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Right">
+                            <xrd:InlineDocumentValue PropertyName="Today" Format="dd.MM.yyyy HH:mm:ss" />
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+            </TableRowGroup>
+        </Table>
+    </xrd:SectionReportHeader>
+    <xrd:SectionReportFooter PageFooterHeight="2" Padding="20,0,20,20" FontFamily="Verdana" FontSize="12" >
+        <Table CellSpacing="0">
+            <Table.Columns>
+                <TableColumn Width="*" />
+                <TableColumn Width="*" />
+            </Table.Columns>
+            <TableRowGroup>
+                <TableRow>
+                    <TableCell>
+                        <Paragraph>
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+
+                    </TableCell>
+                </TableRow>
+            </TableRowGroup>
+        </Table>
+    </xrd:SectionReportFooter>
+
+    <Section BreakPageBefore="True" Margin="2,0,2,0">
+
+        <Paragraph FontWeight="Bold" TextAlignment="Center">
+            <xrd:InlineContextValue PropertyName="ReportTitle" /> №
+            <xrd:InlineDocumentValue PropertyName="Id"  />
+            <xrd:InlineDocumentValue PropertyName="ShipmentDateTimeFull"  />
+        </Paragraph>
+
+        <Table CellSpacing="0" >
+            <Table.Columns>
+                <TableColumn Width="2*" />
+                <TableColumn Width="1*" />
+                <TableColumn Width="2*" />
+                <TableColumn Width="1*" />
+            </Table.Columns>
+            <TableRowGroup>
+
+                <TableRow>
+                    <TableCell>
+                        <Paragraph>
+                            Водитель
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph>
+                            Автомобиль
+                        </Paragraph>
+                    </TableCell>
+                    
+                </TableRow>
+
+                <TableRow>
+                    <TableCell>
+                        <Paragraph TextAlignment="Left">
+                            <xrd:InlineDocumentValue PropertyName="DriverName"  />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Left">
+                            <xrd:InlineDocumentValue PropertyName="Car"  />
+                        </Paragraph>
+                    </TableCell>
+                    
+                </TableRow>
+
+            </TableRowGroup>
+        </Table>
+
+        <Paragraph TextAlignment="Left">
+            Покупатель:
+            <xrd:InlineDocumentValue PropertyName="BuyerName"  />
+        </Paragraph>
+
+    </Section>
+
+    <Section Name="Map" Margin="2,0,2,0">
+
+        <Table CellSpacing="0" >
+
+            <Table.Columns>
+                <TableColumn Width="1*" />
+                <TableColumn Width="10*" />
+                <TableColumn Width="3*" />
+                <TableColumn Width="3*" />
+                <TableColumn Width="3*" />
+            </Table.Columns>
+
+            <TableRowGroup>
+
+                <TableRow>
+                    <TableCell BorderThickness="0">
+                        <Paragraph TextAlignment="Left">
+                            №
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0">
+                        <Paragraph TextAlignment="Left">
+                            Продукция
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0">
+                        <Paragraph TextAlignment="Right">
+                            Количество
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0">
+                        <Paragraph TextAlignment="Right">
+                            Отгружено
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0">
+                        <Paragraph TextAlignment="Right">
+                            На складе
+                        </Paragraph>
+                    </TableCell>
+
+                </TableRow>
+
+            </TableRowGroup>
+
+            <TableRowGroup>
+                <xrd:TableRowForDataTable TableName="Positions">
+
+                    <TableCell ColumnSpan="5" BorderThickness="0,1,0,0">
+
+
+                        <Table Margin="0" BorderThickness="0">
+                            <Table.Columns>
+                                <TableColumn Width="1*" />
+                                <TableColumn Width="10*" />
+                                <TableColumn Width="3*" />
+                                <TableColumn Width="3*" />
+                                <TableColumn Width="3*" />
+                            </Table.Columns>
+                            <TableRowGroup>
+                                <TableRow>
+                                    <TableCell BorderThickness="0">
+                                        <Paragraph TextAlignment="Left" FontWeight="Bold">
+                                            <xrd:InlineTableCellValue PropertyName="Number" />
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell BorderThickness="0" FontWeight="Bold">
+                                        <Paragraph TextAlignment="Left">
+                                            <xrd:InlineTableCellValue PropertyName="ProductionName" />
+                                        </Paragraph>                                        
+                                    </TableCell>
+                                    <TableCell BorderThickness="0" FontWeight="Bold">
+                                        <Paragraph TextAlignment="Right">
+                                            <xrd:InlineTableCellValue PropertyName="NeedleQuantity" />
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell BorderThickness="0">
+                                        <Paragraph TextAlignment="Right">
+                                            <xrd:InlineTableCellValue PropertyName="ShippedQuantity" />
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell BorderThickness="0">
+                                        <Paragraph TextAlignment="Right">
+                                            <xrd:InlineTableCellValue PropertyName="InStockQuantityTotal" />
+                                        </Paragraph>
+                                    </TableCell>
+                                </TableRow>
+
+                                <TableRow>
+                                    <TableCell ColumnSpan="5" BorderThickness="0"  Padding="0,5,0,5">
+                                        <xrd:SectionInline BlockName="Block1" ></xrd:SectionInline>
+                                    </TableCell>
+                                </TableRow>
+
+                            </TableRowGroup>
+                        </Table>
+
+
+                    </TableCell>
+
+                </xrd:TableRowForDataTable>
+
+            </TableRowGroup>
+        </Table>
+
+
+
+    </Section>
+
+</FlowDocument>
+
+

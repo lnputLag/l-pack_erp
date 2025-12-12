@@ -1,0 +1,108 @@
+﻿<controls:ControlBase x:Class="Client.Interfaces.Preproduction.Rig.CuttingStampAccountingTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Preproduction.Rig"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1200"
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Style="{DynamicResource DataGridContainer}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="30"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Name="Toolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" >
+                        <Button Name="RefreshButton"    Content="Обновить"    Tag="Refresh" Style="{DynamicResource Button}"  />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Button Name="ShowTechcardButton"   Content="Техкарта"    Tag="ShowTechcard"    Style="{DynamicResource Button}"  />
+                        
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                        <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                        <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="GridSearch" Text="" KeyUp="GridSearch_KeyUp"  />
+
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                        <CheckBox Name="ShowArchivedCheckBox" Content="Архивные"  Style="{DynamicResource CheckBoxTopPanel}" Click="ShowArchivedCheckBox_Click"/>
+
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="2" Style="{DynamicResource GridControlPanel}">
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="30"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Name="StampToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" >
+                        <Button Name="BindButton"       Content="Привязать"   Tag="Bind"    Style="{DynamicResource Button}"  />
+                        <Button Name="UnbindButton"     Content="Отвязать"    Tag="Unbind"  Style="{DynamicResource Button}"  />
+                        <Button Name="EditButton"       Content="Изменить"    Tag="Edit"    Style="{DynamicResource Button}"  />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Right" >
+                        <Button Name="HelpButton"  Width="24" MinWidth="24"  Content="?" Tag="Help" Style="{DynamicResource Button}" Margin="0" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="0" Style="{DynamicResource DataGridContainer}">
+                <controls:GridBox4 x:Name="TechCardGrid" />
+        </Grid>
+
+        <Border Grid.Row="1" Grid.Column="2" Style="{DynamicResource DataGridMainHolder}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="300"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource DataGridContainer}">
+                    <controls:GridBox4 x:Name="StampGrid" />
+                </Grid>
+
+                <Grid Grid.Row="2" Grid.Column="0" Style="{DynamicResource DataGridContainer}">
+                    <controls:GridBox4 x:Name="StampItemGrid" />
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</controls:ControlBase>

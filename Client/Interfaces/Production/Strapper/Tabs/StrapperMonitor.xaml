@@ -1,0 +1,125 @@
+﻿<controls:ControlBase 
+            x:Class="Client.Interfaces.Production.Strapper.StrapperMonitor"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:local="clr-namespace:Client.Interfaces.Production"
+            xmlns:controls="clr-namespace:Client.Interfaces.Main"
+            mc:Ignorable="d" 
+            d:DesignHeight="1450" d:DesignWidth="1800"
+            Style="{DynamicResource UserControlCanvas}" >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="11.5*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" >
+                    <Label Content="С:"  Style="{DynamicResource TopLabel}"/>
+                    <controls:DateTimePicker x:Name="FromDateTime" Style="{DynamicResource DateTimeEditStyle}">
+                        <controls:DateTimePicker.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Текущая смена" Click="OnCurrentShift" />
+                                <MenuItem Header="Предыдущая смена" Click="OnPrevShift" />
+                                <MenuItem Header="Текущие сутки" Click ="OnCurrentDay" />
+                                <MenuItem Header="Предыдущие сутки" Click="OnPrevDay" />
+                                <MenuItem Header="Текущая неделя" Click="OnCurrentWeek"/>
+                                <MenuItem Header="Предыдущая неделя" Click="OnPrevWeek"/>
+                                <MenuItem Header="Текущий месяц" Click="OnCurrentMonth"/>
+                                <MenuItem Header="Предыдущий месяц" Click="OnPrevMonth"/>
+                            </ContextMenu>
+                        </controls:DateTimePicker.ContextMenu>
+                    </controls:DateTimePicker>
+
+                    <Label Content="До:"  Style="{DynamicResource TopLabel}"/>
+                    <controls:DateTimePicker x:Name="ToDateTime" Style="{DynamicResource DateTimeEditStyle}">
+                    </controls:DateTimePicker>
+
+                    <Button Name="RefreshButton" Content="Показать" Style="{DynamicResource Button}"  />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                    <Button Name="HelpButton"  Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Margin="0" />
+                </StackPanel>
+            </Grid>
+
+            <Border Grid.Row="1" Grid.Column="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Column="0" x:Name="LabelGrid">
+                    </Grid>
+
+                    <ScrollViewer HorizontalScrollBarVisibility="Visible" Grid.Column="1">
+                        <Grid x:Name="MainGrid">
+
+                            <!--
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        
+                        <Border BorderThickness="1" BorderBrush="Gray">
+                            <Grid Width="1500" Height="50">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Panel.ZIndex="-1" Background="red">
+                                    
+                                </Grid>
+
+                                <Grid Panel.ZIndex="1" Background="Black"></Grid>
+                            </Grid>
+                        </Border>
+                        -->
+
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Row="1" Grid.Column="0" Height="100" VerticalAlignment="Top" HorizontalAlignment="Center" Panel.ZIndex="10">
+                <controls:SplashControl x:Name="SplashControl"/>
+            </Grid>
+        </Grid>
+    </Border>
+</controls:ControlBase >

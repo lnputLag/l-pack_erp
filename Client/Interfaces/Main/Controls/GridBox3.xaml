@@ -1,0 +1,132 @@
+﻿<UserControl
+    x:Class="Client.Interfaces.Main.GridBox3"
+    xmlns:local="clr-namespace:Client.Interfaces.Main"
+
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:gif="http://wpfanimatedgif.codeplex.com"
+
+    mc:Ignorable="d"
+    d:DesignWidth="400"
+    d:DesignHeight="200"
+    Style="{DynamicResource UserControlCanvas}"
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Name="GridContainer">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="17" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0" Grid.Column="2" Visibility="Visible" >
+            <Border Background="#ffffff" BorderBrush="#ffcccccc" BorderThickness="0,0,0,0" >
+                
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"  Name="Splash" Visibility="Collapsed" Panel.ZIndex="20">
+            <Border Background="#55ffffff" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="1" >
+            <Border BorderBrush="#ffcccccc" BorderThickness="1,1,1,0" Name="GridHeader" Background="#ffF0F0F0">
+                <ScrollViewer Name="GridHeaderScroller" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+                    <Grid 
+                         Name="GridHeaderContainer" 
+                         HorizontalAlignment="Left" 
+                         VerticalAlignment="Top" 
+                         VirtualizingStackPanel.IsVirtualizing="False" 
+                         VirtualizingPanel.IsVirtualizingWhenGrouping="False" 
+                         VirtualizingPanel.VirtualizationMode="Standard"                          
+                         >
+                    </Grid>
+                </ScrollViewer>                
+            </Border>
+        </Grid>
+        
+        <Grid Grid.Row="1" Grid.Column="1" >
+            <Border BorderBrush="#ffcccccc" BorderThickness="1,0,0,0" >
+                <ScrollViewer Name="GridBodyScroller" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+                    <Grid 
+                        Name="GridBodyContainer" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        VirtualizingStackPanel.IsVirtualizing="False" 
+                        VirtualizingPanel.IsVirtualizingWhenGrouping="False" 
+                        VirtualizingPanel.VirtualizationMode="Standard"                          
+                        >
+                    </Grid>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="0" >
+            <Border BorderBrush="#ffcccccc" BorderThickness="0" >
+                <TextBlock>CH</TextBlock>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="2" >
+            <Border BorderBrush="#ffcccccc" BorderThickness="1,1,1,1" >
+                <ScrollViewer Style="{DynamicResource ScrollViewerStyle}" Name="GridScrollVerticalScroller" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden">
+                    <Border Name="GridScrollVerticalContent"></Border>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="1" Name="GridTotalsBlock" Visibility="Collapsed">
+            <Border BorderBrush="#ffcccccc" BorderThickness="1,1,1,0" >
+                <ScrollViewer  Name="GridTotalsScroller" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+                    <Grid 
+                         Name="GridTotalsContainer" 
+                         HorizontalAlignment="Left" 
+                         VerticalAlignment="Top" 
+                         VirtualizingStackPanel.IsVirtualizing="False" 
+                         VirtualizingPanel.IsVirtualizingWhenGrouping="False" 
+                         VirtualizingPanel.VirtualizationMode="Standard"                          
+                         >  
+                    </Grid>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.Column="1" >
+            <Border BorderBrush="#ffcccccc" BorderThickness="0,0,1,1" >
+                <ScrollViewer Style="{DynamicResource ScrollViewerStyle}" Name="GridScrollHorizontalScroller" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Visible">
+                    <Border Name="GridScrollHorizontalContent"></Border>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="2" >
+            <Border BorderBrush="#ffcccccc" BorderThickness="0,1,1,0" ></Border>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.Column="2" >
+            <Border BorderBrush="#ffcccccc" BorderThickness="0,0,0,0" ></Border>
+        </Grid>
+        
+    </Grid>
+
+    
+
+</UserControl>

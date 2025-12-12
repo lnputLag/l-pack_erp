@@ -1,0 +1,854 @@
+<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports"
+              xmlns:xrbc="clr-namespace:CodeReason.Reports.Document.Barcode;assembly=CodeReason.Reports"
+              PageHeight="100cm" PageWidth="8cm" ColumnWidth="8cm" FontFamily="Arial" FontSize="12">
+    <FlowDocument.Resources>
+
+        <Style x:Key="headerFooterRowStyle" TargetType="{x:Type TableRowGroup}">
+        </Style>
+
+        <Style x:Key="dataRowStyle" TargetType="{x:Type TableRowGroup}">
+        </Style>
+
+        <Style x:Key="tableStyle" TargetType="{x:Type Table}">
+            <Setter Property="Margin" Value="0cm,0cm,0cm,0cm"/>
+        </Style>
+
+
+        <Style TargetType="{x:Type TableCell}">
+            <Setter Property="Padding" Value="0.0cm,0.01cm,0.0cm,0.01cm"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0.02cm"/>
+            <Setter Property="TextAlignment" Value="Left"/>
+        </Style>
+
+
+
+        <Style x:Key="SchemeIndex" TargetType="{x:Type Paragraph}" >
+            <Setter Property="Padding" Value="0.0cm,0.7cm,0.0cm,0.0cm"/>
+            <Setter Property="BorderBrush" Value="#000000"/>
+            <Setter Property="BorderThickness" Value="0.0cm"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="75"/>
+            <Setter Property="LineHeight" Value="50"/>
+            <Setter Property="LineStackingStrategy" Value="BlockLineHeight"/>
+
+        </Style>
+
+
+
+    </FlowDocument.Resources>
+
+    <xrd:ReportProperties>
+        <xrd:ReportProperties.ReportName>Чек поддона СГП</xrd:ReportProperties.ReportName>
+        <xrd:ReportProperties.ReportTitle>Чек поддона СГП</xrd:ReportProperties.ReportTitle>
+    </xrd:ReportProperties>
+
+    <Section  Margin="0,0,0,0">
+        <Paragraph Margin="0,0,0,0" LineHeight="400"/>
+    </Section>
+
+    <Section  Margin="0,0,0,0" Name="ScoringSection">
+        <Paragraph Margin="0,0,0,0" FontSize="20" FontWeight="Bold"  TextAlignment="Center" Name="ScoringParagraphFirst">Внимание!</Paragraph>
+        <Paragraph Margin="0,0,0,0" FontSize="20" FontWeight="Bold"  TextAlignment="Center" Name="ScoringParagraphSecond">Рилевки!</Paragraph>
+    </Section>
+
+    <Section Name="LPakSection">
+        <Paragraph TextAlignment="Center"  >
+            <Image Name="LPakImage" Width="7cm" Height="5cm" VerticalAlignment="Bottom" Source="Assets/Images/Reports/lpak.jpg" />
+        </Paragraph>
+    </Section>
+
+    <Section Name="LPakAddressSection">
+        <Paragraph FontSize="12" FontWeight="Normal"  TextAlignment="Left">
+            Юридический адрес: г.Липецк, ул.Ковалева, 125А
+            Телефон: (4742) 555888
+        </Paragraph>
+    </Section>
+
+    <Section  Margin="0,0,0,0">
+        <Paragraph Margin="0,0,0,0" LineHeight="50"/>
+    </Section>
+
+
+    <Table CellSpacing="0" Margin="0,0,0,0" >
+        <Table.Columns>
+            <TableColumn Width="1*" />
+            <TableColumn Width="1*" />
+        </Table.Columns>
+        <TableRowGroup>
+            <TableRow>
+                <TableCell BorderBrush="Black" BorderThickness="0,0,0,0">
+                    <Paragraph FontSize="12" FontWeight="Normal" TextAlignment="Left">
+                        <xrd:InlineDocumentValue PropertyName="SMNAME" />
+                    </Paragraph>
+                </TableCell>
+                <TableCell BorderBrush="Black" BorderThickness="0,0,0,0">
+                    <Paragraph FontSize="12" FontWeight="Normal" TextAlignment="Left">
+                        <xrd:InlineDocumentValue PropertyName="STRDTTM" />
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+
+    <Section  Margin="0,0,0,0" >
+        <Paragraph FontSize="12" FontWeight="Normal"  TextAlignment="Left">
+            <xrd:InlineDocumentValue PropertyName="QID" />
+            
+        </Paragraph>
+    </Section>
+
+
+    <Section  Margin="0,0,0,0">
+        <Paragraph Margin="0,0,0,0" LineHeight="70"/>
+    </Section>
+
+    <Section  Margin="0,0,0,0">
+        <Paragraph FontSize="12" FontWeight="Normal"  TextAlignment="Left">Линия сгиба</Paragraph>
+        <Paragraph Margin="0,0,0,0" LineHeight="1" Background="Black"/>
+    </Section>
+
+    <Section  Margin="0,0,0,0">
+        <Paragraph Margin="0,0,0,0" LineHeight="110"/>
+    </Section>
+
+    <Section  Margin="0,0,0,0" Name="IntermediarySection">
+        <Paragraph Margin="0,0,0,0" FontSize="24" FontWeight="Normal"  TextAlignment="Center">
+            <xrd:InlineDocumentValue PropertyName="Intermediary" />
+        </Paragraph>
+    </Section>
+    <Section  Margin="0,0,0,0">
+        <Paragraph Margin="0,0,0,0" LineHeight="15"/>
+    </Section>
+
+
+    <Section  Margin="0,0,0,0" Name="title94Section" >
+        <Paragraph FontSize="10" FontWeight="Bold" TextAlignment="Center">УПАКОВКА ИЗ ГОФРИРОВАННОГО КАРТОНА</Paragraph>
+    </Section>
+
+    <Section  Margin="0,0,20,0">
+        <Paragraph Margin="0,0,0,0" FontSize="26" FontWeight="Bold" TextAlignment="Center">
+            <xrd:InlineDocumentValue PropertyName="ProductPrim" />
+        </Paragraph>
+    </Section>
+
+
+    <Section  Margin="0,0,0,0">
+        <Paragraph Margin="0,0,0,0" LineHeight="70"/>
+    </Section>
+
+
+
+    <Section  Margin="0,0,20,0"  >
+        <Paragraph  Margin="0,0,0,0" FontSize="36" FontWeight="Bold" TextAlignment="Center">
+            <xrd:InlineDocumentValue PropertyName="ProductName" />
+        </Paragraph>
+    </Section>
+
+    <Section  Margin="0,0,0,0" Name="FlagClearSection">
+        <Paragraph Margin="0,0,0,0" LineHeight="70"/>
+    </Section>
+    <Section Padding="0" Margin="0" BorderThickness="0,0,0,0" Name="FlagSection">
+        <Paragraph TextAlignment="Right" Padding="0" Margin="0" BorderThickness="0,0,0,0">
+            <Image Name="SampleFlagImage" Width="2cm" Height="2cm" Source="Assets/Images/Reports/SampleFlag.png" />
+            <Image Name="TestingFlagImage" Width="2cm" Height="2cm" Source="Assets/Images/Reports/TestingFlag.png" />
+            <Image Name="MasterFlagImage" Width="2cm" Height="2cm" Source="Assets/Images/Reports/MasterFlag.png" />
+            <Border Width="20px"/>
+        </Paragraph>
+    </Section>
+    <Section Padding="0" Margin="0" BorderThickness="0,0,0,0" Name="FlagSection2">
+        <Paragraph TextAlignment="Right" Padding="0" Margin="0" BorderThickness="0,0,0,0">
+            <Image Name="ComplectationFlagImage" Width="2cm" Height="2cm" Source="Assets/Images/Reports/ComplectationFlag.png" />
+            <Border Width="20px"/>
+        </Paragraph>
+    </Section>
+    
+
+    <Table CellSpacing="0" Margin="0,0,0,0" >
+        <Table.Columns>
+            <TableColumn Width="80" />
+            <TableColumn Width="200" />
+        </Table.Columns>
+        <TableRowGroup>
+            <TableRow>
+                <TableCell BorderBrush="Black" BorderThickness="0,1,0,1">
+                    <Paragraph FontSize="10" TextAlignment="Center" Padding="0,10">Количество</Paragraph>
+                    <Paragraph FontSize="10" FontWeight="Normal"  TextAlignment="Center" Padding="0,0">, шт</Paragraph>
+                </TableCell>
+                <TableCell BorderBrush="Black" BorderThickness="0,1,1,1">
+                    <Paragraph FontSize="48" FontWeight="Bold"  TextAlignment="Center">
+                        <xrd:InlineDocumentValue PropertyName="ProductAmount"  />
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+
+    <Section  Margin="0,0,0,0" Name="PotrebSection" >
+        <Paragraph  Margin="0,0,0,0" FontSize="44" FontWeight="Bold" TextAlignment="Center">
+            <xrd:InlineDocumentValue PropertyName="Potreb"  />
+        </Paragraph>
+    </Section>
+
+
+
+    <Table CellSpacing="0" Margin="0,0,0,0" >
+        <Table.Columns>
+            <TableColumn Width="*" />
+            <TableColumn Width="*" />
+        </Table.Columns>
+        <TableRowGroup>
+            <TableRow>
+                <TableCell BorderBrush="Black" BorderThickness="0,0,0,0">
+                    <Paragraph  Margin="0,0,0,0" FontSize="8" FontWeight="bold" TextAlignment="Left">
+                        <xrd:InlineDocumentValue PropertyName="REFERENCE_SAMPLE"  /> 
+                    </Paragraph>
+                </TableCell>
+                <TableCell BorderBrush="Black" BorderThickness="0,0,0,0">
+                    <Paragraph  Margin="0,0,20,0" FontSize="8" FontWeight="Bold" TextAlignment="Right">марка</Paragraph>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+
+
+
+    <Table CellSpacing="0" Margin="0,0,0,0" >
+        <Table.Columns>
+            <TableColumn Width="37" />
+            <TableColumn Width="37" />
+            <TableColumn Width="37" />
+            <TableColumn Width="37" />
+            <TableColumn Width="37" />
+            <TableColumn Width="37" />
+            <TableColumn Width="37" />
+        </Table.Columns>
+        <TableRowGroup>
+            <TableRow>
+                <TableCell>
+                    <Paragraph FontSize="16" TextAlignment="Center">
+                        <xrd:InlineDocumentValue PropertyName="ArtikulKodPotreb" />
+                    </Paragraph>
+                </TableCell>
+
+                <TableCell>
+                    <Paragraph FontSize="16" TextAlignment="Center">
+                        <xrd:InlineDocumentValue PropertyName="ArtikulKodProd" />
+                    </Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph FontSize="16"  TextAlignment="Center">
+                        <xrd:InlineDocumentValue PropertyName="ArtikulKodIzd" />
+                    </Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph FontSize="16"  TextAlignment="Center">
+                        <xrd:InlineDocumentValue PropertyName="ArtikulVar" />
+                    </Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph FontSize="16" TextAlignment="Center">
+                        <xrd:InlineDocumentValue PropertyName="ArtikulProf" />
+                    </Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph FontSize="16" TextAlignment="Center">
+                        <xrd:InlineDocumentValue PropertyName="ArtikulColor" />
+                    </Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph FontSize="16" TextAlignment="Center">
+                        <xrd:InlineDocumentValue PropertyName="ArtikulMarka" />
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+
+
+
+
+
+    <Section  Margin="0,0,0,0">
+        <Paragraph Margin="0,0,0,0"  FontSize="14" FontWeight="Bold"  TextAlignment="Center">Номер задания</Paragraph>
+        <Paragraph Margin="0,0,0,0"  FontSize="106" FontWeight="Bold" TextAlignment="Center">
+            <xrd:InlineDocumentValue PropertyName="Zadan" />
+        </Paragraph>
+    </Section>
+
+
+    <Section  Margin="0,0,0,0" >
+        <Paragraph Margin="0,0,0,0" FontSize="14" FontWeight="Bold"  TextAlignment="Center">Номер поддона</Paragraph>
+        <Paragraph Margin="0,0,0,0" FontSize="90" FontWeight="Normal" TextAlignment="Center">
+            <xrd:InlineDocumentValue PropertyName="NumberPallet"/>
+        </Paragraph>
+    </Section>
+
+    <Section  Margin="0,0,0,0">
+        <Paragraph Margin="0,0,0,0" LineHeight="5"/>
+    </Section>
+
+    <Paragraph FontSize="11" FontWeight="Bold" TextAlignment="Right">Копий ярлыка:
+        <xrd:InlineDocumentValue PropertyName="LabelCopyQuantity" />
+    </Paragraph>
+
+    <Table CellSpacing="0"  Margin="0,0,20,0"  Name="sectionOuterNum">
+        <Table.Columns>
+            <TableColumn Width="1*" />
+        </Table.Columns>
+        <TableRowGroup>
+            <TableRow>
+                <TableCell>
+                    <Paragraph FontSize="10"  TextAlignment="Center">Номер и дата изготовления партии</Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>
+                    <Paragraph FontSize="17" FontWeight="Bold" TextAlignment="Center">
+                        <xrd:InlineDocumentValue PropertyName="OuterNum" />
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+
+    <!--<Table CellSpacing="0"   Name="_sectionBatchNumberAndDate">
+        <Table.Columns>
+            <TableColumn Width="290" />
+        </Table.Columns>
+        <TableRowGroup>
+            <TableRow>
+                <TableCell>
+                    <Paragraph FontSize="10"  TextAlignment="Center">Номер и дата изготовления партии</Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>
+                    <Paragraph FontSize="17" FontWeight="Bold" TextAlignment="Center">
+                        <xrd:InlineDocumentValue PropertyName="BatchNumberAndDate" />
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>-->
+
+
+    <Table CellSpacing="0" Name="_ReturnSection1" >
+        <Table.Columns>
+            <TableColumn Width="270" />
+        </Table.Columns>
+
+        <TableRowGroup>
+            <TableRow>
+                <TableCell BorderThickness="0,0,0,0">
+                    <Paragraph Margin="0,0,0,0" FontSize="48" FontWeight="Bold"  TextAlignment="Center">Возврат</Paragraph>
+                    <Paragraph Margin="0,0,0,0" LineHeight="500"/>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+
+    <Table CellSpacing="0" Name="sectionUKL" BorderThickness="0,0,0,0" >
+        <Table.Columns>
+            <TableColumn Width="200" />
+            <TableColumn Width="60" />
+        </Table.Columns>
+
+        <TableRowGroup>
+            <TableRow>
+                <TableCell BorderThickness="0,0,0,0" >
+                    <!-- BorderThickness="0,0,0,0"-->
+                    <Section  Margin="0,0,0,0" Name="SectionPalletM">
+                        <Paragraph Margin="0,0,0,0" FontSize="26" FontWeight="Bold" TextAlignment="Center">
+                            <xrd:InlineDocumentValue PropertyName="PalletM"/>
+                        </Paragraph>
+                    </Section>
+                    <Paragraph TextAlignment="Center"  >
+                        <Image Name="UKLJPGImage" Width="5cm" Height="5cm"/>
+                    </Paragraph>
+                    <Paragraph Margin="0,0,0,0" FontSize="14" FontWeight="Bold" TextAlignment="Center">
+                        <xrd:InlineDocumentValue PropertyName="TransportPackage"/>
+                    </Paragraph>
+                </TableCell>
+                <TableCell BorderThickness="0,0,0,0"  >
+
+                    <Table CellSpacing="0" Margin="0,0,0,0">
+                        <Table.Columns>
+                            <TableColumn Width="60" />
+                        </Table.Columns>
+                        <TableRowGroup>
+                            <TableRow>
+                                <TableCell Padding="1" TextAlignment="Center" BorderThickness="0,0,0,0">
+                                    <Paragraph Style="{StaticResource SchemeIndex}"  >
+                                        <xrd:InlineDocumentValue PropertyName="digit3" />
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell Padding="0" TextAlignment="Center" BorderThickness="0,0,0,0">
+                                    <Paragraph Style="{StaticResource SchemeIndex}"  >
+                                        <xrd:InlineDocumentValue PropertyName="digit2" />
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell Padding="0" TextAlignment="Center" BorderThickness="0,0,0,0" >
+                                    <Paragraph Style="{StaticResource SchemeIndex}">
+                                        <xrd:InlineDocumentValue PropertyName="digit1" />
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+                        </TableRowGroup>
+                    </Table>
+
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+
+    <!--
+    <Section Name="im">
+        <Paragraph TextAlignment="Center"  >
+            <Image Name="image1" Width="6cm" Height="6cm"  />
+        </Paragraph>
+    </Section>
+    -->
+    <!--
+    <Section Name="sectionUKL">
+        <Paragraph TextAlignment="Center"  >
+            <Image Name="UKLJPGImage" Width="6cm" Height="6cm"  />
+        </Paragraph>
+    </Section>
+-->
+
+
+    <!-- нужно печатать поверх схемы рисунка -->
+
+    <!--<Section  Margin="0,0,0,0" Name="SectionPalletM">
+        <Paragraph Margin="0,0,0,0" FontSize="20" FontWeight="Normal" TextAlignment="Center">
+            <xrd:InlineDocumentValue PropertyName="PalletM"/>
+        </Paragraph>
+    </Section>-->
+
+    <Table CellSpacing="0"  Margin="0,0,30,0" Name="SectionProductDetails">
+        <Table.Columns>
+            <TableColumn Width="90" />
+            <TableColumn Width="95" />
+            <TableColumn Width="90" />
+        </Table.Columns>
+
+        <TableRowGroup>
+            <TableRow>
+                <TableCell>
+                    <Paragraph FontSize="8"  TextAlignment="Center">
+                        Подпрессовка
+                    </Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph FontSize="8" TextAlignment="Center" >
+                        Упаковка
+                    </Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph FontSize="8"  TextAlignment="Center">
+                        Обмотка
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+
+        <TableRowGroup>
+            <xrd:TableRowForDataTable TableName="table1">
+                <TableCell>
+                    <Table CellSpacing="0" Margin="0,0,0,0">
+                        <Table.Columns>
+                            <TableColumn Width="*" />
+                        </Table.Columns>
+                        <TableRowGroup>
+                            <TableRow>
+                                <TableCell>
+                                    <Paragraph FontWeight="Bold" FontSize="26" TextAlignment="Center">
+                                        <xrd:InlineDocumentValue PropertyName="ProductPress"/>
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>
+                                    <Paragraph FontSize="8" FontWeight="Normal" TextAlignment="Center">
+                                        Уголок
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell BorderThickness="0,0,0,0">
+                                    <Paragraph FontWeight="Bold" FontSize="26" TextAlignment="Center">
+                                        <xrd:InlineDocumentValue PropertyName="ProductUgolok"/>
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+                        </TableRowGroup>
+                    </Table>
+                </TableCell>
+                <TableCell>
+                    <Table CellSpacing="0" Margin="0,0,0,0" BorderThickness="0,0,0,0">
+                        <Table.Columns>
+                            <TableColumn Width="*" />
+                        </Table.Columns>
+                        <TableRowGroup>
+                            <TableRow>
+                                <TableCell>
+                                    <Paragraph FontWeight="Bold"  FontSize="26" TextAlignment="Center">
+                                        <xrd:InlineDocumentValue PropertyName="ProductUP"/>
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>
+                                    <Paragraph FontSize="8" FontWeight="Normal" TextAlignment="Center">
+                                        Обвязка
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell BorderThickness="0,0,0,0">
+                                    <Paragraph FontWeight="Bold" FontSize="26" TextAlignment="Center">
+                                        <xrd:InlineDocumentValue PropertyName="ProductOBV"/>
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+                        </TableRowGroup>
+                    </Table>
+                </TableCell>
+                <TableCell>
+                    <Paragraph FontWeight="Bold"  TextAlignment="Center"  FontSize="40">
+                        <xrd:InlineDocumentValue PropertyName="ProductOBM"/>
+                    </Paragraph>
+                </TableCell>
+            </xrd:TableRowForDataTable>
+        </TableRowGroup>
+    </Table>
+
+
+
+    <Section  Margin="0,0,0,0" Name="sectionOTGR" >
+        <Paragraph  Margin="0,0,0,0" FontSize="34" FontWeight="Bold" TextAlignment="Center">
+            <xrd:InlineDocumentValue PropertyName="OTGR"/>
+        </Paragraph>
+    </Section>
+
+
+
+
+    <Table CellSpacing="0" Name="sectionProductHUNKL">
+        <Table.Columns>
+            <TableColumn Width="135" />
+            <TableColumn Width="135" />
+        </Table.Columns>
+        <TableRowGroup>
+            <TableRow>
+                <TableCell>
+
+                    <Section>
+                        <Paragraph TextAlignment="Center" FontWeight="Bold" FontSize="26" Margin="0,0,0,0">
+                            <xrd:InlineDocumentValue PropertyName="sname"/>
+                        </Paragraph>
+                    </Section>
+                    <Section>
+                        <Paragraph TextAlignment="Center" FontWeight="Bold" FontSize="26" Margin="0,0,0,0">
+                            <xrd:InlineDocumentValue PropertyName="a1name" />
+                        </Paragraph>
+                    </Section>
+                    <Section>
+                        <Paragraph TextAlignment="Center" FontWeight="Bold" FontSize="26" Margin="0,0,0,0">
+                            <xrd:InlineDocumentValue PropertyName="a2name"/>
+                        </Paragraph>
+                    </Section>
+                </TableCell>
+
+                <TableCell>
+
+                    <Table CellSpacing="0">
+                        <Table.Columns>
+                            <TableColumn Width="*" />
+                        </Table.Columns>
+                        <TableRowGroup>
+                            <TableRow>
+                                <TableCell BorderThickness="0,0,0,0">
+                                    <Section>
+                                        <Paragraph Margin="0,0,0,0" FontWeight="Bold" FontSize="13" TextAlignment="Center" >
+                                            <xrd:InlineDocumentValue PropertyName="UKLCode"/>
+                                        </Paragraph>
+                                    </Section>
+                                    <Section>
+                                        <Paragraph TextAlignment="Center" FontWeight="Bold" FontSize="13" Margin="0,0,0,0">
+                                            <xrd:InlineDocumentValue PropertyName="ProductHUKL"/>
+                                        </Paragraph>
+                                    </Section>
+                                    <Section>
+                                        <Paragraph TextAlignment="Center" FontWeight="Bold" FontSize="13" Margin="0,0,0,0" >
+                                            <xrd:InlineDocumentValue PropertyName="ProductHUKL2"/>
+                                        </Paragraph>
+                                    </Section>
+                                </TableCell>
+                            </TableRow>
+
+                            <TableRow>
+                                <TableCell BorderThickness="0,1,0,0">
+                                    <Section>
+                                        <Paragraph TextAlignment="Center" FontWeight="Bold" FontSize="26" Margin="0,0,0,0">
+                                            <xrd:InlineDocumentValue PropertyName="ProductKolPak"/>
+                                        </Paragraph>
+                                    </Section>
+                                </TableCell>
+                            </TableRow>
+                        </TableRowGroup>
+                    </Table>
+
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+
+    <Table CellSpacing="0">
+        <Table.Columns>
+            <TableColumn Width="240" />
+            <TableColumn Width="30" />
+        </Table.Columns>
+        <TableRowGroup>
+            <TableRow>
+                <TableCell BorderThickness="0,0,0,0">
+                    <Paragraph TextAlignment="Center"  >                        
+                        <xrbc:InlineBarcodeC128 PropertyName="Barcode" Width="5cm" Height="1.5cm" BarcodeSubType="A" ShowText="True" />                                                
+                    </Paragraph>
+
+                </TableCell>
+                <TableCell BorderThickness="0,0,0,0">
+                    <Paragraph TextAlignment="Center" FontWeight="Bold" FontSize="24" Margin="0,0,0,0">
+                        <xrd:InlineDocumentValue PropertyName="RealMarka"/>
+                    </Paragraph>
+                </TableCell>
+
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+
+
+
+
+
+    <Table>
+        <Table.Columns>
+            <TableColumn Width="1*" />
+            <TableColumn Width="1*" />
+        </Table.Columns>
+        <TableRowGroup>
+            <TableRow>
+                <TableCell BorderThickness="0,0,0,0">
+                    <Paragraph  Margin="0,0,0,0" FontSize="8" FontWeight="Bold" TextAlignment="Center" >
+                        Нетто
+                        <xrd:InlineDocumentValue PropertyName="PalletWeightNet"/> кг
+                    </Paragraph>
+                </TableCell>
+                <TableCell BorderThickness="0,0,0,0">
+                    <Paragraph  Margin="0,0,0,0" FontSize="8" FontWeight="Bold" TextAlignment="Center" >
+                        Брутто
+                        <xrd:InlineDocumentValue PropertyName="PalletWeightGross"/> кг
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+
+
+
+    <Section Margin="0,0,0,0" Name="SectionManSign">
+        <!-- ман знаки -->
+        <Paragraph TextAlignment="Center"  >
+            <Image Name="ManSignsImage3" Width="1.5cm" Height="1.5cm" Source="Assets/Images/Reports/KeepAwayFromFire.jpg" />
+            <Image Name="ManSignsImage2" Width="1.5cm" Height="1.5cm" Source="Assets/Images/Reports/KeepAwayFromMoisture.jpg" />
+            <Image Name="ManSignsImage4" Width="1.5cm" Height="1.5cm" Source="Assets/Images/Reports/KeepOutOfTheSun.jpg" />
+            <Image Name="ManFoodSign" Width="1.5cm" Height="1.5cm" Source="Assets/Images/Reports/SuitableForFoodSign.jpg" />
+            <Image Name="ManSignsImage5" Width="1.5cm" Height="1.5cm" Source="Assets/Images/Reports/ReturnPackagingCardboard.jpg" />
+            <Image Name="ManSignsImage6" Width="1.5cm" Height="1.5cm" Source="Assets/Images/Reports/Recyclable.jpg" />
+            <Image Name="ManSignsImage1" Width="1.5cm" Height="1.5cm" Source="Assets/Images/Reports/EAC.jpg" />
+        </Paragraph>
+
+        <Paragraph Margin="0cm,0cm,0cm,0cm" TextAlignment="Center">
+            НЕ БРОСАТЬ!
+        </Paragraph>
+
+        <Paragraph Margin="0cm,0cm,0cm,0cm" TextAlignment="Center" FontSize="9" FontWeight="Normal">
+            <xrd:InlineDocumentValue PropertyName="TU"/>
+        </Paragraph>
+        <Paragraph Margin="0,0,20,0" TextAlignment="Center" FontSize="8" FontWeight="Normal">
+            <xrd:InlineDocumentValue PropertyName="TU_DESCRIPTION"/>
+        </Paragraph>
+    </Section>
+
+    <Section Margin="0,0,0,0" Name="_declarationInfo">
+        <Paragraph Margin="0,0,20,0" TextAlignment="Center" FontSize="12" FontWeight="Normal">
+            Декларация о соответствии  №ТС №RU.Д-RU.АГ03.В.01238
+        </Paragraph>
+    </Section>
+
+    <Section Margin="0,0,0,0" Name="SectionManSignInfo">
+        <Paragraph FontSize="8" FontWeight="Normal" Margin="0,0,20,0" TextAlignment="Center">
+            <xrd:InlineDocumentValue PropertyName="PRODUCTION_NOTES"/>
+        </Paragraph>
+    </Section>
+
+    <!-- штрихкод клиента -->
+    <!--<Section  Margin="0,0,0,0" Name="ClientBigBarCode">
+        <Table CellSpacing="0"  Margin="0,0,0,0" >
+            <Table.Columns>
+                <TableColumn Width="270" />
+            </Table.Columns>
+            <TableRowGroup>
+                <TableRow>
+                    <TableCell BorderBrush="Black" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center">
+                            <Image Name="ImageX" Width="12cm" Height="12cm"/>
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+            </TableRowGroup>
+        </Table>
+    </Section>-->
+
+    <Section  Margin="0,20,0,0" Name="_ClientBigBarCode1">
+        <Table CellSpacing="0"  Margin="0,0,0,0" >
+            <Table.Columns>
+                <TableColumn Width="250" />
+            </Table.Columns>
+            <TableRowGroup>
+                <TableRow>
+                    <TableCell BorderBrush="Black" BorderThickness="0,0,0,0">
+                        <Paragraph FontWeight="Bold" TextAlignment="Center" Margin="0,0,0,10">Штрих-код клиента</Paragraph>
+                    </TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell BorderBrush="Black" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center">
+                            <!--
+                                Эксперементальным путём пришёл к тому, что нужно использовать BarcodeSubType="BC"
+                            -->
+                            <xrbc:InlineBarcodeC128 PropertyName="ClientBarcode" Width="6cm" Height="14cm" BarcodeSubType="BC" ShowText="True" RotateAngle="90.0"/>
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+            </TableRowGroup>
+        </Table>
+    </Section>
+    <Section  Margin="0,20,0,0" Name="_ClientBigBarCode2">
+        <Table CellSpacing="0"  Margin="0,0,0,0" >
+            <Table.Columns>
+                <TableColumn Width="250" />
+            </Table.Columns>
+            <TableRowGroup>
+                <TableRow>
+                    <TableCell BorderBrush="Black" BorderThickness="0,0,0,0">
+                        <Paragraph FontWeight="Bold" TextAlignment="Center" Margin="0,0,0,10">Штрих-код клиента</Paragraph>
+                    </TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell BorderBrush="Black" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center">
+                            <Image Name="ClientBarcodeGS" Width="5cm" Height="5cm"/>
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+            </TableRowGroup>
+        </Table>
+    </Section>
+    <Section  Margin="0,20,0,0" Name="_ClientBigBarCode3">
+        <Table CellSpacing="0"  Margin="0,0,0,0" >
+            <Table.Columns>
+                <TableColumn Width="250" />
+            </Table.Columns>
+            <TableRowGroup>
+                <TableRow>
+                    <TableCell BorderBrush="Black" BorderThickness="0,0,0,0">
+                        <Paragraph FontWeight="Bold" TextAlignment="Center" Margin="0,0,0,10">Штрих-код клиента</Paragraph>
+                    </TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell BorderBrush="Black" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center">
+                            <Image Name="ClientBarcodeEan13" Width="5cm" Height="3cm"/>
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+            </TableRowGroup>
+        </Table>
+    </Section>
+
+    <Section  Margin="0,20,0,0" Name="BarcodeKshSection">
+        <Table CellSpacing="0"  Margin="0,0,0,0" >
+            <Table.Columns>
+                <TableColumn Width="250" />
+            </Table.Columns>
+            <TableRowGroup>
+                <TableRow>
+                    <TableCell BorderBrush="Black" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center">
+                            <Image Name="BarcodeKsh" Width="3cm" Height="3cm"/>
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+            </TableRowGroup>
+        </Table>
+    </Section>
+
+    <Section Margin="0,0,0,0" Name="_ImPackRec">
+        <Paragraph TextAlignment="Center" >
+            <Image Name="ImPackRecImage" Width="3cm" Height="4cm" Source="Assets/Images/Reports/ImPackRec.png" />
+        </Paragraph>
+    </Section>
+
+    <Section Margin="0,0,0,0" Name="_ImPackMix">
+        <Paragraph TextAlignment="Center" >
+            <Image Name="ImPackMixImage" Width="3cm" Height="4cm" Source="Assets/Images/Reports/ImPackMix.png" />
+        </Paragraph>
+    </Section>
+
+
+    <Section Margin="0,0,0,0" Name="_ImBoardRec">
+        <Paragraph TextAlignment="Center" >
+            <Image Name="ImBoardRecImage" Width="3cm" Height="4cm" Source="Assets/Images/Reports/ImBoardRec.png" />
+        </Paragraph>
+    </Section>
+
+
+    <Section Margin="0,0,0,0" Name="_ImBoardMix">
+        <Paragraph TextAlignment="Center" >
+            <Image Name="ImBoardMixImage" Width="3cm" Height="4cm" Source="Assets/Images/Reports/ImBoardMix.png" />
+        </Paragraph>
+    </Section>
+
+
+
+    <Table CellSpacing="0" Name="_ReturnSection2" >
+        <Table.Columns>
+            <TableColumn Width="270" />
+        </Table.Columns>
+
+        <TableRowGroup>
+            <TableRow>
+                <TableCell BorderThickness="0,0,0,0">
+                    <Paragraph Margin="0,0,0,0" FontSize="48" FontWeight="Bold"  TextAlignment="Center">Возврат</Paragraph>
+                    <Paragraph Margin="0,0,0,0" LineHeight="500"/>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+
+    <Section  Margin="0,0,0,0">
+        <Paragraph Margin="0,0,0,0" LineHeight="200"/>
+        <Paragraph Margin="0,0,0,0">_</Paragraph>
+    </Section>
+
+</FlowDocument>
+

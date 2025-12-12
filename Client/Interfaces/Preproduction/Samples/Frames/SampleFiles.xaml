@@ -1,0 +1,118 @@
+﻿<UserControl x:Class="Client.Interfaces.Preproduction.SampleFiles"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="600"
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}" >
+        <Grid Style="{DynamicResource FromGrid}" HorizontalAlignment="Left" Width="600">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+
+                <Button Name="CancelButton" Content="Закрыть"     Style="{DynamicResource FButtonCancel}" Click="CancelButton_Click"   />
+                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                <TextBlock  Name="FormStatus"  TextAlignment="Left" Style="{DynamicResource FStatusBar}" HorizontalAlignment="Stretch" />
+            </StackPanel>
+
+            <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormVerticalPanelSpacer}"></Border>
+
+            <Border Name="DesignBlock" Grid.Row="2" Grid.Column="0" Style="{DynamicResource DataGridContainerHolder}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Основной чертеж:  " Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormLabelContainer}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Name="DesignFileName" ToolTip="Основной чертеж" Style="{DynamicResource CustomFormField}" Width="351" IsReadOnly="True"/>
+                            <TextBox Name="DesignFilePath" Visibility="Collapsed" />
+                            <Button Name="DesignFileSelectButton"   ToolTip="Выбрать" Click="DesignFileSelect_Click"  Style="{DynamicResource ButtonGlyph}"  Margin="-1,0,0,0"  >
+                                <Image Style="{DynamicResource SelectImage}" />
+                            </Button>
+                            <Button Name="DesignFileShowButton"   ToolTip="Посмотреть" Click="DesignFileShow_Click"  Style="{DynamicResource ButtonGlyph}"  Margin="-1,0,0,0"  >
+                                <Image Style="{DynamicResource ViewImage}" />
+                            </Button>
+                            <Button Name="DesignFileClearButton"   ToolTip="Очистить" Click="DesignFileClear_Click"  Style="{DynamicResource ButtonGlyph}"  Margin="-1,0,0,0"  >
+                                <Image Style="{DynamicResource CloseImage}" />
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Чертеж в другом формате:  " Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="1" Style="{DynamicResource FormLabelContainer}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Name="DesignOtherFileName" ToolTip="Чертеж в другом формате" Style="{DynamicResource CustomFormField}" Width="351" IsReadOnly="True"/>
+                            <TextBox Name="DesignOtherFilePath" Visibility="Collapsed" />
+                            <Button Name="DesignOtherFileSelectButton"   ToolTip="Выбрать" Click="DesignOtherFileSelect_Click"  Style="{DynamicResource ButtonGlyph}"  Margin="-1,0,0,0"  >
+                                <Image Style="{DynamicResource SelectImage}" />
+                            </Button>
+                            <Button Name="DesignOtherFileShowButton"   ToolTip="Посмотреть" Click="DesignOtherFileShow_Click"  Style="{DynamicResource ButtonGlyph}"  Margin="-1,0,0,0"  >
+                                <Image Style="{DynamicResource ViewImage}" />
+                            </Button>
+                            <Button Name="DesignOtherFileClearButton"   ToolTip="Очистить" Click="DesignOtherFileClear_Click"  Style="{DynamicResource ButtonGlyph}"  Margin="-1,0,0,0"  >
+                                <Image Style="{DynamicResource CloseImage}" />
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="3" Grid.Column="0" Style="{DynamicResource FormVerticalPanelSpacer}"></Border>
+
+            <Border Name="AttacmentBlock" Grid.Row="4" Grid.Column="0" Style="{DynamicResource DataGridContainerHolder}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="200" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Style="{DynamicResource FormHeaderButtonsPanel}" Margin="0,5" >
+                        <Button Name="AddButton"      Content="Добавить"  Style="{DynamicResource Button}" Click="AddButton_Click"  />
+                        <Button Name="OpenButton"     Content="Открыть"   Style="{DynamicResource Button}" Click="OpenButton_Click"  />
+                        <Button Name="SaveButton"     Content="Сохранить"   Style="{DynamicResource Button}" Click="SaveButton_Click"  />
+                        <Button Name="DeleteButton"   Content="Удалить"   Style="{DynamicResource Button}"  Visibility="Collapsed" Click="DeleteButton_Click" />
+                    </StackPanel>
+
+                    <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Style="{DynamicResource DataGridContainerHolder}" Height="200" >
+                        <controls:GridBox x:Name="AttachmentGrid" />
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

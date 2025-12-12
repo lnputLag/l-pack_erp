@@ -1,0 +1,202 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Messages.NotificationView"
+    xmlns:local="clr-namespace:Client.Interfaces.Messages"
+    xmlns:lib="clr-namespace:Client.Common"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"             
+    
+    mc:Ignorable="d"
+    
+    d:DesignWidth="400" d:DesignHeight="250" 
+    Width="640" Height="400"
+    Style="{DynamicResource UserControlCanvas}"
+    HorizontalAlignment="Left" VerticalAlignment="Top"    
+    >
+
+    <!--DataContext="{Binding RelativeSource={RelativeSource Self}}"-->
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <!--
+        форма
+        1 строка: блок кнопок, 30 пикс.
+        2 строка: горизонтальный разделитель
+        3 строка: блок с полями формы, 
+    
+    -->
+    <Border Style="{DynamicResource FormContainerHolder}" Margin="1,5,1,1" >
+        <Grid Style="{DynamicResource FormContainer}" >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource FormControlPanel}" >
+                <Grid ShowGridLines="false">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Grid.Column="0" >
+                        <TextBlock Grid.Row="0" Grid.Column="0"  Name="FormTitle"  TextAlignment="Left" Style="{DynamicResource FormHeaderTitleBar}"  />
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="0" BorderBrush="#ff00cccc" BorderThickness="0" >
+                        <StackPanel Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}"  >
+
+                            <Button Content="Отправить" Name="SaveButton"  Click="SaveButton_Click" Style="{DynamicResource FButtonPrimary}" />
+
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            
+
+                            <TextBlock  Name="FormStatus"  TextAlignment="Left" Style="{DynamicResource FStatusBar}" HorizontalAlignment="Stretch" />
+
+                        </StackPanel>
+                    </Border>
+
+                </Grid>
+            </Grid>
+
+            <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormVerticalPanelSpacer}"></Border>
+
+            <Border Grid.Row="2" Grid.Column="0" >
+
+                <Grid ShowGridLines="false" Grid.Row="0"  Grid.Column="0" Style="{DynamicResource FromGrid}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="9*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Код:"    Style="{DynamicResource FormLabel}"  />
+                    </Border>
+                    <Border Grid.Row="0"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <TextBox  Name="Code" ToolTip=""  TextWrapping="NoWrap" Style="{DynamicResource FormField}" HorizontalAlignment="Stretch"  />
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Класс:"    Style="{DynamicResource FormLabel}"  />
+                    </Border>
+                    <Border Grid.Row="1"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <TextBox  Name="Class" ToolTip=""  TextWrapping="NoWrap" Style="{DynamicResource FormField}" HorizontalAlignment="Stretch"  />
+                    </Border>
+
+                    <Border Grid.Row="2" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Тип:"    Style="{DynamicResource FormLabel}"  />
+                    </Border>
+                    <Border Grid.Row="2"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <controls:SelectBox  x:Name="Type" Style="{DynamicResource CustomFormField}" ListBoxMinHeight="40" Width="220" Autocomplete="False" HorizontalAlignment="Left" />
+                    </Border>
+
+                    <Border Grid.Row="3" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Заголовок: *"    Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Row="3"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <TextBox  Name="Title"  TextWrapping="NoWrap" Style="{DynamicResource FormField}"  HorizontalAlignment="Stretch"   />
+                    </Border>
+
+                    <Border Grid.Row="4" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Сообщение:"    Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Row="4"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <TextBox Name="Content"  Height="120" MaxHeight="120" VerticalAlignment="Stretch" MaxLength="2048" TextWrapping="Wrap" AcceptsReturn="True" Style="{DynamicResource FormField}" VerticalScrollBarVisibility="Auto" />
+                    </Border>
+
+                    <Border Grid.Row="5" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Ссылка:"    Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Row="5"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <TextBox  Name="Link" ToolTip="Ссылка на интерфейс: l-pack://l-pack_erp/"   TextWrapping="NoWrap" Style="{DynamicResource FormField}"  HorizontalAlignment="Stretch"   />
+                    </Border>
+
+                    <Border Grid.Row="6" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Роли:"    Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Row="6"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <TextBox  Name="Roles" ToolTip="Роли пользователей-получателей, через запятую"   TextWrapping="NoWrap" Style="{DynamicResource FormField}"  HorizontalAlignment="Stretch"   />
+                    </Border>
+
+                    <Border Grid.Row="7" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Пользователи:"    Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Row="7"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <TextBox  Name="Users" ToolTip="ID пользователей-получателей, через запятую"  TextWrapping="NoWrap" Style="{DynamicResource FormField}"  HorizontalAlignment="Stretch"   />
+                    </Border>
+
+                </Grid>
+
+            </Border>
+
+            <Border Grid.Row="2" Grid.Column="2" x:Name="TestNotifications">
+                <StackPanel Orientation="Vertical" >
+                    <TextBlock  Text="Тестовые уведомления" HorizontalAlignment="Stretch" Margin="5"  />
+
+                    <Button Content="Test notification" Name="TestButton" Margin="5" Click="TestButton_Click" Style="{DynamicResource Button}" />
+                    <Button Content="Обновление" Name="UpdateButton" Margin="5" Click="UpdateButton_Click" Style="{DynamicResource Button}" />
+
+                    <Button Content="Перезапуск" Name="RestartButton" Margin="5" Click="RestartButton_Click" Style="{DynamicResource Button}" />
+
+                    <Button Content="Хоп" Name="DoHopButton" Margin="5" Click="DoHopButton_Click" Style="{DynamicResource Button}" />
+
+                    <Button Content="Новые веб-образцы" Name="Test2Button" Margin="5" Click="Test2Button_Click" Style="{DynamicResource Button}" />
+                    <Button Content="Сообщения по образцам" Name="Test3Button" Margin="5" Click="Test3Button_Click" Style="{DynamicResource Button}" />
+
+                    <Button Content="Отгрузите образцы" Name="ShipmentsSamples" Margin="5" Click="ShipmentsSamples_Click" Style="{DynamicResource Button}" />
+                    <Button Content="Отгрузите клише" Name="ShipmentsClishe" Margin="5" Click="ShipmentsClishe_Click" Style="{DynamicResource Button}" />
+                    <Button Content="Отгрузите штанцформы" Name="ShipmentsShtanzforms" Margin="5" Click="ShipmentsShtanzforms_Click" Style="{DynamicResource Button}" />
+
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="2" Grid.Column="3" >
+                <StackPanel Orientation="Vertical" >
+                    <TextBlock  Text="Получатели" HorizontalAlignment="Stretch" Margin="5"  />
+
+                    <Button Content="    " Name="ReceiversVoidButton" Margin="5" Click="ReceiversVoidButton_Click" Style="{DynamicResource Button}" />
+                    <Button Content="ГА ЦУП" Name="ReceiversCMButton" Margin="5" Click="ReceiversCMButton_Click" Style="{DynamicResource Button}" />
+                    <Button Content="ГА Раскаты" Name="ReceiversCMReelsButton" Margin="5" Click="ReceiversCMReelsButton_Click" Style="{DynamicResource Button}" />
+                    <Button Content="ОПП" Name="ReceiversPpdButton" Margin="5" Click="ReceiversPpdButton_Click" Style="{DynamicResource Button}" />
+                    <Button Content="СГП" Name="StockUsers" Margin="5" Click="StockUsers_Click" Style="{DynamicResource Button}" />
+
+                </StackPanel>
+            </Border>
+
+        </Grid>
+    </Border>
+
+</UserControl>

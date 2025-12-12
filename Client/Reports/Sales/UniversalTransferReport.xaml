@@ -1,0 +1,1342 @@
+﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports"
+              xmlns:xrbc="clr-namespace:CodeReason.Reports.Document.Barcode;assembly=CodeReason.Reports"
+              PageHeight="21cm" PageWidth="29.7cm" ColumnWidth="29.7cm" FontFamily="Verdana" FontSize="12" >
+    <!--PageHeight="29.7cm" PageWidth="21cm" ColumnWidth="21cm" FontFamily="Verdana" FontSize="12"-->
+    <!-- Стили -->
+    <FlowDocument.Resources>
+
+
+        <Style x:Key="paragraphStyle" TargetType="{x:Type Paragraph}">
+            <Setter Property="TextAlignment" Value="Left"/>
+        </Style>
+
+        <Style x:Key="tableStyle" TargetType="{x:Type Table}">
+            <Setter Property="Margin" Value="0cm,0cm,0cm,0cm"/>
+        </Style>
+
+
+        <Style x:Key="headerFooterRowStyle" TargetType="{x:Type TableRowGroup}">
+        </Style>
+
+        <Style x:Key="dataRowStyle" TargetType="{x:Type TableRowGroup}">
+        </Style>
+
+        <Style TargetType="{x:Type TableCell}">
+            <Setter Property="Padding" Value="0.0cm,0.01cm,0.0cm,0.01cm"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0.02cm"/>
+            <Setter Property="TextAlignment" Value="Left"/>
+        </Style>
+
+    </FlowDocument.Resources>
+
+
+    <Section BreakPageBefore="False" Margin="2,0,2,0">
+        
+        <!-- Шапка документа-->
+        <Table CellSpacing="0">
+            <Table.Columns>
+                <TableColumn Width="0.75*"/>
+                <TableColumn Width="3*"/>
+                <TableColumn Width="0.5*"/>
+                <TableColumn Width="3*"/>
+                <TableColumn Width="0.5*"/>
+            </Table.Columns>
+
+            <TableRowGroup>
+                <TableRow>
+                    <TableCell BorderThickness="0,0,0,0" ColumnSpan="5">
+                        <Paragraph TextAlignment="Left" FontSize="8">
+                            <xrbc:InlineBarcodeC128 PropertyName="BARCODE" Width="4cm" Height="1cm" BarcodeSubType="BC" ShowText="True"/>
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+                
+                <TableRow>
+                    <TableCell BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="8">
+                            Универсальный
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="8">
+                            передаточный
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="8">
+                            документ
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,0,0">
+                        <Paragraph TextAlignment="Left" FontWeight="Bold" FontSize="9">
+                            СЧЕТ-ФАКТУРА
+                            <xrd:InlineDocumentValue PropertyName="DOCUMENT_NUMBER" />
+                            от
+                            <xrd:InlineDocumentValue PropertyName="DOCUMENT_DTTM" />
+                        </Paragraph>
+                        <Paragraph TextAlignment="Left" FontSize="9">
+                            ИСПРАВЛЕНИЕ № -- от --
+                        </Paragraph>
+                        <Paragraph TextAlignment="Left" FontSize="9">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="9">
+                            (1)
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="9">
+                            (1а)
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="9">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Right" FontSize="7">
+                            Приложение №1 к постановлению Правительства Российской Федерации от 26 декабря 2011 г. №1137
+                        </Paragraph>
+                        <Paragraph TextAlignment="Right" FontSize="7">
+                            (в редакции постановления Правительства РФ от 2 апреля 2021 № 534)
+                        </Paragraph>
+                        <Paragraph TextAlignment="Right" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="8">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="9">
+                            Продавец:
+                            <xrd:InlineDocumentValue PropertyName="SELLER_BIG_NAME" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="9">
+                            (2)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="9">
+                            Покупатель:
+                            <xrd:InlineDocumentValue PropertyName="BUYER_NAME" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Right" FontSize="9">
+                            (6)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="8">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="9">
+                            Адрес:
+                            <xrd:InlineDocumentValue PropertyName="SELLER_ADDRESS" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="9">
+                            (2а)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="9">
+                            Адрес:
+                            <xrd:InlineDocumentValue PropertyName="BUYER_ADDRESS" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Right" FontSize="9">
+                            (6а)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="8">
+                            Статус [1]
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="9">
+                            ИНН/КПП продавца
+                            <xrd:InlineDocumentValue PropertyName="SELLER_INN" />
+                            <xrd:InlineDocumentValue PropertyName="SELLER_KPP" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="9">
+                            (2б)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="9">
+                            ИНН/КПП покупателя:
+                            <xrd:InlineDocumentValue PropertyName="BUYER_INN" />
+                            <xrd:InlineDocumentValue PropertyName="BUYER_KPP" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Right" FontSize="9">
+                            (6б)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            1 – счет-фактура 
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            и передаточный 
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            документ (акт)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="9">
+                            Грузоотправитель и его адрес:
+                            <xrd:InlineDocumentValue PropertyName="SENDER_NAME" />
+                            <xrd:InlineDocumentValue PropertyName="SENDER_ADDRESS" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="9">
+                            (3)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="9">
+                            Валюта: наменование, код Российский рубль, 643
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Right" FontSize="9">
+                            (7)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            2 – передаточный 
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            документ (акт)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="9">
+                            Грузополучатель и его адрес:
+                            <xrd:InlineDocumentValue PropertyName="RECIPIENT_NAME" />
+                            <xrd:InlineDocumentValue PropertyName="RECIPIENT_ADDRESS" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="9">
+                            (4)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="9">
+                            Идентификатор государственного контракта, договора (соглашения) (при наличии): --
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Right" FontSize="9">
+                            (8)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="8">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="9">
+                            К платёжно-расчётному документу:
+                            <xrd:InlineDocumentValue PropertyName="RECEIPT"/>
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="9">
+                            (5)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Left" FontSize="9">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Right" FontSize="9">
+                            
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="8">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="9">
+                            Документ об отгрузке N п/п
+                            <xrd:InlineDocumentValue PropertyName="POSITION_ROWNUMBER_FIRST" /> -
+                            <xrd:InlineDocumentValue PropertyName="POSITION_ROWNUMBER_LAST" /> №
+                            <xrd:InlineDocumentValue PropertyName="DOCUMENT_NUMBER" /> от
+                            <xrd:InlineDocumentValue PropertyName="DOCUMENT_DTTM" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="9">
+                            (5а)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Left" FontSize="9">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Right" FontSize="9">
+
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+            </TableRowGroup>
+        </Table>
+
+        <!-- Таблица с данными по продукции-->
+        <Table CellSpacing="0">
+            <Table.Columns>
+                <TableColumn Width="1*" />
+                <TableColumn Width="0.5*" />
+                <TableColumn Width="3*" />
+                <TableColumn Width="0.5*" />
+                <TableColumn Width="0.5*" />
+                <TableColumn Width="0.5*" />
+                <TableColumn Width="1*" />
+                <TableColumn Width="1*" />
+                <TableColumn Width="1*" />
+                <TableColumn Width="0.5*" />
+                <TableColumn Width="0.5*" />
+                <TableColumn Width="1*" />
+                <TableColumn Width="1*" />
+                <TableColumn Width="0.5*" />
+                <TableColumn Width="0.5*" />
+                <TableColumn Width="1*" />
+            </Table.Columns>
+            
+            <!-- Шапка таблицы-->
+            <TableRowGroup>
+                
+                <TableRow>
+                    <TableCell BorderThickness="1,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            Код товара/
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            №
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            Наименование товара (описание
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            Код вида
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            Единица измерения
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            Количество
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            Цена (тариф)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            Стоимость товаров (работ, услуг), имущественных
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            В том числе
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            Налоговая
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            Сумма налога, предъяв-
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            Стоимость товаров (работ, услуг),
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            Страна происхождения товара
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            Регистрационный номер декларации на товары или
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="1,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            работ, услуг
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            п/п
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            выполненных работ, оказанных услуг), имущественного права
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            товара
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell >
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            Код
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            условное обозначение (национальное)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            (объем)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            за единицу измерения
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            прав, без налога - всего
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            сумма акциза
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            ставка
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            ляемая покупателю
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            имущественных прав, с налогом - всего
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            цифровой код
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            краткое наименование
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,1,1">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            регистрационный номер партии товара, подлежащего прослеживаемости
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            А
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            1
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            1а
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            1б
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            2
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            2а
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            3
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            4
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            5
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            6
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            7
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            8
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            9
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            10
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            10а
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            11
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+            </TableRowGroup>
+
+            <!-- Таблица с позициями заказа-->
+            <TableRowGroup>
+                <xrd:TableRowForDataTable TableName="Positions">
+                    <TableCell>
+                        <Paragraph TextAlignment="Left" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            <xrd:InlineTableCellValue PropertyName="ROW_NUMBER" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            <xrd:InlineTableCellValue PropertyName="PRODUCT_NAME" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            --
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            <xrd:InlineTableCellValue PropertyName="IZM_CODE" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            <xrd:InlineTableCellValue PropertyName="IZM" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Right" FontSize="7">
+                            <xrd:InlineTableCellValue PropertyName="PRODUCT_QUANTITY" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Right" FontSize="7">
+                            <xrd:InlineTableCellValue PropertyName="BASED_PRICE" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Right" FontSize="7">
+                            <xrd:InlineTableCellValue PropertyName="PRICE_WITHOUT_NDS" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            без акциза
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            20%
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Right" FontSize="7">
+                            <xrd:InlineTableCellValue PropertyName="PRICE_NDS" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Right" FontSize="7">
+                            <xrd:InlineTableCellValue PropertyName="PRICE_WITH_NDS" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            --
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            --
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            --
+                        </Paragraph>
+                    </TableCell>
+                </xrd:TableRowForDataTable>
+            </TableRowGroup>
+
+            <!-- Итого, хвост таблицы-->
+            <TableRowGroup>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,1,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="7">
+                        <Paragraph TextAlignment="Left" FontSize="7" FontWeight="Bold">
+                            Всего к оплате
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Right" FontSize="7">
+                            <xrd:InlineDocumentValue PropertyName="SUMMARY_PRICE_WITHOUT_NDS" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            X
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Right" FontSize="7">
+                            <xrd:InlineDocumentValue PropertyName="SUMMARY_PRICE_NDS" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Right" FontSize="7">
+                            <xrd:InlineDocumentValue PropertyName="SUMMARY_PRICE_WITH_NDS" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,1,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            Документ
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            составлен на
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            Руководитель организации
+                        </Paragraph>
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            или иное уполномоченное лицо
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="3" BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            <!--/Каранчук П.С./-->
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="3" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            Главный бухгалтер
+                        </Paragraph>
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            или иное уполномоченное лицо
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+ 
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="3" BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            <!--/Гулынская Т.В./-->
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="3" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            Подпись
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (расшифровка подписи)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="3" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            Подпись
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="3" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (расшифровка подписи)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            <xrd:InlineDocumentValue PropertyName="PAGE_COUNT" /> листа
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            Индивидуальный предприниматель
+                        </Paragraph>
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            или иное уполномоченное лицо
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="3" BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="8" BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="3" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            Подпись
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (ф.и.о.)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="8" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            (реквизиты свидетельства о государственной регистрации индивидуального предпринимателя)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+            </TableRowGroup>
+        </Table>
+
+        <!-- Хвост документа-->
+        <Table CellSpacing="0">
+            <Table.Columns>
+                <TableColumn Width="1*" />
+                <TableColumn Width="1*" />
+                <TableColumn Width="1*" />
+                <TableColumn Width="1*" />
+                <TableColumn Width="1*" />
+                <TableColumn Width="1*" />
+            </Table.Columns>
+
+            <TableRowGroup>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            Основание передачи (сдачи) / получения (приемки)    
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="4" BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            Договора оферты от
+                            <xrd:InlineDocumentValue PropertyName="DOCUMENT_DTTM" />
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="4" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            (договор; доверенность и др.)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            Данные о транспортировке и грузе
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="4" BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+ 
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="4" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            (транспортная накладная, поручение экспедитору, экспедиторская / складская расписка и др. / масса нетто/ брутто груза, если не приведены ссылки на транспортные документы, содержащие эти сведения)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="3" BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            Товар (груз) передал / услуги, результаты работ, права сдал
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="3" BorderThickness="1,0,0,0">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            Товар (груз) получил / услуги, результаты работ, права принял
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            <xrd:InlineDocumentValue PropertyName="JOB" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,1,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            <xrd:InlineDocumentValue PropertyName="FIO" />
+                            <!--/Гулынская Т.В./-->
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            (должность)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            (подпись)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            (ф.и.о.)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            (должность)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            (подпись)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            (ф.и.о.)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            Дата отгрузки, передачи (сдачи)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            <xrd:InlineDocumentValue PropertyName="DOCUMENT_DTTM" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,0,0">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            Дата получения (приемки)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            <xrd:InlineDocumentValue PropertyName="PLACE_FOR_DATA" />
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            Иные сведения об отгрузке, передаче
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,0,0">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            Иные сведения о получении, приемке
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="3" BorderThickness="0,0,1,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="3" BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="3" BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            (ссылки на неотъемлемые приложения, сопутствующие документы, иные документы и т.п.)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="3" BorderThickness="1,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            (информация о наличии/отсутствии претензии; ссылки на неотъемлемые приложения, и другие документы и т.п.)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="3" BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            Ответственный за правильность оформления факта хозяйственной жизни
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="3" BorderThickness="1,0,0,0">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            Ответственный за правильность оформления факта хозяйственной жизни
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            <xrd:InlineDocumentValue PropertyName="JOB" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,1,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+                            <xrd:InlineDocumentValue PropertyName="FIO" />
+                            <!--/Гулынская Т.В./-->
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="7">
+
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            (должность)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            (подпись)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            (расшифровка подписи)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            (должность)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            (подпись)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="6">
+                            (ф.и.о.)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="3" BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Left" FontSize="6">
+                            Наименование экономического субъекта – составителя документа (в т.ч. комиссионера / агента)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="3" BorderThickness="1,0,0,0">
+                        <Paragraph TextAlignment="Left" FontSize="6">
+                            Наименование экономического субъекта – составителя документа
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell ColumnSpan="3" BorderThickness="0,0,1,1">
+                        <Paragraph TextAlignment="Left" FontSize="6">
+                            <xrd:InlineDocumentValue PropertyName="SELLER_NAME" /> ИНН/КПП
+                            <xrd:InlineDocumentValue PropertyName="SELLER_INN" />
+                            <xrd:InlineDocumentValue PropertyName="SELLER_KPP" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="3" BorderThickness="1,0,0,1">
+                        <Paragraph TextAlignment="Left" FontSize="6">
+                            <xrd:InlineDocumentValue PropertyName="RECIPIENT_NAME" /> ИНН/КПП
+                            <xrd:InlineDocumentValue PropertyName="RECIPIENT_INN" />
+                            <xrd:InlineDocumentValue PropertyName="RECIPIENT_KPP" />
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Center">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" FontSize="7">
+                                    М.П.
+                                </TextBlock>
+
+                                <!--<Border Grid.Row="0" Grid.Column="0" Panel.ZIndex="10">
+                                    <Image Name="TD_LPACK_STAMP_IMAGE" Width="2.5cm" Height="2.5cm" Source="/l-pack_erp;component/Assets/Images/Reports/TdLPackStamp.png" />
+                                </Border> -->
+                            </Grid>
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,1,0">
+                        <Paragraph TextAlignment="Left" FontSize="6">
+                            (может не заполняться при проставлении печати в М.П., может быть указан ИНН / КПП)
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell BorderThickness="1,0,0,0">
+                        <Paragraph TextAlignment="Center" FontSize="7">
+                            М.П.
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" BorderThickness="0,0,0,0">
+                        <Paragraph TextAlignment="Left" FontSize="6">
+                            (может не заполняться при проставлении печати в М.П., может быть указан ИНН / КПП)
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+            </TableRowGroup>
+        </Table>
+
+    </Section>
+
+</FlowDocument>
+
+

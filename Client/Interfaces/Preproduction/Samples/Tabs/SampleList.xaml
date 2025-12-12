@@ -1,0 +1,121 @@
+﻿<UserControl x:Class="Client.Interfaces.Preproduction.SampleList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1200"
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Style="{DynamicResource DataGridContainer}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="11.5*"/>
+                        <ColumnDefinition Width="0.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+                        <Label Content="С:"  Style="{DynamicResource TopLabel}"/>
+                        <Grid Style="{DynamicResource FormFieldDateHolder}">
+                            <!--<TextBox Name="FromDate"  MaxLength="10"  Style="{DynamicResource FormFieldDate}" IsReadOnly="False" TextChanged="FromDate_TextChanged" />
+                            <DatePicker  SelectedDate="{Binding Path=Text, Mode=OneWayToSource, ElementName=FromDate, Converter={StaticResource DateDate} }"  Style="{DynamicResource FormFieldDP}"  Margin="0,1,0,0">
+                            </DatePicker>-->
+                            <controls:DatePicker x:Name="FromDate" Style="{DynamicResource DateEditStyle}" TextChanged="FromDate_TextChanged">
+                            </controls:DatePicker>
+                        </Grid>
+
+                        <Label Content="по:"  Style="{DynamicResource TopLabel}"/>
+                        <Grid Style="{DynamicResource FormFieldDateHolder}">
+                            <!--<TextBox Name="ToDate"  MaxLength="10"  Style="{DynamicResource FormFieldDate}" IsReadOnly="False" IsEnabled="True" TextChanged="ToDate_TextChanged" />
+                            <DatePicker  SelectedDate="{Binding Path=Text, Mode=OneWayToSource, ElementName=ToDate, Converter={StaticResource DateDate} }"  Style="{DynamicResource FormFieldDP}"  Margin="0,1,0,0">
+                            </DatePicker>-->
+                            <controls:DatePicker x:Name="ToDate" Style="{DynamicResource DateEditStyle}" TextChanged="ToDate_TextChanged">
+                            </controls:DatePicker>
+                        </Grid>
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Button Name="RefreshButton"    Content="Показать"  Style="{DynamicResource Button}" Click="RefreshButton_Click"  />
+
+                        <Button Name="AddButton" Tag="Add;access_mode_full_access"      Content="Добавить"  Style="{DynamicResource Button}" Click="AddButton_Click"   />
+
+                        <Button Name="EditButton" Tag="Edit;access_mode_full_access"    Content="Изменить"  Style="{DynamicResource Button}" Click="EditButton_Click"   />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                        <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="SearchText" Text=""  />
+
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Label Content="Статус:"  Style="{DynamicResource TopLabel}" />
+                        <controls:SelectBox x:Name="SampleStatus" Style="{DynamicResource CustomFormField}" Width="140" ListBoxMinHeight="220" Autocomplete="False" SelectedItemChanged="SampleStatus_SelectedItemChanged" />
+
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                        <Label Content="Менеджер:"  Style="{DynamicResource TopLabel}" />
+                        <controls:SelectBox x:Name="ManagerName" Style="{DynamicResource CustomFormField}" Width="140" ListBoxMinHeight="220" Autocomplete="False" SelectedItemChanged="ManagerName_SelectedItemChanged" />
+
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                        <Button Name="PrintMenuButton" Content="Печать" Style="{DynamicResource Button}" Click="PrintMenuButton_Click">
+                            <Button.ContextMenu>
+                                <ContextMenu Name="PrintMenu">
+                                    <MenuItem Header="Изготовленные образцы" Name="CompletedSampleItem" Click="CompletedSample_Click" HorizontalAlignment="Left" />
+                                    <MenuItem Header="Список образцов" Name="SampleListItem" Click="SampleListReport_Click" HorizontalAlignment="Left" />
+                                    <MenuItem Header="Тех. задание" Name="SampleTaskItem" Click="SampleTaskReport_Click" HorizontalAlignment="Left" />
+                                    <MenuItem Header="Ярлык" Name="SampleLabelItem" Click="SampleLabelReport_Click" HorizontalAlignment="Left" />
+                                </ContextMenu>
+                            </Button.ContextMenu>
+                        </Button>
+                        <Button Name="ToExcelButton"    Content="В Excel"  Style="{DynamicResource Button}" Click="ToExcelButton_Click"   />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Right" >
+                            <Button Name="HelpButton"  Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Margin="0" Click="HelpButton_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="1"  Grid.Column="0">
+            <Border Style="{DynamicResource DataGridMainHolder}">
+                <controls:GridBox x:Name="Grid" />
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="2"  Grid.Column="0">
+            <Border Style="{DynamicResource DataGridMainHolder}" Height="14">
+                <StackPanel Orientation="Horizontal" Style="{DynamicResource TotalsBarContainer}" HorizontalAlignment="Left">
+                    <TextBlock Style="{DynamicResource TotalsBarTextBlock}" Name="TotalsDayOrders">Заявок за 24 ч:</TextBlock>
+                    <TextBlock Style="{DynamicResource TotalsBarTextBlock}" Name="TotalsDayOrdersValue">0</TextBlock>
+                    <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                    <TextBlock Style="{DynamicResource TotalsBarTextBlock}" Name="TotalsDayNewSampleQty">Кол-во за 24 ч:</TextBlock>
+                    <TextBlock Style="{DynamicResource TotalsBarTextBlock}" Name="TotalsDayNewSampleQtyValue">0</TextBlock>
+                    <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                    <TextBlock Style="{DynamicResource TotalsBarTextBlock}" Name="TotalsCompletedQty">Изготовлено:</TextBlock>
+                    <TextBlock Style="{DynamicResource TotalsBarTextBlock}" Name="TotalsCompletedQtyValue">0</TextBlock>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

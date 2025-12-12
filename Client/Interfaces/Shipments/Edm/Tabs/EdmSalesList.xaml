@@ -1,0 +1,94 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Shipments.EdmSalesList"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:main="clr-namespace:Client.Interfaces.Main"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+
+    mc:Ignorable="d" 
+    d:DesignWidth="1600" d:DesignHeight="800" 
+    Style="{DynamicResource UserControlCanvas}"    
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}" >
+                <Border >
+                    <Grid Name="GridToolbar" >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="11*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}">
+                            <Label Content="С:"  Style="{DynamicResource TopLabel}"/>
+                            <controls:DatePicker x:Name="FromDate" Style="{DynamicResource DateEditStyle}">
+                            </controls:DatePicker>
+                            <Label Content="По:"  Style="{DynamicResource TopLabel}"/>
+                            <controls:DatePicker x:Name="ToDate" Style="{DynamicResource DateEditStyle}">
+                            </controls:DatePicker>
+                            <Button Name="ResreshButton"    Content="Показать"  Style="{DynamicResource Button}" Click="ShowButton_Click"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+
+                            <Button Style="{DynamicResource FButtonPrimary}" Name="ExportDocumentListButton" Content="Выгрузить документы" Tag="access_mode_full_access"  Click="ExportDocumentList_OnClick"    />
+                            <Button Style="{DynamicResource Button}" Name="DownloadDocumentListButton" Content="Скачать" ToolTip="Скачать выгруженные документы" Tag="access_mode_full_access"  Click="DownloadDocumentList_OnClick"    />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                            
+                            <CheckBox Name="SelectAllCheckBox" Content="Выбрать все" Style="{DynamicResource CheckBoxTopPanel}" Click="SelectAll_Click" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                            <CheckBox Name="SelectUnuploadedCheckBox" Content="Выбрать невыгруженные" Style="{DynamicResource CheckBoxTopPanel}" Click="SelectUnuploadedCheckBox_Click" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="SearchText" Text=""  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+
+                            <controls:SelectBox x:Name="FactorySelectBox" SelectedItemChanged="FactorySelectBox_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" ListBoxMinHeight="80" Width="120" Autocomplete="False"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <main:SelectBox x:Name="StatusComboBox" Style="{DynamicResource CustomFormField}" Width="135" ListBoxMinHeight="200" SelectedItemChanged="StatusComboBox_SelectedItemChanged"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <CheckBox Name="ReUploadCheckBox" Content="На перевыгрузку" Style="{DynamicResource CheckBoxTopPanel}" Click="ReUploadCheckBox_Click" />
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"/>
+
+                            <Button Name="ExportButton"    Content="В Excel"  Style="{DynamicResource Button}"   Click="ExportToExcelButton_OnClick" VerticalAlignment="Bottom" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                            <Button Name="HelpButton"  Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click" Margin="0" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+
+            <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" >
+                <main:GridBox x:Name="Grid" Visibility="Visible" />
+            </Border>
+
+        </Grid>
+    </Border>
+
+</UserControl>

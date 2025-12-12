@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="Client.Interfaces.Main.SplashControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             >
+    <Grid Name="Splash" Visibility="Collapsed" Panel.ZIndex="10">
+        <Border Background="#99ffffff">
+            <Border Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#ffdedede" Width="350" Height="100" Background="#ffffffff">
+                <StackPanel Orientation="Vertical" >
+                    <TextBlock Name="MessageBlock" HorizontalAlignment="Center" Margin="0,25,0,0" Foreground="#ff000000" Text="Загрузка"/>
+                    <ProgressBar Name="PositionGridSplashProgress" IsIndeterminate="True"  Minimum="0" Maximum="30" Value="0" Width="200" Height="15" Foreground="#ff0C79CA" Margin="0,10,0,0" />
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+
+</UserControl>

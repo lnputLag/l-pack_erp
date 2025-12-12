@@ -1,0 +1,68 @@
+<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports"
+              PageHeight="29.7cm" PageWidth="21cm" ColumnWidth="21cm" FontFamily="Verdana" FontSize="18">
+
+    <FlowDocument.Resources>
+
+        <Style x:Key="headerFooterRowStyle" TargetType="{x:Type TableRowGroup}">
+        </Style>
+
+        <Style x:Key="dataRowStyle" TargetType="{x:Type TableRowGroup}">
+        </Style>
+
+        <Style TargetType="{x:Type TableCell}">
+            <Setter Property="Padding" Value="0cm,0cm,0cm,0.5cm"/>
+        </Style>
+
+    </FlowDocument.Resources>
+    
+    <xrd:ReportProperties>
+        <xrd:ReportProperties.ReportName>Техническое задание на образец</xrd:ReportProperties.ReportName>
+        <xrd:ReportProperties.ReportTitle>Техническое задание на образец</xrd:ReportProperties.ReportTitle>
+    </xrd:ReportProperties>
+
+    <Section FontFamily="Arial" FontSize="16">
+        <Paragraph FontWeight="Bold" TextAlignment="Center">
+            Информация по заданию
+        </Paragraph>
+
+        <Table CellSpacing="0" BorderThickness="1" >
+            <Table.Columns>
+                <TableColumn Width="*" />
+                <TableColumn Width="2*" />
+            </Table.Columns>
+            
+            <TableRowGroup>
+                <xrd:TableRowForDataTable TableName="Info">
+                    <TableCell>
+                        <Paragraph TextAlignment="Left">
+                            <xrd:InlineTableCellValue PropertyName="RowName"  />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Left">
+                            <xrd:InlineTableCellValue PropertyName="Description"  />
+                        </Paragraph>
+                    </TableCell>
+                </xrd:TableRowForDataTable>
+            </TableRowGroup>
+
+            <TableRowGroup>
+                <TableRow>
+                    <TableCell>
+                        <Paragraph>
+                            Примечание
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph FontWeight="Bold">
+                            <xrd:InlineDocumentValue  PropertyName="Note"  />
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+            </TableRowGroup>
+        </Table>
+    </Section>
+</FlowDocument>

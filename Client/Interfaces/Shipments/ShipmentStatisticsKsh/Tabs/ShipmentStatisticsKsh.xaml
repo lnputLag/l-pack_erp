@@ -1,0 +1,269 @@
+﻿<controls:ControlBase
+    x:Class="Client.Interfaces.Shipments.ShipmentStatisticsKsh"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:main="clr-namespace:Client.Interfaces.Main"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    mc:Ignorable="d" 
+    
+    Style="{DynamicResource UserControlCanvas}" 
+    >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Uniform" StretchDirection="Both">
+            <Grid Width="1916" Height="888" Style="{DynamicResource DataGridContainer}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="33*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="21*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="21*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0">
+                    <Grid VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Grid.Column="0">
+                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="Отгрузки" FontSize="20"/>
+                                </Border>
+
+                                <Border Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Разреш" FontSize="20"/>
+                                        <TextBlock Text="/" FontSize="20"/>
+                                        <TextBlock Text="План" FontSize="20"/>
+                                        <TextBlock Text="/" FontSize="20"/>
+                                        <TextBlock Text="Лучш." FontSize="20"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock x:Name="ShipmentAllowedCount" Text="0000" FontWeight="Bold" FontSize="30"/>
+                                        <TextBlock Text="/" FontSize="30"/>
+                                        <TextBlock x:Name="ShipmentPlanCount" Text="0000" FontWeight="Bold" FontSize="30"/>
+                                        <TextBlock Text="/" FontSize="30"/>
+                                        <TextBlock x:Name="ShipmentBestCount" Text="0000" FontWeight="Bold" FontSize="30"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="Факт" FontSize="20"/>
+                                </Border>
+
+                                <Border Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock x:Name="ShipmentFactCount" Text="0000" FontWeight="Bold" FontSize="50"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Row="0" Grid.Column="1">
+                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="Отгружено метров" FontSize="20"/>
+                                </Border>
+
+                                <Border Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="План" FontSize="20"/>
+                                        <TextBlock Text="/" FontSize="20"/>
+                                        <TextBlock Text="Лучш." FontSize="20"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock x:Name="SquarePlanCount" Text="0 000 000" FontWeight="Bold" FontSize="30"/>
+                                        <TextBlock Text="/" FontSize="30"/>
+                                        <TextBlock x:Name="SquareBestCount" Text="0 000 000" FontWeight="Bold" FontSize="30"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="Факт" FontSize="20"/>
+                                </Border>
+
+                                <Border Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock x:Name="SquareFactCount" Text="0 000 000" FontWeight="Bold" FontSize="50"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="2" Grid.Row="0">
+                    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Отгружено поддонов" FontSize="20"/>
+                        </Border>
+
+                        <Border Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="План" FontSize="20"/>
+                                <TextBlock Text="/" FontSize="20"/>
+                                <TextBlock Text="Лучш." FontSize="20"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock x:Name="PalletPlanCount" Text="0 000" FontWeight="Bold" FontSize="30"/>
+                                <TextBlock Text="/" FontSize="30"/>
+                                <TextBlock x:Name="PalletBestCount" Text="0 000" FontWeight="Bold" FontSize="30"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Факт" FontSize="20"/>
+                        </Border>
+
+                        <Border Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock x:Name="PalletFactCount" Text="0 000" FontWeight="Bold" FontSize="50"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="4" Grid.Row="0">
+                    <Grid VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Среднее время погрузки поддона, мин." FontSize="20"/>
+                        </Border>
+
+                        <Border Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Лучш." FontSize="20"/>
+                        </Border>
+
+                        <Border Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock x:Name="PalletLoadingBest" Text="0.0" FontWeight="Bold" FontSize="30"/>
+                        </Border>
+
+                        <Border Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Факт" FontSize="20"/>
+                        </Border>
+
+                        <Border Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock x:Name="PalletLoadingFact" Text="0.0" FontWeight="Bold" FontSize="50"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="6" Grid.Row="0">
+                    <Grid VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Среднее время отгрузки, мин." FontSize="20"/>
+                        </Border>
+
+                        <Border Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Лучш." FontSize="20"/>
+                        </Border>
+
+                        <Border Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock x:Name="ShipmentLoadingBest" Text="00.0" FontWeight="Bold" FontSize="30"/>
+                        </Border>
+
+                        <Border Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Факт" FontSize="20"/>
+                        </Border>
+
+                        <Border Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock x:Name="ShipmentLoadingFact" Text="00.0" FontWeight="Bold" FontSize="50"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource DataGridMainHolder}" >
+                    <main:GridBox4 x:Name="ShipmentFailureByDayGrid" />
+                </Border>
+
+                <Border Grid.Column="2" Grid.Row="1" Style="{DynamicResource DataGridMainHolder}" >
+                    <main:GridBox4 x:Name="PalletShipmentByWeekGrid"  />
+                </Border>
+
+                <Border Grid.Column="4" Grid.Row="1" Style="{DynamicResource DataGridMainHolder}" >
+                    <main:GridBox4 x:Name="PalletLoadingByWeekGrid"  />
+                </Border>
+
+                <Border Grid.Column="6" Grid.Row="1" Style="{DynamicResource DataGridMainHolder}" >
+                    <main:GridBox4 x:Name="ShipmentLoadingByWeekGrid"  />
+                </Border>
+
+            </Grid>
+        </Viewbox>
+    </Border>
+
+</controls:ControlBase>

@@ -1,0 +1,43 @@
+﻿<controls:ControlBase x:Class="Client.Interfaces.Production.Corrugator.CorrugatorMachineOperatorKsh.MachineTaskQueue"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"     
+    mc:Ignorable="d"   
+    d:DesignWidth="1200" d:DesignHeight="700">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Style="{DynamicResource SHMonBlockGrid}" >
+        <Grid.RowDefinitions>
+            <!--Список ПЗ-->
+            <RowDefinition Height="*"></RowDefinition>
+            <!--Примечание-->
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
+
+        </Grid.RowDefinitions>
+
+        <!--Список ПЗ-->
+        <Border Grid.Row="0" Grid.RowSpan="2" Style="{DynamicResource DataGridMainHolder}" >
+            <controls:GridBox4 x:Name="TaskGrid"/>
+        </Border>
+
+        <!--Список ПЗ-->
+        <Border Grid.Row="2" Grid.RowSpan="2" Style="{DynamicResource DataGridMainHolder}" >
+            <controls:GridBox4 x:Name="TaskGridInfo"/>
+        </Border>
+
+        <!--Примечание-->
+        <Border Grid.Row="1" Name="NoteBorder" Style="{DynamicResource DataGridMainHolder}" BorderThickness="1" BorderBrush="Silver" Background="White" >
+            <TextBlock  FontSize="20" FontWeight="SemiBold" Name="NoteTextBlock" TextWrapping="Wrap"/>
+        </Border>
+    </Grid>
+</controls:ControlBase>

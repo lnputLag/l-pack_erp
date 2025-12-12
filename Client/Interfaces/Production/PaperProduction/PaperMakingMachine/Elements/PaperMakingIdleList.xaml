@@ -1,0 +1,474 @@
+﻿<controls:ControlBase 
+    x:Class="Client.Interfaces.Production.PaperMakingIdleList"
+    xmlns:local="clr-namespace:Client.Interfaces.Production"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"     
+    mc:Ignorable="d"   
+    d:DesignWidth="1920" d:DesignHeight="600"
+    Style="{DynamicResource UserControlCanvasStatic}"          
+>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border>
+        <Grid  Style="{DynamicResource SHMonBlockGrid}">
+            <Grid.ColumnDefinitions>
+                <!--Прогноз-->
+                <ColumnDefinition Name="Col0" Width="*" />
+                <ColumnDefinition Name="Col1" Width="3" />
+                <!--Скорость-->
+                <ColumnDefinition Name="Col2" Width="*" />
+                <ColumnDefinition Name="Col3" Width="3" />
+                <!--Инфо по простоям-->
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1"/>
+                <!--1 .Расшифровка простоев за смену, неделю, месяц-->
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+                <!--3. Пред. смена-->
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="5" />
+                <!--5. Простои грид-->
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--Блок прогноза-->
+            <Border Grid.Row="1" Grid.Column="0"     Style="{DynamicResource DataGridMainHolder}" BorderThickness="1" BorderBrush="Silver" >
+                <Grid Style="{DynamicResource DataGridContainer}"  >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="1.4*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <!--Прогноз-->
+                    <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                        <Grid Style="{DynamicResource DataGridContainer}" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="10"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <!--Заголовки-->
+                            <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock  Text="Прогноз" FontWeight="Bold"  FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" ></TextBlock>
+                            </Border>
+
+                            <Border Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="4" Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock  Text="Неделя"  FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                            </Border>
+                            <Border Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="4" Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock  Text="Месяц"  FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                            </Border>
+
+                            <Border Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock x:Name="ForecastWeek"  Text="Опережение"  FontSize="24" HorizontalAlignment="Right" VerticalAlignment="Center" ></TextBlock>
+                            </Border>
+
+                            <Border Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock x:Name="ForecastMonth"  Text="Опережение"  FontSize="24" HorizontalAlignment="Right" VerticalAlignment="Center" ></TextBlock>
+                            </Border>
+
+                            <Border Grid.Row="2" Grid.Column="0"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock  Text="Тонн:"  FontSize="24" HorizontalAlignment="Right" VerticalAlignment="Center" ></TextBlock>
+                            </Border>
+
+                            <!--Данные-->
+                            <Border Grid.Row="2" Grid.Column="2"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock x:Name="ForecastWeek1" FontWeight="Bold" Text="0" Foreground="Red" FontSize="24" HorizontalAlignment="Right" VerticalAlignment="Center"  ></TextBlock>
+                            </Border>
+                            <Border Grid.Row="2" Grid.Column="4"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock x:Name="ForecastWeek2" FontWeight="Bold" Text="0" Foreground="Red" FontSize="24" HorizontalAlignment="Right" VerticalAlignment="Center"  ></TextBlock>
+                            </Border>
+
+                            <Border Grid.Row="2" Grid.Column="6"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock x:Name="ForecastMonth1" FontWeight="Bold" Text="0" Foreground="Green" FontSize="24" HorizontalAlignment="Right" VerticalAlignment="Center"  ></TextBlock>
+                            </Border>
+                            <Border Grid.Row="2" Grid.Column="8"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock x:Name="ForecastMonth2" FontWeight="Bold" Text="0" Foreground="Green" FontSize="24" HorizontalAlignment="Right" VerticalAlignment="Center"  ></TextBlock>
+                            </Border>
+
+                        </Grid>
+
+                    </Border>
+
+                    <!--Производительность-->
+                    <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                        <Grid Style="{DynamicResource DataGridContainer}"  >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="5"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <!--Заголовок-->
+                            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock  Text="Текущая производительность" FontWeight="Bold" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" ></TextBlock>
+                            </Border>
+
+                            <Border Grid.Row="1" Grid.Column="0"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock  Text="Накат" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                            </Border>
+                            <Border Grid.Row="2" Grid.Column="1"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock  Text=" т/ч" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" ></TextBlock>
+                            </Border>
+                            <Border Grid.Row="3" Grid.Column="1"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock  Text="т/смену" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                            </Border>
+                            <Border Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock  Text="ПРС" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                            </Border>
+                            <Border Grid.Row="2" Grid.Column="4"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock  Text=" т/ч" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" ></TextBlock>
+                            </Border>
+                            <Border Grid.Row="3" Grid.Column="4"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock  Text="т/смену" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                            </Border>
+
+                            <!--Данные-->
+                            <Border Grid.Row="2" Grid.Column="0"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock x:Name="NakatPerHour" FontWeight="Bold" Text="0" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                            </Border>
+                            <Border Grid.Row="3" Grid.Column="0"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock x:Name="NakatPerSmena" FontWeight="Bold" Text="0" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                            </Border>
+
+                            <Border Grid.Row="2" Grid.Column="3"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock x:Name="PrsPerHour" FontWeight="Bold"  Text="0" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                            </Border>
+                            <Border Grid.Row="3" Grid.Column="3"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                                <TextBlock x:Name="PrsPerSmena" FontWeight="Bold" Text="0" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!--Блок скорость-->
+            <Border Grid.Row="1" Grid.Column="2"     Style="{DynamicResource DataGridMainHolder}"  BorderThickness="1" BorderBrush="Silver" >
+                <Grid Style="{DynamicResource DataGridContainer}"  >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <!--Заголовки-->
+                    <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                        <TextBlock  Text="Cкорость и производительность БДМ" FontWeight="Bold" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                        <TextBlock  Text="План" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                    </Border>
+
+                    <Border Grid.Row="2" Grid.Column="1"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                        <TextBlock  Text="м/мин" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" ></TextBlock>
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="3"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                        <TextBlock Text="Факт" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                    </Border>
+
+                    <Border Grid.Row="2" Grid.Column="4"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                        <TextBlock  Text="м/мин" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" ></TextBlock>
+                    </Border>
+
+                    <Border Grid.Row="3" Grid.Column="1"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                        <TextBlock  Text="т/сут" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" ></TextBlock>
+                    </Border>
+
+                    <Border Grid.Row="3" Grid.Column="4"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                        <TextBlock  Text="т/сут" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" ></TextBlock>
+                    </Border>
+
+
+                    <!--Данные-->
+                    <Border Grid.Row="2" Grid.Column="0"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                        <TextBlock x:Name="PlanM"  FontWeight="Bold"  Text="0" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                    </Border>
+
+                    <Border Grid.Row="3" Grid.Column="0"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                        <TextBlock x:Name="PlanT"  FontWeight="Bold"  Text="0" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                    </Border>
+
+                    <Border Grid.Row="2" Grid.Column="3"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                        <TextBlock x:Name="FaktM"  FontWeight="Bold"  Text="0" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                    </Border>
+
+                    <Border Grid.Row="3" Grid.Column="3"  Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Stretch">
+                        <TextBlock x:Name="FaktT"  FontWeight="Bold"  Text="0" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!--Блок информация по простоям-->
+            <Border Grid.Row="1" Grid.Column="4"   Style="{DynamicResource DataGridMainHolder}" BorderThickness="1" BorderBrush="Silver" >
+                <!--единый грид-->
+                <Grid Style="{DynamicResource DataGridContainer}"  >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1"/>
+
+                        <!--Расшифровка простоев за смену, неделю, месяц-->
+                        <RowDefinition Height="120" />
+                        <RowDefinition Height="1" />
+
+                        <!--Расшифровка простоев-->
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- простои за смену, пред., неделю, месяц -->
+                    <Border Grid.Row="1" Grid.Column="0"  Grid.RowSpan="3" Style="{DynamicResource DataGridMainHolder}" >
+                        <!--единый грид-->
+                        <Grid Style="{DynamicResource DataGridContainer}"  >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="600"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" >
+                                <Grid Style="{DynamicResource DataGridContainer}"  >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <!--Заголовок-->
+                                    <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource DataGridMainHolder}" >
+                                        <TextBlock  Text="Простои" FontWeight="Bold" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="0" Grid.Column="2"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock  Text="За смену" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="0" Grid.Column="3"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock  Text="Предыдущ." FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"  ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="0" Grid.Column="4"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock  Text="Неделя" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="0" Grid.Column="5"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock  Text="Месяц" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+
+                                    <Border Grid.Row="1" Grid.Column="0"  Style="{DynamicResource DataGridMainHolder}" Grid.ColumnSpan="2">
+                                        <TextBlock  Text="Количество:" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="2" Grid.Column="0"  Style="{DynamicResource DataGridMainHolder}" Grid.ColumnSpan="2">
+                                        <TextBlock  Text="Время (часы):" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="3" Grid.Column="0"  Style="{DynamicResource DataGridMainHolder}" Grid.ColumnSpan="2">
+                                        <TextBlock  Text="%:" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+
+                                    <!--Данные за смену-->
+                                    <Border Grid.Row="1" Grid.Column="2"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="V02" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="2" Grid.Column="2"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="V03" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="3" Grid.Column="2"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="V04" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+
+                                    <!--за предыдущую смену-->
+                                    <Border Grid.Row="1" Grid.Column="3"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="V12" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="2" Grid.Column="3"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="V13" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="3" Grid.Column="3"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="V14" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+
+                                    <!--за неделю-->
+                                    <Border Grid.Row="1" Grid.Column="4"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="V22" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="2" Grid.Column="4"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="V23" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="3" Grid.Column="4"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="V24" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+
+                                    <!--за месяц-->
+                                    <Border Grid.Row="1" Grid.Column="5"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="V32" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="2" Grid.Column="5"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="V33" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="3" Grid.Column="5"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="V34" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                </Grid>
+                            </Border>
+
+                            <!--Расшифровка простоев-->
+                            <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" >
+                                <Grid Style="{DynamicResource DataGridContainer}"  >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <!--Заголовок-->
+                                    <Border Grid.Row="0" Grid.Column="0"  Style="{DynamicResource DataGridMainHolder}" Grid.ColumnSpan="2">
+                                        <TextBlock  Text="Из них (ч.):" FontWeight="Bold" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+
+                                    <Border Grid.Row="1" Grid.Column="0"  Style="{DynamicResource DataGridMainHolder}" Grid.ColumnSpan="2">
+                                        <TextBlock  Text="Технологические:" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="2" Grid.Column="0"  Style="{DynamicResource DataGridMainHolder}" Grid.ColumnSpan="2">
+                                        <TextBlock  Text="Технические:" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="3" Grid.Column="0"  Style="{DynamicResource DataGridMainHolder}" Grid.ColumnSpan="2">
+                                        <TextBlock  Text="ППР:" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+
+                                    <!--Данные за смену-->
+                                    <Border Grid.Row="1" Grid.Column="2"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="T1" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="2" Grid.Column="2"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="T2" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="3" Grid.Column="2"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="T3" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+
+                                    <!--за предыдущую смену-->
+                                    <Border Grid.Row="1" Grid.Column="3"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="T4" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="2" Grid.Column="3"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="T5" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="3" Grid.Column="3"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="T6" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+
+                                    <!--за неделю-->
+                                    <Border Grid.Row="1" Grid.Column="4"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="T7" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="2" Grid.Column="4"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="T8" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="3" Grid.Column="4"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="T9" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+
+                                    <!--за месяц-->
+                                    <Border Grid.Row="1" Grid.Column="5"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="T10" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="2" Grid.Column="5"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="T11" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="3" Grid.Column="5"  Style="{DynamicResource DataGridMainHolder}">
+                                        <TextBlock x:Name="T12" Text="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                                    </Border>
+                                </Grid>
+                            </Border>
+
+                        </Grid>
+                    </Border>
+
+                </Grid>
+            </Border>
+
+            <!--Чек бокс-->
+            <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5"  >
+                <StackPanel Name="ToolbarInfo"  HorizontalAlignment="Left" Orientation="Horizontal" >
+                    <CheckBox x:Name="IdTimesPredCheckBox" Click="IdTimesPredCheckBox_Click"  Style="{DynamicResource CheckBox}" FontSize="20" IsEnabled="True" IsChecked="False" Margin="5,0,0,0" Content="Предыдущая смена"></CheckBox>
+                    <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                    <Button Name="ButtonOpenIdles" Content="Раскрыть список простоев" Style="{DynamicResource Button}" Click="ButtonOpenIdles_Click" />
+                </StackPanel>
+            </Border>
+
+            <!--список простоев за пред. и тек. смены-->
+            <Border Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="5" Style="{DynamicResource DataGridMainHolder}" >
+                <Grid>
+                    <controls:GridBox4 x:Name="IdleGrid"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</controls:ControlBase>

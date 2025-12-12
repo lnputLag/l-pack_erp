@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="Client.Interfaces.Preproduction.SampleCardboardCreateTask"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d"
+             d:DesignHeight="500" d:DesignWidth="600"
+
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource FormContainerHolder}" Margin="1" >
+        <Grid Style="{DynamicResource FormContainer}" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0">
+                <StackPanel Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" Name="FormToolbar" >
+
+                    <Button Content="Сохранить" Name="SaveButton"  Click="SaveButton_Click" Style="{DynamicResource FButtonPrimary}" />
+                    <Button Content="Отмена"    Name="CancelButton" Click="CancelButton_Click" Style="{DynamicResource Button}" />
+
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <TextBlock  Name="Status" Text="Не все обязательные поля заполнены верно"  TextAlignment="Left" HorizontalAlignment="Stretch" Style="{DynamicResource FStatusBar2}" />
+
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormVerticalPanelSpacer}"></Border>
+
+            <Border Grid.Row="2" Grid.Column="0" Width="400" HorizontalAlignment="Left">
+                <Grid ShowGridLines="false" Style="{DynamicResource FromGrid}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="5"></RowDefinition>
+                        <RowDefinition Height="300"></RowDefinition>
+                        <RowDefinition Height="5"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Новое задание для " Style="{DynamicResource FormLabel}" />
+                    </Border>
+
+                    <Border Grid.Row="0"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <TextBox Name="Cardboard" Style="{DynamicResource FormInfoField}" IsReadOnly="True" />
+                    </Border>
+
+                    <Border Grid.Row="2"  Grid.ColumnSpan="2" Style="{DynamicResource DataGridMainHolder}" >
+                        <controls:GridBox x:Name="Grid" />
+                    </Border>
+
+                    <Border Grid.Row="5" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Длина задания, м: *" Style="{DynamicResource FormLabel}" Margin="10,5,7,0" />
+                    </Border>
+
+                    <Border Grid.Row="5" Grid.Column="1" Style="{DynamicResource FormLabelContainer}">
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBox Name="TaskLength" Style="{DynamicResource FormField}"  Width="70" TextChanged="TaskLength_TextChanged" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <TextBox Name="TaskSheets" Style="{DynamicResource FormInfoField}" Width="95" IsReadOnly="True"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

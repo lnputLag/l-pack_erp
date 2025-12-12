@@ -1,0 +1,94 @@
+﻿<controls:ControlBase x:Class="Client.Interfaces.Preproduction.SampleTaskList"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1000"
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="11.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+
+                            <Button Name="SetPlotterButton"    Content="Плоттер 1"  Style="{DynamicResource Button}" Click="SetPlotter_Click"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="RefreshButton"    Content="Обновить"  Style="{DynamicResource Button}" Click="RefreshButton_Click"   />
+
+                            <Button Name="AddButton"  Tag = "Add;access_mode_full_access"    Content="Добавить"  Style="{DynamicResource Button}" Click="AddButton_Click"   />
+
+                            <Button Name="StartButton" Tag = "Start;access_mode_full_access"    Content="Начать"  Style="{DynamicResource Button}" Click="Start_Click"   />
+
+                            <Button Name="PrintMenuButton" Content="Печать" Style="{DynamicResource Button}" Click="PrintMenuButton_Click">
+                                <Button.ContextMenu>
+                                    <ContextMenu Name="PrintContextMenu">
+                                        <MenuItem Header="Тех.задание" Name="PrintTaskItem" Click="PrintTask_Click" />
+                                        <MenuItem Header="Ярлык" Name="PrintLabelItem" Click="PrintLabel_Click" />
+                                    </ContextMenu>
+                                </Button.ContextMenu>
+                            </Button>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="FinishButton" Tag = "Finish;access_mode_full_access"     Content="Завершить"  Style="{DynamicResource Button}" Click="Finish_Click"   />
+
+                            <Button Name="DeliveryReportButton"    Content="Отчет"  Style="{DynamicResource Button}" Click="DeliveryReport_Click"   />
+
+                            <Button Name="StopButton" Tag = "Stop;access_mode_full_access"    Content="Остановить"  Style="{DynamicResource Button}" Click="Stop_Click"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Технолог:" Style="{DynamicResource TopLabel}" />
+                            <controls:SelectBox  x:Name="TechnologName" Style="{DynamicResource CustomFormField}" Width="140" Autocomplete="False" />
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                            <Label Content="Доставка:" Style="{DynamicResource TopLabel}" />
+                            <controls:SelectBox  x:Name="DeliveryType" Style="{DynamicResource CustomFormField}" Width="190" ListBoxMinHeight="140" Autocomplete="False" SelectedItemChanged="DeliveryType_SelectedItemChanged"  />
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                            <Button Name="HelpButton"  Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click" Margin="0" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="0" >
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="SampleGrid" />
+                </Border>
+            </Grid>
+
+        </Grid>
+    </Border>
+</controls:ControlBase>

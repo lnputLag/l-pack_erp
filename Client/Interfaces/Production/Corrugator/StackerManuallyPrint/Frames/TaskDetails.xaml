@@ -1,0 +1,511 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Production.TaskDetails"
+    xmlns:local="clr-namespace:Client.Interfaces.Production"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:main="clr-namespace:Client.Interfaces.Main"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+
+    mc:Ignorable="d" 
+    d:DesignWidth="1600" d:DesignHeight="1800"  
+    Style="{DynamicResource UserControlCanvas}"  >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="11.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="FormToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+
+                            <Button Name="ResreshButton"    Content="Обновить"  Style="{DynamicResource Button}" Click="ResreshButton_Click"  />
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                            
+                            <Button Name="CancelButton" Content="Отмена" Click="CancelButton_Click"  Style="{DynamicResource Button}" />
+                            <Border Name="CancelButtonBorder" Style="{DynamicResource FormButtonsPanelDoubleSpacer}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                            <Button Name="HelpButton" ToolTip="Документация" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click"  Margin="0,0,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Border  Grid.Row="1"  Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" >
+                <ScrollViewer VerticalScrollBarVisibility="Visible">
+                    <Grid Name="MainGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Информация по производственному заданию:" FontWeight="Bold" HorizontalAlignment="Center" Style="{DynamicResource FormLabel}" />
+                        </Border>
+
+                        <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Номер задания:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="1" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="ProductionTaskNumberTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="2" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Дата создания задания:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="2" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="TaskCreatedDttmTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+    
+                        <Border Grid.Row="3" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Дата начала выполнения задания по плану:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="3" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="TaskPlanDttmTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="4" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Примечание к заданию:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="4" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="ProductionTaskNoteTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="6" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Профиль:" Style="{DynamicResource FormLabel}" ToolTip="По производственному заданию"/>
+                        </Border>
+                        <Border Grid.Row="6" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="ProfilNameTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="7" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Качество состава сырья:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="7" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="QIDTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Информация по продукции:" FontWeight="Bold" HorizontalAlignment="Center" Style="{DynamicResource FormLabel}" />
+                        </Border>
+
+                        <Border Grid.Row="9" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Наименование продукции:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="9" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="ProductNameTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="10" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Артикул продукции:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="10" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="ProductCodeTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="11" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Код продукции:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="11" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="ProductKodTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="12" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Ширина продукции:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="12" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="ProductWidthTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="13" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Длина продукции:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="13" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="ProductLengthTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="14" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Высота продукции:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="14" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="ProductHeigthTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+                        
+                        <Border Grid.Row="15" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Примечание к продукции:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="15" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="ProductNoteTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="16" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Площадь заготовки 1 изделия:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="16" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="ProductVolumTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="17" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Поворот продукции:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="17" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="ProductTurnTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="18" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Рилёвки:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="18" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="ScoringTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+                        
+                        <Border Grid.Row="19" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Бесконечный картон:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="19" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <CheckBox Name="FanfoldFlagCheckBox" IsEnabled="False" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+
+                        <Border Grid.Row="20" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="SEQUENC:" Style="{DynamicResource FormLabel}"  />
+                        </Border>
+                        <Border Grid.Row="20" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="SequencTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="21" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="SHRAN:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="21" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="ShranTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+                        
+                        <Border Grid.Row="22" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Описание картона:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="22" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="CardboardDescriptionTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="23" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Цвет наружного слоя:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="23" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="OuterColorNameTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="24" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Количество стоп на поддоне:" ToolTip="По умолчанию для данной продукции" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="24" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="QuantityStackOnPalletTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="25" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Укладка:" Style="{DynamicResource FormLabel}" ToolTip="По умолчанию для данной продукции" />
+                        </Border>
+                        <Border Grid.Row="25" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="StackingNameTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="26" Grid.Column="0"  Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Изображение укладки:" Style="{DynamicResource FormLabel}" ToolTip="По умолчанию для данной продукции" />
+                        </Border>
+                        <Border Grid.Row="26" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <!--<Image Margin="5" Name="StackingImage" HorizontalAlignment="Left" Height="100" Width="100"/>-->
+                            <Image Margin="5" Name="StackingImage" HorizontalAlignment="Left" Height="100" Width="100" Source="C:\Users\Greshnyh_NI\source\repos\l-pack_erp\Client\Assets\Images\FirePlanRoom\003.png"/>
+                        </Border>
+
+                        <Border Grid.Row="27" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Информация по тех карте:" FontWeight="Bold" HorizontalAlignment="Center" Style="{DynamicResource FormLabel}" />
+                        </Border>
+
+                        <Border Grid.Row="28" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Ширина транспортного пакета:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="28" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="PackageWidthTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="29" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Длина транспортного пакета:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="29" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="PackageLengthTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="30" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Высота транспортного пакета:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="30" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="PackageHeigthTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="31" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Фиксированный вес изделия:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="31" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <CheckBox Name="FixedWeightFlagCheckBox" IsEnabled="False" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+
+                        <Border Grid.Row="32" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Заливная печать:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="32" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <CheckBox Name="FillPrintingFlagCheckBox" IsEnabled="False" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+
+                        <Border Grid.Row="33" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Примечание для ГА по техкарте:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="33" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="CorrugatedNoteTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="34" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Информация по заявке:" FontWeight="Bold" HorizontalAlignment="Center" Style="{DynamicResource FormLabel}" />
+                        </Border>
+
+                        <Border Grid.Row="35" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Ид заявки:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="35" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="OrderIdTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="36" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Нож поперечной резки ГА:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="36" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="CrosscutTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="37" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Ручей продольной резки ГА:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="37" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="CutoffAllocationTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="38" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Количество ручьев одной заготовки:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="38" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="QuantityStreamTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="39" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Количество продукции по заданию:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="39" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="QuantityProductByTaskTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="40" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Количество паллет по заданию:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="40" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="QuantityPalletByTaskTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="41" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Укладка:" ToolTip="По факту" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="41" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="StackingOnPalletTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="42" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Штук в стопе:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="42" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="QuantityInReamTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="43" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Штук на поддоне:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="43" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="QuantityOnPalletTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="44" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Мастер:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="44" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <CheckBox Name="MasterFlagCheckBox" IsEnabled="False" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+
+                        <Border Grid.Row="45" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Образец:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="45" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <CheckBox Name="SampleFlagCheckBox" IsEnabled="False" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+
+                        <Border Grid.Row="47" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Лаборатория:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="47" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <CheckBox Name="TestingFlagCheckBox" IsEnabled="False" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+
+                        <Border Grid.Row="48" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Перевыгон:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="48" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <CheckBox Name="ReworkFlagCheckBox" IsEnabled="False" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+
+                        <Border Grid.Row="49" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Подкрой в мм:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="49" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="UndercutTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="50" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Место установки после ГА:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="50" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="NextPlaceTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="51" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Задание на переработку:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="51" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="NextTaskNumberTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="52" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Стандартный поддон:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="52" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <CheckBox Name="PalletStandartFlagCheckBox" IsEnabled="False" Style="{DynamicResource FormCheckBox}"/>
+                        </Border>
+
+                        <Border Grid.Row="53" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Наименование поддона:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="53" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="PalletNameTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="54" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Тип поддона по протоколу MINDA:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="54" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="PalletTypeTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="55" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Дата готовности продукции:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="55" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="TaskEndDttmByShipmentTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="56" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Плановая дата отгрузки:" Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="56" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox Name="ShipmentPlanDttmTextBox"  HorizontalAlignment="Stretch" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                    </Grid>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Border>
+
+</UserControl>

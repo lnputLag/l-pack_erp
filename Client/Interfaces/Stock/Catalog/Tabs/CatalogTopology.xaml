@@ -1,0 +1,237 @@
+﻿<UserControl x:Class="Client.Interfaces.Stock.CatalogTopology"
+             xmlns:local="clr-namespace:Client.Interfaces.Stock"
+             
+                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             d:DesignWidth="1200"
+             d:DesignHeight="768" 
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="420" MaxWidth="600"/>
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" MinWidth="420" MaxWidth="600"/>
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" MinWidth="320"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="300"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                
+            </Grid.RowDefinitions>
+
+
+
+            <Grid Grid.Row="1"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border >
+                    <Grid HorizontalAlignment="Left" >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="AccountGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Width="770" >
+
+                            <Label Content="Склад"  Style="{DynamicResource TopLabel}" />
+
+                            <Button Name="RefreshWarehouseButton" Click="RefreshWarehouseButton_Click" Content="Обновить"  Style="{DynamicResource Button}" Width="75"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="CreateWarehouseButton" Click="CreateWarehouseButton_Click" Tag="access_mode_full_access"   Content="Создать"   Style="{DynamicResource Button}" Width="50"/>
+                            <Button Name="EditButton" Click="EditButton_Click" Content="Изменить" Tag="access_mode_full_access" Style="{DynamicResource Button}" Width="70"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" MinWidth="80" MaxWidth="150"  TextWrapping="NoWrap" Name="WarehouseSearchBox" Text=""  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="3"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+            <Border >
+                <Grid HorizontalAlignment="Left" >
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Width="770" >
+
+                        <Label Content="Зона"  Style="{DynamicResource TopLabel}" />
+
+                        <Button Name="RefreshZoneButton" Content="Обновить"  Style="{DynamicResource Button}" Width="75"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="CreateZoneButton"  Content="Создать"  Tag="access_mode_full_access" Style="{DynamicResource Button}" Width="50" Click="CreateZoneButton_Click"/>
+                            <Button Name="EditZoneButton"  Content="Изменить" Tag="access_mode_full_access" Style="{DynamicResource Button}" Width="70" Click="EditZoneButton_Click"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                        <TextBox Style="{DynamicResource FormFieldTopPanel}" MinWidth="80" MaxWidth="150"  TextWrapping="NoWrap" Name="ZoneSearchBox" Text=""  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                    </StackPanel>
+
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="3"  Grid.Column="2" Style="{DynamicResource GridControlPanel}">
+                <Border >
+                    <Grid >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="0*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="RoleGridToolbarCells" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+
+                            <Label Content="Место"  Style="{DynamicResource TopLabel}" />
+
+                            <Button Name="RefreshCellsButton" Click="RefreshCellsButton_Click"   Content="Обновить"  Style="{DynamicResource Button}" Width="75"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="CreateCellButton" Click="CreateCellButton_Click" Content="Создать" Tag="access_mode_full_access"  Style="{DynamicResource Button}"/>
+                            <Button Name="DellCellButton" Click="DellCellButton_Click" Content="Удалить" Tag="access_mode_full_access" Style="{DynamicResource Button}" IsEnabled="False"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" MinWidth="80" MaxWidth="150"  TextWrapping="NoWrap" Name="SearchCell" Text=""  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        </StackPanel>
+                      
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="4" Style="{DynamicResource GridControlPanel}">
+                <Border >
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="0*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="RoleGridToolbarLevel" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+
+                            <Label Content="Уровень"  Style="{DynamicResource TopLabel}" />
+
+                            <Button Name="RefreshLevelsButton" Click="RefreshLevelsButton_Click"    Content="Обновить"  Style="{DynamicResource Button}" Width="75"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="CreateLevelButton" Content="Создать" Click="CreateLevelButton_Click" Tag="access_mode_full_access" Style="{DynamicResource Button}" Width="50" IsEnabled="True"/>
+                            <Button Name="DeleteLevelButton" Content="Удалить" Click="DeleteLevelButton_Click" Tag="access_mode_full_access" Style="{DynamicResource Button}" Width="70" IsEnabled="False"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" MinWidth="80" MaxWidth="150"  TextWrapping="NoWrap" Name="SearchLevel" Text=""  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" Width="24" >
+                            <Button Name="HelpButton"  Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click" Margin="0"  />
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="2" Style="{DynamicResource GridControlPanel}">
+                <Border >
+                    <Grid HorizontalAlignment="Left" >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="AccountGridToolbarRows" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" >
+
+                            <Label Content="Ряд"  Style="{DynamicResource TopLabel}" />
+
+                            <Button Name="RefreshRowsButton" Content="Обновить"  Style="{DynamicResource Button}" Width="75"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="CreateRowsButton" Click="CreateRowsButton_Click" Tag="access_mode_full_access"  Content="Создать"   Style="{DynamicResource Button}" Width="50"/>
+                            <Button Name="DeleteRowsButton" Click="DeleteRowsButton_Click" Tag="access_mode_full_access" Content="Удалить"  Style="{DynamicResource Button}" Width="50" IsEnabled="False" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" MinWidth="80" MaxWidth="150"  TextWrapping="NoWrap" Name="SearchRows" Text=""  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="2"  Grid.Column="0" >
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="WarehouseGrid" />
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="4"  Grid.Column="0" >
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="ZoneGrid" />
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="2"  Grid.Column="2" >
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="RowsGrid" />
+                </Border>
+            </Grid>
+
+            <!--<GridSplitter Grid.Column="1" Grid.Row="2" Grid.RowSpan="3" Width="5" HorizontalAlignment="Stretch" />-->
+            
+            <Border Style="{DynamicResource DataGridMainHolder}" Grid.Row="4" Grid.Column="2" >
+                <controls:GridBox x:Name="CellsGrid" />
+            </Border>
+
+            <!--<GridSplitter Grid.Column="3" Grid.Row="2" Grid.RowSpan="3" Width="5" HorizontalAlignment="Stretch" />-->
+
+            <Border Style="{DynamicResource DataGridMainHolder}" Grid.Row="2" Grid.Column="4" Grid.RowSpan="3">
+                <controls:GridBox x:Name="LevelGrid" />
+            </Border>
+
+        </Grid>
+    </Border>
+</UserControl>

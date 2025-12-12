@@ -1,0 +1,286 @@
+﻿<controls:ControlBase 
+    x:Class="Client.Interfaces.DeliveryAddresses.ShippingAddressForm"
+    xmlns:local="clr-namespace:Client.Interfaces.DeliveryAddresses"
+    xmlns:lib="clr-namespace:Client.Common"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"             
+    
+    mc:Ignorable="d"    
+    d:DesignWidth="1200" d:DesignHeight="600" 
+    Style="{DynamicResource ControlBaseCanvas}"
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <!--
+        форма
+        1 строка: блок кнопок, 30 пикс.
+        2 строка: горизонтальный разделитель
+        3 строка: блок с полями формы, 
+    
+    -->
+    <Border Style="{DynamicResource FormContainerHolder}" Margin="1" >
+
+        <Grid Style="{DynamicResource FormContainer}" >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource FormControlPanel}" >
+                <Grid ShowGridLines="false">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Grid.Column="0" >
+                        <TextBlock Grid.Row="0" Grid.Column="0"  Name="FormTitle"  TextAlignment="Left" Style="{DynamicResource FormHeaderTitleBar}"  />
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="0" BorderBrush="#ff00cccc" BorderThickness="0" >
+                        <StackPanel Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" Name="FormToolbar" >
+
+                            <Button Content="Сохранить" Name="SaveButton"   Style="{DynamicResource FButtonPrimary}" VerticalAlignment="Top" />
+                            <Button Content="Отмена"    Name="CancelButton"  Style="{DynamicResource Button}" />
+
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <TextBlock  Name="StatusBar" Text="Не все обязательные поля заполнены верно"  TextAlignment="Left" Style="{DynamicResource FStatusBar2}" HorizontalAlignment="Stretch" />
+
+                        </StackPanel>
+                    </Border>
+
+                </Grid>
+            </Grid>
+
+            <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormVerticalPanelSpacer}"></Border>
+
+            <Border Grid.Row="2" Grid.Column="0" >
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+                    <Grid ShowGridLines="false" Grid.Row="0"  Grid.Column="0" Style="{DynamicResource FromGrid}" Margin="0,0,10,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="440"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Адрес: *"    Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormFieldContainer}"  >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" Name="AddressTextBox" Style="{DynamicResource FormField}" IsReadOnly="True" />
+                                <Button Grid.Column="1" Name="AddressEditButton" ToolTip="Изменить" Tag="address_edit" Style="{DynamicResource ButtonGlyph}" Margin="-1,0,0,0">
+                                    <Image Style="{DynamicResource SelectImage}"/>
+                                </Button>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Направление:  "    Style="{DynamicResource FormLabel}"  />
+                        </Border>
+                        <Border Grid.Row="1"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <controls:SelectBox  x:Name="IdDirSelectBox" Style="{DynamicResource CustomFormField}" ListBoxMinHeight="250" Autocomplete="True" />
+                        </Border>
+
+                        <Border Grid.Row="2" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Направление для тендера:  "    Style="{DynamicResource FormLabel}"  />
+                        </Border>
+                        <Border Grid.Row="2"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <controls:SelectBox  x:Name="IdDirTenderSelectBox" Style="{DynamicResource CustomFormField}" ListBoxMinHeight="250" Autocomplete="True"/>
+                        </Border>
+
+                        <Border Name="IdSTmText" Grid.Row="3" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Интервал времени отгрузки Липецк:  "    Style="{DynamicResource FormLabel}"  />
+                            </Border>
+                        <Border Name="IdSTmControl" Grid.Row="3"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <controls:SelectBox  x:Name="IdSTmSelectBox" Style="{DynamicResource CustomFormField}" ListBoxMinHeight="150" Autocomplete="True"/>
+                        </Border>
+
+                        <Border Name="KashiraIdSTmText" Grid.Row="4" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Интервал времени отгрузки Кашира:  "    Style="{DynamicResource FormLabel}"  />
+                        </Border>
+                        <Border Name="KashiraIdSTmControl" Grid.Row="4"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <controls:SelectBox  x:Name="KashiraIdSTmSelectBox" Style="{DynamicResource CustomFormField}" ListBoxMinHeight="150" Autocomplete="True"/>
+                        </Border>
+
+                        <Border Grid.Row="5" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Схема проезда:  "    Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="5" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <Grid HorizontalAlignment="Left" Width="440">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Name="FileNameTextBox" Style="{DynamicResource FormField}" IsReadOnly="True"/>
+                                <Button Grid.Column="1" Name="FileAddButton" Tag="file_add" ToolTip="Выбрать" Style="{DynamicResource ButtonGlyph}"  Margin="-1,0,0,0">
+                                    <Image Style="{DynamicResource SelectImage}" />
+                                </Button>
+                                <Button Grid.Column="2" Name="FileShowButton" Tag="file_show" ToolTip="Посмотреть"  Style="{DynamicResource ButtonGlyph}"  Margin="-1,0,0,0">
+                                    <Image Style="{DynamicResource ViewImage}" />
+                                </Button>
+                                <Button Grid.Column="3" Name="FileDeleteButton" Tag="file_delete" ToolTip="Очистить" Style="{DynamicResource ButtonGlyph}"  Margin="-1,0,0,0">
+                                    <Image Style="{DynamicResource CloseImage}" />
+                                </Button>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Row="6" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="График работы склада: *"    Style="{DynamicResource FormLabel}"  />
+                        </Border>
+                        <Border Grid.Row="6" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0" Style="{DynamicResource GridControlPanel}">
+
+                                    <StackPanel Name="ShipAdresScheduleGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}">
+
+                                        <Button Name="ShipAdresScheduleEditButton" Content="Изменить" Tag="shipping_address_schedule_edit" Style="{DynamicResource Button}"/>
+                                        <Button Name="ShipAdresScheduleCopyButton" Content="Установить для остальных" Tag="shipping_address_schedule_copy" Style="{DynamicResource Button}"/>
+
+                                    </StackPanel>
+                                </Grid>
+
+                                <Border Grid.Row="1" Style="{DynamicResource DataGridMainHolder}" Height="165">
+                                    <controls:GridBox4  x:Name="ShipAdresScheduleGrid"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Row="7" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Примечание:  "    Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="7"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox  Name="NoteTextBox"  MaxLength="512" TextWrapping="Wrap" Style="{DynamicResource FormField}" Height="45" />
+                        </Border>
+
+                        <Border Grid.Row="8" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Контактное лицо:  "    Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="8"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox  Name="ContactNameTextBox"  MaxLength="64" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                        </Border>
+
+                        <Border Grid.Row="9" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Контактный телефон:  "    Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="9"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox  Name="ContactPhoneTextBox"  MaxLength="64" TextWrapping="NoWrap" Style="{DynamicResource FormField}"/>
+                        </Border>
+                        
+                        <Border Grid.Row="10"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <CheckBox  Name="EurotruckBanFlagCheckBox" Style="{DynamicResource FormCheckBox}" HorizontalAlignment="Left" Content="Еврофуры недопустимы"/>
+                        </Border>
+
+                        <Border Grid.Row="11" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Вид разгрузки машины:  "    Style="{DynamicResource FormLabel}"  />
+                        </Border>
+                        <Border Grid.Row="11"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <controls:SelectBox  x:Name="UnloadingTypeSelectBox" Style="{DynamicResource CustomFormField}" ListBoxMinHeight="80" Autocomplete="False"/>
+                        </Border>
+
+                        <Border Name="ReturnUpdFlagControl" Grid.Row="12"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <CheckBox Name="ReturnUpdFlagCheckBox" Style="{DynamicResource FormCheckBox}" HorizontalAlignment="Left" Content="Возврат УПД"/>
+                        </Border>
+
+                        <Border Name="ReturnTnFlagControl" Grid.Row="13"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <CheckBox  Name="ReturnTnFlagCheckBox" Style="{DynamicResource FormCheckBox}" HorizontalAlignment="Left" Content="Возврат ТН"/>
+                        </Border>
+
+                        <Border Name="IdClientText" Grid.Row="14" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Клиент: *"    Style="{DynamicResource FormLabel}"  />
+                        </Border>
+                        <Border Name="IdClientControl" Grid.Row="14"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <controls:SelectBox  x:Name="IdClientSelectBox" Style="{DynamicResource CustomFormField}" Autocomplete="True"/>
+                        </Border>
+
+                        <Border Grid.Row="15" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                            <Label Content="Примечание погрузчику:  "    Style="{DynamicResource FormLabel}" />
+                        </Border>
+                        <Border Grid.Row="15"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox  Name="NoteLoaderTextBox"  MaxLength="512" TextWrapping="WrapWithOverflow" Style="{DynamicResource FormField}" Height="45" />
+                        </Border>
+
+                        <Border Grid.Row="16"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <CheckBox  Name="ArchiveFlagCheckBox" Style="{DynamicResource FormCheckBox}" HorizontalAlignment="Left" Content="Архивный"/>
+                        </Border>
+
+
+
+
+
+
+                        <!--<Border Grid.Row="16" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        </Border>
+                        <Border Grid.Row="16"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <StackPanel Orientation="Horizontal" Style="{DynamicResource FormCheckBoxContainer}"/>
+                        </Border>-->
+
+                    </Grid>
+
+                </ScrollViewer>
+
+            </Border>
+
+        </Grid>
+    </Border>
+
+</controls:ControlBase>

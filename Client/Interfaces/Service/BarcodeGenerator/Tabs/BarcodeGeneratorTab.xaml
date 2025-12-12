@@ -1,0 +1,139 @@
+﻿<controls:ControlBase  x:Class="Client.Interfaces.Service.BarcodeGeneratorTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Service"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Border Style="{DynamicResource DataGridContainerHolder}" d:Background="White">
+        <Grid Style="{DynamicResource DataGridContainer}" >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource GridControlPanel}" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="1" Grid.Column="0" Name="FormToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" >
+                    <Button Content="Сгенерировать" ToolTip="Сгенерировать изображение"   Name="GenerateButton" Click="GenerateButton_Click"  Style="{DynamicResource FButtonPrimary}" />
+                    <Button Content="Очистить" ToolTip="Очистить изображение"   Name="ClearButton" Click="ClearButton_Click"  Style="{DynamicResource Button}" />
+                    <Button Content="Закрыть" ToolTip="Закрыть интерфейс"   Name="CancelButton" Click="CancelButton_Click" Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="0" Grid.Column="2" Style="{DynamicResource GridControlPanel}" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel x:Name="ImageToolbar" Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}"  >
+                    <Button Content="Печатать" ToolTip="Распечатать изображение"   Name="PrintButton" Click="PrintButton_Click" Style="{DynamicResource Button}" />
+                    <Button Content="Сохранить" ToolTip="Сохранить изображение"   Name="SaveDocumentButton" Click="SaveDocumentButton_Click"  Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Right" >
+                    <Button Name="SettingsButton"    ToolTip="Настройка"   Style="{DynamicResource ButtonGlyph}" Click="SettingsButton_Click"  Margin="0,0,5,0"  >
+                        <Image Style="{DynamicResource SettingsImage}" />
+                        <Button.ContextMenu>
+                            <ContextMenu Name="BurgerMenu">
+                                <MenuItem Header="Настройка печати" Name="BurgerPrintSettings" Click="BurgerPrintSettings_Click"  Background="#ffffff" />
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
+
+                    <Button Name="HelpButton" ToolTip="Документация" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click"   />
+                </StackPanel>
+            </Grid>
+
+            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Style="{DynamicResource FormVerticalPanelSpacer}"></Border>
+
+            <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Width="1" BorderBrush="#ffcccccc" Padding="0,0,0,0" Margin="5,0,5,0" BorderThickness="1,0,1,0"/>
+
+            <Border Grid.Row="2" Grid.Column="0" >
+                <Grid ShowGridLines="false" Grid.Row="0"  Grid.Column="0" Style="{DynamicResource FromGrid}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3.2*"/>
+                        <ColumnDefinition Width="9*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label ToolTip="Формат штрих-кода" Content="Формат: *" Style="{DynamicResource FormLabel}"  />
+                    </Border>
+                    <Border Grid.Row="0"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <controls:SelectBox x:Name="BarcodeFormatSelectBox" Style="{DynamicResource CustomFormField}" SelectedItemChanged="BarcodeFormatSelectBox_SelectedItemChanged" Width="200" Autocomplete="False" HorizontalAlignment="Left" />
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label ToolTip="Размер штрихкода (Ширина х Высота)" Content="Размер: *" Style="{DynamicResource FormLabel}"  />
+                    </Border>
+                    <Border Grid.Row="1"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox  Name="WidthTextBox" MaxLength="64" Text="400" TextWrapping="NoWrap" Style="{DynamicResource FormField}" HorizontalAlignment="Left" Width="50"  />
+                            <TextBlock Margin="5,4,5,0">x</TextBlock>
+                            <TextBox  Name="HeightTextBox" MaxLength="64" Text="400" TextWrapping="NoWrap" Style="{DynamicResource FormField}" HorizontalAlignment="Left" Width="50"  />
+                            <TextBlock Margin="5,4,5,0">мм</TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Row="2" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label ToolTip="Данные, зашитые в штрих-код" Content="Контент: *" Style="{DynamicResource FormLabel}"  />
+                    </Border>
+                    <Border Grid.Row="2"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <TextBox  Name="BarcodeContentTextBox" MaxLength="64" Text="7770150000280" TextWrapping="NoWrap" Style="{DynamicResource FormField}" HorizontalAlignment="Left" Width="200"  />
+                    </Border>
+
+                    <Border Grid.Row="3" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label ToolTip="Профиль печати" Content="Профиль:" Style="{DynamicResource FormLabel}"  />
+                    </Border>
+                    <Border Grid.Row="3"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <controls:SelectBox  x:Name="PrintingProfileSelectBox" Style="{DynamicResource CustomFormField}" Width="200" Autocomplete="False" HorizontalAlignment="Left" />
+                    </Border>
+
+                    <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource FormLabelContainer}" Margin="5,0,5,0">
+                        <TextBlock  Name="StatusTextBox" Text="Не все обязательные поля заполнены верно"  TextAlignment="Left" Style="{DynamicResource FStatusBar2}" HorizontalAlignment="Stretch" />
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="2" Grid.Column="2" Panel.ZIndex="1">
+                <ScrollViewer Name="PrintPreviewContainer" >
+                    <Image Name="BarcodeImage" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </ScrollViewer>
+            </Border>
+
+            <Border Grid.Row="2" Grid.Column="2" x:Name="BarcodeImageBorder" BorderBrush="LightGray" HorizontalAlignment="Left" VerticalAlignment="Top" BorderThickness="1" Panel.ZIndex="10">
+            </Border>
+
+        </Grid>
+    </Border>
+
+</controls:ControlBase>

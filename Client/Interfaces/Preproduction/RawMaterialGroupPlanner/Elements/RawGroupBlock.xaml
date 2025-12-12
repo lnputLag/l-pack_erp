@@ -1,0 +1,82 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Preproduction.RawGroupBlock"
+    xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"    
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="180"
+    
+    Height="52" HorizontalAlignment="Stretch" Width="180"
+    Background="#ffffffff"
+    >
+    
+    <Border BorderBrush="Black" BorderThickness="0,0,1,2">
+        <Grid Name="MainGrid" MouseRightButtonDown="MainGrid_MouseRightButtonDown" MouseLeave="MainGrid_MouseLeave" Loaded="MainGrid_Loaded">
+            <Grid.ColumnDefinitions>
+                <!--<ColumnDefinition Width="200"/>
+                                            <ColumnDefinition Width="55"/>-->
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="51"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Column="0" Grid.Row="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Column="0" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="0,0,1,0">
+                        <TextBox Name="TopTextBlock" Background="Transparent" FontWeight="Bold" Text="TOP" Padding="0,0,0,0" Margin="1,0,1,0" TextChanged="TopTextBlock_TextChanged"  IsReadOnly="True" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+
+                    <Border Grid.Column="0" Grid.Row="1" BorderBrush="#ffcccccc" BorderThickness="0,1,1,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Column="0" Grid.Row="0">
+                                <TextBlock Name="OrderTextBlock" Text="Order" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+
+                            <Border Grid.Column="1" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="1,0,0,0">
+                                <TextBlock Name="StockTextBlock" Text="Stock" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+
+                            <Border Grid.Column="0" Grid.Row="1">
+                                <TextBlock Name="CMTextBlock" Text="CM" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+
+                            <Border Grid.Column="1" Grid.Row="1" BorderBrush="#ffcccccc" BorderThickness="1,0,0,0">
+                                <TextBlock Name="BDMTextBlock" Text="BDM" Padding="0,0,0,0" Margin="1,0,1,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1" Grid.Row="0" BorderBrush="#ffcccccc" BorderThickness="0,0,0,0">
+                <CheckBox Name="CheckBox" HorizontalAlignment="Center" Click="CheckBox_Click" VerticalAlignment="Center" Margin="-1,0,0,0" BorderBrush="#FFcccccc" BorderThickness="1" RenderOptions.EdgeMode="Unspecified" SnapsToDevicePixels="True"/>
+            </Border>
+        </Grid>
+    </Border>
+
+</UserControl>

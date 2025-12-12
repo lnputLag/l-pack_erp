@@ -1,0 +1,315 @@
+﻿<controls:ControlBase 
+    x:Class="Client.Interfaces.Production.MoldedContainer.MachineControl"
+    xmlns:local="clr-namespace:Client.Interfaces.Production.MoldedContainer"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+
+    mc:Ignorable="d" 
+    d:DesignWidth="1280" d:DesignHeight="720" 
+    MinWidth="800" MaxWidth="1280" 
+    MinHeight="500"
+    Style="{DynamicResource UserControlCanvasTouch}"    
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource DataGridContainerHolder}" Padding="1,5,1,5">
+        <Grid Style="{DynamicResource DataGridContainer}" >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="10"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="10"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="3" Height="50" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.8*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
+                        <Button Name="CorrugatedMachineButton" Style="{DynamicResource RollReelButton}" MinWidth="150" HorizontalAlignment="Left">
+                            ВФМ
+                        </Button>
+                    </Grid>
+                    
+                    <Grid Grid.Row="0" Grid.Column="2" Panel.ZIndex="10">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center">
+                            <Border  Panel.ZIndex="10" HorizontalAlignment="Stretch" >
+                                <Border Style="{DynamicResource DataGridMainHolder}" Background="#ffffffff" VerticalAlignment="Stretch" Width="150" HorizontalAlignment="Stretch">
+                                    <TextBlock FontSize="17"  Height="22" Name="PanelClock" HorizontalAlignment="left">12:35:35</TextBlock>
+                                </Border>
+                            </Border>
+                            <Border  Panel.ZIndex="10" HorizontalAlignment="Stretch" >
+                                <Border Style="{DynamicResource DataGridMainHolder}" Background="#ffffffff" VerticalAlignment="Stretch" Width="150" HorizontalAlignment="Stretch">                                    
+                                    <TextBlock FontSize="17"  Height="22" Name="PanelDebug" HorizontalAlignment="left"> </TextBlock>
+                                </Border>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+
+                    <Border Grid.Row="0" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <controls:ScannerInputControl x:Name="ScannerInput" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    
+                    <Grid Grid.Row="0" Grid.Column="6">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Name="BurgerButton" Style="{DynamicResource RollReelButton}" Width="50" Margin="10,0,0,0" >
+                                <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" >
+                                    <Border Width="40">
+                                        <Image Style="{DynamicResource RollReelMenuIcon}"  />
+                                    </Border>
+                                </StackPanel>
+                                <Button.ContextMenu >
+                                    <ContextMenu Name="BurgerMenu">
+                                        <Separator />
+                                        <MenuItem Header="Ярлык"            Name="LabelPrintButton"             FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold" />
+                                        <MenuItem Header="Принтер"          Name="PrinterSettingsButton"        FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold" />
+                                        <MenuItem Header="Информация"       Name="InfoButton"                   FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold" />
+                                        <MenuItem Header="Журнал"           Name="LogButton"                    FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold" />
+                                        <MenuItem Header="Обновить"         Name="RestartButton"                FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold" />
+                                        <MenuItem Header="Отладка"          Name="DebugButton"                  FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold" >
+                                            <MenuItem Header="Печатать ярлык"            Name="DebugLabelPrintButton"    FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold"    />
+                                            <MenuItem Header="Показать ярлык (PDF)"      Name="DebugLabelViewButton"     FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold"       />
+                                            <MenuItem Header="Показать ярлык (HTML)"     Name="DebugLabelView2Button"    FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold"      />
+                                            <MenuItem Header="Провести поддон"           Name="DebugPalletPostButton"    FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold"       />
+                                            <Separator />
+                                            <MenuItem Header="F11"          Name="F11Button"                    FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold"         />
+                                            <Separator />
+                                            <MenuItem Header="800x600"      Name="Resize1Button"                FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold"       />
+                                            <MenuItem Header="1280x800"     Name="Resize2Button"                FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold"      />
+                                            <MenuItem Header="1280x720"     Name="Resize3Button"                FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold"      />
+                                            <MenuItem Header="Сообщение Проведен"     Name="DebugSplashPost"              FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold"       />
+                                        </MenuItem>
+                                        <MenuItem Header="Выход"            Name="ExitButton"                   FontSize="18" Height="32" Background="#ffffff" FontWeight="SemiBold" />
+                                    </ContextMenu>
+                                </Button.ContextMenu>
+                            </Button>
+                            <Button Tag="help" Name="HelpButton" Style="{DynamicResource RollReelButton}" Width="50"   Margin="10,0,0,0"  >
+                                <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" >
+                                    <Border Width="40">
+                                        <Image Style="{DynamicResource RollReelHelpIcon}"  />
+                                    </Border>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="2"  Grid.Column="0"   >
+                <Border >
+                    <Grid Style="{DynamicResource DataGridContainer}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        
+                        <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                            <Border >
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="11*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.Row="0" Grid.Column="0" Name="Toolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Width="770" >
+                                        <TextBlock Height="24" Padding="0,4,0,0" FontSize="16" LineHeight="18" FontWeight="SemiBold">
+                                            Новый паллет
+                                        </TextBlock>
+                                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" Width="24" >
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="1"  Grid.Column="0" >
+                            <Border Style="{DynamicResource CustomHolder}" Padding="30" VerticalAlignment="Stretch" >
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="20"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="28"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="28"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Name="Bfm1" FontSize="24" FontWeight="SemiBold" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" >По счетчику 0</TextBlock>
+                                    <TextBlock Name="Bfm2" FontSize="24" FontWeight="SemiBold" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" >По счетчику 0</TextBlock>
+                                    
+                                    <Button Name="PalletCreate1BButton" Grid.Column="0" Grid.Row="1" Style="{DynamicResource RollReelButton}" HorizontalAlignment="Center" VerticalAlignment="Center"   IsEnabled="True" Width="250" Height="100">
+                                        ВФМ-1 B
+                                    </Button>
+
+                                    <Button Grid.Column="2" Grid.Row="1" Name="PalletCreate1AButton" Style="{DynamicResource RollReelButton}" IsEnabled="True" Width="250" Height="100">
+                                        ВФМ-1 A
+                                    </Button>
+
+                                    
+
+                                    <Button Name="PalletCreate2Button" Grid.Column="0" Grid.Row="4" Style="{DynamicResource RollReelButton}" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="250" Height="100">
+                                        ВФМ-2 B
+                                    </Button>
+
+                                    <Button Grid.Column="2" Grid.Row="4" Name="PalletCreate1Button" HorizontalAlignment="Center" VerticalAlignment="Center"  Style="{DynamicResource RollReelButton}" Width="250" Height="100">
+                                        ВФМ-2 A
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="4"  Grid.Column="0"   >
+                <Border >
+                    <Grid Style="{DynamicResource DataGridContainer}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="1"  Grid.Column="0" >
+                            <Border Style="{DynamicResource CustomHolder}" Padding="0" VerticalAlignment="Stretch"  Margin="0,0,0,-2">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBox Name="Log" HorizontalAlignment="Stretch" BorderThickness="0" Foreground="#ff555555" Height="100" FontFamily="consolas" FontSize="16" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="2"  Grid.Column="2"  Grid.RowSpan="3" >
+                <Grid Style="{DynamicResource DataGridContainer}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                        <Border >
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="11*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Grid.Column="0" Name="PalletGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Width="770" >
+                                    <TextBlock Height="24" Padding="0,4,0,0" FontSize="16" LineHeight="18" FontWeight="SemiBold">
+                                        Паллеты
+                                    </TextBlock>
+                                    <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                                    <!--<TextBlock Height="24" Padding="0,4,0,0" FontSize="16" LineHeight="18" FontWeight="Normal"> Штрихкод:</TextBlock>-->
+                                    <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                                    <!--<TextBox Name="BarCodeTextBox" KeyDown="BarCodeTextBox_KeyDown" MaxLength="13"  HorizontalAlignment="Center" VerticalAlignment="Top" Style="{DynamicResource FormField}" Width="100" TextWrapping="NoWrap" IsEnabled="True" Visibility="Visible"></TextBox>-->
+                                </StackPanel>
+                                <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" Width="24" >
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Row="1"  Grid.Column="0" >
+                        <Border Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Top">
+                            <controls:GridBox4 x:Name="PalletGrid" Height="468" >
+                                <!--<controls:GridBox4.RenderTransform>
+                                    <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+                                </controls:GridBox4.RenderTransform>-->
+                            </controls:GridBox4>
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Row="2"  Grid.Column="0" >
+                        <Border Style="{DynamicResource DataGridMainHolder}" VerticalAlignment="Top">
+                            <StackPanel Orientation="Horizontal">
+                                <Button Name="PalletRefreshButton" Style="{DynamicResource RollReelButtonBig}" Width="60"   Margin="0,0,0,0"  >
+                                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" >
+                                        <Border Width="60">
+                                            <Image Style="{DynamicResource CommonRefreshIconBig}"  />
+                                        </Border>
+                                    </StackPanel>
+                                </Button>
+                                <Button Name="PalletDeleteButton" Style="{DynamicResource RollReelButtonBig}" Width="60"   Margin="10,0,0,0"  >
+                                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" >
+                                        <Border Width="60">
+                                            <Image Style="{DynamicResource CommonXIconBig}"  />
+                                        </Border>
+                                    </StackPanel>
+                                </Button>
+                                <Button Name="PalletPrintButton" Style="{DynamicResource RollReelButtonBig}" Width="60"   Margin="10,0,0,0"  >
+                                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" >
+                                        <Border Width="60">
+                                            <Image Style="{DynamicResource CommonPrintIconBig}"  />
+                                        </Border>
+                                    </StackPanel>
+                                </Button>
+
+                                <Button Name="PalletArrivialButton" Style="{DynamicResource RollReelButtonBig}" Width="60" Visibility="Hidden"  Margin="10,0,0,0"  >
+                                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" >
+                                        <Border Width="60">
+                                            <Image Style="{DynamicResource RollReelReplaceIcon}"  />
+                                        </Border>
+                                    </StackPanel>
+                                </Button>
+
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="100" VerticalAlignment="Center" HorizontalAlignment="Center" Panel.ZIndex="10">
+                <controls:SplashControl x:Name="SplashControl"/>
+            </Grid>
+
+        </Grid>
+    </Border>
+</controls:ControlBase>

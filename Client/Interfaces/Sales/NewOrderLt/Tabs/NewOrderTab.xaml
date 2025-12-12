@@ -1,0 +1,93 @@
+﻿<controls:ControlBase x:Class="Client.Interfaces.Sales.NewOrderLt.Tabs.NewOrderTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d"
+             d:DesignHeight="800" d:DesignWidth="1600"
+             Style="{DynamicResource UserControlCanvas}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Name="ProgressContainer" Visibility="Collapsed" Panel.ZIndex="10">
+                <controls:ProgressControl x:Name="Progress" Caption="Выполняется операция" />
+            </Grid>
+
+            <Grid Grid.Row="1" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid>
+                        <StackPanel HorizontalAlignment="Stretch" Name="OrderGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}">
+                            <TextBlock Height="24" Padding="0,4,5,0">Заявки</TextBlock>
+                            <Button Name="RefreshOrder" Content="Обновить" Style="{DynamicResource Button}"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}" />
+
+                            <Button Name="CreateOrderButton"      Content="Добавить"     Style="{DynamicResource Button}" />
+                            <Button Name="EditOrderButton"        Content="Изменить"    Style="{DynamicResource Button}" />
+                            <Button Name="DeleteOrderButton"      Content="Удалить"     Style="{DynamicResource Button}" />
+                            
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"/>
+                            <Button Name="AcceptButton"      Content="Принять"     Style="{DynamicResource Button}" />
+                            <Button Name="ApproveButton"      Content="Согласовать"     Style="{DynamicResource Button}" />
+                            <Button Name="CancelButton"      Content="Отменить заявку"     Style="{DynamicResource Button}" />
+                            
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                            <Label Content="Поиск:" Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="100" TextWrapping="NoWrap" Name="SearchText" Text=""/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" Width="24">
+                            <Button x:Name="HelpButton" Tag="help" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}"  />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="2" >
+                <Border Style="{DynamicResource DataGridMainHolder}">
+                    <controls:GridBox4 x:Name="OrderGrid" />
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="3" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <StackPanel HorizontalAlignment="Stretch" Name="PositionOrderGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}">
+                        <TextBlock Height="24" Padding="0,4,0,0">Позиции</TextBlock>
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Button Name="RefreshOrderPosition" Content="Обновить" Style="{DynamicResource Button}"/>
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}" />
+                        <Button Name="CreatePositionButton"      Content="Добавить"  Style="{DynamicResource Button}" />
+                        <Button Name="EditPositionButton"        Content="Изменить"    Style="{DynamicResource Button}" />
+                        <Button Name="DeletePositionButton"      Content="Удалить"     Style="{DynamicResource Button}" />
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"/>
+                        <Label Content="Поиск:" Style="{DynamicResource TopLabel}" />
+                        <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="100" TextWrapping="NoWrap" Name="SearchTextPosition" Text=""/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="4">
+                <Border Style="{DynamicResource DataGridMainHolder}">
+                    <controls:GridBox4 x:Name="OrderPositionGrid" />
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</controls:ControlBase>

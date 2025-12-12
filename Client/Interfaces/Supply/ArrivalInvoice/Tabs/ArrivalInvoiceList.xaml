@@ -1,0 +1,103 @@
+﻿<controls:ControlBase x:Class="Client.Interfaces.Supply.ArrivalInvoiceList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Supply"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             
+             mc:Ignorable="d" 
+             d:DesignWidth="1600" d:DesignHeight="800"  
+            Style="{DynamicResource UserControlCanvas}"  >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                    <Label Content="С:"  Style="{DynamicResource TopLabel}"/>
+                    <controls:DatePicker x:Name="InvoiceDateFrom" Style="{DynamicResource DateEditStyle}">
+                        <controls:DatePicker.ContextMenu>
+                            <ContextMenu Name="InvoiceDateFromMenu">
+                                <MenuItem Header="Отчётный период" Name="ReportingPeriodMenuItem" Click="ReportingPeriodMenuItem_Click"  Background="#ffffff" />
+                            </ContextMenu>
+                        </controls:DatePicker.ContextMenu>
+                    </controls:DatePicker>
+
+                    <Label Content="По:"  Style="{DynamicResource TopLabel}"/>
+                    <controls:DatePicker x:Name="InvoiceDateTo" Style="{DynamicResource DateEditStyle}">
+                    </controls:DatePicker>
+
+                    <Button Name="RefreshButton"  Content="Показать"  Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <Button Name="NewDocumentButton"  Content="Добавить" Style="{DynamicResource Button}"  />
+                    <Button Name="EditDocumentButton"  Content="Открыть"  Style="{DynamicResource Button}"  />
+                    <Button Name="DeleteDocumentButton"  Content="Удалить" Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                    <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="SearchText" Text=""/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <controls:SelectBox x:Name="FactorySelectBox" SelectedItemChanged="FactorySelectBox_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" ListBoxMinHeight="80" Width="120" Autocomplete="False"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                    <controls:SelectBox x:Name="CustomerSelectBox" SelectedItemChanged="CustomerSelectBox_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" ListBoxMinHeight="100" Width="120" Autocomplete="False"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                    <controls:SelectBox x:Name="ProductCategorySelectBox" SelectedItemChanged="ProductCategorySelectBox_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" ListBoxMinHeight="100" Width="145" Autocomplete="False"/>
+                    <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                    <Button Name="ExportToExcelButton"  Content="В Excel" Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                    <Label Name="ReportingPeriodLabel"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <Button Name="SettingsButton"    ToolTip="Настройка"   Style="{DynamicResource ButtonGlyph}" Click="SettingsButton_Click"  Margin="0,0,5,0"  >
+                        <Image Style="{DynamicResource SettingsImage}" />
+                        <Button.ContextMenu>
+                            <ContextMenu Name="BurgerMenu">
+                                <MenuItem Header="Настройка печати" Name="BurgerPrintSettings" Click="BurgerPrintSettings_Click"  Background="#ffffff" />
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
+
+                    <Button Name="HelpButton" ToolTip="Документация" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Margin="0,0,0,0" />
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="0">
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="ArrivalInvoiceGrid" />
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</controls:ControlBase>

@@ -1,0 +1,213 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Debug.LinkMapView"
+    xmlns:local="clr-namespace:Client.Interfaces.Debug"
+    xmlns:lib="clr-namespace:Client.Common"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"             
+    
+    mc:Ignorable="d"
+    
+    Width="1024" 
+    Style="{DynamicResource UserControlCanvas}"
+    HorizontalAlignment="Left" VerticalAlignment="Top"    
+    Background="#fff"
+    >
+
+    <!--DataContext="{Binding RelativeSource={RelativeSource Self}}"-->
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <!--
+        форма
+        1 строка: блок кнопок, 30 пикс.
+        2 строка: горизонтальный разделитель
+        3 строка: блок с полями формы, 
+    
+    -->
+    <Border Style="{DynamicResource FormContainerHolder}" Margin="1,5,1,1" >
+        <Grid Style="{DynamicResource FormContainer}" >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,20">
+                <StackPanel Orientation="Vertical" >
+
+                    <Button Content="Закрыть" Name="CloseButon" Margin="0,0,0,10" Style="{DynamicResource FButtonPrimary}" HorizontalAlignment="Left" Click="CloseButon_Click" />
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10" >
+                        <Button Content="Debug" Name="SetModeDebugButton" Style="{DynamicResource Button}" MinWidth="30" Click="SetModeDebugButton_Click" />
+                        <Button Content="Release" Name="SetModeReleaseButton" Style="{DynamicResource Button}" MinWidth="30" Click="SetModeReleaseButton_Click" />
+                        <Button Content="DoHop" Name="DoHopButton" Style="{DynamicResource Button}" MinWidth="30" Click="DoHopButton_Click" />
+                        <Button Content="GC" Name="GCButton" Style="{DynamicResource Button}" MinWidth="30" Click="GCButton_Click" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" >
+                        <Button Content="WM" Name="TabsButton" Margin="0,0,5,0" Style="{DynamicResource Button}" MinWidth="30" Click="TabsButton_Click" />
+                        <Button Content="WM2" Name="wm_log2" Margin="0,0,5,0" Style="{DynamicResource Button}" MinWidth="30" Click="TabsButton2_Click" />
+                        <Button Content="CON" Name="NewWinButton" Margin="0,0,5,0" Style="{DynamicResource Button}" MinWidth="30" Click="NewWinButton_Click"/>
+                        <!--
+                        <Button Content="EmployeeTab" Tag="EmployeeTab" Margin="0,0,10,0" Style="{DynamicResource Button}" Click="Tab1Button_Click" />
+                        <Button Content="AccountsTab" Tag="AccountsTab" Margin="0,0,10,0" Style="{DynamicResource Button}" Click="Tab1Button_Click" />
+                        -->
+                    </StackPanel>
+
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                <StackPanel Orientation="Vertical" >
+                    <Label Content="Current Connection Status:" HorizontalAlignment="Left"  Style="{DynamicResource FormLabel}"  />
+                    <TextBox Name="LogStatus"  Height="50"  Foreground="#ff555555" VerticalAlignment="Stretch" FontFamily="Consolas" FontSize="11"  TextWrapping="Wrap" />
+                    <ScrollViewer HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+                        <TextBox Name="LogStatusHistory"  Height="250"  Foreground="#ff555555" VerticalAlignment="Stretch" FontFamily="Consolas" FontSize="11"  TextWrapping="Wrap" />
+                    </ScrollViewer>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2">
+                <StackPanel Orientation="Vertical" >
+                    <Label Content="System Connection Status:"  HorizontalAlignment="Left"  Style="{DynamicResource FormLabel}"  />
+                    <TextBox Name="LogStatus2"  Height="50"  Foreground="#ff555555" VerticalAlignment="Stretch" FontFamily="Consolas" FontSize="11"  TextWrapping="Wrap" />
+                    <ScrollViewer HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+                        <TextBox Name="LogStatus2History"  Height="250"  Foreground="#ff555555" VerticalAlignment="Stretch" FontFamily="Consolas" FontSize="11"  TextWrapping="Wrap" />
+                    </ScrollViewer>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="4" Grid.Column="0" >
+                <StackPanel Orientation="Vertical" >
+                    <Label Content="Current Connection:"  HorizontalAlignment="Left"  Style="{DynamicResource FormLabel}"  />
+                    <TextBox Name="LogConnection" Width="250" Height="190"  Foreground="#ff555555" VerticalAlignment="Stretch" FontFamily="Consolas" FontSize="11"  TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+            
+            <Border Grid.Row="4" Grid.Column="1" >
+                <StackPanel Orientation="Vertical" >
+                    <Label Content="Timings:"  HorizontalAlignment="Left"  Style="{DynamicResource FormLabel}"  />
+                    <TextBox Name="LogTimings" Width="250" Height="190"  Foreground="#ff555555" VerticalAlignment="Stretch" FontFamily="Consolas" FontSize="11"  TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+
+    <!--
+            
+            <Border Grid.Row="3" Grid.Column="0" >
+                <StackPanel Orientation="Vertical" >
+
+                    <Button Content="Производство" Name="Production" Margin="0,0,0,0" Style="{DynamicResource Button}"  />
+
+                    <Button Content="ПЗ на ГА" Name="ProductionTasks" Margin="10,0,0,0"  Style="{DynamicResource Button}" Click="Pt_Click" />
+                    <Button Content="Автораскрой" Name="ProductionTasksCreate" Margin="10,0,0,0" Style="{DynamicResource Button}" Click="ProductionTasksCreate_Click"/>
+                    <Button Content="Диаграмма рунонов на ГА" Name="ProductionRollsPt" Margin="10,0,0,0" Style="{DynamicResource Button}" Click="ProductionRollsPt_Click"/>
+                    <Button Content="Диаграмма ПЗ на переработке" Name="ProductionPtProcessing" Margin="10,0,0,0" Style="{DynamicResource Button}" Click="ProductionPtProcessing_Click"/>
+                    
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="3" Grid.Column="1" >
+                <StackPanel Orientation="Vertical" >
+                    
+                    <Button Content="Склад" Name="StockButton" Margin="0,0,0,0"  Style="{DynamicResource Button}" />
+                    
+                    <Button Content="Операции по складу" Name="StockOperationsButton" Margin="10,0,0,0"  Style="{DynamicResource Button}" Click="StockOperationsButton_Click"/>
+                    <Button Content="Товары на СГП" Name="StockOperationsProductsButton" Margin="20,0,0,0"  Style="{DynamicResource Button}" Click="StockOperationsProductsButton_Click"/>
+                    <Button Content="Списание" Name="StockOperationsWriteOffButton" Margin="20,0,0,0"  Style="{DynamicResource Button}" Click="StockOperationsWriteOffButton_Click"/>
+                    <Button Content="Комплектация" Name="StockOperationsEquipmentButton" Margin="20,0,0,0"  Style="{DynamicResource Button}" Click="StockOperationsEquipmentButton_Click"/>
+
+                    <Button Content="Погрузчики" Name="StockForkliftdriversButton" Margin="10,0,0,0"  Style="{DynamicResource Button}" Click="StockForkliftdriversButton_Click"/>
+                    <Button Content="Журнал работ" Name="StockForkliftdriversLogButton" Margin="20,0,0,0"  Style="{DynamicResource Button}" Click="StockForkliftdriversLogButton_Click"/>
+                    <Button Content="Водители" Name="StockForkliftdriversListButton" Margin="20,0,0,0"  Style="{DynamicResource Button}" Click="StockForkliftdriversListButton_Click"/>
+                                        
+                    <Button Content="Поддоны" Name="StockPalletsButton" Margin="10,0,0,0"  Style="{DynamicResource Button}"  Click="StockPalletsButton_Click"/>
+                    <Button Content="Поддоны" Name="StockPallets2Button" Margin="20,0,0,0"  Style="{DynamicResource Button}" Click="StockPallets2Button_Click"/>
+                    <Button Content="Приход поддонов" Name="StockPalletsInButton" Margin="20,0,0,0"  Style="{DynamicResource Button}" Click="StockPalletsInButton_Click"/>
+                    <Button Content="Возвратные поддоны" Name="StockPalletsReturnableButton" Margin="20,0,0,0"  Style="{DynamicResource Button}" Click="StockPalletsReturnableButton_Click"/>
+                    <Button Content="Расход поддонов" Name="StockPalletsOutButton" Margin="20,0,0,0"  Style="{DynamicResource Button}" Click="StockPalletsOutButton_Click"/>
+
+                </StackPanel>
+            </Border>
+            
+            <Border Grid.Row="3" Grid.Column="2" >
+                <StackPanel Orientation="Vertical" >
+
+                    <Button Content="Отгрузки" Name="Shipments" Margin="0,0,0,0" Click="Shipments_Click" Style="{DynamicResource Button}" />
+
+                    <Button Content="ЭДО" Name="ShipmentsEdm" Margin="10,0,0,0" Click="ShipmentsEdm_Click" Style="{DynamicResource Button}" />
+
+                    <Button Content="Управление отгрузками" Name="ShipmentsControl" Margin="10,0,0,0" Click="ShipmentsControl_Click" Style="{DynamicResource Button}" />
+                    <Button Content="План" Name="ShipmentsPlan" Margin="20,0,0,0" Click="ShipmentsPlan_Click" Style="{DynamicResource Button}" />
+                    <Button Content="Монитор" Name="ShipmentsMonitor" Margin="20,0,0,0" Click="ShipmentsMonitor_Click"  Style="{DynamicResource Button}" />
+                    <Button Content="Отчет" Name="ShipmentsReport" Margin="20,0,0,0" Click="ShipmentsReport_Click" Style="{DynamicResource Button}" />
+
+                    <Button Content="Оснастка" Name="ShipmentsEquipment" Margin="20,0,0,0" Click="ShipmentsEquipment_Click" Style="{DynamicResource Button}" />
+                    <Button Content="Образцы" Name="ShipmentsEquipmentSamples" Margin="30,0,0,0" Click="ShipmentsEquipmentSamples_Click" Style="{DynamicResource Button}" />
+                    <Button Content="Клише" Name="ShipmentsEquipmentClishe" Margin="30,0,0,0" Click="ShipmentsEquipmentClishe_Click" Style="{DynamicResource Button}" />
+                    <Button Content="Штанцформы" Name="ShipmentsEquipmentShtanzforms" Margin="30,0,0,0" Click="ShipmentsEquipmentShtanzforms_Click"  Style="{DynamicResource Button}" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="3" Grid.Column="3" >
+                <StackPanel Orientation="Vertical" >
+
+                    <Button Content="Сервис" Name="Service" Margin="0,0,0,0"  Style="{DynamicResource Button}" />
+                    <Button Content="Учетные записи" Name="ServiceAccounts" Click="ServiceAccounts_Click" Margin="10,0,0,0"  Style="{DynamicResource Button}" />
+                    <Button Content="Сообщения" Name="ServiceMessages" Click="ServiceMessages_Click" Margin="10,0,0,0"  Style="{DynamicResource Button}" />
+                   
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="3" Grid.Column="4" >
+                <StackPanel Orientation="Vertical" >
+
+                    <Button Content="Справка" Name="Doc"  Margin="0,0,0,0"  Style="{DynamicResource Button}" />
+                    <Button Content="Обновить" Name="DocUpdate" Click="DocUpdate_Click" Margin="10,0,0,0"  Style="{DynamicResource Button}" />
+                    <Button Content="Документация" Name="DocManual" Click="DocManual_Click" Margin="10,0,0,0"  Style="{DynamicResource Button}" />
+                    <Button Content="История версий" Name="DocVersions" Click="DocVersions_Click" Margin="10,0,0,0"  Style="{DynamicResource Button}" />
+                    <Button Content="О программе" Name="DocAbout" Click="DocAbout_Click" Margin="10,0,0,0"  Style="{DynamicResource Button}" />
+
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="3" Grid.Column="5" >
+                <StackPanel Orientation="Vertical" >
+
+                    <Button Content="Отладка" Name="Debug" Margin="0,0,0,0"  Style="{DynamicResource Button}" />
+                    <Button Content="Инструменты" Name="DebugTools" Click="DebugTools_Click" Margin="10,0,0,0"  Style="{DynamicResource Button}" />
+                    <Button Content="Карта ссылок" Name="DebugToolsMap" Click="DebugToolsMap_Click" Margin="20,0,0,0"  Style="{DynamicResource Button}" />
+                    <Button Content="Запросы" Name="DebugToolsQueries" Click="DebugToolsQueries_Click" Margin="20,0,0,0"  Style="{DynamicResource Button}" />
+                    <Button Content="Журнал" Name="DebugToolsLog" Click="DebugToolsLog_Click" Margin="20,0,0,0"  Style="{DynamicResource Button}" />
+                    
+                    <Button Content="Размер" Name="DebugSize"  Margin="10,0,0,0"  Style="{DynamicResource Button}" />
+                    <Button Content="F11" Name="DebugSizeF11" Click="DebugSizeF11_Click" Margin="20,0,0,0"  Style="{DynamicResource Button}" MinWidth="24" />
+                    <Button Content="MAX" Name="DebugSizeMax" Click="DebugSizeMax_Click" Margin="20,0,0,0"  Style="{DynamicResource Button}" MinWidth="24" />
+
+                </StackPanel>
+            </Border>
+
+            -->
+
+        </Grid>
+    </Border>
+
+</UserControl>

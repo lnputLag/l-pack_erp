@@ -1,0 +1,98 @@
+﻿<controls:ControlBase 
+        x:Class="Client.Interfaces.Service.Printing.PrintingSettingsList"
+        xmlns:local="clr-namespace:Client.Interfaces.Service.Printing"
+        xmlns:controls="clr-namespace:Client.Interfaces.Main"
+        
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+    
+        d:DesignWidth="900" d:DesignHeight="250" 
+        Style="{DynamicResource UserControlCanvas}"            
+    >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Margin="2,0,2,0">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0">
+
+                <Border Style="{DynamicResource DataGridContainerHolder}"  >
+                    <Grid Style="{DynamicResource DataGridContainer}">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                            <Border >
+                                <Grid >
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="11.5*"/>
+                                        <ColumnDefinition Width="0.5*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+                                        <Button Name="RefreshButton" Tag="refresh" Click="ButtonOnClick"  Content="Обновить"  Style="{DynamicResource Button}"  VerticalAlignment="Bottom"   />
+                                        <Button Name="CancelButton" Tag="cancel" Click="ButtonOnClick"  Content="Отмена"  Style="{DynamicResource Button}"  VerticalAlignment="Bottom"   />
+                                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                                        <Button Name="CreateButton" Tag="create;access_mode_full_access" Click="ButtonOnClick"  Content="Создать"  Style="{DynamicResource Button}"   VerticalAlignment="Bottom"   />
+                                        <Button Name="EditButton" Tag="edit;access_mode_full_access" Click="ButtonOnClick"  Content="Изменить"  Style="{DynamicResource Button}"   VerticalAlignment="Bottom"   />
+                                        <Button Name="DeleteButton" Tag="delete;access_mode_full_access" Click="ButtonOnClick"  Content="Удалить"  Style="{DynamicResource Button}"  VerticalAlignment="Bottom"   />
+                                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                                        <Button Name="TestButton" Tag="test" Click="ButtonOnClick"  Content="Проверка"  Style="{DynamicResource Button}"  VerticalAlignment="Bottom"   />
+                                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                                        <!--
+                                        <Button Name="ShowPreview" Tag="preview" Click="ButtonOnClick"  Content="Просмотреть"  Style="{DynamicResource Button}"  VerticalAlignment="Bottom"   />
+                                        <Button Name="StartPrinting" Tag="print" Click="ButtonOnClick"  Content="Печатать"  Style="{DynamicResource Button}"  VerticalAlignment="Bottom"   />
+                                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                        -->
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                                    </StackPanel>
+
+                                </Grid>
+                            </Border>
+                        </Grid>
+
+                        <Grid Grid.Row="1"  Grid.Column="0" >
+                            <Border Style="{DynamicResource DataGridMainHolder}" >
+                                <controls:GridBox3 x:Name="Grid" />
+                            </Border>
+                        </Grid>
+
+                    </Grid>
+                </Border>
+
+            </Grid>
+        </Grid>
+    </Border>
+</controls:ControlBase> 

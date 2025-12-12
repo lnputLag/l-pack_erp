@@ -1,0 +1,103 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Sales.SalesSecondaryReport"
+    xmlns:local="clr-namespace:Client.Interfaces.Accounts"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"    
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+
+    mc:Ignorable="d" 
+    d:DesignWidth="900" d:DesignHeight="200" 
+    Style="{DynamicResource UserControlCanvas}"    
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border >
+                    <Grid >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="11.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>                            
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+
+                            <Label Content="C:"  Style="{DynamicResource TopLabel}" Width="25" />
+                            <Grid Style="{DynamicResource FormFieldDateHolder}">
+                                <!--<TextBox Name="FromDate"  MaxLength="10"   Style="{DynamicResource FormFieldDate}" IsReadOnly="True" TextChanged="FromDate_TextChanged" />
+                                <DatePicker SelectedDate="{Binding Path=Text, Mode=OneWayToSource, ElementName=FromDate, Converter={StaticResource DateDate} }" Style="{DynamicResource FormFieldDP}"  />-->
+
+                                <controls:DatePicker x:Name="FromDate" Style="{DynamicResource DateEditStyle}" TextChanged="FromDate_TextChanged">
+                                </controls:DatePicker>
+                            </Grid>
+
+                            <Label Content="По:"  Style="{DynamicResource TopLabel}" Width="25" />
+                            <Grid Style="{DynamicResource FormFieldDateHolder}">
+                                <!--<TextBox Name="ToDate"  MaxLength="10"   Style="{DynamicResource FormFieldDate}" IsReadOnly="True" TextChanged="ToDate_TextChanged" />
+                                <DatePicker  SelectedDate="{Binding Path=Text, Mode=OneWayToSource, ElementName=ToDate, Converter={StaticResource DateDate} }"  Style="{DynamicResource FormFieldDP}" />-->
+
+                                <controls:DatePicker x:Name="ToDate" Style="{DynamicResource DateEditStyle}" TextChanged="ToDate_TextChanged">
+                                </controls:DatePicker>
+                            </Grid>
+
+                            <Button Name="RefreshButton"    Content="Показать"  Style="{DynamicResource Button}" Click="RefreshButton_Click"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="SearchText" Text=""  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="ExportButton" Content="В Excel"   Style="{DynamicResource Button}" Click="ExportButton_Click" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                            <Button Name="HelpButton"  Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click" Margin="0" />
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="0" >
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="Grid" />
+                </Border>
+            </Grid>
+
+        </Grid>
+    </Border>
+
+</UserControl>

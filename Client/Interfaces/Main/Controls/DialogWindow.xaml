@@ -1,0 +1,94 @@
+﻿<Window 
+    x:Class="Client.Interfaces.Main.DialogWindow"
+    xmlns:local="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
+    Loaded="Window_Loaded"
+    
+    mc:Ignorable="d"
+    VerticalAlignment="Center"
+    HorizontalAlignment="Center"
+    Title="" Height="200" Width="480" MaxWidth="600"
+    ResizeMode="NoResize"
+    Style="{DynamicResource WindowCanvas}" Deactivated="Window_Deactivated"     
+>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <!--
+        простая форма
+        1 строка: блок с полями, все остальное пространство
+        2 строка: кнопки, 30 пикс
+    -->
+    <Border Style="{DynamicResource FormContainerMHolder}" >
+        <Grid Style="{DynamicResource FormContainer}" >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="25"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource FromGrid}">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Width="40" Height="40" Margin="0,0,0,0" VerticalAlignment="Top">
+                    <ContentControl Name="IconInfo"   Width="40" Height="40" Margin="0,0,0,0" Padding="0" Content="{StaticResource Info}"  />
+                    <ContentControl Name="IconAlert"  Width="40" Height="40" Margin="0,0,0,0" Padding="0" Content="{StaticResource Alert}"  Visibility="Collapsed" />
+                    <ContentControl Name="IconServer" Width="40" Height="40" Margin="0,0,0,0" Padding="0" Content="{StaticResource Server}" Visibility="Collapsed" />
+                </StackPanel>
+
+                <ScrollViewer Grid.Row="0" Grid.Column="1" Style="{DynamicResource FromWrapperFixed}" VerticalScrollBarVisibility="Auto" MaxHeight="220" >
+                    <StackPanel  Orientation="Vertical">
+                        <TextBox  MinHeight="10" VerticalAlignment="Top" HorizontalAlignment="Left" TextWrapping="Wrap" Name="Message"        Text=""  BorderThickness="0" />
+                        <TextBox  MinHeight="10" VerticalAlignment="Top" HorizontalAlignment="Left" TextWrapping="Wrap" Name="Description"    Text=""  BorderThickness="0"   Foreground="#ff999999" />
+                    </StackPanel>
+                </ScrollViewer>
+
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="0" Style="{DynamicResource FormControlPanel}" >
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid  Grid.Row="0" Grid.Column="0">
+                    <TextBlock  Name="FormStatus" Text="{Binding Status}" TextAlignment="Right" Style="{DynamicResource FStatusBar}" Foreground="{Binding StatusFGColor}"  />                    
+                </Grid>
+
+                <StackPanel Grid.Row="0" Grid.Column="2" Style="{DynamicResource FormHeaderButtonsPanel}"  >
+                    <Button Content="Да"        Name="YesButton"       Click="YesButton_Click"     IsEnabled="{Binding Path=ActionsEnabled[Save]}"     Visibility="{Binding Path=ActionsVisible[Save]}"      Style="{DynamicResource FButtonPrimary}" Margin="5,0,0,0" />
+                    <Button Content="Нет"       Name="NoButton"        Click="NoButton_Click"      IsEnabled="{Binding Path=ActionsEnabled[Another]}"  Visibility="{Binding Path=ActionsVisible[Another]}"   Style="{DynamicResource FButtonCancel}"  Margin="5,0,0,0" />
+                    <Button Content="Отмена"    Name="CancelButton"    Click="CancelButton_Click"  IsEnabled="{Binding Path=ActionsEnabled[Cancel]}"   Visibility="{Binding Path=ActionsVisible[Cancel]}"    Style="{DynamicResource FButtonCancel}"  Margin="5,0,0,0" />
+                </StackPanel>
+            </Grid>
+
+        </Grid>
+    </Border>
+
+</Window>

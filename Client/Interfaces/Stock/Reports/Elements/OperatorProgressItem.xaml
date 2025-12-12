@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Client.Interfaces.Stock.OperatorProgressItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Stock"
+             mc:Ignorable="d" 
+      d:DesignHeight="40" d:DesignWidth="200">
+
+
+    <Grid MouseDown="Grid_MouseDown">
+
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="Buf1ColorRow" Width="1*"/>
+                <ColumnDefinition x:Name="Buf1GrayRow" Width="1*" />
+
+            </Grid.ColumnDefinitions>
+
+            <Rectangle x:Name="Buf3ColorRectangle" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Orange"/>
+
+            <TextBlock x:Name="Description" Text="100" Grid.Column="0" Grid.ColumnSpan="2" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+        </Grid>
+
+    </Grid>
+
+
+</UserControl>

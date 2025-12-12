@@ -1,0 +1,79 @@
+﻿<controls:ControlBase  x:Class="Client.Interfaces.Sources.InterlayerTab"
+        xmlns:local="clr-namespace:Client.Interfaces.Sources"
+        xmlns:controls="clr-namespace:Client.Interfaces.Main"
+                       
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       
+        mc:Ignorable="d"
+        d:DesignHeight="800" d:DesignWidth="1200"
+        Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Style="{DynamicResource DataGridContainer}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        
+        <Border Grid.Column="0" Grid.Row="0">
+            <StackPanel Name="InterlayerGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Margin="0,5,0,5">
+                <Label Content="Перестил"  Style="{DynamicResource TopLabel}" Margin="0 0 10 0"/>
+                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                <Button Name="InterlayerChangeButton"      Content="Изменить"     Style="{DynamicResource Button}" />
+                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                
+                <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="InterlayerSearchText" Text=""  />
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="0" Grid.Row="1">
+            <controls:GridBox4 x:Name="InterlayerGrid"/>
+        </Border>
+
+        <Border Grid.Column="2" Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Column="0" Grid.Row="0" Name="ProductionTaskGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" Margin="0,5,0,5">
+                    <Label Content="Производственные задания"  Style="{DynamicResource TopLabel}" Margin="0 0 10 0"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                    <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                    <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="ProductionTaskSearchText" Text=""  />
+                </StackPanel>
+                <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                    <Button Name="HelpButton" ToolTip="Документация" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButtonClick"  Margin="0,0,0,0" />
+                </StackPanel>
+            </Grid>
+            
+        </Border>
+        <Border Grid.Column="2" Grid.Row="1">
+            <controls:GridBox4 x:Name="ProductionTaskGrid"/>
+        </Border>
+        
+        
+        
+    </Grid>
+    
+</controls:ControlBase>

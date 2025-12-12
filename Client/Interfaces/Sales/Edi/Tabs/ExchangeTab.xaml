@@ -1,0 +1,89 @@
+﻿<controls:ControlBase 
+    x:Class="Client.Interfaces.Sales.Edi.ExchangeTab"
+    xmlns:local="clr-namespace:Client.Interfaces.Sales.Edi"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+
+    mc:Ignorable="d" 
+    d:DesignWidth="1024" d:DesignHeight="200" 
+    Style="{DynamicResource UserControlCanvas}"    
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}" Visibility="Collapsed">
+                <Border >
+                    <Grid HorizontalAlignment="Left" Width="844" >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="OrderGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Width="770" >
+
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Name="OrderGridSearch" Style="{DynamicResource FormFieldTopPanel}" MinWidth="120" MaxWidth="180"  TextWrapping="NoWrap"  Text=""  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="0" >
+                <Border Style="{DynamicResource DataGridMainHolder}" Margin="0,5,0,5">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Name="ManButton" Content="?" Style="{DynamicResource Button}" MinWidth="25" />
+                        <Button Name="ClsButton" Content="Cls" Style="{DynamicResource Button}" MinWidth="35" />
+                        <Button Name="ListParamsButton" Content="ListParams"  Style="{DynamicResource Button}" MinWidth="35" />
+                        <Button Name="AuthButton" Content="Auth"  Style="{DynamicResource Button}" MinWidth="35" />
+                        <Button Name="GetStatusButton" Content="GetStatus"  Style="{DynamicResource Button}" MinWidth="35" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        
+                        <Label Content="Command:"  Style="{DynamicResource TopLabel}" />
+                        <TextBox Name="Command" Style="{DynamicResource FormFieldTopPanel}" MinWidth="120" MaxWidth="180"  TextWrapping="NoWrap"  Text=""  />
+                        <Button Name="TestCommandButton" Content="TestCommand" Style="{DynamicResource Button}" MinWidth="35" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="2"  Grid.Column="0" >
+                <Border Style="{DynamicResource DataGridMainHolder}">
+                    <TextBox Name="Log" FontFamily="Consolas" FontSize="12" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" HorizontalAlignment="Stretch" >
+                        sdkjlfgh sdlkfjgh l
+                    </TextBox>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+
+</controls:ControlBase>

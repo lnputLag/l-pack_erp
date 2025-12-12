@@ -1,0 +1,198 @@
+﻿<controls:ControlBase x:Class="Client.Interfaces.Preproduction.Rig.ConsumptionCreateFrame"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Preproduction.Rig"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             d:DesignHeight="550" d:DesignWidth="800"
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource DataGridContainerHolder}" Margin="1">
+        <Grid Style="{DynamicResource FormContainer}" d:Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                <Button Name="SaveButton" Content="Сохранить" Style="{DynamicResource FButtonPrimary}"/>
+                <Button Name="CancelButton" Content="Отмена" Style="{DynamicResource FButtonCancel}"/>
+                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                <TextBlock Name="FormStatus" TextAlignment="Left" Style="{DynamicResource FStatusBar}" HorizontalAlignment="Stretch"/>
+                <TextBlock Name="FormStatusSave" TextAlignment="Left" Style="{DynamicResource FTitleBar}" HorizontalAlignment="Stretch"/>
+            </StackPanel>
+
+            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="135"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource FormVerticalPanelSpacer}"></Border>
+
+                    <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Покупатель: *" Style="{DynamicResource FormLabel}"/>
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <controls:SelectBox CompareMode="Contains" SelectedItemChanged="SelectBuyer_SelectedItemChanged" ListBoxMinHeight="250" HorizontalAlignment="Left" Width="450" Autocomplete="True" x:Name="SelectBuyer" Style="{DynamicResource CustomFormField}"/>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                <TabControl Style="{DynamicResource TabsContainer}" 
+                            SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                    <TabItem Header="Новая" Style="{DynamicResource TabItemStyle}" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="135"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Margin="0, 10, 0 , 0" Grid.Column="0" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Продавец: * " Style="{DynamicResource FormLabel}"/>
+                            </Border>
+
+                            <Border Margin="0, 10, 0 , 0" Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox x:Name="SelectVendor" Style="{DynamicResource CustomFormField}" Width="250" HorizontalAlignment="Left"/>
+                            </Border>
+
+                            <Border Margin="0, 10, 0 , 0" Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Площадка: * " Style="{DynamicResource FormLabel}"/>
+                            </Border>
+
+                            <Border Margin="0, 10, 0 , 0" Grid.Column="1" Grid.Row="1" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox x:Name="FactoryList" Style="{DynamicResource CustomFormField}" IsReadOnly="True" Width="150" HorizontalAlignment="Left" SelectedItemChanged="FactoryList_SelectedItemChanged"/>
+                            </Border>
+
+                            <Border Margin="0, 10, 0 , 0" Grid.Column="0" Grid.Row="2" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Договор: * " Style="{DynamicResource FormLabel}"/>
+                            </Border>
+
+                            <Border Margin="0, 10, 0 , 0" Grid.Column="1" Grid.Row="2" Style="{DynamicResource FormFieldContainer}">
+                                <controls:SelectBox x:Name="ContractSelectBox" Style="{DynamicResource CustomFormField}" Width="300" HorizontalAlignment="Left"/>
+                            </Border>
+
+                            <Border Margin="0, 10, 0 , 0" Grid.Column="0" Grid.Row="3" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Дата расхода: *" Style="{DynamicResource FormLabel}"/>
+                            </Border>
+
+                            <Grid Margin="0, 10, 0 , 0" Grid.Column="1" Grid.Row="3" Style="{DynamicResource FormFieldDateHolder}">
+                                <controls:DatePicker x:Name="FromDate"  MaxLength="10"   Style="{DynamicResource DateEditStyle}" Width="125" />
+                            </Grid>
+
+                            <Border Margin="0, 10, 0 , 0" Grid.Column="0" Grid.Row="4" Style="{DynamicResource FormLabelContainer}">
+                                <Label Content="Примечание: " Style="{DynamicResource FormLabel}"/>
+                            </Border>
+
+                            <Border Margin="0, 10, 0 , 0" Grid.Column="1" Grid.Row="4" Style="{DynamicResource FormFieldContainer}">
+                                <TextBox Name="NoteBox" Style="{DynamicResource FormField}" Width="450" HorizontalAlignment="Left" />
+                            </Border>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Существующая" Style="{DynamicResource TabItemStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+
+                            <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                                <StackPanel HorizontalAlignment="Stretch" Style="{DynamicResource FormHeaderButtonsPanel}">
+                                    <TextBlock Height="24" Padding="0,4,0,0">Накладные </TextBlock>
+                                    <Border Style="{DynamicResource FormButtonsPanelSpacer}" />
+
+
+                                    <Button Content="Обновить" Name="UpdatePackingListGrid" Style="{DynamicResource Button}" />
+                                    <Border Style="{DynamicResource FormButtonsPanelSpacer}" />
+                                    <Label Content="Поиск: " Style="{DynamicResource TopLabel}"/>
+                                        <TextBox Name="SearchText" Style="{DynamicResource FormField}" Width="200" HorizontalAlignment="Left"/>
+                                </StackPanel>
+                            </Grid> 
+                            
+
+                            <Grid Grid.Row="1"  Grid.Column="0" >
+                                <Border Style="{DynamicResource DataGridMainHolder}">
+                                    <controls:GridBox4 x:Name="GridBoxTab"/>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Border>
+
+
+            <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource DataGridContainerHolder}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" HorizontalAlignment="Stretch" Style="{DynamicResource FormHeaderButtonsPanel}" Margin="0, 5, 0, 5">
+                        <TextBlock Height="24" Padding="0,4,0,0">Список выбраных оснасток</TextBlock>
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}" />
+                        
+                        <Button Content="Обновить" Name="UpdateRigListGrid" Style="{DynamicResource Button}" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}" />
+                        
+                        <Button Content="Изменить цену" Name="EditPrice" Style="{DynamicResource Button}"/>
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                        
+                        <Label Content="Поиск: " Style="{DynamicResource TopLabel}"/>
+                        <TextBox Name="SearchTextForRig" Style="{DynamicResource FormField}" Width="200" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    
+                    <Border Style="{DynamicResource DataGridMainHolder}" Grid.Row="1">
+                        <controls:GridBox4 x:Name="GridBoxMain"/>
+                    </Border>
+                    
+                    <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" Name="EditPricePanel"  Visibility="Hidden" Style="{DynamicResource FormHeaderButtonsPanel}" Margin="0, 5, 0, 5">
+                        <Label Content="Цена продажи: " Style="{DynamicResource TopLabel}"/>
+                        <TextBox Name="PriceInput" Style="{DynamicResource FormField}" Width="200"/>
+                        
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"/>
+                        <Button Content="Применить" Name="AcceptNewPrice" Style="{DynamicResource Button}" />
+                        <Button Content="Отменить" Name="CancelNewPrice" Style="{DynamicResource Button}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</controls:ControlBase>

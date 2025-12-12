@@ -1,0 +1,313 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Production.SelectPostavshic"
+    xmlns:local="clr-namespace:Client.Interfaces.Production"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"    
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+
+    mc:Ignorable="d" 
+    d:DesignWidth="1024" d:DesignHeight="768" 
+  
+    Style="{DynamicResource UserControlCanvas}"   
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource TouchFrameBlock}"  >
+        <Grid Style="{DynamicResource TouchFrame}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.25*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="0.7*"></RowDefinition>
+                <RowDefinition Height="Auto" MinHeight="100"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0"  Grid.Column="0" Style="{DynamicResource TouchFrameFormPanelBlock}" BorderBrush="#bbbbbb" BorderThickness="1" >
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <Label Content="Поиск"  Name="LabelLisCar" Style="{DynamicResource TopLabel}"  FontWeight="SemiBold" FontSize="50" Width="170" Height="70" Margin="0,0,0,0"/>
+                    </Grid>
+
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <TextBox  Name="FilterAlpha" Text="" TextWrapping="NoWrap" IsReadOnly="True" Style="{DynamicResource FormFieldDigit}" TextAlignment ="Left" Margin="0,5,0,0" Padding="0,-3,0,0"  FontSize="50" FontWeight="SemiBold" HorizontalAlignment="Left" MaxLength="10" Height="57" Width="180" />
+                    </Grid>
+
+                    <Grid Grid.Row="0" Grid.Column="2">
+                        <Label Content="Выберите поставщика"  Name="LabelSelectPostavshic" Style="{DynamicResource TopLabel}" Width="550" Height="70" FontSize="50" FontWeight="SemiBold" />
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <!--Блок кнопок -->
+            <Border Grid.Row="2"  Grid.Column="0" Style="{DynamicResource TouchFromGridBlock}"  >
+                <!--<Border Width="Auto" Height="Auto" Style="{DynamicResource TouchFromGridBlock}"  >-->
+                    <Grid ShowGridLines="false"   Width="Auto" Height="220" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.3*"></RowDefinition>
+                        <RowDefinition Height="8"></RowDefinition>
+                        <RowDefinition Height="0.3*"></RowDefinition>
+                        <RowDefinition Height="8"></RowDefinition>
+                        <RowDefinition Height="0.3*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <Button Name="KeyboardButton1" Style="{DynamicResource MobileButton}" Click="KeyboardButton1_Click">
+                            А
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="2">
+                        <Button Name="KeyboardButton2" Style="{DynamicResource MobileButton}" Click="KeyboardButton2_Click">
+                            Б
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="4">
+                        <Button Name="KeyboardButton3" Style="{DynamicResource MobileButton}" Click="KeyboardButton3_Click">
+                            В
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="6">
+                        <Button Name="KeyboardButton4" Style="{DynamicResource MobileButton}" Click="KeyboardButton4_Click">
+                            Г
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="8">
+                        <Button Name="KeyboardButton5" Style="{DynamicResource MobileButton}" Click="KeyboardButton5_Click">
+                            Д
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="10">
+                        <Button Name="KeyboardButton6" Style="{DynamicResource MobileButton}" Click="KeyboardButton6_Click">
+                            Е
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="12">
+                        <Button Name="KeyboardButton7" Style="{DynamicResource MobileButton}" Click="KeyboardButton7_Click">
+                            Ж
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="14">
+                        <Button Name="KeyboardButton8" Style="{DynamicResource MobileButton}" Click="KeyboardButton8_Click">
+                            З
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="16">
+                        <Button Name="KeyboardButton9" Style="{DynamicResource MobileButton}" Click="KeyboardButton9_Click">
+                            И
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="18">
+                        <Button Name="KeyboardButton10" Style="{DynamicResource MobileButton}" Click="KeyboardButton10_Click">
+                            К
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="0">
+                        <Button Name="KeyboardButton11" Style="{DynamicResource MobileButton}" Click="KeyboardButton11_Click">
+                            Л
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="2">
+                        <Button Name="KeyboardButton12" Style="{DynamicResource MobileButton}" Click="KeyboardButton12_Click">
+                            М
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="4">
+                        <Button Name="KeyboardButton13" Style="{DynamicResource MobileButton}" Click="KeyboardButton13_Click">
+                            Н
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="6">
+                        <Button Name="KeyboardButton14" Style="{DynamicResource MobileButton}" Click="KeyboardButton14_Click">
+                            О
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="8">
+                        <Button Name="KeyboardButton15" Style="{DynamicResource MobileButton}" Click="KeyboardButton15_Click">
+                            П
+                        </Button>
+                    </Grid>
+
+                    <Grid Grid.Row="2" Grid.Column="10">
+                        <Button Name="KeyboardButton16" Style="{DynamicResource MobileButton}" Click="KeyboardButton16_Click">
+                            Р
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="12">
+                        <Button Name="KeyboardButton17" Style="{DynamicResource MobileButton}" Click="KeyboardButton17_Click">
+                            С
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="14">
+                        <Button Name="KeyboardButton18" Style="{DynamicResource MobileButton}" Click="KeyboardButton18_Click">
+                            Т
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="16">
+                        <Button Name="KeyboardButton19" Style="{DynamicResource MobileButton}" Click="KeyboardButton19_Click">
+                            У
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="18">
+                        <Button Name="KeyboardButton20" Style="{DynamicResource MobileButton}" Click="KeyboardButton20_Click">
+                            Ф
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="4" Grid.Column="0">
+                        <Button Name="KeyboardButton21" Style="{DynamicResource MobileButton}" Click="KeyboardButton21_Click">
+                            Х
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="4" Grid.Column="2">
+                        <Button Name="KeyboardButton22" Style="{DynamicResource MobileButton}" Click="KeyboardButton22_Click">
+                            Ц
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="4" Grid.Column="4">
+                        <Button Name="KeyboardButton23" Style="{DynamicResource MobileButton}" Click="KeyboardButton23_Click">
+                            Ч
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="4" Grid.Column="6">
+                        <Button Name="KeyboardButton24"  Style="{DynamicResource MobileButton}" Click="KeyboardButton24_Click">
+                            Ш
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="4" Grid.Column="8">
+                        <Button Name="KeyboardButton25"  Style="{DynamicResource MobileButton}" Click="KeyboardButton25_Click">
+                            Щ
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="4" Grid.Column="10">
+                        <Button Name="KeyboardButton26" Style="{DynamicResource MobileButton}" Click="KeyboardButton26_Click">
+                            Ы
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="4" Grid.Column="12">
+                        <Button Name="KeyboardButton27" Style="{DynamicResource MobileButton}" Click="KeyboardButton27_Click">
+                            Ь
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="4" Grid.Column="14">
+                        <Button Name="KeyboardButton28" Style="{DynamicResource MobileButton}" Click="KeyboardButton28_Click">
+                            Э
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="4" Grid.Column="16">
+                        <Button Name="KeyboardButton29" Style="{DynamicResource MobileButton}" Click="KeyboardButton29_Click">
+                            Ю
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="4" Grid.Column="18">
+                        <Button Name="KeyboardButton30" Style="{DynamicResource MobileButton}" Click="KeyboardButton30_Click">
+                            Я
+                        </Button>
+                    </Grid>
+                    
+                    <Grid Grid.Row="0" Grid.Column="20" Grid.RowSpan="5" >
+                        <Button Name="KeyboardButton31" Width="Auto" Height="auto"  Style="{DynamicResource MobileButton}" Click="KeyboardButton31_Click">
+                            <Border Style="{DynamicResource TouchKeyboardButtonIconBlock}">
+                                <Image Style="{DynamicResource TouchKeyboardButtonIconBackspace}" Name="LeftReelIcon" Margin="2,3,4,0" Width="44"  />
+                            </Border>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <!--</Border>-->
+            </Border>
+            <!--конец блока кнопок -->
+
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Border Name="ListCarContainer"  >
+                    <controls:GridBox x:Name="ListGrid" Height="Auto" VerticalAlignment="Stretch" Margin="0,0,0,0" />
+                </Border>
+            </Grid>
+
+            <Border Grid.Row="3"  Grid.Column="0" Style="{DynamicResource TouchFromGridBlock}">
+                <Grid Margin="0,2" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Style="{DynamicResource TouchFrameControlPanelLeft}" >
+                        <StackPanel Grid.Row="0" Grid.Column="0" Style="{DynamicResource TouchFrameControlPanelLeft}" Width="20">
+                        </StackPanel>
+                        <Button Name="HomeButton" Click="HomeButton_Click" Content="Начало"  Style="{DynamicResource MobileButton}" Width="150" />
+                    </StackPanel>
+
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Style="{DynamicResource TouchFrameControlPanelRight}" Width="250" >
+                            <Button Grid.Column="0" Name="PriorButton" Click="PriorButton_Click"  Content="Назад" Style="{DynamicResource MobileButton}" Height="60" Width="250" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="2" Style="{DynamicResource TouchFrameControlPanelRight}" Width="260" >
+                            <Button Grid.Column="2" Name="NextButton"   Click="NextButton_Click" Content="Далее"  Style="{DynamicResource MobileButton}"  Height="60" Width="250" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+
+        </Grid>
+    </Border>
+
+</UserControl>
+
+    

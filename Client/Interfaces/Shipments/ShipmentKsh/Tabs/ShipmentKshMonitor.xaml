@@ -1,0 +1,255 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Shipments.ShipmentKshMonitor"
+    xmlns:local="clr-namespace:Client.Interfaces.Shipments"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"    
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+
+    mc:Ignorable="d" 
+    d:DesignWidth="900" d:DesignHeight="200" 
+    Style="{DynamicResource UserControlCanvas}"    
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+
+                <!-- 0 кнопки управления -->
+                <RowDefinition Height="35"></RowDefinition>
+
+                <!-- 1 разметка -->
+                <RowDefinition Height="0"></RowDefinition>
+                <!-- 2 заголовки таблиц -->
+                <RowDefinition Height="25"></RowDefinition>
+                <!-- 3 таблицы данных -->
+                <RowDefinition Height="*" ></RowDefinition>
+                <!-- 4 скроллеры -->
+                <RowDefinition Height="20"></RowDefinition>
+
+            </Grid.RowDefinitions>
+
+            <!-- 0 кнопки управления -->
+            <!--
+            <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <DockPanel Style="{DynamicResource DocTop}">
+                    <StackPanel Style="{DynamicResource StackTop}">
+
+                        <Label Content="Дата:"  Style="{DynamicResource TopLabel}"/>
+                        <Grid Style="{DynamicResource FormFieldDateHolder}">
+                            <TextBox Name="TodayDatePicker" Text="{Binding Path=TodayDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MaxLength="10" KeyUp="KeyUpHandler" DataObject.Pasting="PastingHandler" Style="{DynamicResource FormFieldDate}" IsReadOnly="True" />
+                            <DatePicker  x:Name="DeadlineDatePicker" SelectedDate="{Binding Path=Text, Mode=OneWayToSource, ElementName=TodayDatePicker, Converter={StaticResource DateDate} }"  Style="{DynamicResource FormFieldDP}" >
+                            </DatePicker>
+                        </Grid>
+
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Button Name="RefreshButton"    Content="Обновить"  Command="{Binding ListCommand}"   CommandParameter="Refresh" Style="{DynamicResource Button}"   IsEnabled="{Binding Path=ActionsEnabled[Refresh]}"  Visibility="{Binding Path=ActionsVisible[Refresh]}"   />
+
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <CheckBox x:Name="ShowAllCheckbox" IsChecked="{Binding ShowAll}" Content="Все терминалы"        Style="{DynamicResource CheckBoxTopPanel}"  />
+
+                    </StackPanel>
+                </DockPanel>
+            </Grid>
+            -->
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}" >
+                <Border >
+                    <Grid >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="11.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" >
+                            <Label Content="Дата:"  Style="{DynamicResource TopLabel}"/>
+                            <Grid Style="{DynamicResource FormFieldDateHolder}">
+                                <controls:DatePicker x:Name="TodayDate" Style="{DynamicResource DateEditStyle}" >
+                                </controls:DatePicker>
+                            </Grid>
+                            <Button Name="ResreshButton"    Content="Показать"  Click="ResreshButton_Click" Style="{DynamicResource Button}"  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <controls:SelectBox  x:Name="Terminals" SelectedItemChanged="Terminals_SelectedItemChanged" Style="{DynamicResource CustomFormField}" ListBoxMinHeight="110" Width="120" Autocomplete="False" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                            <Button Name="HelpButton"  Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click" Margin="0" />
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- 1 разметка -->
+            <Grid Grid.Row="1" Grid.Column="0" >
+
+                <ScrollViewer Style="{DynamicResource SHMonContainerVScroll}" VerticalScrollBarVisibility="Visible" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="0" />
+                            <ColumnDefinition Width="1*" />
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Grid.Column="0"  x:Name="Column1">
+                        </Border>
+
+                        <Border Grid.Row="0" Grid.Column="1" Style="{DynamicResource SHMonContainerSpacer}">
+                        </Border>
+
+                        <Border Grid.Row="0" Grid.Column="2"  x:Name="Column2" >
+                        </Border>
+
+                    </Grid>
+                </ScrollViewer>
+
+            </Grid>
+
+            <!-- 2 заголовки таблиц -->
+            <Grid Grid.Row="2" Grid.Column="0">
+
+                <ScrollViewer Style="{DynamicResource SHMonContainerVScroll}" VerticalScrollBarVisibility="Visible" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="0" />
+                            <ColumnDefinition Width="1*" />
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource SHMonContainerHeader}" BorderThickness="1,1,0,1">
+                            <ScrollViewer  Style="{DynamicResource SHMonContainerHScroll}"  >
+                                <Grid Style="{DynamicResource SHMonContainer}">
+                                    <Label Content="Терминал" Style="{DynamicResource SHMonContainerHeaderLabel}"></Label>
+                                </Grid>
+                            </ScrollViewer>
+                        </Border>
+
+                        <Border Grid.Row="0" Grid.Column="1" Style="{DynamicResource SHMonContainerSpacer}">
+                        </Border>
+
+                        <!-- временные метки -->
+                        <Border Grid.Row="0" Grid.Column="2" Style="{DynamicResource SHMonContainerHeader}"  >
+
+                            <ScrollViewer Style="{DynamicResource SHMonContainerHScroll}"   x:Name="MonitorTimelineContainerScroll" Width="{Binding Path=ActualWidth, ElementName=Column2}" >
+                                <Grid x:Name="MonitorTimelineContainer"  Style="{DynamicResource SHMonContainer}" >
+                                </Grid>
+                            </ScrollViewer>
+
+                        </Border>
+
+                    </Grid>
+                </ScrollViewer>
+
+            </Grid>
+
+            <!-- 3 таблицы данных   -->
+            <Grid Grid.Row="3" Grid.Column="0">
+
+                <ScrollViewer Style="{DynamicResource SHMonContainerVScroll}" VerticalScrollBarVisibility="Visible" x:Name="ScrollViewer1" Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UIElement}}">
+                    <Grid x:Name="MonitorContainer" VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="0" />
+                            <ColumnDefinition Width="64*" />
+                            <ColumnDefinition Width="343*"/>
+                            <ColumnDefinition Width="407*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"  />
+                        </Grid.RowDefinitions>
+
+                        <!-- названия терминалов -->
+                        <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource SHMonContainerBody}" Margin="0,0,0,400" BorderThickness="0,0,0,1">
+                            <ScrollViewer   Style="{DynamicResource SHMonContainerHScroll}"  >
+                                <Grid x:Name="MonitorHeadersContainer" Style="{DynamicResource SHMonContainer}" VerticalAlignment="Top">
+                                </Grid>
+                            </ScrollViewer>
+                        </Border>
+
+                        <Border Grid.Row="0" Grid.Column="1" Style="{DynamicResource SHMonContainerSpacer}" Margin="0,0,64,400" Grid.ColumnSpan="2"/>
+
+                        <!-- сегменты отгрузок -->
+                        <Border Grid.Row="0" Grid.Column="2" Style="{DynamicResource SHMonContainerBody}" Grid.ColumnSpan="3" Margin="0,0,0,400">
+                            <ScrollViewer  x:Name="MonitorDataContainerScroll"  Style="{DynamicResource SHMonContainerHScroll}" Width="{Binding Path=ActualWidth, ElementName=Column2}" >
+                                <Grid  x:Name="MonitorDataContainer" Style="{DynamicResource SHMonContainer}" VerticalAlignment="Top" >
+                                </Grid>
+                            </ScrollViewer>
+                        </Border>
+
+                    </Grid>
+                </ScrollViewer>
+
+            </Grid>
+
+            <!-- 4 скроллеры   -->
+            <Grid Grid.Row="4" Grid.Column="0">
+
+                <ScrollViewer Style="{DynamicResource SHMonContainerVScroll}" VerticalScrollBarVisibility="Visible" >
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="0" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"  />
+                            <RowDefinition Height="*"   />
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Grid.Column="2" Style="{DynamicResource SHMonContainerFooter}" >
+                            <ScrollViewer  ScrollChanged="MonitorScrollChanged" HorizontalScrollBarVisibility="Visible"  x:Name="MonitorDataContainerAreaScroll" Style="{DynamicResource SHMonContainerHScroll}" Width="{Binding Path=ActualWidth, ElementName=Column2}" >
+                                <Grid Width="{Binding Path=ActualWidth, ElementName=MonitorTimelineContainer}">
+                                </Grid>
+                            </ScrollViewer>
+                        </Border>
+
+                    </Grid>
+                </ScrollViewer>
+
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="2" Name="Splash" Visibility="Collapsed" Panel.ZIndex="20">
+                <Border Background="#55ffffff">
+                </Border>
+            </Grid>
+
+
+        </Grid>
+    </Border>
+
+</UserControl>

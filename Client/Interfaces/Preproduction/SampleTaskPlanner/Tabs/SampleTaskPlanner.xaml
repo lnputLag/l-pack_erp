@@ -1,0 +1,204 @@
+﻿<controls:ControlBase x:Class="Client.Interfaces.Preproduction.SampleTaskPlanner"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="5"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="11.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="MainToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+                            <TextBlock Height="24" Padding="0,4,0,0">Образцы</TextBlock>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="RefreshButton"    Content="Обновить"  Style="{DynamicResource Button}" Click="RefreshButton_Click"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="EditButton" Tag="access_mode_full_access"   Content="Изменить"  Style="{DynamicResource Button}" Click="EditButton_Click"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="ToPlotter1Button"  Tag="access_mode_full_access"  Content="На плоттер"  Style="{DynamicResource Button}" Click="ToPlotter_Click"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Button Name="RevisionButton"  Tag="access_mode_full_access"  Content="В доработку"  Style="{DynamicResource Button}" Click="Revision_Click"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="SearchText" Text=""  />
+
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                            <CheckBox Content="Ожидание сырья"  Click="WaitingSource_Click"  Name="WaitingSource" Style="{DynamicResource CheckBoxTopPanel}"  />
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                            <Button Name="HelpButton" Click="HelpButton_Click" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}"  />
+                        </StackPanel>
+                    </Grid>
+
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="0" >
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="SampleGrid" />
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="3" Grid.Column="0">
+                <TabControl BorderThickness="0,1,0,0" Margin="0" Padding="0" Name="PlotterTabs">
+                    <TabItem Header="Плоттер 1" Name="Plotter1Tab"  Style="{DynamicResource TabItemStyle}" >
+                        <Border Style="{DynamicResource DataGridMainHolder}" >
+                            <Grid Style="{DynamicResource DataGridContainer}" Margin="0">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="17*"/>
+                                    <ColumnDefinition Width="63*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+
+                                <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource GridControlPanel}" Grid.ColumnSpan="2">
+                                    <Border>
+                                        <StackPanel Name="Plotter1Toolbar" Style="{DynamicResource FormHeaderButtonsPanel}" Orientation="Horizontal">
+                                            <Button Name="Up1Button" Tag="access_mode_full_access"  Style="{DynamicResource ButtonGlyph}" Click="Up1Button_Click">
+                                                <Image Style="{DynamicResource UpImage}"  />
+                                            </Button>
+                                            <Button Name="Down1Button"  Tag="access_mode_full_access"  Style="{DynamicResource ButtonGlyph}"  Click="Down1Button_Click" >
+                                                <Image Style="{DynamicResource DownImage}"  />
+                                            </Button>
+                                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                                            <Button Name="Delete1Button"    Style="{DynamicResource ButtonGlyph}" Click="Delete1Button_Click"   >
+                                                <Image Style="{DynamicResource DeleteImage}"  />
+                                            </Button>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+
+                                <Grid Grid.Row="1"  Grid.Column="0" Grid.ColumnSpan="2" >
+                                    <Border Style="{DynamicResource DataGridMainHolder}" >
+                                        <controls:GridBox x:Name="Plotter1Grid" />
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </TabItem>
+
+                    <TabItem Header="Плоттер 2" Name="Plotter2Tab" Style="{DynamicResource TabItemStyle}">
+                        <Border Style="{DynamicResource DataGridMainHolder}" >
+                            <Grid Style="{DynamicResource DataGridContainer}" Margin="0">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+
+                                <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                                    <Border>
+                                        <StackPanel Name="Plotter2Toolbar" Style="{DynamicResource FormHeaderButtonsPanel}" Orientation="Horizontal">
+                                            <Button Name="Up2Button" Tag="access_mode_full_access"  Style="{DynamicResource ButtonGlyph}" Click="Up2Button_Click">
+                                                <Image Style="{DynamicResource UpImage}"  />
+                                            </Button>
+                                            <Button Name="Down2Button"  Tag="access_mode_full_access"  Style="{DynamicResource ButtonGlyph}"  Click="Down2Button_Click" >
+                                                <Image Style="{DynamicResource DownImage}"  />
+                                            </Button>
+                                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                                            <Button Name="Delete2Button" Tag="access_mode_full_access"   Style="{DynamicResource ButtonGlyph}" Click="Delete2Button_Click"   >
+                                                <Image Style="{DynamicResource DeleteImage}"  />
+                                            </Button>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+
+                                <Grid Grid.Row="1"  Grid.Column="0" >
+                                    <Border Style="{DynamicResource DataGridMainHolder}" >
+                                        <controls:GridBox x:Name="Plotter2Grid" />
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </TabItem>
+
+                    <TabItem Header="Плоттер 3" Name="Plotter3Tab" Style="{DynamicResource TabItemStyle}">
+                        <Border Style="{DynamicResource DataGridMainHolder}" >
+                            <Grid Style="{DynamicResource DataGridContainer}" Margin="0">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+
+                                <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                                    <Border>
+                                        <StackPanel Name="Plotter3Toolbar" Style="{DynamicResource FormHeaderButtonsPanel}" Orientation="Horizontal">
+                                            <Button Name="Up3Button" Tag="access_mode_full_access"  Style="{DynamicResource ButtonGlyph}" Click="Up3Button_Click">
+                                                <Image Style="{DynamicResource UpImage}"  />
+                                            </Button>
+                                            <Button Name="Down3Button"  Tag="access_mode_full_access"  Style="{DynamicResource ButtonGlyph}"  Click="Down3Button_Click" >
+                                                <Image Style="{DynamicResource DownImage}"  />
+                                            </Button>
+                                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                                            <Button Name="Delete3Button"  Tag="access_mode_full_access"  Style="{DynamicResource ButtonGlyph}" Click="Delete3Button_Click"   >
+                                                <Image Style="{DynamicResource DeleteImage}"  />
+                                            </Button>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+
+                                <Grid Grid.Row="1"  Grid.Column="0" >
+                                    <Border Style="{DynamicResource DataGridMainHolder}" >
+                                        <controls:GridBox x:Name="Plotter3Grid" />
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+
+
+        </Grid>
+    </Border>
+</controls:ControlBase>

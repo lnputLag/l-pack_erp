@@ -1,0 +1,107 @@
+﻿<controls:ControlBase 
+                x:Class="Client.Interfaces.Stock.WaterhouseState"
+                xmlns:local="clr-namespace:Client.Interfaces.Stock"
+
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                xmlns:controls="clr-namespace:Client.Interfaces.Main"
+                mc:Ignorable="d" 
+                d:DesignWidth="1280"
+                d:DesignHeight="768" 
+             Style="{DynamicResource UserControlCanvas}" >
+    
+    
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition MinWidth="220" Width="220" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Name="StorageGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Width="Auto" >
+                        <Button Name="RefreshStorageButton" Content="Обновить"  Style="{DynamicResource Button}" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Button Name="AddStorageButton" Content="Добавить" Style="{DynamicResource Button}" />
+                        <Button Name="EditStorageButton" Content="Изменить"  Style="{DynamicResource Button}" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                        <TextBox Style="{DynamicResource FormFieldTopPanel}" MinWidth="80" MaxWidth="150" TextWrapping="NoWrap" Name="StorageSearchBox" Text="" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Label Content="Склад:" Style="{DynamicResource TopLabel}" />
+                        <controls:SelectBox x:Name="ZoneFilter" Style="{DynamicResource CustomFormField}" Width="250" ListBoxMinHeight="135" HorizontalAlignment="Stretch" SelectedItemChanged="StorageFilter_SelectedItemChanged" />
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                        <CheckBox Name="SelectAllStorageCheckBox" Content="Выделить все" Style="{DynamicResource CheckBoxTopPanel}" Click="SelectAllStorageCheckBox_Click"/>
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Button Name="PrintButton" Content="Печать этикеток" Style="{DynamicResource Button}" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Button Name="ExportToExcelButton" Content="В Excel" Style="{DynamicResource Button}" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="0" Grid.Column="2" Style="{DynamicResource GridControlPanel}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Name="ItemGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" >
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                    <Label Content="ТМЦ" Style="{DynamicResource TopLabel}" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right">
+                    <Button Name="SettingsButton"    ToolTip="Настройка"   Style="{DynamicResource ButtonGlyph}" Click="SettingsButton_Click"  Margin="0,0,5,0"  >
+                        <Image Style="{DynamicResource SettingsImage}" />
+                        <Button.ContextMenu>
+                            <ContextMenu Name="BurgerMenu">
+                                <MenuItem Header="Настройка печати" Name="BurgerPrintSettings" Click="BurgerPrintSettings_Click"  Background="#ffffff" />
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
+                    
+                    <Button Name="HelpButton"  Width="24" MinWidth="24"  Content="?" Style="{DynamicResource Button}" Margin="0"/>
+                </StackPanel>
+            </Grid>
+
+            <GridSplitter Grid.Column="1" Grid.Row="2" Width="5" HorizontalAlignment="Stretch" />
+            
+            <Grid Grid.Row="2" Grid.Column="0" >
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="StorageGrid" />
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="2"  Grid.Column="2" >
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="ItemGrid" />
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</controls:ControlBase>

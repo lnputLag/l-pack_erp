@@ -1,0 +1,182 @@
+﻿<controls:ControlBase 
+    x:Class="Client.Interfaces.Sources.ProductionSchemeForm"
+    xmlns:local="clr-namespace:Client.Interfaces.Sources"
+    xmlns:lib="clr-namespace:Client.Common"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"             
+    
+    mc:Ignorable="d"
+    
+    d:DesignHeight="800" d:DesignWidth="1200"
+    Style="{DynamicResource UserControlCanvas}"    
+    >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Style="{DynamicResource DataGridContainer}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Style="{DynamicResource FormControlPanel}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Column="0" Name="FormToolbar" Style="{DynamicResource FormHeaderButtonsPanel}">
+                <Button Name="SaveButton" Content="Сохранить"  Tag="Save" Style="{DynamicResource FButtonPrimary}"/>
+                <Button Name="CancelButton" Content="Отмена" Tag="Close" Style="{DynamicResource Button}"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                <Button Name="HelpButton" ToolTip="Документация" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButtonClick"  Margin="0,0,0,0" />
+            </StackPanel>
+        </Grid>
+
+        <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormVerticalPanelSpacer}"></Border>
+
+        <Border Grid.Row="2" Style="{DynamicResource DataGridMainHolder}">
+            <Grid Style="{DynamicResource DataGridContainer}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Name="ProductionSchemeGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Margin="0,5,0,5">
+                    <Label Content="Схема производства:  "    Style="{DynamicResource FormLabel}"  />
+                    <controls:SelectBox  x:Name="TypeScheme" Style="{DynamicResource CustomFormField}" ListBoxMinHeight="150" Width="270" Autocomplete="False" HorizontalAlignment="Left" SelectedItemChanged="TypeScheme_SelectedItemChanged"/>
+                </StackPanel>
+                <Border Grid.Row="1" Style="{DynamicResource DataGridMainHolder}">
+                    <controls:GridBox4 x:Name="ProductionSchemeGrid" />
+                </Border>
+                <Grid Grid.Row="2" Margin="0,5,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="90"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Column="0">
+                        <Label Content="Изделие:  "  Style="{DynamicResource FormLabel}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </Border>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Column="0" Grid.ColumnSpan="2">
+                            <TextBox  Name="GoodsName" Style="{DynamicResource FormField}" TextWrapping="NoWrap"  HorizontalAlignment="Stretch" IsReadOnly="True" />
+                        </Border>
+                        <Border Grid.Column="2">
+                            <Button Name="GoodsSelectButton"  ToolTip="Добавить"   Style="{DynamicResource ButtonGlyph}" Margin="0,0,0,0"  >
+                                <Image Style="{DynamicResource SelectImage}"/>
+                            </Button>
+                        </Border>
+                    </Grid>
+                </Grid>
+                <Border Grid.Row="3" Style="{DynamicResource DataGridMainHolder}" Margin="0,5,0,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="130"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+
+                        <StackPanel Grid.Row="0"  Grid.Column="0"  Name="SetsToolbar" ></StackPanel>
+
+                        <Border Grid.Row="1"  Grid.Column="0" Style="{DynamicResource FormFieldContainer}">
+                            <Label Content="Количество после передела:  "  Style="{DynamicResource FormLabel}"  />
+                        </Border>
+                        <Border Grid.Row="2"  Grid.Column="0" Style="{DynamicResource FormFieldContainer}">
+                            <Label Content="Человек:  "  Style="{DynamicResource FormLabel}"  />
+                        </Border>
+                        <Border Grid.Row="3"  Grid.Column="0" Style="{DynamicResource FormFieldContainer}">
+                            <Label Content="Скорость:  "  Style="{DynamicResource FormLabel}"  />
+                        </Border>
+                        <Border Grid.Row="1"  Grid.Column="2" Style="{DynamicResource FormFieldContainer}">
+                            <Label Content="Тип схемы:  "/>
+                        </Border>
+
+
+                        <Border Grid.Row="1"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox  Name="QtyNorm" MinWidth="80" MaxLength="10" Text="0" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}" KeyUp="QtyNorm_KeyUp"/>
+                        </Border>
+                        <Border Grid.Row="2"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox  Name="People" MinWidth="80" MaxLength="10" Text="0" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}" KeyUp="People_KeyUp" Margin="0,0,10,0"/>
+                        </Border>
+                        <Border Grid.Row="3"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox  Name="Speed" MinWidth="80" MaxLength="10" Text="0" HorizontalAlignment="Left" TextWrapping="NoWrap" Style="{DynamicResource FormField}" KeyUp="Speed_KeyUp" Margin="0,0,10,0"/>
+                        </Border>
+                        <Border Grid.Row="3"  Grid.Column="2" Style="{DynamicResource FormFieldContainer}" Visibility="Hidden">
+                            <CheckBox  Name="PrimaryScheme" Style="{DynamicResource CheckBox}"  Content="Главная схема" IsEnabled="True" Click="PrimaryScheme_Click"/>
+                        </Border>
+                        <Border Grid.Row="2"  Grid.Column="2" Style="{DynamicResource FormFieldContainer}">
+                            <CheckBox  Name="SecondaryScheme" Style="{DynamicResource CheckBox}"  Content="Второстепенная схема" IsEnabled="True" Click="SecondaryScheme_Click"/>
+                        </Border>
+
+                    </Grid>
+                </Border>
+                <Border Grid.Row="4" Style="{DynamicResource DataGridMainHolder}" Margin="0,5,0,5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Column="0">
+                            <Label Content="Примечание:  " Style="{DynamicResource FormLabel}"  VerticalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                            <TextBox  Name="SchemeNoteTextBox" MinWidth="505" HorizontalAlignment="Left" Style="{DynamicResource FormField}" KeyUp="SchemeNoteTextBox_KeyUp"/>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+
+
+
+    </Grid>
+
+
+</controls:ControlBase>

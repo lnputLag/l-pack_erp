@@ -1,0 +1,136 @@
+﻿<controls:ControlBase x:Class="Client.Interfaces.Economics.MoldedContainer.MoldedContainerSpecificationTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Economics.MoldedContainer"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1200"
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid Style="{DynamicResource DataGridContainer}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="240"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!-- Покупатели и договоры -->
+        <Border Grid.Row="0" Style="{DynamicResource DataGridMainHolder}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Name="BuyerToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Margin="5">
+                        <Button Name="RefreshButton"     Content="Обновить"    Style="{DynamicResource Button}" />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                        <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="120" TextWrapping="NoWrap" Name="BuyerSearchText" Text=""/>
+                        <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                   </StackPanel>
+
+                <Border Grid.Row="1"  Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="BuyerGrid" />
+                </Border>
+
+
+                <Grid Grid.Row="0"  Grid.Column="2" Style="{DynamicResource GridControlPanel}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition Width="0.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Name="ContractToolbar" Style="{DynamicResource FormHeaderButtonsPanel}">
+                        <Button Name="CreateContractButton"      Content="Добавить"     Style="{DynamicResource Button}" />
+                        <Button Name="EditContractButton"        Content="Изменить"    Style="{DynamicResource Button}" />
+                        <Button Name="DeleteContractButton"      Content="Удалить"     Style="{DynamicResource Button}" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Right">
+                        <Button Name="HelpButton"  Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" />
+                    </StackPanel>
+                </Grid>
+
+                <Border Grid.Row="1"  Grid.Column="2" Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="ContractGrid" />
+                </Border>
+
+            </Grid>
+        </Border>
+
+        <!-- Спецификации -->
+        <Border Grid.Row="1" Style="{DynamicResource DataGridMainHolder}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Name="SpecificationToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Margin="5">
+                    <Button Name="CreateSpecificationButton"      Content="Добавить"  Style="{DynamicResource Button}" />
+                    <Button Name="EditSpecificationButton"        Content="Изменить"    Style="{DynamicResource Button}" />
+                    <Button Name="DeleteSpecificationButton"      Content="Удалить"     Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                    <Button Name="PrintSpecificationButton"      Content="Печать"     Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                    <CheckBox Name="ShowInvisible" Content="Скрытые" Style="{DynamicResource CheckBoxTopPanel}" Click="ShowInvisible_Click"/>
+                    <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                </StackPanel>
+
+                <Border Grid.Row="1"  Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="SpecificationGrid" />
+                </Border>
+
+            </Grid>
+        </Border>
+
+        <!-- Позиции -->
+        <Border Grid.Row="2" Style="{DynamicResource DataGridMainHolder}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Name="PositionToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Margin="5">
+                    <Button Name="CreatePositionButton" Content="Добавить"  Style="{DynamicResource Button}" />
+                    <Button Name="EditPositionButton"   Content="Изменить"  Style="{DynamicResource Button}" />
+                    <Button Name="DeletePositionButton" Content="Удалить"   Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+
+                    <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                </StackPanel>
+
+                <Border Grid.Row="1"  Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="PositionGrid" />
+                </Border>
+            </Grid>
+
+        </Border>
+
+    </Grid>
+</controls:ControlBase>

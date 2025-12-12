@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="Client.Interfaces.Preproduction.Rig.RigClicheListUnpaid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Preproduction.Rig"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1000"
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Grid Style="{DynamicResource DataGridContainer}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="11.5*"/>
+                        <ColumnDefinition Width="0.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                        <Button Name="RefreshButton"    Content="Обновить"  Style="{DynamicResource Button}" Click="RefreshButton_Click"  />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Button Name="MarkPaymentButton"    Content="Отметить оплату"  Style="{DynamicResource Button}" Click="MarkPaymentButton_Click"  />
+                        <Button Name="AllowOrderButton"    Content="Разрешить заказ"  Style="{DynamicResource Button}" Click="AllowOrderButton_Click"  />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <Button Name="ShowTechMapButton"    Content="Показать ТК"  Style="{DynamicResource Button}" Click="ShowTechMapButton_Click"  />
+                        <Button Name="CopyToClipboardButton"    Content="Копировать в БО"  Style="{DynamicResource Button}" Click="CopyToClipboardButton_Click"  />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                        <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="SearchText" Text=""  />
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                        <Label Content="Менеджер:"  Style="{DynamicResource TopLabel}" />
+                        <controls:SelectBox x:Name="ManagerName" Style="{DynamicResource CustomFormField}" Width="140" ListBoxMinHeight="220" Autocomplete="False" SelectedItemChanged="ManagerName_SelectedItemChanged" />
+                        <TextBox Name="SelectedManagerCount" Text="Выбрано 2" Style="{DynamicResource FormFieldTopPanel}" Width="140" IsReadOnly="True" Visibility="Collapsed" />
+                        <Button Name="SelectManagerButton"   ToolTip="Выбрать" Click="SelectManagerButton_Click"  Style="{DynamicResource ButtonGlyph}"  Margin="-1,0,0,0"  >
+                            <Image Style="{DynamicResource SelectImage}" />
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                        <Button Name="HelpButton" Click="HelpButton_Click" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}"  />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="1"  Grid.Column="0" >
+            <Border Style="{DynamicResource DataGridMainHolder}" >
+                <controls:GridBox x:Name="Grid" />
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

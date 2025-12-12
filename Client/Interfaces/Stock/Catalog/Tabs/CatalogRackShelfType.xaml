@@ -1,0 +1,60 @@
+﻿<controls:ControlBase 
+                x:Class="Client.Interfaces.Stock.CatalogRackShelfType"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                xmlns:local="clr-namespace:Client.Interfaces.Stock"
+                xmlns:controls="clr-namespace:Client.Interfaces.Main"
+                mc:Ignorable="d" 
+                d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Name="RackShelfTypeGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                    <Button Name="RefreshRackShelfTypeButton" Content="Обновить"  Style="{DynamicResource Button}"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <Button Name="AddRackShelfTypeButton" Content="Добавить"  Style="{DynamicResource Button}"/>
+                    <Button Name="EditRackShelfTypeButton" Content="Изменить"  Style="{DynamicResource Button}"/>
+                    <Button Name="DeleteRackShelfTypeButton" Content="Удалить"  Style="{DynamicResource Button}"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                    <TextBox Style="{DynamicResource FormFieldTopPanel}" MinWidth="80" MaxWidth="150"  TextWrapping="NoWrap" Name="RackShelfTypeSearchBox" Text=""  />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                </StackPanel>
+            </Grid>
+
+            <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource DataGridMainHolder}">
+                <controls:GridBox4 x:Name="RackShelfTypeGrid"  />
+            </Border>
+
+        </Grid>
+    </Border>
+</controls:ControlBase>

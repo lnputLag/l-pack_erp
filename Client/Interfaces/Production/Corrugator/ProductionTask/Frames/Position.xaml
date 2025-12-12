@@ -1,0 +1,106 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Production.Position"
+    xmlns:local="clr-namespace:Client.Interfaces.Shipments"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"    
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+
+    mc:Ignorable="d" 
+    d:DesignWidth="900" d:DesignHeight="600" 
+    Style="{DynamicResource UserControlCanvas}"            
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>                
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border >
+                    <Grid >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="Toolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+                            <Button Name="SaveButton"   Click="SaveButton_Click" Content="Сохранить"  Style="{DynamicResource FButtonPrimary}"    />
+                            <Button Name="CloseButton"    Content="Закрыть"  Style="{DynamicResource Button}" Click="CloseButton_Click"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right"  >
+                            <!--<Button Name="HelpButton"  Content="F1"  ToolTip="Справка" Style="{DynamicResource Button}" Click="HelpButton_Click" />-->
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1"  Grid.Column="0" >
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition MinHeight="200" MaxHeight="600"/>
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" >
+                    <TextBlock Height="24" Padding="0,4,0,0">Схемы производства</TextBlock>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="Grid" MinHeight="200" />
+                </Border>
+
+                <Border Grid.Row="0" Grid.Column="2" Style="{DynamicResource DataGridMainHolder}" >
+                    <TextBlock Height="24" Padding="0,4,0,0">Заявки и отгрузки (неотгруженные)</TextBlock>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="2" Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="Grid2" />
+                </Border>
+
+                <Border Grid.Row="3" Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" >
+                    <TextBlock Height="24" Padding="0,4,0,0">Производственные задания на переработку</TextBlock>
+                </Border>
+                <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="Grid3"  MinHeight="200"/>
+                </Border>
+            </Grid>
+
+        </Grid>
+    </Border>
+
+</UserControl>

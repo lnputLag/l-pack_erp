@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="Client.Interfaces.Preproduction.SampleTaskStopReason"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             Height="216" Width="520"
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}" >
+        <Grid Style="{DynamicResource FromGrid}" Width="520">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Border  Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                <CheckBox Name="RawAbsentCheckBox" Content="Закончилось сырье" Style="{DynamicResource CustomFormField}" />
+            </Border>
+
+            <Border  Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                <CheckBox Name="DrawingIncorrectCheckBox" Content="Чертеж не соответствует заявке" Style="{DynamicResource CustomFormField}" />
+            </Border>
+
+            <Border  Grid.Row="2" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                <CheckBox Name="ProfileIncorrectCheckBox" Content="Профиль не соответствует заявке" Style="{DynamicResource CustomFormField}" />
+            </Border>
+
+            <Border  Grid.Row="3" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                <Label Content="Другое (указать причину невозможности изготовления):" Style="{DynamicResource FormLabel}" HorizontalAlignment="Left" Margin="22,0,0,0" />
+            </Border>
+            <Border Grid.Row="4" Grid.Column="0" Style="{DynamicResource FormFieldContainer}">
+                <TextBox Name="StopReasonText" Style="{DynamicResource CustomFormField}" Margin="3,0,3,0" Height="52" />
+            </Border>
+
+            <Border Grid.Row="5" Grid.Column="0" Style="{DynamicResource FormVerticalPanelSpacer}"></Border>
+
+            <Grid Grid.Row="6"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Right"  >
+                            <TextBlock  Name="FormStatus" Text="Не все поля заполнены верно" TextAlignment="Left" Style="{DynamicResource FStatusBar}" HorizontalAlignment="Stretch" />
+
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Button Name="SaveButton"   Click="SaveButton_Click" Content="ОК"  Style="{DynamicResource FButtonPrimary}"    />
+                            <Button Name="CancelButton" Click="CancelButton_Click"  Content="Отмена" Style="{DynamicResource FButtonCancel}"    />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+        </Grid>
+    </Border>
+</UserControl>

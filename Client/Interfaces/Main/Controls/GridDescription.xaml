@@ -1,0 +1,293 @@
+﻿<Window 
+    x:Class="Client.Interfaces.Main.GridDescription"
+    xmlns:local="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
+    
+    mc:Ignorable="d"
+    VerticalAlignment="Center"
+    HorizontalAlignment="Center"
+    Title="" 
+    Width="800" MaxWidth="1280"
+    Height="600" MaxHeight="1000" 
+    ResizeMode="CanResize"
+    Topmost="False"
+    Style="{DynamicResource WindowCanvas}"     
+>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Style="{DynamicResource DataGridContainer}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" >
+                        <Button Name="CloseButton" Tag="close"  Content="Закрыть"  Style="{DynamicResource Button}" Click="ButtonOnClick"   />
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Right" >
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="1"  Grid.Column="0">
+
+            <Grid ShowGridLines="false" Grid.Row="0"  Grid.Column="0" Style="{DynamicResource FromGrid}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.2*"/>
+                    <ColumnDefinition Width="10.8*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                    <Label Content="Описание: " Style="{DynamicResource FormLabel}" />
+                </Border>
+                <Border Grid.Row="0"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                    <TextBox  Name="Description"  MaxLength="512" TextWrapping="WrapWithOverflow" Style="{DynamicResource FormField}"  
+                                  HorizontalAlignment="Stretch" Height="45" >
+                        Список сообщений электронной почты для рассылки
+                    </TextBox>
+                </Border>
+                
+                <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                    <Label Content="Колонки: " Style="{DynamicResource FormLabel}" />
+                </Border>
+                <Border Grid.Row="1"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="10*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0"  Grid.Column="0" Style="{DynamicResource FormFieldContainer}" >
+                            <StackPanel Orientation="Vertical" Name="ColumnDefinitionContainer" Margin="0,4,0,0">
+
+                                <Border Height="22" HorizontalAlignment="Stretch">
+                                    <TextBlock Foreground="#ff0078D7" TextDecorations="Underline" Padding="5,3,0,0">
+                                        Название
+                                    </TextBlock>
+                                </Border>
+                                <Border Height="22" HorizontalAlignment="Stretch" Background="#ff0078D7">
+                                    <TextBlock Foreground="#ffffffff" TextDecorations="" Padding="5,3,0,0">
+                                        Дата начала
+                                    </TextBlock>
+                                </Border>
+                                <Border Height="22" HorizontalAlignment="Stretch">
+                                    <TextBlock Foreground="#ff0078D7" TextDecorations="Underline" Padding="5,3,0,0">
+                                        Дата окончания
+                                    </TextBlock>
+                                </Border>
+
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Row="0"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}" BorderBrush="#ff0078D7" BorderThickness="1" MinHeight="250">
+
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,5,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3.2*"/>
+                                    <ColumnDefinition Width="8.8*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                
+                                <Border Grid.Row="0"  Grid.Column="0" Style="{DynamicResource FormFieldContainer}" >
+                                    <Label Content="Описание:  " Style="{DynamicResource FormLabel}" />
+                                </Border>
+                                <Border Grid.Row="0"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}" >
+                                    <TextBlock Name="ColumnTitle"  HorizontalAlignment="Stretch" TextWrapping="Wrap"  Padding="0,0,0,0" MinHeight="20">
+                                        Интервал между постановкой в очередь и отправкой
+                                    </TextBlock>
+                                </Border>
+
+                                <Border Grid.Row="2" Name="StylersTitle" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource FormFieldContainer}" >
+                                    <Label Content="Цветовая маркировка  " Style="{DynamicResource FormLabel}" HorizontalAlignment="Left" />
+                                </Border>
+
+                                <Border Grid.Row="3" Name="StylerBackgroundLabel" Grid.Column="0" Style="{DynamicResource FormFieldContainer}" >
+                                    <Label Content="Цвет фона:  " Style="{DynamicResource FormLabel}" />
+                                </Border>
+                                <Border Grid.Row="3" Name="StylerBackgroundContent" Grid.Column="1" Style="{DynamicResource FormFieldContainer}" >
+
+                                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="StylerBackgroundGrid">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="10"/>
+                                            <ColumnDefinition Width="9*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <Border Grid.Row="0"  Grid.Column="0" Style="{DynamicResource FormFieldContainer}" >
+                                            <Border Background="#A9D4FF" Height="20" HorizontalAlignment="Stretch">
+                                                <TextBlock Padding="5,1,5,1">quasi architecto</TextBlock>                                                
+                                            </Border>
+                                        </Border>
+                                        <Border Grid.Row="0"  Grid.Column="2" Style="{DynamicResource FormFieldContainer}" >
+                                            <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap"  Padding="0,3,0,0">
+                                                задание выполнено
+                                            </TextBlock>
+                                        </Border>
+                                        
+                                        <Border Grid.Row="1"  Grid.Column="0" Style="{DynamicResource FormFieldContainer}" >
+                                            <Border Background="#ffC5FBC5" Height="20" HorizontalAlignment="Stretch">
+                                                <TextBlock Padding="5,1,5,1">incididunt ut</TextBlock>
+                                            </Border>
+                                        </Border>
+                                        <Border Grid.Row="1"  Grid.Column="2" Style="{DynamicResource FormFieldContainer}" >
+                                            <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap"  Padding="0,3,0,0">
+                                                задание в очереди на ГА
+                                            </TextBlock>
+                                        </Border>
+
+                                        <Border Grid.Row="2"  Grid.Column="0" Style="{DynamicResource FormFieldContainer}" >
+                                            <Border Background="#ffFFFF99" Height="20" HorizontalAlignment="Stretch">
+                                                <TextBlock Padding="5,1,5,1">sit voluptatem</TextBlock>
+                                            </Border>
+                                        </Border>
+                                        <Border Grid.Row="2"  Grid.Column="2" Style="{DynamicResource FormFieldContainer}" >
+                                            <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap"  Padding="0,3,0,0">
+                                                проблемное задание
+                                                Желтый фон строки имеет максимальный приоритет.
+                                                не может быть выполнено на ГА, рилевки попадают в канавку между гофровалами
+                                            </TextBlock>
+                                        </Border>
+
+                                        <Border Grid.Row="3"  Grid.Column="0" Style="{DynamicResource FormFieldContainer}" >
+                                            <Border Background="#ffcccccc" Height="20" HorizontalAlignment="Stretch">
+                                                <TextBlock Padding="5,1,5,1">qui ratione</TextBlock>
+                                            </Border>
+                                        </Border>
+                                        <Border Grid.Row="3"  Grid.Column="2" Style="{DynamicResource FormFieldContainer}" >
+                                            <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Padding="0,3,0,0" >
+                                                задание заблокировано (не попадет в очередь ГА)
+                                            </TextBlock>
+                                        </Border>
+
+                                    </Grid>
+
+                                </Border>
+
+
+                                <Border Grid.Row="4" Name="StylerForegroundLabel" Grid.Column="0" Style="{DynamicResource FormFieldContainer}" >
+                                    <Label Content="Цвет текста:  " Style="{DynamicResource FormLabel}" />
+                                </Border>
+                                <Border Grid.Row="4" Name="StylerForegroundContent" Grid.Column="1" Style="{DynamicResource FormFieldContainer}" >
+
+                                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="StylerForegroundGrid" >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="10"/>
+                                            <ColumnDefinition Width="9*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <Border Grid.Row="0"  Grid.Column="0" Style="{DynamicResource FormFieldContainer}" >
+                                            <Border Height="20" HorizontalAlignment="Stretch">
+                                                <TextBlock Foreground="#FF00ab46" Padding="5,1,5,1">quasi architecto</TextBlock>
+                                            </Border>
+                                        </Border>
+                                        <Border Grid.Row="0"  Grid.Column="2" Style="{DynamicResource FormFieldContainer}" >
+                                            <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap"  Padding="0,3,0,0">
+                                                задание выполнено
+                                            </TextBlock>
+                                        </Border>
+
+                                        <Border Grid.Row="1"  Grid.Column="0" Style="{DynamicResource FormFieldContainer}" >
+                                            <Border Height="20" HorizontalAlignment="Stretch">
+                                                <TextBlock Foreground="#FF0055ff" Padding="5,1,5,1">incididunt ut</TextBlock>
+                                            </Border>
+                                        </Border>
+                                        <Border Grid.Row="1"  Grid.Column="2" Style="{DynamicResource FormFieldContainer}" >
+                                            <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap"  Padding="0,3,0,0">
+                                                задание в очереди на ГА
+                                            </TextBlock>
+                                        </Border>
+
+                                        <Border Grid.Row="2"  Grid.Column="0" Style="{DynamicResource FormFieldContainer}" >
+                                            <Border Height="20" HorizontalAlignment="Stretch">
+                                                <TextBlock Foreground="#FF000000" Padding="5,1,5,1">sit voluptatem</TextBlock>
+                                            </Border>
+                                        </Border>
+                                        <Border Grid.Row="2"  Grid.Column="2" Style="{DynamicResource FormFieldContainer}" >
+                                            <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap"  Padding="0,3,0,0">
+                                                проблемное задание
+                                                Желтый фон строки имеет максимальный приоритет.
+                                                не может быть выполнено на ГА, рилевки попадают в канавку между гофровалами
+                                            </TextBlock>
+                                        </Border>
+
+                                        <Border Grid.Row="3"  Grid.Column="0" Style="{DynamicResource FormFieldContainer}" >
+                                            <Border Height="20" HorizontalAlignment="Stretch">
+                                                <TextBlock Foreground="#FFfc0d0d" Padding="5,1,5,1">qui ratione</TextBlock>
+                                            </Border>
+                                        </Border>
+                                        <Border Grid.Row="3"  Grid.Column="2" Style="{DynamicResource FormFieldContainer}" >
+                                            <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Padding="0,3,0,0" >
+                                                задание заблокировано (не попадет в очередь ГА)
+                                            </TextBlock>
+                                        </Border>
+
+                                    </Grid>
+
+                                </Border>
+
+
+                            </Grid>
+
+                        </Border>
+                    </Grid>
+                    
+                </Border>
+            </Grid>
+        </Grid>
+
+    </Grid>
+
+</Window>

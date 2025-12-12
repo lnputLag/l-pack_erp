@@ -1,0 +1,142 @@
+﻿<UserControl x:Class="Client.Interfaces.Service.ExpectedCarList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Service"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="0"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border >
+                    <Grid HorizontalAlignment="Left" >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+                            <Button Tag="Refresh" Name="RefreshButton"   Content="Обновить"  Style="{DynamicResource Button}" Click="RefreshButton_Click" />
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" MinWidth="100" MaxWidth="150"  TextWrapping="NoWrap" Name="ItemsSearchBox" Text=""  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Button Name="OpenGateButton" Content="Запустить машину" Tag="access_mode_full_access" Style="{DynamicResource Button}" Click="OpenGateButton_Click" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Button Name="OpenAndNoCloseGateButton" Content="Открыть и не закрывать" Tag="access_mode_full_access" Style="{DynamicResource Button}" Click="OpenAndNoCloseGateButton_Click" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Button Name="CloseGateButton" Content="Закрыть" Tag="access_mode_full_access" Style="{DynamicResource Button}" Click="CloseGateButton_Click" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                            <!-- камера на въезде на СГП-->
+                            <Label Content="Номер машины " Style="{DynamicResource TopLabel}" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Label Name="CameraInput" FontWeight="Bold" Content="_________" MinWidth="60" Style="{DynamicResource TopLabel}"  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Label Content="Дата" Style="{DynamicResource TopLabel}" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Label Name="DtTmInput" FontWeight="Bold" Content="___________________" MinWidth="90" Style="{DynamicResource TopLabel}"  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Label Name="ManagerMsg" FontWeight="Bold" Content="запущена на СГП" Style="{DynamicResource TopLabel}"  />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="2"  Grid.Column="0" >
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="CarsGrid" />
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="3" Grid.Column="0" MinHeight="30" Style="{DynamicResource GridControlPanel}">
+                <Border >
+                    <Grid HorizontalAlignment="Left" >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="UserGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+                            <Label Content="Просмотр логов" Style="{DynamicResource TopLabel}" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                            <Label Content="с:"  Style="{DynamicResource TopLabel}"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                            <Grid Style="{DynamicResource FormFieldDateHolder}">
+                                <TextBox Name="DateFrom"  Width="90"  MaxLength="19"  Style="{DynamicResource FormFieldDate}" IsReadOnly="False" />
+                                <DatePicker  SelectedDate="{Binding Path=Text, Mode=OneWayToSource, ElementName=DateFrom, Converter={StaticResource DateDate} }"  Style="{DynamicResource FormFieldDP}"  Margin="0,1,0,0">
+                                </DatePicker>
+                            </Grid>
+
+                            <Label Content="по:"  Style="{DynamicResource TopLabel}"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                            <Grid Style="{DynamicResource FormFieldDateHolder}">
+                                <TextBox Name="DateTo"  Width="90" MaxLength="19"  Style="{DynamicResource FormFieldDate}" IsReadOnly="False" IsEnabled="True" />
+                                <DatePicker  SelectedDate="{Binding Path=Text, Mode=OneWayToSource, ElementName=DateTo, Converter={StaticResource DateDate} }"  Style="{DynamicResource FormFieldDP}"  Margin="0,1,0,0">
+                                </DatePicker>
+                            </Grid>
+
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                            <Button Name="LoadLogButton" Content="Загрузить"  Style="{DynamicResource Button}" Click="LoadLogButton_Click" />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="SearchText" Text=""  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Button Name="ExportButton" Content="В Excel" Style="{DynamicResource Button}" Click="ExportToExcelButton_OnClick" />
+                        </StackPanel>
+                        
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="5"   Grid.Column="0" >
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="GridLog" />
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="6"  Grid.Column="0">
+                <Border Style="{DynamicResource DataGridMainHolder}" Height="14">
+                    <StackPanel Orientation="Horizontal" Style="{DynamicResource TotalsBarContainer}" HorizontalAlignment="Left">
+                        <TextBlock Style="{DynamicResource StatusBarTextBlock}" Name="TotalsDayOrders" >Последние данные от агента получены:</TextBlock>
+                        <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                        <TextBlock Style="{DynamicResource StatusBarTextBlock}" Name="ManagerDttmValue" >0</TextBlock>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+        </Grid>
+    </Border>
+</UserControl>

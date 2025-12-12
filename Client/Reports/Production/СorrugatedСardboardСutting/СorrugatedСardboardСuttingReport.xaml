@@ -1,0 +1,450 @@
+<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:xrd="clr-namespace:CodeReason.Reports.Document;assembly=CodeReason.Reports"
+              xmlns:xrbc="clr-namespace:CodeReason.Reports.Document.Barcode;assembly=CodeReason.Reports"
+             PageWidth="29.7cm"  PageHeight="21cm"  ColumnWidth="29.7cm" FontFamily="Verdana" FontSize="11" >
+    <FlowDocument.Resources>
+
+        <ResourceDictionary>
+
+            <Style x:Key="paragraphStyle" TargetType="{x:Type Paragraph}">
+                <Setter Property="TextAlignment" Value="Left"/>
+            </Style>
+
+            <Style x:Key="tableStyle" TargetType="{x:Type Table}">
+                <Setter Property="Margin" Value="0cm,0cm,0cm,0cm"/>
+            </Style>
+
+            <Style x:Key="headerFooterRowStyle" TargetType="{x:Type TableRowGroup}">
+
+            </Style>
+
+            <Style x:Key="dataRowStyle" TargetType="{x:Type TableRowGroup}">
+            </Style>
+
+            <Style TargetType="{x:Type TableCell}">
+                <Setter Property="Padding" Value="0.0cm,0.01cm,0.0cm,0.01cm"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="0.02cm"/>
+                <Setter Property="TextAlignment" Value="Left"/>
+            </Style>
+
+            <!--
+            <Style TargetType="{x:Type xrd:TableCellStyled}">
+                <Setter Property="Padding" Value="0.0cm,0.01cm,0.0cm,0.01cm"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="0.02cm"/>
+                <Setter Property="TextAlignment" Value="Left"/>
+            </Style>
+            -->
+
+            <Style x:Key="HeaderTable" TargetType="{x:Type Table}">
+                <Setter Property="Padding" Value="0.0cm,0.01cm,0.0cm,0.01cm"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="0.02cm"/>
+                <Setter Property="TextAlignment" Value="Left"/>
+            </Style>
+
+            <Style x:Key="HeaderTableCell" TargetType="{x:Type TableCell}">
+                <Setter Property="Padding" Value="0.0cm,0.01cm,0.0cm,0.01cm"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="0.02cm"/>
+                <Setter Property="TextAlignment" Value="Left"/>
+            </Style>
+
+            <Style x:Key="TableCellGreen" TargetType="{x:Type TableCell}">
+                <Setter Property="Padding" Value="0.0cm,0.01cm,0.0cm,0.01cm"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="0.02cm"/>
+                <Setter Property="TextAlignment" Value="Left"/>
+                <Setter Property="Background" Value="#FFC5FBC5"/>
+            </Style>
+
+            <Style x:Key="TableCellRed" TargetType="{x:Type TableCell}">
+                <Setter Property="Padding" Value="0.0cm,0.01cm,0.0cm,0.01cm"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="0.02cm"/>
+                <Setter Property="TextAlignment" Value="Left"/>
+                <Setter Property="Background" Value="#FFFFA0A0"/>
+            </Style>
+
+        </ResourceDictionary>
+
+    </FlowDocument.Resources>
+
+    <xrd:ReportProperties >
+        <xrd:ReportProperties.ReportName>Сutting</xrd:ReportProperties.ReportName>
+        <xrd:ReportProperties.ReportTitle>Автораскрой</xrd:ReportProperties.ReportTitle>
+    </xrd:ReportProperties>
+
+    <xrd:SectionReportHeader PageHeaderHeight="11.2" Padding="15,15,15,0" FontFamily="Verdana" FontSize="10" Margin="0,0,0,0" >
+
+        <Table CellSpacing="0" Margin="0,0,0,10" >
+            <Table.Columns>
+                <TableColumn Width="1*" />
+                <TableColumn Width="3*" />
+                <TableColumn Width="1*" />
+            </Table.Columns>
+            <TableRowGroup>
+                <TableRow>
+                    <TableCell>
+                        <Paragraph>
+                            <xrd:InlineDocumentValue PropertyName="SystemName" /> (
+                            <xrd:InlineContextValue PropertyName="ReportName" /> )
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph FontWeight="Bold" TextAlignment="Center">
+                            <xrd:InlineDocumentValue PropertyName="Title"  />
+                            <xrd:InlineDocumentValue PropertyName="FromDate" Format="dd.MM.yyyy" /> -
+                            <xrd:InlineDocumentValue PropertyName="ToDate" Format="dd.MM.yyyy" />
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph TextAlignment="Right">
+                            <xrd:InlineDocumentValue PropertyName="Today" Format="dd.MM.yyyy HH:mm:ss" />
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+            </TableRowGroup>
+        </Table>
+
+        <Table CellSpacing="0" Margin="0"  >
+            <Table.Columns>
+
+                <!-- Картон -->
+                <TableColumn Width="4*" />
+                <!--  Дт/вр. отгрузки -->
+                <TableColumn Width="2*" />
+                <!-- Артикул изделия -->
+                <TableColumn Width="12*" />
+                <!-- = -->
+                <TableColumn Width="0.5*" />
+                <!-- Изделий | в заяв. -->
+                <TableColumn Width="1*" />
+                <!-- Изделий | скл. -->
+                <TableColumn Width="1*" />
+                <!-- Изделий | отгр. -->
+                <TableColumn Width="1*" />
+                <!-- Изд. из загот. -->
+                <TableColumn Width="1.1*" />
+                <!-- Заготовок в ПЗ | всего -->
+                <TableColumn Width="1*" />
+                <!-- Заготовок в ПЗ | не сдел. -->
+                <TableColumn Width="1*" />
+                <!-- Заготовок в ПЗ | сдел. -->
+                <TableColumn Width="1*" />
+                <!-- Заготовок | для раскр. -->
+                <TableColumn Width="1.1*" />
+                <!-- Заготовок | в раскр. -->
+                <TableColumn Width="1.1*" />
+                <!-- Откл., % | всего -->
+                <TableColumn Width="1*" />
+                <!-- Откл., % | раскр. -->
+                <TableColumn Width="1.1*" />
+
+
+            </Table.Columns>
+            <TableRowGroup >
+
+                <TableRow>
+                    <TableCell RowSpan="2" Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            Картон
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell RowSpan="2" Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            Дт/вр. отгрузки
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell RowSpan="2" Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            Артикул заготовки
+                        </Paragraph>
+                        <Paragraph TextAlignment="Center">
+                            Наименование заготовки
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell RowSpan="2" Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            =
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="3" Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            Изделий
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell RowSpan="2" Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            Изд. из загот.
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="3" Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            Заготовок в ПЗ
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            Заготовок
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell ColumnSpan="2" Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            Откл., %
+                        </Paragraph>
+                    </TableCell>
+
+                </TableRow>
+
+                <TableRow>
+                    <TableCell Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            в заяв.
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            скл.
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            отгр.
+                        </Paragraph>
+                    </TableCell>
+                    
+                    <TableCell Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            всего
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            не сдел.
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            сдел.
+                        </Paragraph>
+                    </TableCell>
+
+                    <TableCell Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            для раскр.
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            в раскр.
+                        </Paragraph>
+                    </TableCell>
+
+                    <TableCell Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            всего
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell Style="{StaticResource HeaderTableCell}">
+                        <Paragraph TextAlignment="Center">
+                            раскр.
+                        </Paragraph>
+                    </TableCell>
+                    
+                </TableRow>
+
+            </TableRowGroup>
+        </Table>
+
+    </xrd:SectionReportHeader>
+    <xrd:SectionReportFooter PageFooterHeight="2" Padding="20,0,20,20" FontFamily="Verdana" FontSize="10" >
+        <Table CellSpacing="0">
+            <Table.Columns>
+                <TableColumn Width="*" />
+                <TableColumn Width="*" />
+            </Table.Columns>
+            <TableRowGroup>
+                <TableRow>
+                    <TableCell>
+                        <Paragraph>
+
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+
+                    </TableCell>
+                </TableRow>
+            </TableRowGroup>
+        </Table>
+    </xrd:SectionReportFooter>
+
+    <Section BreakPageBefore="True" Margin="2,0,2,0" FontSize="10">
+
+        <Table CellSpacing="0" Margin="0" >
+            <Table.Columns>
+
+                <!-- Картон -->
+                <TableColumn Width="4*" />
+                <!--  Дт/вр. отгрузки -->
+                <TableColumn Width="2*" />
+                <!-- 
+                    Артикул заготовки
+                    Наименование заготовки
+                -->
+                <TableColumn Width="12*" />
+                <!-- = -->
+                <TableColumn Width="0.5*" />
+                <!-- Изделий | в заяв. -->
+                <TableColumn Width="1*" />
+                <!-- Изделий | скл. -->
+                <TableColumn Width="1*" />
+                <!-- Изделий | отгр. -->
+                <TableColumn Width="1*" />
+                <!-- Изд. из загот. -->
+                <TableColumn Width="1.1*" />
+                <!-- Заготовок в ПЗ | всего -->
+                <TableColumn Width="1*" />
+                <!-- Заготовок в ПЗ | не сдел. -->
+                <TableColumn Width="1*" />
+                <!-- Заготовок в ПЗ | сдел. -->
+                <TableColumn Width="1*" />
+                <!-- Заготовок | для раскр. -->
+                <TableColumn Width="1.1*" />
+                <!-- Заготовок | в раскр. -->
+                <TableColumn Width="1.1*" />
+                <!-- Откл., % | всего -->
+                <TableColumn Width="1*" />
+                <!-- Откл., % | раскр. -->
+                <TableColumn Width="1.1*" />
+               
+
+            </Table.Columns>
+
+            <TableRowGroup >
+                <xrd:TableRowForDataTable TableName="Items">
+
+                    <!-- Картон -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Left" FontSize="10">
+                            <xrd:InlineTableCellValue PropertyName="description" />
+                        </Paragraph>
+                    </TableCell>
+                    
+                    <!--  Дт/вр. отгрузки -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Left">
+                            <xrd:InlineTableCellValue PropertyName="dttmship" />
+                        </Paragraph>
+                    </TableCell>
+                    
+                    <!-- 
+                        Артикул заготовки
+                        Наименование заготовки                    
+                    -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Left" FontSize="10">
+                            <xrd:InlineTableCellValue PropertyName="code" />
+                            <!--<LineBreak></LineBreak> -->
+                            <xrd:InlineTableCellValue PropertyName="name" />
+                            <!--<xrd:InlineTableCellValue PropertyName="blank_name" />-->
+                        </Paragraph>
+                    </TableCell>
+                    
+                    <!-- = -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Center">
+                            <xrd:InlineTableCellValue PropertyName="qty_limit" />
+                        </Paragraph>
+                    </TableCell>
+                    
+                    <!-- Изделий | в заяв. -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Right">
+                            <xrd:InlineTableCellValue PropertyName="odqty" />
+                        </Paragraph>
+                    </TableCell>
+                    
+                    <!-- Изделий | скл. -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Right">
+                            <xrd:InlineTableCellValue PropertyName="curqty" />
+                        </Paragraph>
+                    </TableCell>
+                    
+                    <!-- Изделий | отгр. -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Right">
+                            <xrd:InlineTableCellValue PropertyName="rqty" />
+                        </Paragraph>
+                    </TableCell>
+                    
+                    <!-- Изд. из загот. -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Right">
+                            <xrd:InlineTableCellValue PropertyName="tlsqty" />
+                        </Paragraph>
+                    </TableCell>
+                    
+                    <!-- Заготовок в ПЗ | всего -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Right">
+                            <xrd:InlineTableCellValue PropertyName="pztotalqty" />
+                        </Paragraph>
+                    </TableCell>
+                    
+                    <!-- Заготовок в ПЗ | не сдел. -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Right">
+                            <xrd:InlineTableCellValue PropertyName="pzqty" />
+                        </Paragraph>
+                    </TableCell>
+                    
+                    <!-- Заготовок в ПЗ | сдел. -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Right">
+                            <xrd:InlineTableCellValue PropertyName="pzzagqty" />
+                        </Paragraph>
+                    </TableCell>
+                    
+                    <!-- Заготовок | для раскр. -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Right">
+                            <xrd:InlineTableCellValue PropertyName="qty" />
+                        </Paragraph>
+                    </TableCell>
+                    
+                    <!-- Заготовок | в раскр. -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Right">
+                            <xrd:InlineTableCellValue PropertyName="taskqty" />
+                        </Paragraph>
+                    </TableCell>
+                    
+                    <!-- Откл., % | всего -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Right">
+                            <xrd:InlineTableCellValue PropertyName="deviation" />
+                        </Paragraph>
+                    </TableCell>
+                    
+                    <!-- Откл., % | раскр. -->
+                    <TableCell>
+                        <Paragraph TextAlignment="Right">
+                            <xrd:InlineTableCellValue PropertyName="task_deviation" />
+                        </Paragraph>
+                    </TableCell>
+                    
+
+                </xrd:TableRowForDataTable>
+            </TableRowGroup>
+
+        </Table>
+
+    </Section>
+
+</FlowDocument>
+
+

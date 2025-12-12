@@ -1,0 +1,155 @@
+﻿<UserControl x:Class="Client.Interfaces.Stock.WarehouseGeographicalMap"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Stock"
+              xmlns:controls="clr-namespace:Client.Interfaces.Main"
+              mc:Ignorable="d" 
+             Style="{DynamicResource UserControlCanvas}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Border Style="{DynamicResource DataGridContainerHolder}"  >
+            <Grid Style="{DynamicResource DataGridContainer}">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}" >
+                </Grid>
+
+                <Grid Grid.Row="1"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                    <Border >
+                        <Grid HorizontalAlignment="Left" >
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+
+
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <Grid Grid.Row="1"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                    <Border >
+                        <Grid HorizontalAlignment="Left" >
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0" Grid.Column="0" Name="ItemsGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" >
+
+                                <Button Name="RefreshButton" Click="RefreshButton_Click"  Content="Обновить"  Style="{DynamicResource Button}" MinWidth="70"/>
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+
+
+
+                                <Label Content="Зона:" Style="{DynamicResource TopLabel}" />
+                                <controls:SelectBox x:Name="Zone" Style="{DynamicResource CustomFormField}" Width="250"  HorizontalAlignment="Stretch" SelectedItemChanged="StorageFilter_SelectedItemChanged" />
+
+
+
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                                <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                                <TextBox Style="{DynamicResource FormFieldTopPanel}" MinWidth="100" MaxWidth="150"  TextWrapping="NoWrap" Name="StorageSearchBox" Text=""  />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                                <Button Name="LineButton" Click="LineButton_Click" Content="Выровнить"  Style="{DynamicResource Button}" MinWidth="70"/>
+
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                                <Button Name="DeleteButton" Click="DeleteButton_Click" Content="Удалить"  Style="{DynamicResource Button}" MinWidth="70">
+                                    <Button.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Удалить фон" Click="MenuItem_CDeleteBackround"/>
+                                           
+                                        </ContextMenu>
+                                    </Button.ContextMenu>
+                                </Button>
+
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                                <Button Name="SaveButton" Click="SaveButton_Click" Tag="access_mode_full_access" Content="Сохранить"  Style="{DynamicResource Button}" MinWidth="70">
+                                    <Button.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Сохранить в файл" Click="SaveToFile" />
+                                            <MenuItem Header="Загрузить из файла" Click="LoadFromFile" />
+                                        </ContextMenu>
+                                    </Button.ContextMenu>
+                                </Button>
+
+
+                            </StackPanel>
+
+
+
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <StackPanel Grid.Row="1" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right">
+                    <Button Name="HelpButton"  Width="24" MinWidth="24"  Content="?" Style="{DynamicResource Button}" Click="HelpButton_Click" Margin="0"/>
+                </StackPanel>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="180"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ScrollViewer Name="Scroll" Grid.Column="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    </ScrollViewer>
+
+                    <Grid Grid.Row="0"  Grid.Column="1" >
+                        <Border Style="{DynamicResource DataGridMainHolder}" >
+                            <controls:GridBox x:Name="RowGrid" />
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Row="0"  Grid.Column="2" >
+                        <Border Style="{DynamicResource DataGridMainHolder}" >
+                            <controls:GridBox x:Name="StorageGrid" />
+                        </Border>
+                    </Grid>
+                </Grid>
+                
+               
+
+
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

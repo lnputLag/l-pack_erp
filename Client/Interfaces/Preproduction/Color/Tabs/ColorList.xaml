@@ -1,0 +1,126 @@
+﻿<UserControl x:Class="Client.Interfaces.Preproduction.ColorList"
+             xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+             
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+            xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"    
+            xmlns:s="clr-namespace:System;assembly=mscorlib"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1280"
+             Style="{DynamicResource UserControlCanvas}"
+             >
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="9*"/>
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="200"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" Name="ProgressContainer" Visibility="Collapsed" Panel.ZIndex="10">
+                <controls:ProgressControl x:Name="Progress" Caption="Выполняется операция" />
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Style="{DynamicResource GridControlPanel}">
+                <Border >
+                    <Grid >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="11.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Name="GridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Stretch" >
+                            <Button Name="AddButton"  Click="AddButton_Click"  Content="Добавить"   Style="{DynamicResource Button}" Width="75"  />
+                            <Button Name="EditButton" Click="EditButton_Click"     Content="Изменить"  Style="{DynamicResource Button}" Width="75"  />
+                            <Button Name="DeleteButton" Click="DelButton_Click"   Content="Удалить" IsEnabled="False"  Style="{DynamicResource Button}" Width="75"  VerticalAlignment="Bottom"   />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Button Name="RefreshButton"  Click="RefreshButton_Click"    Content="Обновить"  Style="{DynamicResource Button}" Width="75"  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Button Name="PrintButton" Click="PrintButton_Click" Content="В Excel"  Style="{DynamicResource Button}" Width="75"  />
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                            <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="150" TextWrapping="NoWrap" Name="Search" Text=""  />
+                            <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+                            <Label Content="Тип:" Style="{DynamicResource TopLabel}" />
+                            <controls:SelectBox x:Name="CardboardType" SelectedItemChanged="CardboardType_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" Width="100" Autocomplete="True"  />
+
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Name="GridToolbarHelp" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Right" >
+                            <Button Grid.Column="1" Name="HelpButton"  Width="24" MinWidth="24" HorizontalAlignment="Right"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click" Margin="0,0,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" MinHeight="200">
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="GridColor" />
+                </Border>
+            </Grid>
+
+            <StackPanel Grid.Row="3" Grid.Column="0" Name="GridToolbar4" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Stretch">
+                <Label Content="Состав краски"  Style="{DynamicResource TopLabel}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="3" Grid.Column="2" Name="GridToolbar2" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Stretch">
+                <Label Content="Техкарты"  Style="{DynamicResource TopLabel}" />
+                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                
+                <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="150" TextWrapping="NoWrap" Name="SearchByReference" Text=""  />
+                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                
+                <Label Content="Тип:"  Style="{DynamicResource TopLabel}" />
+                <controls:SelectBox x:Name="UsingType" SelectedItemChanged="TypeComponent_SelectedItemChanged" Style="{DynamicResource CustomFormField}" ListBoxMinWidth="120" ListBoxMinHeight="120"  Width="100" Autocomplete="True" VerticalAlignment="Bottom" />
+                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                
+                <Button Name="ShowTMButton"  Click="ShowTM_Click" Content="Показать ТК"  Style="{DynamicResource Button}" Width="85"  />
+                
+            </StackPanel>
+            
+            <Grid Grid.Row="4" Grid.Column="0">
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="GridComposition"  />
+                </Border>
+            </Grid>
+            
+            <Grid Grid.Row="4" Grid.Column="2">
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox x:Name="GridTechnologicalMap"  />
+                </Border>
+            </Grid>
+
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="Client.Interfaces.Preproduction.SampleChatRecipient"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="600"
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border Style="{DynamicResource DataGridContainerHolder}" >
+        <Grid  Style="{DynamicResource FromGrid}" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="300">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+
+                <Button Name="SaveButton"   Content="Выбрать"  Style="{DynamicResource FButtonPrimary}" Click="SaveButton_Click"   />
+                <Button Name="CancelButton" Content="Отмена"     Style="{DynamicResource FButtonCancel}" Click="CancelButton_Click"   />
+                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                <TextBlock  Name="FormStatus"  TextAlignment="Left" Style="{DynamicResource FStatusBar}" HorizontalAlignment="Stretch" />
+            </StackPanel>
+
+            <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormVerticalPanelSpacer}"></Border>
+
+            <Border Grid.Row="2" Grid.Column="0" Style="{DynamicResource DataGridMainHolder}" Margin="0,0,0,5">
+                <controls:GridBox x:Name="Grid" />
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

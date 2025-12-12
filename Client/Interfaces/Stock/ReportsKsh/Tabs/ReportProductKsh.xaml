@@ -1,0 +1,111 @@
+﻿<controls:ControlBase 
+    
+    x:Class="Client.Interfaces.Stock.ReportProductKsh"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Client.Interfaces.Stock"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    mc:Ignorable="d" 
+    d:DesignHeight="450" d:DesignWidth="800"
+    Style="{DynamicResource UserControlCanvas}"  
+    >
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="11*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Name="ProductGridToolbar" Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                    <Button Name="RefreshButton"    Content="Обновить"  Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+
+                    <Label Content="Поиск:"  Style="{DynamicResource TopLabel}"/>
+                    <TextBox Name="SearchText" Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Text=""/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+
+                    <Button Name="ReportButton" Content="Отчёты" Style="{DynamicResource Button}">
+                        <Button.ContextMenu>
+                            <ContextMenu Name="ReportBurgerMenu">
+                                <MenuItem Header="Отчет по неликвидам" Click="PrintIlliquidProductListButton_Click"/>
+                                <MenuItem Header="Поддоны" Click="PrintPalletListButton_Click"/>
+                                <Separator />
+                                <MenuItem Header="Печать всех документов" Click="PrintAllButton_Click"   />
+                                <MenuItem Header="Отчет по заготовкам" Click="BlanksInBufferButton_Click"/>
+                                <MenuItem Header="Отчет по продукции на кондиционировании в буфере" Click="ConditioningProductsInBufferButton_Click" />
+                                <MenuItem Header="Поддоны на кондиционировании" Click="ConditioningProductsListButton_Click"/>
+                                <MenuItem Header="Сроки хранения на СГП" Click="OldButton_Click"/>
+                                <MenuItem Header="Товары на СГП" Click="ProductGridToExcel_Click"/>
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
+
+                    <Button Content="В Excel" Name="ExportToExcelButton" Style="{DynamicResource Button}"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right">
+                    <Button Name="SettingsButton" ToolTip="Настройка"   Style="{DynamicResource ButtonGlyph}" Margin="0,0,5,0"  >
+                        <Image Style="{DynamicResource SettingsImage}" />
+                        <Button.ContextMenu>
+                            <ContextMenu Name="BurgerMenu">
+                                <MenuItem Header="Настройка печати" Name="BurgerPrintSettings" Click="BurgerPrintSettings_Click"  Background="#ffffff" />
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
+
+                    <Button Name="HelpButton"  Width="24" MinWidth="24"  Content="?" Style="{DynamicResource Button}" Margin="0"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="0" >
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="ProductGrid" />
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="2" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <StackPanel  Name="PalletGridToolbar" Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                    <Label Content="Поддоны на СГП"  Style="{DynamicResource TopLabel}"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+
+                    <Button Name="LabelPrintButton"  Content="Печать ярлыка"  Style="{DynamicResource Button}" />
+                    <Button Name="PalletHistoryButton"  Content="История перемещения"  Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="3" Grid.Column="0">
+                <Border Style="{DynamicResource DataGridMainHolder}" >
+                    <controls:GridBox4 x:Name="PalletGrid" />
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="0" Height="100"  VerticalAlignment="Top" Panel.ZIndex="10">
+                <controls:SplashControl x:Name="SplashControl"/>
+            </Grid>
+        </Grid>
+    </Border>
+</controls:ControlBase>

@@ -1,0 +1,43 @@
+﻿<UserControl 
+    x:Class="Client.Interfaces.Shipments.DiagramShipmentLabel"
+    xmlns:local="clr-namespace:Client.Interfaces.Shipments"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"     
+    mc:Ignorable="d"   
+    Style="{DynamicResource UserControlCanvasStatic}"
+   
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Border  Style="{DynamicResource SHMonLabel}" >
+        <Grid Style="{DynamicResource SHMonBlockGrid}" ShowGridLines="False">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Grid.Column="0"  Style="{DynamicResource SHMonBlockItem}"  >
+                <TextBox  x:Name="Label" Text="00:00" Style="{DynamicResource SHMonBlockLabelText}"  ContextMenu="{x:Null}" HorizontalAlignment="Center"/>
+            </Border>
+
+
+            <TextBox Grid.Row="1" Grid.Column="0"  x:Name="Label2" Text="1/2" Style="{DynamicResource SHMonBlockLabelText}"  HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Normal" />
+           
+        </Grid>
+    </Border>
+  
+
+</UserControl>

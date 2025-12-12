@@ -1,0 +1,204 @@
+﻿<controls:ControlBase  x:Class="Client.Interfaces.Shipments.ShipmentKshList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Shipments"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1500">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="5*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="4*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="3" Style="{DynamicResource GridControlPanel}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Name="ShipmentGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                    <Label Content="С:"  Style="{DynamicResource TopLabel}"/>
+                    <Grid Style="{DynamicResource FormFieldDateHolder}">
+                        <controls:DateTimePicker x:Name="FromDate" Style="{DynamicResource DateTimeEditStyle}" >
+                        </controls:DateTimePicker>
+                    </Grid>
+                    <Label Content="По:"  Style="{DynamicResource TopLabel}"/>
+                    <Grid Style="{DynamicResource FormFieldDateHolder}">
+                        <controls:DateTimePicker x:Name="ToDate" Style="{DynamicResource DateTimeEditStyle}" >
+                        </controls:DateTimePicker>
+                    </Grid>
+                    <Button Name="RefreshButton" Content="Показать"  Style="{DynamicResource Button}"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <Button Name="BindDriverButton" Content="Привязать водителя"  Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                    <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="ShipmentSearchBox" Text=""  />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <controls:SelectBox  x:Name="Types" SelectedItemChanged="Types_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" ListBoxMinHeight="110" Width="120" Autocomplete="False"  />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                    <controls:SelectBox  x:Name="DeliveryTypes" SelectedItemChanged="DeliveryTypes_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" ListBoxMinWidth="180" ListBoxMinHeight="110"  Width="140" Autocomplete="False" />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                    <controls:SelectBox  x:Name="ShipmentTypes" SelectedItemChanged="ShipmentTypes_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" ListBoxMinWidth="188" ListBoxMinHeight="260"  Width="140" Autocomplete="False" />
+                    <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}"></Border>
+
+                    <CheckBox Name="HideCompleteCheckbox" Content="Скрыть отгруженные" Click="HideCompleteCheckbox_Click"  Style="{DynamicResource CheckBoxTopPanel}"  />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <Button Name="PrintButton"  Content="Печать" Style="{DynamicResource Button}" >
+                        <Button.ContextMenu>
+                            <ContextMenu Name="BurgerMenu">
+                                <MenuItem Header="Печать всех документов"   Name="PrintAllButton" Click="PrintAllButton_Click"   />
+                                <MenuItem Header="Просмотр всех документов"   Name="ShowAllButton" Click="ShowAllButton_Click"   />
+                                <Separator />
+                                <MenuItem Header="Доверенность"                  Name="PrintProxyDocsButton"             Click="PrintProxyDocsButton_Click"   ></MenuItem>
+                                <MenuItem Header="Загрузочная карта водителя"    Name="PrintDriverBootCardButton"        Click="PrintDriverBootCardButton_Click"   ></MenuItem>
+                                <MenuItem Header="Задание на отгрузку"           Name="PrintShipmentOrderBootCardButton" Click="PrintShipmentOrderBootCardButton_Click"   ></MenuItem>
+                                <MenuItem Header="Карта склада"                  Name="PrintMapButton"                   Click="PrintMapButton_Click"   ></MenuItem>
+                                <MenuItem Header="Карта проезда"                 Name="PrintRouteMapsButton"             Click="PrintRouteMapsButton_Click"   ></MenuItem>
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
+
+                    <Button Name="ShipmentDocumentListButton" Content="Список документов"  Style="{DynamicResource Button}"     />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                </StackPanel>
+                
+                <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right">
+                    <Button Name="ShipmentCountToPrintButton" ToolTip="Количество закрытых отгрузок, для которых нужно распечатать документы" Click="ShipmentCountToPrintButton_Click" Style="{DynamicResource NotificationItemLinkIsEnabled}"/>
+
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                    <Button Name="SettingsButton" ToolTip="Настройка" Click="SettingsButton_Click"  Style="{DynamicResource ButtonGlyph}" Margin="0,0,5,0"  >
+                        <Image Style="{DynamicResource SettingsImage}" />
+                        <Button.ContextMenu>
+                            <ContextMenu Name="SettingsBurgerMenu">
+                                <MenuItem Header="Настройки склада" Name="BurgerStockSettings" Click="BurgerStockSettings_Click"  Background="#ffffff" />
+                                <MenuItem Header="Настройка печати" Name="BurgerPrintSettings" Click="BurgerPrintSettings_Click"  Background="#ffffff" />
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
+
+                    <Button Name="HelpButton" ToolTip="Документация" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Margin="0,0,0,0" />
+                </StackPanel>
+            </Grid>
+
+            <Border Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="3" Style="{DynamicResource DataGridMainHolder}" >
+                <controls:GridBox4 x:Name="ShipmentGrid" />
+            </Border>
+
+            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Style="{DynamicResource GridControlPanel}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Name="PositionGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" >
+                    <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                    <TextBox Style="{DynamicResource FormFieldTopPanel}" MinWidth="100" MaxWidth="150"  TextWrapping="NoWrap" Name="PositionSearchBox" Text=""  />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock Style="{DynamicResource TotalsBarTextBlock}" VerticalAlignment="Bottom" Name="TotalsTitle">Всего:</TextBlock>
+                        <TextBlock Style="{DynamicResource TotalsBarTextBlock}" VerticalAlignment="Bottom" Name="TotalsSquareValue">0</TextBlock>
+                        <TextBlock Style="{DynamicResource TotalsBarTextBlock}" VerticalAlignment="Bottom" Name="TotalsSquareUnit">кв.м.</TextBlock>
+                        <TextBlock Style="{DynamicResource TotalsBarTextBlock}" VerticalAlignment="Bottom" Name="TotalsWeightValue">0</TextBlock>
+                        <TextBlock Style="{DynamicResource TotalsBarTextBlock}" VerticalAlignment="Bottom" Name="TotalsWeightUnit">кг.</TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            
+            <Border Grid.Column="0" Grid.Row="3"  Grid.ColumnSpan="3" Style="{DynamicResource DataGridMainHolder}" >
+                <controls:GridBox4 x:Name="PositionGrid" />
+            </Border>
+
+            <Grid Grid.Row="4"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Name="DriverGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                    <Button Name="AddDriverButton"  Content="Добавить"   Style="{DynamicResource Button}" />
+                    <Button Name="EditDriverButton"  Content="Изменить"   Style="{DynamicResource Button}" />
+                    <Button Name="DeleteDriverButton" Content="Удалить"   Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <Button Name="MarkDepartureButton"  Content="Отметить убытие"   Style="{DynamicResource Button}" />
+                    <Button Name="CancelEntryButton"   Content="Отменить въезд"    Style="{DynamicResource Button}" />
+                    <Button Name="ShowShipmentButton"   Content="Показать отгрузку"    Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                    <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="DriverSearchBox" Text=""  />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <Button Name="PrintButton2"  Content="Печать"   Style="{DynamicResource Button}"   />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                    <!--<Button Name="OpenGateButton"  Content="Ожидаемый допуск"  Style="{DynamicResource Button}" />-->
+                </StackPanel>
+            </Grid>
+
+            <Border Grid.Column="0" Grid.Row="5" Style="{DynamicResource DataGridMainHolder}" >
+                <controls:GridBox4 x:Name="DriverGrid" />
+            </Border>
+
+            <Grid Grid.Row="4"  Grid.Column="3" Style="{DynamicResource GridControlPanel}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Name="TerminalGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                    <Button Name="BindTerminalButton" Content="Привязать"  Style="{DynamicResource Button}"     />
+                    <Button Name="UnbindTerminalButton" Content="Отвязать"  Style="{DynamicResource Button}"     />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                    
+                    <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                    <TextBox Style="{DynamicResource FormFieldTopPanel}" Width="60" TextWrapping="NoWrap" Name="TerminalSearchBox" Text=""  />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                </StackPanel>
+            </Grid>
+
+            <Border Grid.Column="3" Grid.Row="5" Style="{DynamicResource DataGridMainHolder}" >
+                <controls:GridBox4 x:Name="TerminalGrid" />
+            </Border>
+
+        </Grid>
+    </Border>
+</controls:ControlBase>

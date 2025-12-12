@@ -1,0 +1,187 @@
+﻿<controls:ControlBase x:Class="Client.Interfaces.Sales.Adjustment"
+             xmlns:local="clr-namespace:Client.Interfaces.Sales"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             xmlns:main="clr-namespace:Client.Interfaces.Main"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             MinHeight="768"   MinWidth="1024"
+             Style="{DynamicResource UserControlCanvas}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0" Margin="5,0,0,0" Style="{DynamicResource GridControlPanel}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="11.5"/>
+                        <ColumnDefinition Width="0.5"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                </Grid>
+
+                <Grid Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Name="AdjusmentToolBar">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Column="0" Grid.Row="0"  Style="{DynamicResource FormFieldContainer}">
+                        <RadioButton x:Name="AdjustmenRadioButton" HorizontalAlignment="Right" Style="{DynamicResource RadioBoxTopPanel}" Click="AdjustmenRadioButton_Click"/>
+                    </Border>
+                    <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Корректировка" Padding="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,7,0" />
+                    </Border>
+
+                    <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource FormFieldContainer}">
+                        <RadioButton x:Name="ErrorRadioButton" HorizontalAlignment="Right" Style="{DynamicResource RadioBoxTopPanel}" Click="ErrorRadioButton_Click"/>
+                    </Border>
+                    <Border Grid.Column="1" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Ошибка" Padding="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,7,0" />
+                    </Border>
+
+                    <Border Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Width="1" BorderBrush="#ffcccccc" Padding="0,0,0,0" Margin="5,0,5,0" BorderThickness="1,0,1,0"/>
+
+                    <Border Grid.Column="3" Grid.Row="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Дата:" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Column="4" Grid.Row="0" HorizontalAlignment="Left" Style="{DynamicResource FormFieldContainer}">
+                        <Grid Style="{DynamicResource FormFieldDateHolder}">
+                            <!--<TextBox Name="AdjustmentDateTextBox" MaxLength="10" IsReadOnly="True" Style="{DynamicResource FormFieldDate}" Text="20.10.2023" />
+                            <DatePicker Name="AdjustmentDateDatePicker" SelectedDate="{Binding Path=Text, Mode=TwoWay, ElementName=AdjustmentDateTextBox, Converter={StaticResource DateDate} }"  Style="{DynamicResource FormFieldDP}"  Margin="0,2,0,0">
+                            </DatePicker>-->
+
+                            <controls:DatePicker x:Name="AdjustmentDateTextBox" Style="{DynamicResource DateEditStyle}">
+                            </controls:DatePicker>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Column="3" Grid.Row="1" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Номер:" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Column="4" Grid.Row="1" HorizontalAlignment="Left" Style="{DynamicResource FormFieldContainer}">
+                        <TextBox Name="AdjustmentNumberTextBox" TextWrapping="NoWrap" Style="{DynamicResource FormField}" Width="70"/>
+                    </Border>
+
+                    <Border Grid.Column="5" Grid.Row="0" Grid.RowSpan="2" Width="1" BorderBrush="#ffcccccc" Padding="0,0,0,0" Margin="5,0,5,0" BorderThickness="1,0,1,0"/>
+
+                    <Button Grid.Column="6" Grid.Row="2" Name="CreateAdjusmentButton" Tag = "access_mode_full_access" Content="Создать корректировку" Click="CreateAdjusmentButton_Click"  Style="{DynamicResource Button}" />
+                </Grid>
+
+                <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}" VerticalAlignment="Top"  HorizontalAlignment="Right" >
+                    <Button Name="HelpButton" ToolTip="Документация" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click"  Margin="0,0,0,0" />
+                </StackPanel>
+            </Grid>
+
+            <Border Grid.Row="1" Grid.Column="0" Margin="0,5,0,5" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+            
+            <Grid Grid.Row="2"  Grid.Column="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                        <Border>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Grid.Row="0" Grid.Column="0" Name="AdjusmentDetailToolBar" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Left" >
+                                    <Button Name="SaveAdjusmentDetailButton" Content="Сохранить" Tag = "access_mode_full_access" Click="SaveAdjusmentDetailButton_Click"  Style="{DynamicResource Button}" />
+                                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Style="{DynamicResource FormFieldContainer}">
+                                            <CheckBox Name="VirtualIncomingCheckBox" Style="{DynamicResource FormCheckBox}"/>
+                                        </Border>
+                                        <Border Style="{DynamicResource FormLabelContainer}" Width="140">
+                                            <Label Content="Виртуальный приход" HorizontalAlignment="Left" Style="{DynamicResource FormLabel}"/>
+                                        </Border>
+                                    </StackPanel>
+
+                                    <Button Name="ConfirmButton" Content="Провести" Tag = "access_mode_full_access" Click="ConfirmButton_Click"  Style="{DynamicResource Button}" />
+                                    <Button Name="UnconfirmButton" Content="Отмена проведения" Tag = "access_mode_full_access" Click="UnconfirmButton_Click"  Style="{DynamicResource Button}" />
+                                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+
+                                    <Button Name="PrintUKDButton" Content="Печать УКД" Click="PrintUKDButton_Click"  Style="{DynamicResource Button}" />
+                                    <Button Name="PrintReceiptButton" Content="(Печать с/ф)" Click="PrintReceiptButton_Click"  Style="{DynamicResource Button}" />
+                                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+
+                                    <Button Name="FindInvoiceByAdjusmentSaleDetailButton" Content="Найти созданную накладную" Click="FindInvoiceByAdjusmentSaleDetailButton_Click"  ToolTip="Найти накладную по рождённому приходу/расходу" Style="{DynamicResource Button}" />
+                                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                    <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource DataGridMainHolder}" >
+                        <controls:GridBox3 x:Name="DetailGrid" />
+                    </Border>
+                </Grid>
+            </Grid>
+
+            <Border Grid.Row="3" Grid.Column="0" Margin="0,5,0,5" Style="{DynamicResource FormVerticalPanelSpacer}"/>
+
+            <Grid Grid.Row="4" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Right">
+
+                            <Button Name="CancelButton" Content="Отмена" Click="CancelButton_Click"  Style="{DynamicResource Button}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+
+</controls:ControlBase>

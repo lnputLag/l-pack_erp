@@ -1,0 +1,68 @@
+﻿<controls:ControlBase x:Class="Client.Interfaces.Сounterparty.Customers.Frames.LinkCustomersProductFrame"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:controls="clr-namespace:Client.Interfaces.Main"
+                      mc:Ignorable="d"
+                      d:DesignHeight="400" d:DesignWidth="800"
+                      Style="{DynamicResource UserControlCanvas}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}" Margin="1" Width="800" HorizontalAlignment="Left">
+        <Grid Style="{DynamicResource FromGrid}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <StackPanel Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left">
+                <Button Name="SaveButton" Content="Сохранить" Style="{DynamicResource FButtonPrimary}"/>
+                <Button Name="CancelButton" Content="Отмена" Style="{DynamicResource FButtonCancel}"/>
+                <Border Style="{DynamicResource FormButtonsPanelDoubleSpacer}" />
+                <TextBlock Name="FormStatus" TextAlignment="Left" Style="{DynamicResource FStatusBar}" HorizontalAlignment="Stretch"/>
+            </StackPanel>
+            
+            <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormVerticalPanelSpacer}"></Border>
+
+            <Border Grid.Row="2" Grid.Column="0">
+                <Grid ShowGridLines="False" Style="{DynamicResource FromGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="433*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Покупатель: *" Style="{DynamicResource FormLabel}" />
+                    </Border>
+
+                    <Border Grid.Row="0"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <controls:SelectBox x:Name="BuyerSelectBox" Style="{DynamicResource CustomFormField}" CompareMode="Contains" Autocomplete="True" HorizontalAlignment="Left" Width="270"/>
+                    </Border>
+                    
+                    <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Изделия потребителя: *" Style="{DynamicResource FormLabel}" />
+                    </Border>
+
+                    <Border Grid.Row="1"  Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <controls:SelectBox x:Name="ProductSelectBox" Style="{DynamicResource CustomFormField}"  HorizontalAlignment="Left" Width="270" />
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+
+</controls:ControlBase>

@@ -1,0 +1,91 @@
+﻿<controls:ControlBase x:Class="Client.Interfaces.Preproduction.PaintSampleItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Interfaces.Preproduction"
+             xmlns:controls="clr-namespace:Client.Interfaces.Main"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Style="{DynamicResource UserControlCanvas}" Background="White">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="400">
+        <Grid Style="{DynamicResource FromGrid}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left"  >
+
+                <Button Name="SaveButton"   Tag="Save" Content="Сохранить"  Style="{DynamicResource FButtonPrimary}" Click="ButtonOnClick"  />
+                <Button Name="CancelButton" Tag="Close" Content="Отмена"     Style="{DynamicResource FButtonCancel}" Click="ButtonOnClick"   />
+                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                <TextBlock  Name="FormStatus"  TextAlignment="Left" Style="{DynamicResource FStatusBar}" HorizontalAlignment="Stretch" />
+            </StackPanel>
+
+            <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormVerticalPanelSpacer}"></Border>
+
+            <Border Grid.Row="2" Grid.Column="0" Style="{DynamicResource DataGridContainerHolder}">
+                <Grid  Name="TaskBlock">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Цвет бумаги: *" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <controls:SelectBox  x:Name="RawColor" Style="{DynamicResource CustomFormField}" SelectedItemChanged="RawColor_SelectedItemChanged"/>
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Не учитывать цвет бумаги:  " Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <CheckBox Name="AnyRawColorCheckBox" Content=""  Style="{DynamicResource CustomFormField}" Click="AnyRawColorCheckBox_Click" />
+                    </Border>
+
+                    <Border Grid.Row="2" Grid.Column="0" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Тип сырья: *" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="1" Style="{DynamicResource FormFieldContainer}">
+                        <controls:SelectBox  x:Name="RawType" Style="{DynamicResource CustomFormField}" />
+                    </Border>
+
+                    <Border Grid.Row="3" Grid.Column="0" Name="PaintLabel" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Цвет выкраса: *" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="1" Name="PaintTextBlock" Style="{DynamicResource FormFieldContainer}">
+                        <controls:SelectBox  x:Name="PaintName" Style="{DynamicResource CustomFormField}" Autocomplete="True" CompareMode="Contains"/>
+                    </Border>
+
+                    <Border Grid.Row="4" Grid.Column="0" Name="PantoneLabel" Style="{DynamicResource FormLabelContainer}">
+                        <Label Content="Пантон: *" Style="{DynamicResource FormLabel}" />
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="1" Name="PantoneTextBlock" Style="{DynamicResource FormFieldContainer}">
+                        <TextBox Name="Pantone" Style="{DynamicResource FormField}" MaxLength="32" />
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</controls:ControlBase>

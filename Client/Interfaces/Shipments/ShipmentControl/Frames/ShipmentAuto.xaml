@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="Client.Interfaces.Shipments.ShipmentAuto"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:main="clr-namespace:Client.Interfaces.Main"
+    mc:Ignorable="d" 
+    d:DesignHeight="450" d:DesignWidth="800"
+    Height="440" Width="800"
+    Style="{DynamicResource UserControlCanvas}"
+>
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+
+    <Grid Style="{DynamicResource DataGridContainer}">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="270"></RowDefinition>
+            <RowDefinition Height="33"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0"  Grid.Column="0" >
+            <StackPanel Grid.Row="0" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" >
+                <Button ToolTip="Документация" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Click="HelpButton_Click" Margin="0,0,5,0" />
+            </StackPanel>
+        </Grid>
+
+
+        <Grid Grid.Row="1"  Grid.Column="0" >
+            <Border Style="{DynamicResource DataGridMainHolder}" >
+                <main:GridBox x:Name="Grid" Margin="4,4,5,4"/>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="3"  Grid.Column="0" >
+            <Border Style="{DynamicResource DataGridMainHolder}" >
+                <main:GridBox x:Name="Grid2" Margin="4,4,5,4"/>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="4" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Style="{DynamicResource FormHeaderButtonsPanel}">
+                <Label Content="Количество в автоотгрузке:" Margin="0,-2,0,0"/>
+                <TextBox Name="AmountTextBox" MaxLength="8" Style="{DynamicResource FormFieldTopPanel}" Width="40" PreviewKeyUp="AmountTextBox_PreviewKeyUp" />
+                <Button Name="SetButton" Content="Установить" Style="{DynamicResource Button}" Click="Set_OnClick"  />
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}">
+                <Button Content="ОК" Style="{DynamicResource FButtonPrimary}" Click="Do_OnClick" />
+                <Button Content="Отмена" Style="{DynamicResource Button}" Click="Close_OnClick"  />
+            </StackPanel>
+
+        </Grid>
+
+    </Grid>
+</UserControl>

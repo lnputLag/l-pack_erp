@@ -1,0 +1,219 @@
+﻿<controls:ControlBase 
+    x:Class="Client.Interfaces.Service.Jobs.JobRunLog"
+    xmlns:local="clr-namespace:Client.Interfaces.Service.Jobs"
+    xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"         
+
+    mc:Ignorable="d" 
+    d:DesignWidth="1380" d:DesignHeight="200" 
+    Style="{DynamicResource UserControlCanvas}"    
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="7*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>                
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                    <Border >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="11*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Grid.Column="0" Name="JobGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Width="770" >
+                                <TextBlock Height="24" Padding="0,4,0,0">Джобы</TextBlock>
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <Button Name="JobGridRefreshButton"    Content="Обновить"  Style="{DynamicResource Button}"  />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <Button Name="JobGridConfigButton"    Content="Конфиг" MinWidth="45"  Style="{DynamicResource Button}"  />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                                <TextBox Name="JobGridSearch" Style="{DynamicResource FormFieldTopPanel}" MinWidth="120" MaxWidth="180"  TextWrapping="NoWrap"  Text=""  />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" Width="24" >
+                                
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Grid>
+                <Grid Grid.Row="1"  Grid.Column="0" >
+                    <Border Style="{DynamicResource DataGridMainHolder}">
+                        <controls:GridBox4 x:Name="JobGrid" />
+                    </Border>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                    <Border >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="11*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Grid.Column="0" Name="JobStatusGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Width="770" >
+                                <TextBlock Height="24" Padding="0,4,0,0">Запуск</TextBlock>
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <Button Name="JobStatusGridRefreshButton"    Content="Обновить"  Style="{DynamicResource Button}"  />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                                <TextBox Name="JobStatusGridSearch" Style="{DynamicResource FormFieldTopPanel}" MinWidth="120" MaxWidth="180"  TextWrapping="NoWrap"  Text=""  />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" Width="24" >
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Grid>
+                <Grid Grid.Row="1"  Grid.Column="0" >
+                    <Border Style="{DynamicResource DataGridMainHolder}">
+                        <controls:GridBox4 x:Name="JobStatusGrid" />
+                    </Border>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+                    <Border >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="11*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Grid.Column="0" Name="JobLogGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Width="770" >
+                                <TextBlock Height="24" Padding="0,4,0,0">Журнал</TextBlock>
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                                <Label Content="C:"  Style="{DynamicResource TopLabel}" />
+                                <Grid Style="{DynamicResource FormFieldDateHolder}">
+                                    <controls:DateTimePicker x:Name="DateStart" Style="{DynamicResource DateTimeEditStyle}" >
+                                    </controls:DateTimePicker>
+                                </Grid>
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                                <Label Content="По:"  Style="{DynamicResource TopLabel}" />
+                                <Grid Style="{DynamicResource FormFieldDateHolder}">
+                                    <controls:DateTimePicker x:Name="DateFinish" Style="{DynamicResource DateTimeEditStyle}" >
+                                    </controls:DateTimePicker>
+                                </Grid>
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                                <Button Name="JobLogGridFilter1Button" Content="Сейчас" MinWidth="40" Style="{DynamicResource Button}"  />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                                <Button Name="JobLogGridRefreshButton"    Content="Показать"  Style="{DynamicResource Button}"  />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                                <Label Content="Поиск:"  Style="{DynamicResource TopLabel}" />
+                                <TextBox Name="JobLogGridSearch" Style="{DynamicResource FormFieldTopPanel}" MinWidth="120" MaxWidth="180"  TextWrapping="NoWrap"  Text=""  />
+                                <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" Width="24" >
+                                <Button Name="HelpButton" Tag="help" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Margin="0"  />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Grid>
+                <Grid Grid.Row="1"  Grid.Column="0" >
+                    <Border Style="{DynamicResource DataGridMainHolder}">
+
+
+                        <TabControl TabStripPlacement="Top" Background="#ffffffff">
+                            <TabItem Name="ReportLog" Header="Журнал" Style="{DynamicResource TabItemStyle}" Background="#ffffffff">
+                                <Border>
+                                    <controls:GridBox4 x:Name="JobLogGrid" />
+                                </Border>
+                            </TabItem>
+                            <TabItem Name="ReportMap" Header="Карта" Style="{DynamicResource TabItemStyle}" Background="#ffffffff">
+                                <Border>
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                            <Button Content="Обновить" Click="Button_Click" MinWidth="24" Style="{DynamicResource Button}"  />
+                                        </StackPanel>
+                                        <Border  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="RunMapScrollerContainer" >
+                                            <ScrollViewer VerticalScrollBarVisibility="Visible" Name="RunMapScroller" MinHeight="500" MaxHeight="500" >
+                                                <Border  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                                    <Grid 
+                                                    Name="RunMapContainer" 
+                                                    HorizontalAlignment="Left" 
+                                                    VerticalAlignment="Top" 
+                                                    VirtualizingStackPanel.IsVirtualizing="False" 
+                                                    VirtualizingPanel.IsVirtualizingWhenGrouping="False" 
+                                                    VirtualizingPanel.VirtualizationMode="Standard"                          
+                                                    >
+                                                    </Grid>
+                                                </Border>
+                                            </ScrollViewer>
+                                        </Border>
+                                    </StackPanel>
+                                   
+                                </Border>
+                            </TabItem>
+                        </TabControl>
+
+                        
+                    </Border>
+                </Grid>
+            </Grid>
+
+        </Grid>
+    </Border>
+
+</controls:ControlBase>
