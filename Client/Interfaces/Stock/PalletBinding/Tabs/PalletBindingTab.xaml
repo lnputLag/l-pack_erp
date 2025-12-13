@@ -55,15 +55,11 @@
                             <Button Name="PrintButton"  Content="Печать"  Style="{DynamicResource Button}"  />
                             <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
 
+                            <Label Content="Площадка:"  Style="{DynamicResource TopLabel}" />
+                            <controls:SelectBox x:Name="Playground"   Style="{DynamicResource CustomFormField}" ListBoxMinWidth="120" ListBoxMinHeight="120"  Width="120" Autocomplete="True" VerticalAlignment="Bottom"/>
+                            <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
 
-                            <Label Content="Липецк"  Style="{DynamicResource TopLabel}" />
-                            <RadioButton x:Name="LipetskRadioButton" HorizontalAlignment="Right" Style="{DynamicResource RadioBoxTopPanel}" Click="LipetskRadioButton_Click"/>
-                            <Border Style="{DynamicResource FormLabelContainer}"/>
 
-                            <Label Content="Кашира"  Style="{DynamicResource TopLabel}" />
-                            <RadioButton x:Name="KashiraRadioButton" HorizontalAlignment="Right" Style="{DynamicResource RadioBoxTopPanel}" Click="KashiraRadioButton_Click"/>
-                            <Border Style="{DynamicResource FormLabelContainer}"/>
-                            
                             <Label Content="Фильтр:"  Style="{DynamicResource TopLabel}" />
                             <TextBox Name="PalletGridSearch" Style="{DynamicResource FormFieldTopPanel}" MinWidth="120" MaxWidth="180"  TextWrapping="NoWrap"  Text=""  />
                             <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>

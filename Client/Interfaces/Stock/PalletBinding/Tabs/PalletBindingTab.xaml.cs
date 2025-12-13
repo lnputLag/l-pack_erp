@@ -34,7 +34,7 @@ namespace Client.Interfaces.Stock
             InitializeComponent();
 
             //ControlSection = "palletbinding";
-            RoleName = "[erp]pallet_binding";  // создать новую роль, прописать в навигаторе
+            RoleName = "[erp]pallet_binding";  // создать новую роль, прописать в навигаторе (создали)
             ControlTitle = "Изделия на складе";
             DocumentationUrl = "/doc/l-pack-erp/warehouse";
 
@@ -174,7 +174,7 @@ namespace Client.Interfaces.Stock
                             ButtonName = "TieButton",
                             Action = () =>
                             {
-                                Central.ShowHelp(DocumentationUrl); //Сделать своё окно
+                                Central.ShowHelp(DocumentationUrl); //Сделать своё окно (привязка поддонов)
                             },
                         });
                         Commander.Add(new CommandItem()
@@ -215,14 +215,14 @@ namespace Client.Interfaces.Stock
                 new DataGridHelperColumn
                 {
                     Header="#", //Видит пользователь
-                    Path="",  //Имя поля(ключ словаря или св-во модели?) поискать
+                    Path="CHECKING",   // SQL - запрос
                     ColumnType=ColumnTypeRef.Boolean, //тип данных колонки
                     Width2=4, //ширина символов (число)
                 },
                 new DataGridHelperColumn
                 {
                     Header="ИД Поддона",
-                    Path="PALLET_ID", // SQL - запрос
+                    Path="PALLET_ID", 
                     Description = "ИД поддона",
                     ColumnType=ColumnTypeRef.Integer,
                     Width2=8,
@@ -230,7 +230,7 @@ namespace Client.Interfaces.Stock
                 new DataGridHelperColumn
                 {
                     Header="Артикул",
-                    Path="PRODUCT_CODE",
+                    Path="PRODUCT_CODE",  // SQL - запрос
                     Description="Артикул Поддона",
                     ColumnType=ColumnTypeRef.String,
                     Width2=14,
@@ -239,15 +239,15 @@ namespace Client.Interfaces.Stock
                 {
                     Header="Наименование",
                     Path="NAMES",
-                    Doc="Наименование",
+                    Description="Наименование",
                     ColumnType=ColumnTypeRef.String,
                     Width2=16,
                 },
                 new DataGridHelperColumn
                 {
                     Header="Количество",
-                    Path="QUANTITY",
-                    Doc="Количество",
+                    Path="KOL",
+                    Description="",
                     ColumnType=ColumnTypeRef.Double,
                     Format = "N0",
                     Width2=16,
@@ -255,17 +255,25 @@ namespace Client.Interfaces.Stock
                  new DataGridHelperColumn
                 {
                     Header="Поддон",
-                    Path="PODDON",
-                    Doc="Поддон",
+                    Path="PZ_NUM",
+                    Description="",
                     ColumnType=ColumnTypeRef.String,
                     Width2=16,
                 },
-                 //Как добавить верхние ряды? (пока это пропустил)
+                 new DataGridHelperColumn
+                {
+                    Header="Место",
+                    Path="PLACE",
+                    Description="",
+                    ColumnType=ColumnTypeRef.String,
+                    Width2=16,
+                },
+                 //Заявка
                  new DataGridHelperColumn
                 {
                     Header="Отгрузка",
-                    Path="OD_C",
-                    Doc="",
+                    Path="ORDER_DATA",
+                    Description="",
                     ColumnType=ColumnTypeRef.Integer,
                     Width2=6,
                     Group = "Заявка"
@@ -273,17 +281,45 @@ namespace Client.Interfaces.Stock
                  new DataGridHelperColumn
                 {
                     Header="ИД позиции заявки",
-                    Path="OD_C",
-                    Doc="",
+                    Path="IDORDERDATES",
+                    Description="",
                     ColumnType=ColumnTypeRef.Integer,
                     Width2=6,
                     Group = "Заявка"
                 },
                  new DataGridHelperColumn
                 {
+                    Header="ИД отгрузки",
+                    Path="IDTS",
+                    Description="",
+                    ColumnType=ColumnTypeRef.Integer,
+                    Width2=6,
+                    Group = "Заявка"
+                },
+                 // ПЗ
+                 new DataGridHelperColumn
+                {
+                    Header="Отгрузка",
+                    Path="ORDER_DATA_PZ",
+                    Description="",
+                    ColumnType=ColumnTypeRef.Integer,
+                    Width2=6,
+                    Group = "ПЗ"
+                },
+                 new DataGridHelperColumn
+                {
+                    Header="ИД позиции заявки",
+                    Path="IDORDERDATES_PZ",
+                    Description="",
+                    ColumnType=ColumnTypeRef.Integer,
+                    Width2=6,
+                    Group = "ПЗ"
+                },
+                 new DataGridHelperColumn
+                {
                     Header="OD_C",
                     Path="OD_C",
-                    Doc="",
+                    Description="",
                     ColumnType=ColumnTypeRef.Integer,
                     Width2=6,
                 },
@@ -291,7 +327,7 @@ namespace Client.Interfaces.Stock
                 {
                     Header="SHIPPED",
                     Path="SHIPPED",
-                    Doc="Отправленный поддон",
+                    Description="Отправленный поддон",
                     ColumnType=ColumnTypeRef.Integer,
                     Width2=6,
                 },
@@ -299,7 +335,7 @@ namespace Client.Interfaces.Stock
                 {
                     Header="ID_PZ",
                     Path="ID_PZ",
-                    Doc="",
+                    Description="",
                     ColumnType=ColumnTypeRef.Integer,
                     Width2=10,
                 },
@@ -307,7 +343,7 @@ namespace Client.Interfaces.Stock
                 {
                     Header="NUM",
                     Path="NUM",
-                    Doc="",
+                    Description="",
                     ColumnType=ColumnTypeRef.Integer,
                     Width2=10,
                 },
@@ -315,7 +351,7 @@ namespace Client.Interfaces.Stock
                 {
                     Header="ИД товара",
                     Path="ID_TOVAR",
-                    Doc="",
+                    Description="ИД товара",
                     ColumnType=ColumnTypeRef.Integer,
                     Width2=10,
                 },
@@ -323,15 +359,15 @@ namespace Client.Interfaces.Stock
                 {
                     Header="FACT_ID",
                     Path="FACT_ID",
-                    Doc="",
+                    Description="",
                     ColumnType=ColumnTypeRef.Integer,
                     Width2=6,
                 },
                  new DataGridHelperColumn
                 {
                     Header="DTTM",
-                    Path="DATE",
-                    Doc="Указание даты и времени",
+                    Path="DTTM",
+                    Description="Указание даты и времени",
                     ColumnType=ColumnTypeRef.DateTime,
                     Format = "dd.MM.yyyy HH:mm:ss",
                     Width2=6,
@@ -344,43 +380,43 @@ namespace Client.Interfaces.Stock
             /// RowStylers — это словарь, где ключ описывает тип стилизации (например, BackgroundColor), 
             /// а значение — делегат (функция), которая для каждой строки возвращает значение стиля (например, цвет фона).
             ///</summary>
-            PalletGrid.RowStylers = new Dictionary<DataGridHelperColumn.StylerTypeRef, DataGridHelperColumn.StylerDelegate>()
-            {
-                {
-                    DataGridHelperColumn.StylerTypeRef.BackgroundColor,
-                    row => 
-                    {
-                        var result=DependencyProperty.UnsetValue;
-                        var color = "";
+            //PalletGrid.RowStylers = new Dictionary<DataGridHelperColumn.StylerTypeRef, DataGridHelperColumn.StylerDelegate>()
+            //{
+            //    {
+            //        DataGridHelperColumn.StylerTypeRef.BackgroundColor,
+            //        row => 
+            //        {
+            //            var result=DependencyProperty.UnsetValue;
+            //            var color = "";
 
-                        var currentStatus = row.CheckGet("idts").ToBool(); //  Выше проверит к чему относится idts
-                        if (currentStatus == true)
-                        {
-                            color = HColor.Red;
-                        }
+            //            var currentStatus = row.CheckGet("idts").ToBool(); //  Выше проверит к чему относится idts
+            //            if (currentStatus == true)
+            //            {
+            //                color = HColor.Red;
+            //            }
 
-                        var isEmployee = row.CheckGet("IS_EMPLOYEE").ToBool();
-                        if (isEmployee == false)
-                        {
-                            //это общий аккаунт - что это значит?
-                            color = HColor.Blue;
-                        }
+            //            var isEmployee = row.CheckGet("IS_EMPLOYEE").ToBool();
+            //            if (isEmployee == false)
+            //            {
+            //                //это общий аккаунт - что это значит?
+            //                color = HColor.Blue;
+            //            }
 
-                        if (!string.IsNullOrEmpty(color))
-                        {
-                            result=color.ToBrush();
-                        }
+            //            if (!string.IsNullOrEmpty(color))
+            //            {
+            //                result=color.ToBrush();
+            //            }
 
-                        return result;
-                    }
-                },
-            };
+            //            return result;
+            //        }
+            //    },
+            //};
             ///<summary>
             /// Привязка колонок и базовые настройки сетки
             ///</summary> 
             PalletGrid.SetColumns(columns); //сообщает таблице какие колонки показывать
             PalletGrid.SetPrimaryKey("ID"); //указывает, что поле ID является уникальным ключом для каждой строки
-            PalletGrid.SetSorting("LOGIN", ListSortDirection.Ascending); //начальная сортировка по данной колонке по-умолчанию по возрастанию
+            PalletGrid.SetSorting("PALLET_ID", ListSortDirection.Ascending); //начальная сортировка по данной колонке по-умолчанию по возрастанию
             PalletGrid.ColumnWidthMode = GridBox.ColumnWidthModeRef.Compact; //режим отображения ширины колонок
             PalletGrid.SearchText = PalletGridSearch;  //поле строки поиска
             PalletGrid.Toolbar = PalletGridToolbar; // привязка панели инструментов отвечающую за кнопки/действия таблицы
@@ -518,17 +554,6 @@ namespace Client.Interfaces.Stock
             };
             // Регистрация полей
             Form.SetFields(fields);
-        }
-        
-
-        private void KashiraRadioButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void LipetskRadioButton_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
