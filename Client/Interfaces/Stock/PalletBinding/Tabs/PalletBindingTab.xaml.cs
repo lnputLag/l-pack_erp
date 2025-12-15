@@ -21,6 +21,7 @@ using static Client.Interfaces.Main.DataGridHelperColumn;
 using System.ComponentModel;
 using Newtonsoft.Json;
 using Client.Interfaces.Stock.PalletBinding.Frames;
+using System.Windows.Forms;
 
 namespace Client.Interfaces.Stock
 {
@@ -49,7 +50,7 @@ namespace Client.Interfaces.Stock
             };
 
             // Обработка нажатий клавиш
-            OnKeyPressed = (KeyEventArgs e) =>
+            OnKeyPressed = (System.Windows.Input.KeyEventArgs e) =>
             {
                 if (!e.Handled)
                 {
@@ -177,6 +178,7 @@ namespace Client.Interfaces.Stock
                             Action = () =>
                             {
                                 var i = new PalletBindingForm();
+                                i.SetParams(PalletGrid.SelectedItem["FACT_ID"].ToInt(), PalletGrid.SelectedItem["ID_TOVAR"].ToInt());
                                 i.Show();
                             },
                             CheckEnabled = () =>
@@ -201,8 +203,13 @@ namespace Client.Interfaces.Stock
                             ButtonName = "UntieButton",
                             Action = () =>
                             {
-                                Central.ShowHelp(DocumentationUrl); // стандартное диалоговое окно (поискать вызов функции ShowDialog)
+                                var d = new DialogWindow("test1", "test2", "test3", DialogWindowButtons.YesNo);
+                                d.ShowDialog();
                             },
+                            //CheckEnabled = () =>
+                            //{
+                            //     логика отвязки поддона
+                            //},
                         });
                     }
                 }
@@ -211,11 +218,6 @@ namespace Client.Interfaces.Stock
         }
 
         public FormHelper Form {  get; set; }
-
-        public void SetDefaults()
-        {
-            Form.SetDefaults();
-        }
 
         /// <summary>
         /// Настраивает Grid для отображения списка изделий на складе.
@@ -253,7 +255,7 @@ namespace Client.Interfaces.Stock
                 new DataGridHelperColumn
                 {
                     Header="Наименование",
-                    Path="NAMES",
+                    Path="PRODUCT_NAME",
                     Description="Наименование",
                     ColumnType=ColumnTypeRef.String,
                     Width2=16,
@@ -289,9 +291,37 @@ namespace Client.Interfaces.Stock
                     Header="Отгрузка",
                     Path="ORDER_DATA",
                     Description="",
-                    ColumnType=ColumnTypeRef.Integer,
+                    ColumnType=ColumnTypeRef.String,
                     Width2=6,
-                    Group = "Заявка"
+                    Group = "Заявка",
+                    Stylers=new Dictionary<StylerTypeRef,StylerDelegate>()
+                        {
+                            {
+                                StylerTypeRef.BackgroundColor,
+                                row =>
+                                {
+                                    var result=DependencyProperty.UnsetValue;
+                                    var color = "";
+
+
+
+                                       if (!row["IDORDERDATES_PZ"].IsNullOrEmpty() && !row["IDORDERDATES"].IsNullOrEmpty() && row["IDORDERDATES_PZ"] != row["IDORDERDATES"])
+                                        {
+
+                                            color = HColor.Yellow;
+                                        }
+                                 
+
+
+                                    if (!string.IsNullOrEmpty(color))
+                                    {
+                                        result=color.ToBrush();
+                                    }
+
+                                    return result;
+                                }
+                            },
+                        },
                 },
                  new DataGridHelperColumn
                 {
@@ -389,43 +419,42 @@ namespace Client.Interfaces.Stock
                 },
             };
 
-            // Ещё не менял
+
             ///<summary>
-            /// Стилизаия строк по правилам
-            /// RowStylers — это словарь, где ключ описывает тип стилизации (например, BackgroundColor), 
-            /// а значение — делегат (функция), которая для каждой строки возвращает значение стиля (например, цвет фона).
+            /// Покраска в нужный цвет     
             ///</summary>
-            //PalletGrid.RowStylers = new Dictionary<DataGridHelperColumn.StylerTypeRef, DataGridHelperColumn.StylerDelegate>()
-            //{
-            //    {
-            //        DataGridHelperColumn.StylerTypeRef.BackgroundColor,
-            //        row => 
-            //        {
-            //            var result=DependencyProperty.UnsetValue;
-            //            var color = "";
+            PalletGrid.RowStylers = new Dictionary<DataGridHelperColumn.StylerTypeRef, DataGridHelperColumn.StylerDelegate>()
+            {
+                {
+                    DataGridHelperColumn.StylerTypeRef.BackgroundColor,
+                    row =>
+                    {
+                        var result=DependencyProperty.UnsetValue;
+                        var color = "";
 
-            //            var currentStatus = row.CheckGet("idts").ToBool(); //  Выше проверит к чему относится idts
-            //            if (currentStatus == true)
-            //            {
-            //                color = HColor.Red;
-            //            }
 
-            //            var isEmployee = row.CheckGet("IS_EMPLOYEE").ToBool();
-            //            if (isEmployee == false)
-            //            {
-            //                //это общий аккаунт - что это значит?
-            //                color = HColor.Blue;
-            //            }
+                        if (!row["DTTM"].IsNullOrEmpty() && (row["SHIPPED"].ToInt() == 0 || row["OD_C"].ToInt() == 0) && row["DTTM"].ToDateTime("dd.MM.yyyy HH:mm:ss") < DateTime.Now)
+                        {
+                            color = HColor.Yellow;
+                        }
 
-            //            if (!string.IsNullOrEmpty(color))
-            //            {
-            //                result=color.ToBrush();
-            //            }
+                        //if ()
+                        //{
+                        //    //это общий аккаунт - что это значит?
+                        //    color = HColor.Blue;
+                        //}
 
-            //            return result;
-            //        }
-            //    },
-            //};
+                        if (!string.IsNullOrEmpty(color))
+                        {
+                            result=color.ToBrush();
+                        }
+
+                        return result;
+                    }
+                },
+            };
+
+
             ///<summary>
             /// Привязка колонок и базовые настройки сетки
             ///</summary> 
@@ -449,7 +478,7 @@ namespace Client.Interfaces.Stock
                 {
                     rd.Params = new Dictionary<string, string>()
                             {
-                                //{ "FACTORY_ID", StatusSelectBox.SelectedItem.Key},
+                                { "FACTORY_ID", PlatformSelectBox.SelectedItem.Key},
                             };
                 },
             };
@@ -528,6 +557,16 @@ namespace Client.Interfaces.Stock
             PalletGrid.Init();   //финальная инициализация: таблица применит все настройки, возможно выполнит первый загрузочный запрос QueryLoadItems и отрисуется
         }
 
+        public void SetDefaults()
+        {
+            PlatformSelectBox.SetItems(new Dictionary<string, string>()
+            {
+                {"1",  "Липецк"},
+                {"2",  "Кашира"},
+            });
+            PlatformSelectBox.SelectedItem = PlatformSelectBox.Items.First();
+        }
+
         /// <summary>
         /// Создание и настройка формы(объект FormHelper), в которой задаются поля
         /// </summary>
@@ -577,6 +616,11 @@ namespace Client.Interfaces.Stock
             };
             // Регистрация полей
             Form.SetFields(fields);
+        }
+
+        private void PlatformSelectBox_SelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            PalletGrid.LoadItems();
         }
     }
 }

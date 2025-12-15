@@ -101,7 +101,7 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
                     HotKey = "Ctrl+Return",
                     Action = () =>
                     {
-                        //Save();
+                        Save();
                     },
                 }); ;
                 Commander.Add(new CommandItem()
@@ -122,14 +122,62 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
             }
 
             Commander.Init(this);
-            SetDefaults();
         }
 
         public int PalletId;
 
+        private int FactoryId; // для передачи информации
+
+        private int ProductId;
+
+        /// <summary>
+        /// Метод для заполнения
+        /// </summary>
+        public void SetParams(int factoryId, int productId )
+        {
+            this.FactoryId = factoryId;
+            this.ProductId = productId;
+        }
+
+        /// <summary>
+        /// подготовка данных
+        /// </summary>
+        public void Save()
+        {
+            //bool resume = true;
+            //string error = "";
+
+            ////стандартная валидация данных средствами формы
+            //if (resume)
+            //{
+            //    var validationResult = Form.Validate();
+            //    if (!validationResult)
+            //    {
+            //        resume = false;
+            //    }
+            //}
+
+            //var v = Form.GetValues();
+
+            ////отправка данных
+            //if (resume)
+            //{
+            //    SaveData(v);
+            //}
+            //else
+            //{
+            //    Form.SetStatus(error, 1);
+            //}
+        }
+
+       
+
+        /// <summary>
+        /// Передача значений по-умолчанию
+        /// </summary>
         public void SetDefaults()
         {
-            
+
         }
 
         private void ShipmentGridInit()
@@ -221,6 +269,7 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
             //        }
             //    },
             //};
+
             ///<summary>
             /// Привязка колонок и базовые настройки сетки
             ///</summary> 
@@ -244,8 +293,8 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
                 {
                     rd.Params = new Dictionary<string, string>()
                             {
-                                //{ "FACT_ID", StatusSelectBox.SelectedItem.Key},  //Поискать реализацию SelectBox
-                                { "PRODUCT_ID", Central.User.AccountId.ToString() }
+                                { "FACT_ID", FactoryId.ToString()},  
+                                { "PRODUCT_ID", ProductId.ToString() }
                             };
                 },
             };
@@ -256,6 +305,8 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
             ShipmentGrid.Commands = Commander; //Привязка набора команд(кнопок/действий), которые будут доступны в таблице(CRUD)
             ShipmentGrid.Init();   //финальная инициализация: таблица применит все настройки, возможно выполнит первый загрузочный запрос QueryLoadItems и отрисуется
         }
+
+
 
     }
 }

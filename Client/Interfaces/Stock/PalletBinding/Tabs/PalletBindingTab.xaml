@@ -56,7 +56,7 @@
                             <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
 
                             <Label Content="Площадка:"  Style="{DynamicResource TopLabel}" />
-                            <controls:SelectBox x:Name="Playground"   Style="{DynamicResource CustomFormField}" ListBoxMinWidth="120" ListBoxMinHeight="120"  Width="120" Autocomplete="True" VerticalAlignment="Bottom"/>
+                            <controls:SelectBox x:Name="PlatformSelectBox" SelectedItemChanged="PlatformSelectBox_SelectedItemChanged" Style="{DynamicResource CustomFormField}" ListBoxMinWidth="120" ListBoxMinHeight="120"  Width="120" Autocomplete="True" VerticalAlignment="Bottom"/>
                             <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
 
 
