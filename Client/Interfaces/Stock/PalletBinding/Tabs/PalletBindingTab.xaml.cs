@@ -20,6 +20,7 @@ using Client.Interfaces.Preproduction.Rig;
 using static Client.Interfaces.Main.DataGridHelperColumn;
 using System.ComponentModel;
 using Newtonsoft.Json;
+using Client.Interfaces.Stock.PalletBinding.Frames;
 
 namespace Client.Interfaces.Stock
 {
@@ -150,7 +151,8 @@ namespace Client.Interfaces.Stock
                         Title = "В Excel",
                         Description = "Выгрузить данные в Excel файл",
                         ButtonUse = true,
-                        ButtonName = "ExportToExcelButton",
+                        ButtonName = "ExcelButton",
+                        //ButtonControl = ExcelButton,  - проверка на этапе компиляции
                         AccessLevel = Common.Role.AccessMode.ReadOnly,
                         Action = () =>
                         {
@@ -174,7 +176,19 @@ namespace Client.Interfaces.Stock
                             ButtonName = "TieButton",
                             Action = () =>
                             {
-                                Central.ShowHelp(DocumentationUrl); //Сделать своё окно (привязка поддонов)
+                                var i = new PalletBindingForm();
+                                i.Show();
+                            },
+                            CheckEnabled = () =>
+                            {
+                                var result = false;
+                                var k = PalletGrid.GetPrimaryKey();
+                                var row = PalletGrid.SelectedItem;
+                                if (row.CheckGet(k).ToInt() != 0)
+                                {
+                                    result = true;
+                                }
+                                return result;
                             },
                         });
                         Commander.Add(new CommandItem()
@@ -193,6 +207,7 @@ namespace Client.Interfaces.Stock
                     }
                 }
             }
+            Commander.Init(this);
         }
 
         public FormHelper Form {  get; set; }
@@ -415,7 +430,7 @@ namespace Client.Interfaces.Stock
             /// Привязка колонок и базовые настройки сетки
             ///</summary> 
             PalletGrid.SetColumns(columns); //сообщает таблице какие колонки показывать
-            PalletGrid.SetPrimaryKey("ID"); //указывает, что поле ID является уникальным ключом для каждой строки
+            PalletGrid.SetPrimaryKey("PALLET_ID"); //указывает, что поле ID является уникальным ключом для каждой строки
             PalletGrid.SetSorting("PALLET_ID", ListSortDirection.Ascending); //начальная сортировка по данной колонке по-умолчанию по возрастанию
             PalletGrid.ColumnWidthMode = GridBox.ColumnWidthModeRef.Compact; //режим отображения ширины колонок
             PalletGrid.SearchText = PalletGridSearch;  //поле строки поиска
@@ -429,7 +444,14 @@ namespace Client.Interfaces.Stock
                 Module = "Stock", 
                 Object = "PalletBinding",
                 Action = "List",
-                AnswerSectionKey = "PALLETS", 
+                AnswerSectionKey = "PALLETS",
+                BeforeRequest = (RequestData rd) =>
+                {
+                    rd.Params = new Dictionary<string, string>()
+                            {
+                                //{ "FACTORY_ID", StatusSelectBox.SelectedItem.Key},
+                            };
+                },
             };
 
             ///<summary>
@@ -520,13 +542,14 @@ namespace Client.Interfaces.Stock
                     FieldType=FormHelperField.FieldTypeRef.Integer, //Значение (целое число)
                     Default="0", //Если пользователь ничего не выбрал — используется "0"
                     Control=PalletGroup, //Это SelectBox (выпадающий список), размещённый в UI.
-                    ControlType="SelectBox",
+                    ControlType="SelectBox",                                                      //Сдлеать для площадки
                     Filters=new Dictionary<FormHelperField.FieldFilterRef, object>{
                     },
                     OnChange=(FormHelperField f, string v)=>
                     {
                         PalletGrid.UpdateItems();  
                     },
+
                     //QueryLoadItems = new RequestData() // Загрузка вариантов выбора с сервера
                     //{
                     //    Module = "Stock", 
