@@ -65,7 +65,7 @@
                             <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
 
                             <Label Content="Поддоны:"  Style="{DynamicResource TopLabel}" />
-                            <controls:SelectBox x:Name="PalletGroup"   Style="{DynamicResource CustomFormField}" ListBoxMinWidth="190" ListBoxMinHeight="120"  Width="190" Autocomplete="True" VerticalAlignment="Bottom"/>
+                    <controls:SelectBox x:Name="PalletSelectBox" SelectedItemChanged ="PalletSelectBox_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" ListBoxMinWidth="190" ListBoxMinHeight="120"  Width="190" Autocomplete="True" VerticalAlignment="Bottom"/>
                             <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
 
                     

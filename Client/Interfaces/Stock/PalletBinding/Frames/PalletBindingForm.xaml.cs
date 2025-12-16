@@ -130,44 +130,58 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
 
         private int ProductId;
 
+        private int IdPz;
+
+        private int Num;
+
         /// <summary>
         /// Метод для заполнения
         /// </summary>
-        public void SetParams(int factoryId, int productId )
+        public void SetParams(int factoryId, int productId, int id_pz, int num)
         {
             this.FactoryId = factoryId;
             this.ProductId = productId;
+            this.IdPz = id_pz;
+            this.Num = num;
         }
 
         /// <summary>
-        /// подготовка данных
+        /// Сохранение перед отправкой на сервер
         /// </summary>
         public void Save()
         {
-            //bool resume = true;
-            //string error = "";
+            if( ShipmentGrid.SelectedItem != null && ShipmentGrid.SelectedItem.Count > 0)
+            {
+                var p = new Dictionary<string, string>();
+                {
+                    p.Add("ORDER_ID", ShipmentGrid.SelectedItem["IDORDERDATES"]);
+                    p.Add("PRODUCT_ID", ProductId.ToString());
+                    p.Add("PRODUCTION_TASK_ID", IdPz.ToString());
+                    p.Add("PALLET_NUMBER", Num.ToString());
+                }
 
-            ////стандартная валидация данных средствами формы
-            //if (resume)
-            //{
-            //    var validationResult = Form.Validate();
-            //    if (!validationResult)
-            //    {
-            //        resume = false;
-            //    }
-            //}
+                var q = new LPackClientQuery();
+                q.Request.SetParam("Module", "Stock");
+                q.Request.SetParam("Object", "PalletBinding");
+                q.Request.SetParam("Action", "Save");
+                q.Request.SetParams(p);
 
-            //var v = Form.GetValues();
+                q.DoQuery();
 
-            ////отправка данных
-            //if (resume)
-            //{
-            //    SaveData(v);
-            //}
-            //else
-            //{
-            //    Form.SetStatus(error, 1);
-            //}
+                if (q.Answer.Status == 0)
+                {
+                    Close();
+                }
+                else
+                {
+                    q.ProcessError();
+                }
+            }
+            else 
+            {
+                var d = new DialogWindow("Не выбрана заявка для привязки", "Ошибка", "", DialogWindowButtons.OK);
+                d.ShowDialog();
+            }
         }
 
        
@@ -183,10 +197,8 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
         private void ShipmentGridInit()
         {
             ///<summary>
-            /// 
+            /// Определение колонок
             ///</summary>
-            // Определение колонок
-            // Каждый объект описывает одну колонку таблицы
             var columns = new List<DataGridHelperColumn>
             {
                 new DataGridHelperColumn
@@ -232,44 +244,6 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
                 },
             };
 
-            // Ещё не менял
-            ///<summary>
-            /// Стилизаия строк по правилам
-            /// RowStylers — это словарь, где ключ описывает тип стилизации (например, BackgroundColor), 
-            /// а значение — делегат (функция), которая для каждой строки возвращает значение стиля (например, цвет фона).
-            ///</summary>
-            //ShipmentGrid.RowStylers = new Dictionary<DataGridHelperColumn.StylerTypeRef, DataGridHelperColumn.StylerDelegate>()
-            //{
-            //    {
-            //        DataGridHelperColumn.StylerTypeRef.BackgroundColor,
-            //        row => 
-            //        {
-            //            var result=DependencyProperty.UnsetValue;
-            //            var color = "";
-
-            //            var currentStatus = row.CheckGet("idts").ToBool(); //  Выше проверит к чему относится idts
-            //            if (currentStatus == true)
-            //            {
-            //                color = HColor.Red;
-            //            }
-
-            //            var isEmployee = row.CheckGet("IS_EMPLOYEE").ToBool();
-            //            if (isEmployee == false)
-            //            {
-            //                //это общий аккаунт - что это значит?
-            //                color = HColor.Blue;
-            //            }
-
-            //            if (!string.IsNullOrEmpty(color))
-            //            {
-            //                result=color.ToBrush();
-            //            }
-
-            //            return result;
-            //        }
-            //    },
-            //};
-
             ///<summary>
             /// Привязка колонок и базовые настройки сетки
             ///</summary> 
@@ -305,8 +279,5 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
             ShipmentGrid.Commands = Commander; //Привязка набора команд(кнопок/действий), которые будут доступны в таблице(CRUD)
             ShipmentGrid.Init();   //финальная инициализация: таблица применит все настройки, возможно выполнит первый загрузочный запрос QueryLoadItems и отрисуется
         }
-
-
-
     }
 }

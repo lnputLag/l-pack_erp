@@ -178,7 +178,8 @@ namespace Client.Interfaces.Stock
                             Action = () =>
                             {
                                 var i = new PalletBindingForm();
-                                i.SetParams(PalletGrid.SelectedItem["FACT_ID"].ToInt(), PalletGrid.SelectedItem["ID_TOVAR"].ToInt());
+                                i.SetParams(PalletGrid.SelectedItem["FACT_ID"].ToInt(), PalletGrid.SelectedItem["ID_TOVAR"].ToInt(), PalletGrid.SelectedItem["ID_PZ"].ToInt(), PalletGrid.SelectedItem["NUM"].ToInt());
+
                                 i.Show();
                             },
                             CheckEnabled = () =>
@@ -250,7 +251,7 @@ namespace Client.Interfaces.Stock
                     Path="PRODUCT_CODE",  // SQL - запрос
                     Description="Артикул Поддона",
                     ColumnType=ColumnTypeRef.String,
-                    Width2=14,
+                    Width2=20,
                 },
                 new DataGridHelperColumn
                 {
@@ -258,7 +259,7 @@ namespace Client.Interfaces.Stock
                     Path="PRODUCT_NAME",
                     Description="Наименование",
                     ColumnType=ColumnTypeRef.String,
-                    Width2=16,
+                    Width2=42,
                 },
                 new DataGridHelperColumn
                 {
@@ -267,7 +268,7 @@ namespace Client.Interfaces.Stock
                     Description="",
                     ColumnType=ColumnTypeRef.Double,
                     Format = "N0",
-                    Width2=16,
+                    Width2=8,
                 },
                  new DataGridHelperColumn
                 {
@@ -283,7 +284,7 @@ namespace Client.Interfaces.Stock
                     Path="PLACE",
                     Description="",
                     ColumnType=ColumnTypeRef.String,
-                    Width2=16,
+                    Width2=8,
                 },
                  //Заявка
                  new DataGridHelperColumn
@@ -292,7 +293,7 @@ namespace Client.Interfaces.Stock
                     Path="ORDER_DATA",
                     Description="",
                     ColumnType=ColumnTypeRef.String,
-                    Width2=6,
+                    Width2=30,
                     Group = "Заявка",
                     Stylers=new Dictionary<StylerTypeRef,StylerDelegate>()
                         {
@@ -303,16 +304,12 @@ namespace Client.Interfaces.Stock
                                     var result=DependencyProperty.UnsetValue;
                                     var color = "";
 
-
-
                                        if (!row["IDORDERDATES_PZ"].IsNullOrEmpty() && !row["IDORDERDATES"].IsNullOrEmpty() && row["IDORDERDATES_PZ"] != row["IDORDERDATES"])
                                         {
 
                                             color = HColor.Yellow;
                                         }
                                  
-
-
                                     if (!string.IsNullOrEmpty(color))
                                     {
                                         result=color.ToBrush();
@@ -329,7 +326,7 @@ namespace Client.Interfaces.Stock
                     Path="IDORDERDATES",
                     Description="",
                     ColumnType=ColumnTypeRef.Integer,
-                    Width2=6,
+                    Width2=16,
                     Group = "Заявка"
                 },
                  new DataGridHelperColumn
@@ -347,8 +344,8 @@ namespace Client.Interfaces.Stock
                     Header="Отгрузка",
                     Path="ORDER_DATA_PZ",
                     Description="",
-                    ColumnType=ColumnTypeRef.Integer,
-                    Width2=6,
+                    ColumnType=ColumnTypeRef.String,
+                    Width2=40,
                     Group = "ПЗ"
                 },
                  new DataGridHelperColumn
@@ -357,7 +354,7 @@ namespace Client.Interfaces.Stock
                     Path="IDORDERDATES_PZ",
                     Description="",
                     ColumnType=ColumnTypeRef.Integer,
-                    Width2=6,
+                    Width2=16,
                     Group = "ПЗ"
                 },
                  new DataGridHelperColumn
@@ -366,7 +363,7 @@ namespace Client.Interfaces.Stock
                     Path="OD_C",
                     Description="",
                     ColumnType=ColumnTypeRef.Integer,
-                    Width2=6,
+                    Width2=4,
                 },
                  new DataGridHelperColumn
                 {
@@ -374,7 +371,7 @@ namespace Client.Interfaces.Stock
                     Path="SHIPPED",
                     Description="Отправленный поддон",
                     ColumnType=ColumnTypeRef.Integer,
-                    Width2=6,
+                    Width2=4,
                 },
                  new DataGridHelperColumn
                 {
@@ -390,7 +387,7 @@ namespace Client.Interfaces.Stock
                     Path="NUM",
                     Description="",
                     ColumnType=ColumnTypeRef.Integer,
-                    Width2=10,
+                    Width2=8,
                 },
                  new DataGridHelperColumn
                 {
@@ -406,7 +403,7 @@ namespace Client.Interfaces.Stock
                     Path="FACT_ID",
                     Description="",
                     ColumnType=ColumnTypeRef.Integer,
-                    Width2=6,
+                    Width2=4,
                 },
                  new DataGridHelperColumn
                 {
@@ -415,7 +412,7 @@ namespace Client.Interfaces.Stock
                     Description="Указание даты и времени",
                     ColumnType=ColumnTypeRef.DateTime,
                     Format = "dd.MM.yyyy HH:mm:ss",
-                    Width2=6,
+                    Width2=16,
                 },
             };
 
@@ -432,17 +429,23 @@ namespace Client.Interfaces.Stock
                         var result=DependencyProperty.UnsetValue;
                         var color = "";
 
-
-                        if (!row["DTTM"].IsNullOrEmpty() && (row["SHIPPED"].ToInt() == 0 || row["OD_C"].ToInt() == 0) && row["DTTM"].ToDateTime("dd.MM.yyyy HH:mm:ss") < DateTime.Now)
+                        if (row != null && row.Count > 0)
+                        {
+                            if (!row["DTTM"].IsNullOrEmpty() && (row["SHIPPED"].ToInt() == 0 || row["OD_C"].ToInt() == 0) && row["DTTM"].ToDateTime("dd.MM.yyyy HH:mm:ss") < DateTime.Now)
                         {
                             color = HColor.Yellow;
                         }
 
-                        //if ()
-                        //{
-                        //    //это общий аккаунт - что это значит?
-                        //    color = HColor.Blue;
-                        //}
+                        if (!row["DTTM"].IsNullOrEmpty() && row["SHIPPED"].ToInt() == 0 && row["DTTM"].ToDateTime("dd.MM.yyyy HH:mm:ss") >= DateTime.Now)
+                        {
+                            color = HColor.Green;
+                        }
+
+                        if (row["DTTM"].IsNullOrEmpty() && row["SHIPPED"].ToInt() == 1 && row["OD_C"].ToInt() == 0)
+                        {
+                            color = HColor.Blue;
+                        }
+                        }
 
                         if (!string.IsNullOrEmpty(color))
                         {
@@ -479,27 +482,27 @@ namespace Client.Interfaces.Stock
                     rd.Params = new Dictionary<string, string>()
                             {
                                 { "FACTORY_ID", PlatformSelectBox.SelectedItem.Key},
+
                             };
                 },
             };
 
             ///<summary>
-            /// Фильтрация элементов — OnFilterItems
+            /// Фильтрация элементов — OnFilterItems Нужна ли эта часть?, сложно понять что она делает
             ///</summary>
-            // Нужна ли эта часть?, сложно понять что она делает
             PalletGrid.OnFilterItems = () =>
             {
                 if (PalletGrid.Items.Count > 0)
                 {
-                    var v = Form.GetValues();
-                    var accountType = v.CheckGet("ACCOUNT_TYPE").ToInt();
+                    
+                    var palletType = PalletSelectBox.SelectedItem.Key.ToInt();
 
                     var items = new List<Dictionary<string, string>>();
                     foreach (Dictionary<string, string> row in PalletGrid.Items)
                     {
                         bool include = false;
 
-                        switch (accountType)
+                        switch (palletType)
                         {
                             //Общие аккаунты
                             case 1:
@@ -565,62 +568,27 @@ namespace Client.Interfaces.Stock
                 {"2",  "Кашира"},
             });
             PlatformSelectBox.SelectedItem = PlatformSelectBox.Items.First();
-        }
 
-        /// <summary>
-        /// Создание и настройка формы(объект FormHelper), в которой задаются поля
-        /// </summary>
-        private void FormInit()
-        {
-            Form = new FormHelper(); // контейнер, который будет управлять значениями полей, их логикой и связью с интерфейсом.
-            var fields = new List<FormHelperField>()
+            PalletSelectBox.SetItems(new Dictionary<string, string>()
             {
-                new FormHelperField() // Каждый FormHelperField — это одно поле формы.
-                {
-                    Path="PALLET_GROUPS", //Имя поля, форма будет хранить знаечение под ключом "можно придумать свой"
-                    FieldType=FormHelperField.FieldTypeRef.Integer, //Значение (целое число)
-                    Default="0", //Если пользователь ничего не выбрал — используется "0"
-                    Control=PalletGroup, //Это SelectBox (выпадающий список), размещённый в UI.
-                    ControlType="SelectBox",                                                      //Сдлеать для площадки
-                    Filters=new Dictionary<FormHelperField.FieldFilterRef, object>{
-                    },
-                    OnChange=(FormHelperField f, string v)=>
-                    {
-                        PalletGrid.UpdateItems();  
-                    },
-
-                    //QueryLoadItems = new RequestData() // Загрузка вариантов выбора с сервера
-                    //{
-                    //    Module = "Stock", 
-                    //    Object = "PalletBinding",
-                    //    Action = "List",
-                    //    AnswerSectionKey = "PALLETS", 
-                    //    OnComplete = (FormHelperField f,ListDataSet ds) => // Что делать, когда данные пришли
-                    //    {
-                    //        var row = new Dictionary<string, string>() // Добавляем пункт “Все”, т е перед реальными группами всегда есть пункт «Все».
-                    //        {
-                    //            {"ID", "0" },
-                    //            {"NAME", "Все" },
-                    //        };
-                    //        ds.ItemsPrepend(row);
-                    //        var list=ds.GetItemsList("ID","NAME"); // Преобразование ListDataSet в словарь для SelectBox
-                    //        var c=(SelectBox)f.Control; // передача данных в UI-контрол
-                    //        if(c != null)
-                    //        {
-                    //            c.Items=list;
-                    //        }
-                    //    },
-                    //},
-                },
-          
-            };
-            // Регистрация полей
-            Form.SetFields(fields);
+                {"0", "Все"},
+                {"1", "Привязанные"},
+                {"2", "Отвязанные"},
+                {"3", "Для привязки"},
+                {"4", "Для отвязки"},
+            });
+            PalletSelectBox.SelectedItem = PalletSelectBox.Items.First();
         }
+
 
         private void PlatformSelectBox_SelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             PalletGrid.LoadItems();
+        }
+
+        private void PalletSelectBox_SelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            PalletGrid.UpdateItems();
         }
     }
 }
