@@ -36,11 +36,10 @@ namespace Client.Interfaces.Stock
         {
             InitializeComponent();
 
-            RoleName = "[erp]pallet_binding";  // создать новую роль, прописать в навигаторе (создали)
+            RoleName = "[erp]pallet_binding";
             ControlTitle = "Изделия на складе";
             DocumentationUrl = "/doc/l-pack-erp/warehouse";
 
-            // обработка сообщений между компонентами
             OnMessage = (ItemMessage m) =>
             {
                 if (m.ReceiverName == ControlName)
@@ -49,7 +48,6 @@ namespace Client.Interfaces.Stock
                 }
             };
 
-            // Обработка нажатий клавиш
             OnKeyPressed = (System.Windows.Input.KeyEventArgs e) =>
             {
                 if (!e.Handled)
@@ -58,29 +56,23 @@ namespace Client.Interfaces.Stock
                 }
             };
 
-            // Инициализация при загрузке
             OnLoad = () =>
             {
-                PalletGridInit();     //инициализация таблицы аккаунтов
-                SetDefaults();         //установка значений по умолчанию
+                PalletGridInit();     
+                SetDefaults();        
             };
 
-            // Очистка ресурсов при выгрузке
             OnUnload = () =>
             {
                 PalletGrid.Destruct();
             };
-
-            // Управление автообновлением таблицы при фокусе
-            // Активная вкладка 
+ 
             OnFocusGot = () =>
             {
                 PalletGrid.ItemsAutoUpdate = true;
                 PalletGrid.Run();
             };
 
-            // Управление автообновлением таблицы при фокусе
-            // Переход на другую вкладку
             OnFocusLost = () =>
             {
                 PalletGrid.ItemsAutoUpdate = false;
@@ -91,7 +83,6 @@ namespace Client.Interfaces.Stock
             /// Код реализует систему команд с группировкой и контекстной активацией.
             ///</summary>
             {
-
                 // Группа "main"
                 Commander.SetCurrentGroup("main");    
                 {
@@ -135,7 +126,7 @@ namespace Client.Interfaces.Stock
                         ButtonName = "PrintButton",
                         Action = () =>
                         {
-                           // дописать
+
                         },
                         CheckEnabled = () =>
                         {
@@ -152,7 +143,6 @@ namespace Client.Interfaces.Stock
                         Description = "Выгрузить данные в Excel файл",
                         ButtonUse = true,
                         ButtonName = "ExcelButton",
-                        //ButtonControl = ExcelButton,  - проверка на этапе компиляции
                         AccessLevel = Common.Role.AccessMode.ReadOnly,
                         Action = () =>
                         {
@@ -224,17 +214,15 @@ namespace Client.Interfaces.Stock
         /// </summary>
         private void PalletGridInit()
         {
-            // Определение колонок
-            // Каждый объект описывает одну колонку таблицы
             var columns = new List<DataGridHelperColumn>
             {
                 new DataGridHelperColumn
                 {
-                    Header="#", //Видит пользователь
-                    Path="CHECKING",   // SQL - запрос
-                    ColumnType=ColumnTypeRef.Boolean, //тип данных колонки
-                    Editable=true, //выбранаая строка
-                    Width2=4, //ширина символов (число)
+                    Header="#",
+                    Path="CHECKING",   
+                    ColumnType=ColumnTypeRef.Boolean, 
+                    Editable=true, 
+                    Width2=4, 
                 },
                 new DataGridHelperColumn
                 {
@@ -247,7 +235,7 @@ namespace Client.Interfaces.Stock
                 new DataGridHelperColumn
                 {
                     Header="Артикул",
-                    Path="PRODUCT_CODE",  // SQL - запрос
+                    Path="PRODUCT_CODE",  
                     Description="Артикул продукции на поддоне",
                     ColumnType=ColumnTypeRef.String,
                     Width2=20,
@@ -469,17 +457,17 @@ namespace Client.Interfaces.Stock
             ///<summary>
             /// Привязка колонок и базовые настройки сетки
             ///</summary> 
-            PalletGrid.SetColumns(columns); //сообщает таблице какие колонки показывать
-            PalletGrid.SetPrimaryKey("PALLET_ID"); //указывает, что поле ID является уникальным ключом для каждой строки
-            PalletGrid.SetSorting("PALLET_ID", ListSortDirection.Ascending); //начальная сортировка по данной колонке по-умолчанию по возрастанию
-            PalletGrid.ColumnWidthMode = GridBox.ColumnWidthModeRef.Compact; //режим отображения ширины колонок
-            PalletGrid.SearchText = PalletGridSearch;  //поле строки поиска
-            PalletGrid.Toolbar = PalletGridToolbar; // привязка панели инструментов отвечающую за кнопки/действия таблицы
+            PalletGrid.SetColumns(columns); 
+            PalletGrid.SetPrimaryKey("PALLET_ID"); 
+            PalletGrid.SetSorting("PALLET_ID", ListSortDirection.Ascending); 
+            PalletGrid.ColumnWidthMode = GridBox.ColumnWidthModeRef.Compact; 
+            PalletGrid.SearchText = PalletGridSearch; 
+            PalletGrid.Toolbar = PalletGridToolbar; 
 
             ///<summary>
             /// Как загружать данные (запрос)
             ///</summary>
-            PalletGrid.QueryLoadItems = new RequestData() //описывает как сетка должна запрашивать данные с сервера, структура с параметрами:
+            PalletGrid.QueryLoadItems = new RequestData()
             {
                 Module = "Stock", 
                 Object = "PalletBinding",
@@ -496,7 +484,7 @@ namespace Client.Interfaces.Stock
             };
 
             ///<summary>
-            /// Фильтрация элементов — OnFilterItems Нужна ли эта часть?, сложно понять что она делает
+            /// Фильтрация элементов
             ///</summary>
             PalletGrid.OnFilterItems = () =>
             {
@@ -582,8 +570,8 @@ namespace Client.Interfaces.Stock
             ///<summary>
             /// Команды и инициализация
             ///</summary>
-            PalletGrid.Commands = Commander; //Привязка набора команд(кнопок/действий), которые будут доступны в таблице(CRUD)
-            PalletGrid.Init();   //финальная инициализация: таблица применит все настройки, возможно выполнит первый загрузочный запрос QueryLoadItems и отрисуется
+            PalletGrid.Commands = Commander; 
+            PalletGrid.Init();
         }
 
         public void SetDefaults()

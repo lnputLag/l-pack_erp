@@ -39,12 +39,11 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
 
                 var id = PalletId;
 
-                 result = $"Привязка поддона №{id}"; // отрисовка внизу
+                 result = $"Привязка поддона №{id}";
                
                 return result;
             };
 
-            // обработка сообщений между компонентами
             OnMessage = (ItemMessage m) =>
             {
                 if (m.ReceiverName == ControlName)
@@ -53,7 +52,6 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
                 }
             };
 
-            // Обработка нажатий клавиш
             OnKeyPressed = (System.Windows.Input.KeyEventArgs e) =>
             {
                 if (!e.Handled)
@@ -62,28 +60,22 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
                 }
             };
 
-            // Инициализация при загрузке
             OnLoad = () =>
             {
-                ShipmentGridInit();     //инициализация таблицы аккаунтов
+                ShipmentGridInit();     
             };
 
-            // Очистка ресурсов при выгрузке
             OnUnload = () =>
             {
                 ShipmentGrid.Destruct();
             };
 
-            // Управление автообновлением таблицы при фокусе
-            // Активная вкладка 
             OnFocusGot = () =>
             {
                 ShipmentGrid.ItemsAutoUpdate = true;
                 ShipmentGrid.Run();
             };
 
-            // Управление автообновлением таблицы при фокусе
-            // Переход на другую вкладку
             OnFocusLost = () =>
             {
                 ShipmentGrid.ItemsAutoUpdate = false;
@@ -126,7 +118,7 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
 
         public int PalletId;
 
-        private int FactoryId; // для передачи информации
+        private int FactoryId;
 
         private int ProductId;
 
@@ -273,17 +265,16 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
             ///<summary>
             /// Привязка колонок и базовые настройки сетки
             ///</summary> 
-            ShipmentGrid.SetColumns(columns); //сообщает таблице какие колонки показывать
-            ShipmentGrid.SetPrimaryKey("PALLET_ID"); //указывает, что поле ID является уникальным ключом для каждой строки
-            ShipmentGrid.SetSorting("PALLET_ID", ListSortDirection.Ascending); //начальная сортировка по данной колонке по-умолчанию по возрастанию
-            ShipmentGrid.ColumnWidthMode = GridBox.ColumnWidthModeRef.Compact; //режим отображения ширины колонок
-            //ShipmentGrid.SearchText = ShipmentGridSearch;  (оно не нужно же?)
-            ShipmentGrid.Toolbar = FormToolbar; // привязка панели инструментов отвечающую за кнопки/действия таблицы
+            ShipmentGrid.SetColumns(columns);
+            ShipmentGrid.SetPrimaryKey("PALLET_ID");
+            ShipmentGrid.SetSorting("PALLET_ID", ListSortDirection.Ascending); 
+            ShipmentGrid.ColumnWidthMode = GridBox.ColumnWidthModeRef.Compact;
+            ShipmentGrid.Toolbar = FormToolbar; 
 
             ///<summary>
             /// Как загружать данные (запрос)
             ///</summary>
-            ShipmentGrid.QueryLoadItems = new RequestData() //описывает как сетка должна запрашивать данные с сервера, структура с параметрами:
+            ShipmentGrid.QueryLoadItems = new RequestData() 
             {
                 Module = "Stock",
                 Object = "PalletBinding",
@@ -303,8 +294,8 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
             ///<summary>
             /// Команды и инициализация
             ///</summary>
-            ShipmentGrid.Commands = Commander; //Привязка набора команд(кнопок/действий), которые будут доступны в таблице(CRUD)
-            ShipmentGrid.Init();   //финальная инициализация: таблица применит все настройки, возможно выполнит первый загрузочный запрос QueryLoadItems и отрисуется
+            ShipmentGrid.Commands = Commander; 
+            ShipmentGrid.Init();
         }
     }
 }
