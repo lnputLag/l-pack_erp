@@ -1,4 +1,5 @@
-﻿using Client.Common;
+﻿using Client.Assets.HighLighters;
+using Client.Common;
 using Client.Interfaces.Main;
 using System;
 using System.Collections.Generic;
@@ -65,7 +66,6 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
             OnLoad = () =>
             {
                 ShipmentGridInit();     //инициализация таблицы аккаунтов
-                SetDefaults();         //установка значений по умолчанию
             };
 
             // Очистка ресурсов при выгрузке
@@ -134,15 +134,18 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
 
         private int Num;
 
+        private int IdOrderDates;
+
         /// <summary>
         /// Метод для заполнения
         /// </summary>
-        public void SetParams(int factoryId, int productId, int id_pz, int num)
+        public void SetParams(int factoryId, int productId, int id_pz, int num, int id_order_dates)
         {
             this.FactoryId = factoryId;
             this.ProductId = productId;
             this.IdPz = id_pz;
             this.Num = num;
+            this.IdOrderDates = id_order_dates;
         }
 
         /// <summary>
@@ -157,6 +160,7 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
                     p.Add("ORDER_ID", ShipmentGrid.SelectedItem["IDORDERDATES"]);
                     p.Add("PRODUCT_ID", ProductId.ToString());
                     p.Add("PRODUCTION_TASK_ID", IdPz.ToString());
+                    p.Add("IDORDERDATES", IdOrderDates.ToString());
                     p.Add("PALLET_NUMBER", Num.ToString());
                 }
 
@@ -182,17 +186,7 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
                 var d = new DialogWindow("Не выбрана заявка для привязки", "Ошибка", "", DialogWindowButtons.OK);
                 d.ShowDialog();
             }
-        }
-
-       
-
-        /// <summary>
-        /// Передача значений по-умолчанию
-        /// </summary>
-        public void SetDefaults()
-        {
-
-        }
+        }     
 
         private void ShipmentGridInit()
         {
@@ -245,6 +239,38 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
             };
 
             ///<summary>
+            /// покраска в нужный цвет ячеек
+            ///</summary>
+            ShipmentGrid.RowStylers = new Dictionary<DataGridHelperColumn.StylerTypeRef, DataGridHelperColumn.StylerDelegate>()
+            {
+                {
+                    DataGridHelperColumn.StylerTypeRef.BackgroundColor,
+                    row =>
+                    {
+                        var result=DependencyProperty.UnsetValue;
+                        var color = "";
+
+                        if (row != null && row.Count > 0)
+                        {
+                            if (!row["IDORDERDATES"].IsNullOrEmpty() && (row["IDORDERDATES"] == IdOrderDates.ToString()))
+                            {
+                            color = HColor.Green;
+                            }
+
+                        
+                        }
+
+                        if (!string.IsNullOrEmpty(color))
+                        {
+                            result=color.ToBrush();
+                        }
+
+                        return result;
+                    }
+                },
+            };
+
+            ///<summary>
             /// Привязка колонок и базовые настройки сетки
             ///</summary> 
             ShipmentGrid.SetColumns(columns); //сообщает таблице какие колонки показывать
@@ -268,7 +294,8 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
                     rd.Params = new Dictionary<string, string>()
                             {
                                 { "FACT_ID", FactoryId.ToString()},  
-                                { "PRODUCT_ID", ProductId.ToString() }
+                                { "PRODUCT_ID", ProductId.ToString()},
+                                { "IDORDERDATES", IdOrderDates.ToString()}
                             };
                 },
             };

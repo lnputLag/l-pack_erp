@@ -22,6 +22,7 @@ using System.ComponentModel;
 using Newtonsoft.Json;
 using Client.Interfaces.Stock.PalletBinding.Frames;
 using System.Windows.Forms;
+using NPOI.SS.Formula.Functions;
 
 namespace Client.Interfaces.Stock
 {
@@ -35,7 +36,6 @@ namespace Client.Interfaces.Stock
         {
             InitializeComponent();
 
-            //ControlSection = "palletbinding";
             RoleName = "[erp]pallet_binding";  // создать новую роль, прописать в навигаторе (создали)
             ControlTitle = "Изделия на складе";
             DocumentationUrl = "/doc/l-pack-erp/warehouse";
@@ -61,7 +61,6 @@ namespace Client.Interfaces.Stock
             // Инициализация при загрузке
             OnLoad = () =>
             {
-                FormInit();            //инициализация формы
                 PalletGridInit();     //инициализация таблицы аккаунтов
                 SetDefaults();         //установка значений по умолчанию
             };
@@ -178,7 +177,11 @@ namespace Client.Interfaces.Stock
                             Action = () =>
                             {
                                 var i = new PalletBindingForm();
-                                i.SetParams(PalletGrid.SelectedItem["FACT_ID"].ToInt(), PalletGrid.SelectedItem["ID_TOVAR"].ToInt(), PalletGrid.SelectedItem["ID_PZ"].ToInt(), PalletGrid.SelectedItem["NUM"].ToInt());
+                                i.SetParams(PalletGrid.SelectedItem["FACT_ID"].ToInt(), 
+                                    PalletGrid.SelectedItem["ID_TOVAR"].ToInt(), 
+                                    PalletGrid.SelectedItem["ID_PZ"].ToInt(), 
+                                    PalletGrid.SelectedItem["NUM"].ToInt(),
+                                    PalletGrid.SelectedItem["IDORDERDATES"].ToInt());
 
                                 i.Show();
                             },
@@ -204,13 +207,8 @@ namespace Client.Interfaces.Stock
                             ButtonName = "UntieButton",
                             Action = () =>
                             {
-                                var d = new DialogWindow("test1", "test2", "test3", DialogWindowButtons.YesNo);
-                                d.ShowDialog();
+                                Untie();
                             },
-                            //CheckEnabled = () =>
-                            //{
-                            //     логика отвязки поддона
-                            //},
                         });
                     }
                 }
@@ -235,6 +233,7 @@ namespace Client.Interfaces.Stock
                     Header="#", //Видит пользователь
                     Path="CHECKING",   // SQL - запрос
                     ColumnType=ColumnTypeRef.Boolean, //тип данных колонки
+                    Editable=true, //выбранаая строка
                     Width2=4, //ширина символов (число)
                 },
                 new DataGridHelperColumn
@@ -243,13 +242,13 @@ namespace Client.Interfaces.Stock
                     Path="PALLET_ID", 
                     Description = "ИД поддона",
                     ColumnType=ColumnTypeRef.Integer,
-                    Width2=8,
+                    Width2=12,
                 },
                 new DataGridHelperColumn
                 {
                     Header="Артикул",
                     Path="PRODUCT_CODE",  // SQL - запрос
-                    Description="Артикул Поддона",
+                    Description="Артикул продукции на поддоне",
                     ColumnType=ColumnTypeRef.String,
                     Width2=20,
                 },
@@ -257,32 +256,32 @@ namespace Client.Interfaces.Stock
                 {
                     Header="Наименование",
                     Path="PRODUCT_NAME",
-                    Description="Наименование",
+                    Description="Наименование продукции на поддоне",
                     ColumnType=ColumnTypeRef.String,
-                    Width2=42,
+                    Width2=50,
                 },
                 new DataGridHelperColumn
                 {
                     Header="Количество",
                     Path="KOL",
-                    Description="",
+                    Description="кол-во продукции на поддоне",
                     ColumnType=ColumnTypeRef.Double,
                     Format = "N0",
-                    Width2=8,
+                    Width2=12,
                 },
                  new DataGridHelperColumn
                 {
                     Header="Поддон",
                     Path="PZ_NUM",
-                    Description="",
+                    Description="номер поддона(№ пз + № поддона",
                     ColumnType=ColumnTypeRef.String,
-                    Width2=16,
+                    Width2=12,
                 },
                  new DataGridHelperColumn
                 {
                     Header="Место",
                     Path="PLACE",
-                    Description="",
+                    Description="место хранения поддона",
                     ColumnType=ColumnTypeRef.String,
                     Width2=8,
                 },
@@ -291,7 +290,7 @@ namespace Client.Interfaces.Stock
                 {
                     Header="Отгрузка",
                     Path="ORDER_DATA",
-                    Description="",
+                    Description="информация по отгрузке",
                     ColumnType=ColumnTypeRef.String,
                     Width2=30,
                     Group = "Заявка",
@@ -304,7 +303,9 @@ namespace Client.Interfaces.Stock
                                     var result=DependencyProperty.UnsetValue;
                                     var color = "";
 
-                                       if (!row["IDORDERDATES_PZ"].IsNullOrEmpty() && !row["IDORDERDATES"].IsNullOrEmpty() && row["IDORDERDATES_PZ"] != row["IDORDERDATES"])
+                                       if (!row["IDORDERDATES_PZ"].IsNullOrEmpty() && 
+                                            !row["IDORDERDATES"].IsNullOrEmpty() && 
+                                            row["IDORDERDATES_PZ"] != row["IDORDERDATES"])
                                         {
 
                                             color = HColor.Yellow;
@@ -324,16 +325,16 @@ namespace Client.Interfaces.Stock
                 {
                     Header="ИД позиции заявки",
                     Path="IDORDERDATES",
-                    Description="",
+                    Description="ИД позиции заявки",
                     ColumnType=ColumnTypeRef.Integer,
-                    Width2=16,
+                    Width2=12,
                     Group = "Заявка"
                 },
                  new DataGridHelperColumn
                 {
                     Header="ИД отгрузки",
                     Path="IDTS",
-                    Description="",
+                    Description="№ отгрузки",
                     ColumnType=ColumnTypeRef.Integer,
                     Width2=6,
                     Group = "Заявка"
@@ -352,32 +353,32 @@ namespace Client.Interfaces.Stock
                 {
                     Header="ИД позиции заявки",
                     Path="IDORDERDATES_PZ",
-                    Description="",
+                    Description="Ид заявки по производственному заданию",
                     ColumnType=ColumnTypeRef.Integer,
-                    Width2=16,
+                    Width2=12,
                     Group = "ПЗ"
                 },
                  new DataGridHelperColumn
                 {
                     Header="OD_C",
                     Path="OD_C",
-                    Description="",
+                    Description="кол-во подходящих заявок для поддона",
                     ColumnType=ColumnTypeRef.Integer,
-                    Width2=4,
+                    Width2=6,
                 },
                  new DataGridHelperColumn
                 {
                     Header="SHIPPED",
                     Path="SHIPPED",
-                    Description="Отправленный поддон",
+                    Description="Отгруженный поддон",
                     ColumnType=ColumnTypeRef.Integer,
-                    Width2=4,
+                    Width2=8,
                 },
                  new DataGridHelperColumn
                 {
                     Header="ID_PZ",
                     Path="ID_PZ",
-                    Description="",
+                    Description="ИД производственного задания",
                     ColumnType=ColumnTypeRef.Integer,
                     Width2=10,
                 },
@@ -385,9 +386,9 @@ namespace Client.Interfaces.Stock
                 {
                     Header="NUM",
                     Path="NUM",
-                    Description="",
+                    Description="номер поддона",
                     ColumnType=ColumnTypeRef.Integer,
-                    Width2=8,
+                    Width2=4,
                 },
                  new DataGridHelperColumn
                 {
@@ -401,9 +402,9 @@ namespace Client.Interfaces.Stock
                 {
                     Header="FACT_ID",
                     Path="FACT_ID",
-                    Description="",
+                    Description="Площадка",
                     ColumnType=ColumnTypeRef.Integer,
-                    Width2=4,
+                    Width2=8,
                 },
                  new DataGridHelperColumn
                 {
@@ -412,7 +413,7 @@ namespace Client.Interfaces.Stock
                     Description="Указание даты и времени",
                     ColumnType=ColumnTypeRef.DateTime,
                     Format = "dd.MM.yyyy HH:mm:ss",
-                    Width2=16,
+                    Width2=17,
                 },
             };
 
@@ -431,17 +432,24 @@ namespace Client.Interfaces.Stock
 
                         if (row != null && row.Count > 0)
                         {
-                            if (!row["DTTM"].IsNullOrEmpty() && (row["SHIPPED"].ToInt() == 0 || row["OD_C"].ToInt() == 0) && row["DTTM"].ToDateTime("dd.MM.yyyy HH:mm:ss") < DateTime.Now)
+                            if (!row["DTTM"].IsNullOrEmpty() && 
+                                (row["SHIPPED"].ToInt() == 0 || 
+                                 row["OD_C"].ToInt() == 0) && 
+                                 row["DTTM"].ToDateTime("dd.MM.yyyy HH:mm:ss") < DateTime.Now)
                         {
                             color = HColor.Yellow;
                         }
 
-                        if (!row["DTTM"].IsNullOrEmpty() && row["SHIPPED"].ToInt() == 0 && row["DTTM"].ToDateTime("dd.MM.yyyy HH:mm:ss") >= DateTime.Now)
+                        if (!row["DTTM"].IsNullOrEmpty() && 
+                             row["SHIPPED"].ToInt() == 0 && 
+                             row["DTTM"].ToDateTime("dd.MM.yyyy HH:mm:ss") >= DateTime.Now)
                         {
                             color = HColor.Green;
                         }
 
-                        if (row["DTTM"].IsNullOrEmpty() && row["SHIPPED"].ToInt() == 1 && row["OD_C"].ToInt() == 0)
+                        if (row["DTTM"].IsNullOrEmpty() && 
+                            row["SHIPPED"].ToInt() == 1 && 
+                            row["OD_C"].ToInt() == 0)
                         {
                             color = HColor.Blue;
                         }
@@ -504,30 +512,48 @@ namespace Client.Interfaces.Stock
 
                         switch (palletType)
                         {
-                            //Общие аккаунты
+                            //Привязанные поддоны
                             case 1:
                                 {
-                                    if (row.CheckGet("IS_EMPLOYEE").ToInt() == 0) // проверяем что выбрано
+                                    if (!row["DTTM"].IsNullOrEmpty() && 
+                                         row["SHIPPED"].ToInt() == 0 &&
+                                         row["DTTM"].ToDateTime("dd.MM.yyyy HH:mm:ss") >= DateTime.Now)
                                     {
                                         include = true;
                                     }
                                 }
                                 break;
 
-                            //Аккаунты пользователей
+                            //Непривязанные
                             case 2:
                                 {
-                                    if (row.CheckGet("IS_EMPLOYEE").ToInt() == 1)
+                                    if ((row["DTTM"].IsNullOrEmpty() ||
+                                        row["SHIPPED"].ToInt() == 1) &&
+                                        row["OD_C"].ToInt() == 0)
                                     {
                                         include = true;
                                     }
                                 }
                                 break;
 
-                            //Уволенные пользователи
+                            //Для привязывания
                             case 3:
                                 {
-                                    if (row.CheckGet("LOCKED_FLAG").ToInt() == 1)
+                                    if ((row["DTTM"].IsNullOrEmpty() ||
+                                        row["SHIPPED"].ToInt() == 1) &&
+                                        row["OD_C"].ToInt() > 0)
+                                    {
+                                        include = true;
+                                    }
+                                }
+                                break;
+
+                            //Для отвязывания
+                            case 4:
+                                {
+                                    if (!row["DTTM"].IsNullOrEmpty() && 
+                                       (row["OD_C"].ToInt() == 0 || row["SHIPPED"].ToInt() == 0) && 
+                                        row["DTTM"].ToDateTime("dd.MM.yyyy HH:mm:ss") > DateTime.Now)
                                     {
                                         include = true;
                                     }
@@ -573,13 +599,56 @@ namespace Client.Interfaces.Stock
             {
                 {"0", "Все"},
                 {"1", "Привязанные"},
-                {"2", "Отвязанные"},
-                {"3", "Для привязки"},
-                {"4", "Для отвязки"},
+                {"2", "Непривязанные"},
+                {"3", "Для привязывания"},
+                {"4", "Для отвязывания"},
             });
             PalletSelectBox.SelectedItem = PalletSelectBox.Items.First();
         }
 
+        /// <summary>
+        /// Отвязка поддона
+        /// </summary>
+        public void Untie()
+        {
+            if (PalletGrid.SelectedItem != null && PalletGrid.SelectedItem.Count > 0)
+            {
+                var d = new DialogWindow("Вы действительно хотите отвязать отгрузку от поддона?", "Отвязка поддона", "", DialogWindowButtons.YesNo);
+
+                if (d.ShowDialog() == true)
+                {
+                    var p = new Dictionary<string, string>();
+                    {
+                        p.Add("ORDER_ID", "0");
+                        p.Add("PRODUCT_ID", PalletGrid.SelectedItem["ID_TOVAR"]);
+                        p.Add("PRODUCTION_TASK_ID", PalletGrid.SelectedItem["ID_PZ"]);
+                        p.Add("PALLET_NUMBER", PalletGrid.SelectedItem["NUM"]);
+                    }
+
+                    var q = new LPackClientQuery();
+                    q.Request.SetParam("Module", "Stock");
+                    q.Request.SetParam("Object", "PalletBinding");
+                    q.Request.SetParam("Action", "Save");
+                    q.Request.SetParams(p);
+
+                    q.DoQuery();
+
+                    if (q.Answer.Status == 0)
+                    {
+                        PalletGrid.LoadItems();
+                    }
+                    else
+                    {
+                        q.ProcessError();
+                    }
+                }
+            }
+            else
+            {
+                var d = new DialogWindow("Не выбрана поддон для отвязки", "Ошибка", "", DialogWindowButtons.OK);
+                d.ShowDialog();
+            }
+        }
 
         private void PlatformSelectBox_SelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
