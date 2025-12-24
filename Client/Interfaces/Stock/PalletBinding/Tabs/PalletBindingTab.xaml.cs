@@ -37,7 +37,7 @@ namespace Client.Interfaces.Stock
             InitializeComponent();
 
             RoleName = "[erp]pallet_binding";
-            ControlTitle = "Изделия на складе";
+            ControlTitle = "Привязка поддонов";
             DocumentationUrl = "/doc/l-pack-erp/warehouse";
 
             OnMessage = (ItemMessage m) =>
@@ -93,9 +93,9 @@ namespace Client.Interfaces.Stock
                         Enabled = true,
                         Title = "Обновить",
                         Description = "Обновить данные",
+                        MenuUse = true,
                         ButtonUse = true,
                         ButtonName = "RefreshButton",
-                        MenuUse = true,
                         Action = () =>
                         {
                             PalletGrid.LoadItems();
@@ -107,6 +107,7 @@ namespace Client.Interfaces.Stock
                         Enabled = true,
                         Title = "Справка",
                         Description = "Показать справочную информацию",
+                        MenuUse = true,
                         ButtonUse = true,
                         ButtonName = "HelpButton",
                         HotKey = "F1",
@@ -117,30 +118,12 @@ namespace Client.Interfaces.Stock
                     });
                     Commander.Add(new CommandItem()
                     {
-                        Name = "print",
-                        Title = "Печать",
-                        AccessLevel = Common.Role.AccessMode.ReadOnly,
-                        Group = "print",
-                        MenuUse = false,
-                        ButtonUse = true,
-                        ButtonName = "PrintButton",
-                        Action = () =>
-                        {
-
-                        },
-                        CheckEnabled = () =>
-                        {
-                            var result = true;
-                            return result;
-                        },
-                    });
-                    Commander.Add(new CommandItem()
-                    {
                         Name = "export_to_excel",
                         Group = "main",
                         Enabled = true,
                         Title = "В Excel",
                         Description = "Выгрузить данные в Excel файл",
+                        MenuUse = true,
                         ButtonUse = true,
                         ButtonName = "ExcelButton",
                         AccessLevel = Common.Role.AccessMode.ReadOnly,
@@ -152,7 +135,7 @@ namespace Client.Interfaces.Stock
                 }
 
                 // Команды для изделия на складе (PalletBindingGrid)
-                Commander.SetCurrentGridName("PalletBindingGrid");
+                Commander.SetCurrentGridName("PalletGrid");
                 {
                     Commander.SetCurrentGroup("item");
                     {
@@ -162,6 +145,7 @@ namespace Client.Interfaces.Stock
                             Enabled = true,
                             Title = "Привязать",
                             Description = "Привязать поддон",
+                            MenuUse = true,
                             ButtonUse = true,
                             ButtonName = "TieButton",
                             Action = () =>
@@ -177,14 +161,26 @@ namespace Client.Interfaces.Stock
                             },
                             CheckEnabled = () =>
                             {
-                                var result = false;
-                                var k = PalletGrid.GetPrimaryKey();
+
                                 var row = PalletGrid.SelectedItem;
-                                if (row.CheckGet(k).ToInt() != 0)
+                                if (row != null && row.Count > 0)
                                 {
-                                    result = true;
+                                    if ((row["OD_C"].ToInt() > 0 &&
+                                (row["DTTM"].IsNullOrEmpty() ||
+                                 row["SHIPPED"].ToInt() == 1)) ||
+                                 row["OD_C"].ToInt() > 1)
+                                    {
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        return false;
+                                    }
                                 }
-                                return result;
+                                else
+                                {
+                                    return false;
+                                }
                             },
                         });
                         Commander.Add(new CommandItem()
@@ -193,11 +189,32 @@ namespace Client.Interfaces.Stock
                             Enabled = true,
                             Title = "Отвязать",
                             Description = "Отвязать поддон",
+                            MenuUse = true,
                             ButtonUse = true,
                             ButtonName = "UntieButton",
                             Action = () =>
                             {
                                 Untie();
+                            },
+                            CheckEnabled = () =>
+                            {
+                                var row = PalletGrid.SelectedItem;
+                                if (row != null && row.Count > 0)
+                                {
+                                    if (row["ORDER_DATA"].IsNullOrEmpty())
+                                    {
+                                        return false;
+                                    }
+                                    else
+                                    {
+                                        return true;
+                                    }
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                                    
                             },
                         });
                     }
@@ -348,7 +365,7 @@ namespace Client.Interfaces.Stock
                 },
                  new DataGridHelperColumn
                 {
-                    Header="OD_C",
+                    Header="Кол-во заявок",
                     Path="OD_C",
                     Description="кол-во подходящих заявок для поддона",
                     ColumnType=ColumnTypeRef.Integer,
@@ -356,15 +373,15 @@ namespace Client.Interfaces.Stock
                 },
                  new DataGridHelperColumn
                 {
-                    Header="SHIPPED",
+                    Header="Отгружен",
                     Path="SHIPPED",
                     Description="Отгруженный поддон",
-                    ColumnType=ColumnTypeRef.Integer,
+                    ColumnType=ColumnTypeRef.Boolean,
                     Width2=8,
                 },
                  new DataGridHelperColumn
                 {
-                    Header="ID_PZ",
+                    Header="ИД ПЗ",
                     Path="ID_PZ",
                     Description="ИД производственного задания",
                     ColumnType=ColumnTypeRef.Integer,
@@ -372,7 +389,7 @@ namespace Client.Interfaces.Stock
                 },
                  new DataGridHelperColumn
                 {
-                    Header="NUM",
+                    Header="№ Поддона",
                     Path="NUM",
                     Description="номер поддона",
                     ColumnType=ColumnTypeRef.Integer,
@@ -388,7 +405,7 @@ namespace Client.Interfaces.Stock
                 },
                  new DataGridHelperColumn
                 {
-                    Header="FACT_ID",
+                    Header="Площадка",
                     Path="FACT_ID",
                     Description="Площадка",
                     ColumnType=ColumnTypeRef.Integer,
@@ -396,7 +413,7 @@ namespace Client.Interfaces.Stock
                 },
                  new DataGridHelperColumn
                 {
-                    Header="DTTM",
+                    Header="Дата отгрузки",
                     Path="DTTM",
                     Description="Указание даты и времени",
                     ColumnType=ColumnTypeRef.DateTime,

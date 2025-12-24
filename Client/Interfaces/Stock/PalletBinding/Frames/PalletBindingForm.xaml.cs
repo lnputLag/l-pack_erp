@@ -80,7 +80,7 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
             {
                 ShipmentGrid.ItemsAutoUpdate = false;
             };
-
+            Commander.SetCurrentGridName("ShipmentGrid");
             {
                 Commander.Add(new CommandItem()
                 {
@@ -88,6 +88,7 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
                     Enabled = true,
                     Title = "Сохранить",
                     Description = "",
+                    MenuUse = true, 
                     ButtonUse = true,
                     ButtonName = "SaveButton",
                     HotKey = "Ctrl+Return",
@@ -103,6 +104,7 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
                     Title = "Отмена",
                     Description = "",
                     ButtonUse = true,
+                    MenuUse = true,
                     ButtonName = "CancelButton",
                     HotKey = "Escape",
                     Action = () =>
@@ -131,13 +133,13 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
         /// <summary>
         /// Метод для заполнения
         /// </summary>
-        public void SetParams(int factoryId, int productId, int id_pz, int num, int id_order_dates)
+        public void SetParams(int factoryId, int productId, int id_pz, int num, int id_orderdates)
         {
             this.FactoryId = factoryId;
             this.ProductId = productId;
             this.IdPz = id_pz;
             this.Num = num;
-            this.IdOrderDates = id_order_dates;
+            this.IdOrderDates = id_orderdates;
         }
 
         /// <summary>
@@ -152,7 +154,6 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
                     p.Add("ORDER_ID", ShipmentGrid.SelectedItem["IDORDERDATES"]);
                     p.Add("PRODUCT_ID", ProductId.ToString());
                     p.Add("PRODUCTION_TASK_ID", IdPz.ToString());
-                    p.Add("IDORDERDATES", IdOrderDates.ToString());
                     p.Add("PALLET_NUMBER", Num.ToString());
                 }
 

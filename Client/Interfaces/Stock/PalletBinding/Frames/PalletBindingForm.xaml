@@ -23,6 +23,7 @@
 
         </ResourceDictionary>
     </controls:ControlBase.Resources>
+    
     <Border Style="{DynamicResource FormContainerHolder}" Margin="1" >
         <Grid Style="{DynamicResource FormContainer}" >
 
@@ -34,6 +35,9 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
+            <Border Grid.Row="0" Grid.Column="0" >
+                <TextBlock Grid.Row="0" Grid.Column="0"  Name="FormTitle"  TextAlignment="Left" Style="{DynamicResource FormHeaderTitleBar}"  />
+            </Border>
             <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource FormControlPanel}" >
                 <Grid ShowGridLines="false">
 
@@ -61,7 +65,7 @@
 
                 </Grid>
             </Grid>
-
+            
             <Border Grid.Row="1" Style="{DynamicResource DataGridMainHolder}">
                 <controls:GridBox4 x:Name="ShipmentGrid" />
             </Border>
