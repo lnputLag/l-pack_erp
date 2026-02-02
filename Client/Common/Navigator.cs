@@ -64,6 +64,7 @@ using Client.Interfaces.Production.ProductTestTrialsKsh;
 using Client.Interfaces.Preproduction.Rig.RigMonitorKsh;
 using Client.Interfaces.Service.Storages;
 using Client.Interfaces.Stock.PalletBinding;
+using Client.Interfaces.Stock.RawMaterialResidueMonitor;
 
 namespace Client.Common
 {
@@ -3557,6 +3558,22 @@ namespace Client.Common
                                 AllowedRoles = new List<string>
                                 {
                                     "[erp]pallet_binding"
+                                }
+                            },
+                            new NavigationItem
+                            {
+                                Name = "raw_material_monitor",
+                                Title = "Монитор остатков сырья",
+                                Type = "element",
+                                Action = new DelegateCommand<string>(
+                                    action =>
+                                    {
+                                        var i = new RawMaterialResidueMonitorInterface();
+                                    }
+                                ),
+                                AllowedRoles = new List<string>
+                                {
+                                    "[erp]raw_material_monitor"
                                 }
                             }
                         }

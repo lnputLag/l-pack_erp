@@ -23,6 +23,8 @@ using Newtonsoft.Json;
 using Client.Interfaces.Stock.PalletBinding.Frames;
 using System.Windows.Forms;
 using NPOI.SS.Formula.Functions;
+using System.Data;
+using DevExpress.Xpf.Printing.Native;
 
 namespace Client.Interfaces.Stock
 {
@@ -36,9 +38,9 @@ namespace Client.Interfaces.Stock
         {
             InitializeComponent();
 
-            RoleName = "[erp]pallet_binding";
-            ControlTitle = "Привязка поддонов";
-            DocumentationUrl = "/doc/l-pack-erp/warehouse";
+            RoleName = "[erp]pallet_binding"; // Роль для проверки прав
+            ControlTitle = "Привязка поддонов"; // Заголовок вкладки
+            DocumentationUrl = "/doc/l-pack-erp/warehouse"; // Ссылка на справку
 
             OnMessage = (ItemMessage m) =>
             {
@@ -77,6 +79,8 @@ namespace Client.Interfaces.Stock
             {
                 PalletGrid.ItemsAutoUpdate = false;
             };
+
+
 
             ///<summary>
             /// Система команд (Commander)
@@ -161,26 +165,41 @@ namespace Client.Interfaces.Stock
                             },
                             CheckEnabled = () =>
                             {
-
                                 var row = PalletGrid.SelectedItem;
                                 if (row != null && row.Count > 0)
                                 {
-                                    if ((row["OD_C"].ToInt() > 0 &&
-                                (row["DTTM"].IsNullOrEmpty() ||
-                                 row["SHIPPED"].ToInt() == 1)) ||
-                                 row["OD_C"].ToInt() > 1)
+                                    var filterType = GetCurrentPalletFilterType();
+
+                                    // Логика основанная на фильтрации:
+                                    switch (filterType)
                                     {
-                                        return true;
-                                    }
-                                    else
-                                    {
-                                        return false;
+                                        case 1: // "Привязанные" - НЕ доступно "Привязать"
+                                            return false;
+
+                                        case 2: // "Непривязанные" - доступно "Привязать" (если подходит для привязки)
+                                            return (row["OD_C"].ToInt() > 0 &&
+                                                   (row["DTTM"].IsNullOrEmpty() ||
+                                                    row["SHIPPED"].ToInt() == 1)) ||
+                                                   row["OD_C"].ToInt() > 1;
+
+                                        case 3: // "Для привязывания" - доступно "Привязать" (если подходит для привязки)
+                                            return (row["OD_C"].ToInt() > 0 &&
+                                                   (row["DTTM"].IsNullOrEmpty() ||
+                                                    row["SHIPPED"].ToInt() == 1)) ||
+                                                   row["OD_C"].ToInt() > 1;
+
+                                        case 4: // "Для отвязывания" - НЕ доступно "Привязать"
+                                            return false;
+
+                                        case 0: // "Все" - доступно "Привязать" (если подходит для привязки)
+                                        default:
+                                            return (row["OD_C"].ToInt() > 0 &&
+                                                   (row["DTTM"].IsNullOrEmpty() ||
+                                                    row["SHIPPED"].ToInt() == 1)) ||
+                                                   row["OD_C"].ToInt() > 1;
                                     }
                                 }
-                                else
-                                {
-                                    return false;
-                                }
+                                return false;
                             },
                         });
                         Commander.Add(new CommandItem()
@@ -201,20 +220,29 @@ namespace Client.Interfaces.Stock
                                 var row = PalletGrid.SelectedItem;
                                 if (row != null && row.Count > 0)
                                 {
-                                    if (row["ORDER_DATA"].IsNullOrEmpty())
+                                    var filterType = GetCurrentPalletFilterType();
+
+                                    // Логика основанная на фильтрации:
+                                    switch (filterType)
                                     {
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        return true;
+                                        case 1: // "Привязанные" - доступно "Отвязать" (если есть ORDER_DATA)
+                                            return !row.CheckGet("ORDER_DATA").IsNullOrEmpty();
+
+                                        case 2: // "Непривязанные" - НЕ доступно "Отвязать"
+                                            return false;
+
+                                        case 3: // "Для привязывания" - НЕ доступно "Отвязать"
+                                            return false;
+
+                                        case 4: // "Для отвязывания" - доступно "Отвязать" (если есть ORDER_DATA)
+                                            return !row.CheckGet("ORDER_DATA").IsNullOrEmpty();
+
+                                        case 0: // "Все" - доступно "Отвязать" (если есть ORDER_DATA)
+                                        default:
+                                            return !row.CheckGet("ORDER_DATA").IsNullOrEmpty();
                                     }
                                 }
-                                else
-                                {
-                                    return false;
-                                }
-                                    
+                                return false;
                             },
                         });
                     }
@@ -233,14 +261,6 @@ namespace Client.Interfaces.Stock
         {
             var columns = new List<DataGridHelperColumn>
             {
-                new DataGridHelperColumn
-                {
-                    Header="#",
-                    Path="CHECKING",   
-                    ColumnType=ColumnTypeRef.Boolean, 
-                    Editable=true, 
-                    Width2=4, 
-                },
                 new DataGridHelperColumn
                 {
                     Header="ИД Поддона",
@@ -270,7 +290,7 @@ namespace Client.Interfaces.Stock
                     Header="Количество",
                     Path="KOL",
                     Description="кол-во продукции на поддоне",
-                    ColumnType=ColumnTypeRef.Double,
+                    ColumnType=ColumnTypeRef.Integer,
                     Format = "N0",
                     Width2=12,
                 },
@@ -489,7 +509,7 @@ namespace Client.Interfaces.Stock
                 Module = "Stock", 
                 Object = "PalletBinding",
                 Action = "List",
-                AnswerSectionKey = "PALLETS",
+                AnswerSectionKey = "ITEMS", // имя ключа для ответа от сервера
                 BeforeRequest = (RequestData rd) =>
                 {
                     rd.Params = new Dictionary<string, string>()
@@ -609,6 +629,34 @@ namespace Client.Interfaces.Stock
                 {"4", "Для отвязывания"},
             });
             PalletSelectBox.SelectedItem = PalletSelectBox.Items.First();
+        }
+
+        ///<summary>
+        /// Получение текущего фильтра
+        ///</summary>
+        private int GetCurrentPalletFilterType()
+        {
+            if (PalletSelectBox.SelectedItem is KeyValuePair<string, string> selectedItem)
+            {
+                return selectedItem.Key.ToInt();
+            }
+            return 0;
+        }
+
+        ///<summary>
+        /// Получение имени фильтра по его типу
+        ///</summary>
+        private string GetFilterName(int filterType)
+        {
+            switch (filterType)
+            {
+                case 0: return "Все";
+                case 1: return "Привязанные";
+                case 2: return "Непривязанные";
+                case 3: return "Для привязывания";
+                case 4: return "Для отвязывания";
+                default: return "Все";
+            }
         }
 
         /// <summary>

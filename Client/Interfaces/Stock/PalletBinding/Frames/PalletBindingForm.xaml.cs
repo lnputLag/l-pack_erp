@@ -179,7 +179,7 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
                 var d = new DialogWindow("Не выбрана заявка для привязки", "Ошибка", "", DialogWindowButtons.OK);
                 d.ShowDialog();
             }
-        }     
+        }
 
         private void ShipmentGridInit()
         {
@@ -199,7 +199,7 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
                 new DataGridHelperColumn
                 {
                     Header="Покупатель",
-                    Path="NAME", 
+                    Path="NAME",
                     Description="Покупатель",
                     ColumnType=ColumnTypeRef.String,
                     Width2=14,
@@ -209,7 +209,7 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
                     Header="Количество",
                     Path="QTY",
                     Description="Количество",
-                    ColumnType=ColumnTypeRef.String,
+                    ColumnType=ColumnTypeRef.Integer,
                     Width2=16,
                 },
                 new DataGridHelperColumn
@@ -217,7 +217,7 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
                     Header="На складе",
                     Path="KOL",
                     Description="",
-                    ColumnType=ColumnTypeRef.Double,
+                    ColumnType=ColumnTypeRef.Integer,
                     Format = "N0",
                     Width2=16,
                 },
@@ -226,7 +226,7 @@ namespace Client.Interfaces.Stock.PalletBinding.Frames
                     Header="ИД заявки",
                     Path="IDORDERDATES",
                     Description="ИД заявки",
-                    ColumnType=ColumnTypeRef.String,
+                    ColumnType=ColumnTypeRef.Integer,
                     Width2=16,
                 },
             };
