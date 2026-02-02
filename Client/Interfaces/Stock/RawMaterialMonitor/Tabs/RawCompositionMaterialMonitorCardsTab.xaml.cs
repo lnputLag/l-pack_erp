@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Client.Interfaces.Main;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,11 +17,11 @@ using System.Windows.Shapes;
 namespace Client.Interfaces.Stock
 {
     /// <summary>
-    /// Логика взаимодействия для MaterialGroupElement.xaml
+    /// Логика взаимодействия для RawCompositionMaterialMonitorCardsTab.xaml
     /// </summary>
-    public partial class MaterialGroupElement : UserControl
+    public partial class RawCompositionMaterialMonitorCardsTab : ControlBase
     {
-        public MaterialGroupElement()
+        public RawCompositionMaterialMonitorCardsTab()
         {
             InitializeComponent();
         }

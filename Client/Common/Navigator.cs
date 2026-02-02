@@ -64,7 +64,7 @@ using Client.Interfaces.Production.ProductTestTrialsKsh;
 using Client.Interfaces.Preproduction.Rig.RigMonitorKsh;
 using Client.Interfaces.Service.Storages;
 using Client.Interfaces.Stock.PalletBinding;
-using Client.Interfaces.Stock.RawMaterialResidueMonitor;
+using Client.Interfaces.Stock.RawMaterialMonitor;
 
 namespace Client.Common
 {
@@ -3568,7 +3568,7 @@ namespace Client.Common
                                 Action = new DelegateCommand<string>(
                                     action =>
                                     {
-                                        var i = new RawMaterialResidueMonitorInterface();
+                                        var i = new RawMaterialMonitorInterface();
                                     }
                                 ),
                                 AllowedRoles = new List<string>

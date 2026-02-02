@@ -23,11 +23,11 @@ namespace Client.Interfaces.Stock
     /// <summary>
     /// Остаток по сырьевым группам на складе
     /// в табличном виде
-    /// <author>kurasovdp</author>
     /// </summary>
-    public partial class RawMaterialResidueMonitorTableTab : ControlBase
+    /// <author>kurasovdp</author>
+    public partial class RawGroupMaterialMonitorTableTab : ControlBase
     {
-        public RawMaterialResidueMonitorTableTab()
+        public RawGroupMaterialMonitorTableTab()
         {
             InitializeComponent();
 
@@ -77,7 +77,6 @@ namespace Client.Interfaces.Stock
             /// Система команд (Commander)
             ///</summary>
             {
-                // Группа "main"
                 Commander.SetCurrentGroup("main");
                 {
                     Commander.Add(new CommandItem()
@@ -115,7 +114,6 @@ namespace Client.Interfaces.Stock
             }
             Commander.Init(this);
         }
-        //public FormHelper Form { get; set; }
 
         /// <summary>
         /// Настраивает Grid для отображения списка изделий на складе.
@@ -140,7 +138,7 @@ namespace Client.Interfaces.Stock
                     Path="NAME",
                     Description="Наименование сырьевой группы",
                     ColumnType=ColumnTypeRef.String,
-                    Width2=50,
+                    Width2=8,
                 },
                 new DataGridHelperColumn
                 {
@@ -148,7 +146,7 @@ namespace Client.Interfaces.Stock
                     Path="FORMAT",
                     Description="Формат бумаги/картона",
                     ColumnType=ColumnTypeRef.String,
-                    Width2=50,
+                    Width2=10,
                 },
                 new DataGridHelperColumn
                 {
@@ -156,7 +154,7 @@ namespace Client.Interfaces.Stock
                     Path="QTY_STOCK_ONLY",
                     Description="Остаток на складе по сырьевой группе",
                     ColumnType=ColumnTypeRef.Integer,
-                    Width2=50,
+                    Width2=10,
                     Stylers=new Dictionary<StylerTypeRef,StylerDelegate>()
                     {
                             {
@@ -190,7 +188,6 @@ namespace Client.Interfaces.Stock
             RawGroupTableGrid.SetPrimaryKey("_ROWNUMBER");
             RawGroupTableGrid.SetSorting("_ROWNUMBER", ListSortDirection.Ascending);
             RawGroupTableGrid.ColumnWidthMode = GridBox.ColumnWidthModeRef.Compact;
-            //RawGroupTableGrid.SearchText = PalletGridSearch;
             RawGroupTableGrid.Toolbar = RawGroupTableGridToolbar;
 
             ///<summary>

@@ -1,5 +1,5 @@
-﻿<controls:ControlBase
-    x:Class="Client.Interfaces.Stock.RawMaterialResidueMonitorCardsTab"
+﻿<controls:ControlBase 
+    x:Class="Client.Interfaces.Stock.RawGroupMaterialMonitorTableTab"
     xmlns:local="clr-namespace:Client.Interfaces.Stock"
     xmlns:controls="clr-namespace:Client.Interfaces.Main"
     
@@ -17,11 +17,11 @@
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
-        </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>
-    </controls:ControlBase.Resources>
-    
+    </controls:ControlBase.Resources> 
+
     <Border Style="{DynamicResource DataGridContainerHolder}"  >
         <Grid Style="{DynamicResource DataGridContainer}">
 
@@ -61,6 +61,9 @@
                 </StackPanel>
             </Grid>
 
+            <Border Grid.Row="1" Style="{DynamicResource DataGridMainHolder}">
+                <controls:GridBox4 x:Name="RawGroupTableGrid" />
+            </Border>
         </Grid>
     </Border>
 

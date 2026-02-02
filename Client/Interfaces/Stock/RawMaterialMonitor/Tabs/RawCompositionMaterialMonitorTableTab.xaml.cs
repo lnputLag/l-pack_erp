@@ -17,26 +17,13 @@ using System.Windows.Shapes;
 namespace Client.Interfaces.Stock
 {
     /// <summary>
-    /// Остаток по сырьевым группам на складе
-    /// в карточном виде
-    /// <author>kurasovdp</author>
+    /// Логика взаимодействия для RawCompositionMaterialMonitorTableTab.xaml
     /// </summary>
-    public partial class RawMaterialResidueMonitorCardsTab : ControlBase
+    public partial class RawCompositionMaterialMonitorTableTab : ControlBase
     {
-        public RawMaterialResidueMonitorCardsTab()
+        public RawCompositionMaterialMonitorTableTab()
         {
             InitializeComponent();
-        }
-
-        private void PlatformSelectBox_SelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-
-        }
-
-
-        private void FormatSelectBox_SelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-
         }
     }
 }

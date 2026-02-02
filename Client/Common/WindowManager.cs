@@ -1964,6 +1964,11 @@ namespace Client.Common
                 }
             }
         }
+
+        internal object CheckAddTab<T>()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
