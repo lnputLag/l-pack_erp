@@ -187,7 +187,7 @@ namespace Client.Interfaces.Stock
             RawGroupTableGrid.SetColumns(columns);
             RawGroupTableGrid.SetPrimaryKey("_ROWNUMBER");
             RawGroupTableGrid.SetSorting("_ROWNUMBER", ListSortDirection.Ascending);
-            RawGroupTableGrid.ColumnWidthMode = GridBox.ColumnWidthModeRef.Compact;
+            RawGroupTableGrid.ColumnWidthMode = GridBox.ColumnWidthModeRef.Full;
             RawGroupTableGrid.Toolbar = RawGroupTableGridToolbar;
 
             ///<summary>

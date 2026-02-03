@@ -1,6 +1,8 @@
 ﻿using Client.Common;
 using Client.Interfaces.Main;
-using Client.Interfaces.Stock.Elements;
+using Client.Interfaces.Stock;
+using Client.Interfaces.Stock.RawMaterialMonitor;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +12,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static DevExpress.Data.Filtering.Helpers.SubExprHelper.ThreadHoppingFiltering;
 
 namespace Client.Interfaces.Stock
 {
@@ -97,32 +101,7 @@ namespace Client.Interfaces.Stock
             Commander.Init(this);
         }
 
-        /// <summary>
-        /// Загрузка данных для дизайна (чтобы видеть в редакторе)
-        /// </summary>
-        private void LoadDesignData()
-        {
-            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
-            {
-                // Тестовые данные для дизайна
-                var testFormats1 = new List<MaterialFormat>
-                {
-                    new MaterialFormat { Format = "1000x700", QtyStock = 150 },
-                    new MaterialFormat { Format = "800x600", QtyStock = 75 },
-                    new MaterialFormat { Format = "1200x800", QtyStock = 200 }
-                };
-
-                var testFormats2 = new List<MaterialFormat>
-                {
-                    new MaterialFormat { Format = "700x500", QtyStock = 50 },
-                    new MaterialFormat { Format = "600x400", QtyStock = 30 }
-                };
-
-                DesignCard1.SetData("Картон белый", testFormats1, 425);
-                DesignCard2.SetData("Пленка ПВХ", testFormats2, 80);
-                DesignCard3.SetData("Фольга золотая", testFormats1, 425);
-            }
-        }
+        
 
         /// <summary>
         /// Основной метод загрузки данных
@@ -144,15 +123,56 @@ namespace Client.Interfaces.Stock
 
         /// <summary>
         /// Загрузка данных материалов (из БД или API)
+        /// В модель карточек
         /// </summary>
         private List<MaterialData> LoadMaterialsData()
         {
             var materials = new List<MaterialData>();
 
-            // Здесь будет логика загрузки данных
-            // Например, из вашего Grid.LoadItems()
+            var p = new Dictionary<string, string>();
+            p.Add("FACTORY_ID", $"1");
+
+            var q = new LPackClientQuery();
+            q.Request.SetParam("Module", "Stock");
+            q.Request.SetParam("Object", "RawMaterialResidueMonitor");
+            q.Request.SetParam("Action", "RawGroupList");
+            q.Request.SetParams(p);
+            q.Request.Timeout = Central.Parameters.RequestGridTimeout;
+            q.Request.Attempts = Central.Parameters.RequestAttemptsDefault;
+
+            q.DoQuery();
+
+            if (q.Answer.Status == 0)
+            {
+                var result = JsonConvert.DeserializeObject<Dictionary<string, ListDataSet>>(q.Answer.Data);
+                if (result != null)
+                {
+                    var ds = ListDataSet.Create(result, "ITEMS");
+                    foreach (var item in ds.Items)
+                    {
+                        if (materials.Count(x => x.IdRawGroup == item.CheckGet("ID_RAW_GROUP").ToInt()) > 0) 
+                        {
+                            var m = materials.FirstOrDefault(x => x.IdRawGroup == item.CheckGet("ID_RAW_GROUP").ToInt());
+                            m.MaterialDataFormats.Add(new MaterialDataFormat() { Name = item.CheckGet("FORMAT"), QUTY = item.CheckGet("QTY_STOCK_ONLY").ToInt()});
+                        }
+                        else
+                        {
+                            var m = new MaterialData();
+                            m.IdRawGroup = item.CheckGet("ID_RAW_GROUP").ToInt();
+                            m.Name = item.CheckGet("NAME");
+                            m.MaterialDataFormats.Add(new MaterialDataFormat() { Name = item.CheckGet("FORMAT"), QUTY = item.CheckGet("QTY_STOCK_ONLY").ToInt() });
+                            materials.Add(m);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                q.ProcessError();
+            }
 
             return materials;
+
         }
 
         /// <summary>
@@ -160,46 +180,22 @@ namespace Client.Interfaces.Stock
         /// </summary>
         private void AddMaterialCard(MaterialData material)
         {
-            var card = new MaterialCard();
-            card.SetData(material.Name, material.Formats, material.TotalQuantity);
-
-            // Подписываемся на событие клика (как в OperatorProgressItem)
-            card.OnMouseDown += (sender, e) =>
-            {
-                MaterialCardClicked(sender as MaterialCard, material);
-            };
-
-            CardsPanel.Children.Add(card);
+            var materialGroupElement = new MaterialGroupElement();
+            materialGroupElement.SetValue(material);
+            CardName.Children.Add(materialGroupElement);
         }
 
-        /// <summary>
-        /// Обработчик клика по карточке
-        /// </summary>
-        private void MaterialCardClicked(MaterialCard card, MaterialData material)
-        {
-            // Логика при клике на карточку
-            MessageBox.Show($"Выбрано: {material.Name}");
-        }
+       
 
         /// <summary>
-
-
         /// Очистка всех карточек
         /// </summary>
         private void ClearCards()
         {
-            CardsPanel.Children.Clear();
+            CardName.Children.Clear();
         }
 
-        /// <summary>
-        /// Класс для хранения данных материала
-        /// </summary>
-        public class MaterialData
-        {
-            public string Name { get; set; }
-            public List<MaterialFormat> Formats { get; set; }
-            public int TotalQuantity { get; set; }
-        }
+       
 
         // Обработчики событий
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
@@ -225,6 +221,11 @@ namespace Client.Interfaces.Stock
         private void FormatSelectBox_SelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
 
+        }
+
+        private void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshData();
         }
     }
 }
