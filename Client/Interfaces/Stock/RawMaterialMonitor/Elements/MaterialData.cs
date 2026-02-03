@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Client.Interfaces.Stock.RawMaterialMonitor
 {
     public class MaterialData
     {
-        public MaterialData() 
+        public MaterialData()
         {
             MaterialDataFormats = new List<MaterialDataFormat>();
         }
@@ -18,12 +19,12 @@ namespace Client.Interfaces.Stock.RawMaterialMonitor
         public List<MaterialDataFormat> MaterialDataFormats { get; set; }
         public string SumQuty { get; set; }
     }
-    
+
     public class MaterialDataFormat
     {
-    public MaterialDataFormat() { }
+        public MaterialDataFormat() { }
 
-    public string Name { get; set; }
-    public int QUTY { get; set; }
-}
+        public string Name { get; set; }
+        public int QUTY { get; set; }
+    }
 }
