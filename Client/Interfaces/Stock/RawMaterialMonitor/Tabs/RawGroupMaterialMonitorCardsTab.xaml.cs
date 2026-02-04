@@ -55,7 +55,7 @@ namespace Client.Interfaces.Stock
 
             OnLoad = () =>
             {
-                //RawGroupTableGridInit();
+                RefreshData();
                 SetDefaults();
             };
 
@@ -130,7 +130,25 @@ namespace Client.Interfaces.Stock
             var materials = new List<MaterialData>();
 
             var p = new Dictionary<string, string>();
-            p.Add("FACTORY_ID", $"1");
+
+            // Выбор из выпадающего списка
+            var selectedPlatform = PlatformSelectBox.SelectedItem;
+            if (!selectedPlatform.Equals(default(KeyValuePair<string, string>)))
+            {
+                p.Add("FACTORY_ID", selectedPlatform.Key);
+            }
+            else
+            {
+                p.Add("FACTORY_ID", "1"); // Значение по умолчанию
+            }
+
+            // Берем выбранный формат из выпадающего списка
+            var selectedFormat = FormatSelectBox.SelectedItem;
+            if (!selectedFormat.Equals(default(KeyValuePair<string, string>)))
+            {
+                p.Add("FORMAT", selectedFormat.Key);
+            }
+            //p.Add("FACTORY_ID", $"1");
 
             var q = new LPackClientQuery();
             q.Request.SetParam("Module", "Stock");
@@ -141,6 +159,7 @@ namespace Client.Interfaces.Stock
             q.Request.Attempts = Central.Parameters.RequestAttemptsDefault;
 
             q.DoQuery();
+
 
             if (q.Answer.Status == 0)
             {
@@ -215,12 +234,12 @@ namespace Client.Interfaces.Stock
 
         private void PlatformSelectBox_SelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
+            RefreshData();
         }
 
         private void FormatSelectBox_SelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
+            RefreshData();
         }
 
         private void Refresh_Click(object sender, RoutedEventArgs e)

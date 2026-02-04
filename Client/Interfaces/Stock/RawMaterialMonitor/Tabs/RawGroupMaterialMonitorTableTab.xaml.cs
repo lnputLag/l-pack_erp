@@ -53,8 +53,8 @@ namespace Client.Interfaces.Stock
 
             OnLoad = () =>
             {
-                RawGroupTableGridInit();
                 SetDefaults();
+                RawGroupTableGridInit();
             };
 
             OnUnload = () =>
@@ -138,7 +138,7 @@ namespace Client.Interfaces.Stock
                     Path="NAME",
                     Description="Наименование сырьевой группы",
                     ColumnType=ColumnTypeRef.String,
-                    Width2=8,
+                    Width2=14,
                 },
                 new DataGridHelperColumn
                 {
@@ -169,10 +169,10 @@ namespace Client.Interfaces.Stock
                                             color = HColor.Red;
                                         }
 
-                                    if (!string.IsNullOrEmpty(color))
-                                    {
+                                        if (!string.IsNullOrEmpty(color))
+                                        {
                                         result=color.ToBrush();
-                                    }
+                                        }
 
                                     return result;
                                 }
@@ -205,14 +205,70 @@ namespace Client.Interfaces.Stock
                     rd.Params = new Dictionary<string, string>()
                             {
                                 { "FACTORY_ID", PlatformSelectBox.SelectedItem.Key},
+                                
                             };
                 },
+
                 AfterRequest = (RequestData rd, ListDataSet ds) =>
                 {
-                    var a = rd.AnswerData["FORMATS"];
-                    FormatSelectBox.SetItems(a, "ID", "NAME");
-                    FormatSelectBox.SetSelectedItemFirst();
+                    //if (rd.AnswerData.ContainsKey("FORMATS"))
+                    //{
+                    //    var formats = rd.AnswerData["FORMATS"];
+                    //    FormatSelectBox.SetItems(formats, "ID", "NAME");
+                    //    FormatSelectBox.SetSelectedItemFirst();
+                    //}
+
+                    var formatList = new Dictionary<string,string>(); //заполняем уникальные форматы
+                    formatList.Add("0", "Все форматы");
+                    foreach (var item in ds.Items) //проходим по всему запросу и выполняем поиск по уникальным форматам
+                    {
+                        if (!formatList.ContainsKey(item.CheckGet("FORMAT"))) 
+                        {
+                            formatList.Add(item.CheckGet("FORMAT"), item.CheckGet("FORMAT"));
+                        }
+                    }
+                    FormatSelectBox.SetItems(formatList);
+                    FormatSelectBox.SetSelectedItemByKey("0");
                     return ds;
+
+                }
+            };
+
+            
+            ///<summary>
+            /// Фильтрация элементов
+            ///</summary>
+            RawGroupTableGrid.OnFilterItems = () =>
+            {
+                if (RawGroupTableGrid.Items.Count > 0)
+                {
+
+                    var format = FormatSelectBox.SelectedItem.Key;
+
+                    var items = new List<Dictionary<string, string>>();
+                    if(format == "0")
+                    {
+                        items = RawGroupTableGrid.Items;
+                    }
+                    else
+                    {
+                        foreach (Dictionary<string, string> row in RawGroupTableGrid.Items)
+                        {
+                            bool include = false;
+
+                            if (row.CheckGet("FORMAT") == format)
+                            {
+                                include = true;
+                            }
+
+                            if (include)
+                            {
+                                items.Add(row);
+                            }
+
+                        }
+                    }
+                    RawGroupTableGrid.Items = items;
                 }
             };
 
@@ -231,6 +287,12 @@ namespace Client.Interfaces.Stock
                 {"2",  "Кашира"},
             });
             PlatformSelectBox.SelectedItem = PlatformSelectBox.Items.First();
+            FormatSelectBox.SetItems(new Dictionary<string, string>()
+            {
+                { "0", "Все форматы"}
+
+            });
+            FormatSelectBox.SetSelectedItemByKey("0"); //Выпадающий список выбрал строку в выпадаюзем списке ID=0 - "Все фомраты"
         }
 
         private void PlatformSelectBox_SelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -240,6 +302,7 @@ namespace Client.Interfaces.Stock
 
         private void FormatSelectBox_SelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+
             RawGroupTableGrid.UpdateItems();
         }
     }
