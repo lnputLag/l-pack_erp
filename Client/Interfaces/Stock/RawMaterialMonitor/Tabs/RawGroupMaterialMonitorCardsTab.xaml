@@ -47,10 +47,6 @@
                     <controls:SelectBox x:Name="PlatformSelectBox" SelectedItemChanged="PlatformSelectBox_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" ListBoxMinWidth="120" ListBoxMinHeight="120"  Width="120" Autocomplete="True" VerticalAlignment="Bottom"/>
                     <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
 
-                    <Label Content="Формат:"  Style="{DynamicResource TopLabel}" />
-                    <controls:SelectBox x:Name="FormatSelectBox" SelectedItemChanged ="FormatSelectBox_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" ListBoxMinWidth="190" ListBoxMinHeight="120"  Width="190" Autocomplete="True" VerticalAlignment="Bottom"/>
-                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
-
                     <Button Name="Refresh" Click="Refresh_Click" Content="Обновить"  Style="{DynamicResource Button}"  />
                     <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
 

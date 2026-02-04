@@ -1,16 +1,16 @@
-﻿<UserControl x:Class="Client.Interfaces.Stock.MaterialGroupElement"
+﻿<UserControl x:Class="Client.Interfaces.Stock.MaterialCompositionElement"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Client.Interfaces.Stock"
              mc:Ignorable="d" 
-             d:DesignHeight="120" d:DesignWidth="300">
-
+             d:DesignHeight="400" d:DesignWidth="350">
+    
     <Border x:Name="MainBorder"
-            Width="250"
-            Margin="5"
-            Padding="10"
+            Width="350"
+            Margin="10, 15, 10, 15"
+            Padding="15"
             Background="White"
             CornerRadius="8"
             BorderBrush="#E0E0E0"
@@ -23,33 +23,32 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-             <!--Заголовок материала--> 
-            <TextBlock x:Name="MaterialNameText"
+            <!-- Заголовок композиции -->
+            <TextBlock x:Name="CartonNameText"
                        Grid.Row="0"
-                       Text="Название материала"
+                       Text="Название композиции"
                        FontSize="14"
                        FontWeight="Bold"
                        Foreground="#333"
-                       />
+                       Margin="0,0,0,10"
+                       TextWrapping="Wrap"/>
 
-            <StackPanel Grid.Row="1" Orientation="Vertical" x:Name ="FormatContainer" >
-                
-            </StackPanel>
+            <!-- Контейнер для слоев -->
+            <StackPanel Grid.Row="1" Orientation="Vertical" x:Name="LayersContainer" />
 
-             <!--Итоговое количество--> 
-            <Border 
-                Grid.Row="2"
+            <!-- Итоговое количество -->
+            <Border Grid.Row="2"
                     Background="#F5F5F5"
                     CornerRadius="4"
-                    Padding="4,2">
-
-                <TextBlock x:Name="TotalQuantityText"
-                           Text="Всего: 350 кг"
-                           FontSize="11"
+                    Padding="6,4"
+                    Margin="0,10,0,0">
+                <TextBlock x:Name="TotalStockText"
+                           Text="Всего: 0 кг"
+                           FontSize="12"
+                           FontWeight="SemiBold"
                            Foreground="#555"
                            HorizontalAlignment="Center"/>
             </Border>
         </Grid>
     </Border>
-   
 </UserControl>

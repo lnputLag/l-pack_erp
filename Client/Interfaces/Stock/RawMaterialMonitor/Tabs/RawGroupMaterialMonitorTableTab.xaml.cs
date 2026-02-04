@@ -24,7 +24,7 @@ namespace Client.Interfaces.Stock
     /// Остаток по сырьевым группам на складе
     /// в табличном виде
     /// </summary>
-    /// <author>kurasovdp</author>
+    /// <author>kurasov_dp</author>
     public partial class RawGroupMaterialMonitorTableTab : ControlBase
     {
         public RawGroupMaterialMonitorTableTab()
@@ -116,7 +116,7 @@ namespace Client.Interfaces.Stock
         }
 
         /// <summary>
-        /// Настраивает Grid для отображения списка изделий на складе.
+        /// Настраивает Grid для отображения.
         /// Отображает колонки, оформление строк(цвет)
         /// </summary>
         private void RawGroupTableGridInit()
@@ -211,13 +211,6 @@ namespace Client.Interfaces.Stock
 
                 AfterRequest = (RequestData rd, ListDataSet ds) =>
                 {
-                    //if (rd.AnswerData.ContainsKey("FORMATS"))
-                    //{
-                    //    var formats = rd.AnswerData["FORMATS"];
-                    //    FormatSelectBox.SetItems(formats, "ID", "NAME");
-                    //    FormatSelectBox.SetSelectedItemFirst();
-                    //}
-
                     var formatList = new Dictionary<string,string>(); //заполняем уникальные форматы
                     formatList.Add("0", "Все форматы");
                     foreach (var item in ds.Items) //проходим по всему запросу и выполняем поиск по уникальным форматам

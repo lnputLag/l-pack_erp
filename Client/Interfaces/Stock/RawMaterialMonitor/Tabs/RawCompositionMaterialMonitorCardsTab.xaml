@@ -22,5 +22,51 @@
 
         </ResourceDictionary>
     </controls:ControlBase.Resources>
+    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+        <Grid Style="{DynamicResource DataGridContainer}">
 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="11*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Name="CompositionCardsGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Width="1000" >
+
+                    <Label Content="Площадка:"  Style="{DynamicResource TopLabel}" />
+                    <controls:SelectBox x:Name="PlatformSelectBox" SelectedItemChanged="PlatformSelectBox_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" ListBoxMinWidth="120" ListBoxMinHeight="120"  Width="120" Autocomplete="True" VerticalAlignment="Bottom"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                    <Button Name="Refresh" Click="Refresh_Click" Content="Обновить"  Style="{DynamicResource Button}"  />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+
+                </StackPanel>
+                <StackPanel Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" Width="24" >
+                    <Button Name="HelpButton" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Margin="0"  />
+                </StackPanel>
+            </Grid>
+
+            <ScrollViewer Grid.Row="1" 
+                      VerticalScrollBarVisibility="Auto" 
+                      HorizontalScrollBarVisibility="Disabled"
+                      Margin="10,0">
+                <WrapPanel x:Name="CardName" 
+                       Orientation="Horizontal" 
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="0,10,0,0"/>
+            </ScrollViewer>
+        </Grid>
+    </Border>
 </controls:ControlBase>

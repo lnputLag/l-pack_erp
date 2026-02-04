@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 namespace Client.Interfaces.Stock.RawMaterialMonitor
 {
     /// <summary>
-    /// 
+    /// Интерфейс монитора остатков сырья по сырьевой
+    /// группе и композиции
     /// </summary>
     /// <author>kurasov_dp</author>
     public class RawMaterialMonitorInterface

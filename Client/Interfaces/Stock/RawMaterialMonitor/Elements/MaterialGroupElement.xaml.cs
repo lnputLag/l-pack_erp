@@ -10,8 +10,9 @@ using System.Windows.Media;
 namespace Client.Interfaces.Stock
 {
     /// <summary>
-    /// Карточка материала для отображения в группе
+    /// Карточка сырьевой группы
     /// </summary>
+    /// <author>kurasov_dp</author>
     public partial class MaterialGroupElement : UserControl
     {
         public MaterialGroupElement()
@@ -21,29 +22,7 @@ namespace Client.Interfaces.Stock
 
         /// <summary>
         /// Получение данных из таба и заполнение карточки
-        /// Программно создали 
         /// </summary>
-
-        //public void SetValue(MaterialData materialData)
-        //{
-        //    MaterialNameText.Text = materialData.Name;
-        //    foreach (var a in materialData.MaterialDataFormats)
-        //    {
-        //        var grid = new Grid();
-        //        grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50, GridUnitType.Pixel) });
-        //        grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(60, GridUnitType.Pixel) });
-        //        TextBlock formatNameTextBlock = new TextBlock();
-        //        formatNameTextBlock.Text = a.Name;
-        //        TextBlock formatQuantityTextBlock = new TextBlock();
-        //        formatQuantityTextBlock.Text = a.QUTY.ToString();
-        //        grid.Children.Add(formatNameTextBlock);
-        //        grid.Children.Add(formatQuantityTextBlock);
-        //        Grid.SetColumn(formatNameTextBlock, 0);
-        //        Grid.SetColumn(formatQuantityTextBlock, 1);
-        //        FormatContainer.Children.Add(grid);
-        //    }    
-        //}
-
         public void SetValue(MaterialData materialData)
         {
             MaterialNameText.Text = materialData.Name;
@@ -57,7 +36,7 @@ namespace Client.Interfaces.Stock
                 var grid = new Grid();
                 grid.Margin = new Thickness(0, 2, 0, 2); // Отступ между строками
 
-                // Теперь 3 колонки: название, цветная полоса, количество
+                // колонки: название, цветная полоса, количество
                 grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50, GridUnitType.Pixel) });
                 grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(100, GridUnitType.Pixel) });
                 grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(70, GridUnitType.Pixel) });
@@ -76,7 +55,7 @@ namespace Client.Interfaces.Stock
                 colorBar.CornerRadius = new CornerRadius(2);
                 colorBar.VerticalAlignment = VerticalAlignment.Center;
 
-                // Определяем цвет в зависимости от количества
+                // Определение цвета (тестовые значения)
                 if (a.QUTY == 0)
                 {
                     colorBar.Background = new SolidColorBrush(Color.FromRgb(204, 204, 204)); // Серый
@@ -112,12 +91,12 @@ namespace Client.Interfaces.Stock
                     formatQuantityTextBlock.Foreground = Brushes.Black;
                 }
 
-                // Добавляем элементы в сетку
+                // Добавление элементов в сетку
                 grid.Children.Add(formatNameTextBlock);
                 grid.Children.Add(colorBar);
                 grid.Children.Add(formatQuantityTextBlock);
 
-                // Устанавливаем позиции в колонках
+                // Установка позиции в колонках
                 Grid.SetColumn(formatNameTextBlock, 0);
                 Grid.SetColumn(colorBar, 1);
                 Grid.SetColumn(formatQuantityTextBlock, 2);
@@ -125,14 +104,8 @@ namespace Client.Interfaces.Stock
                 FormatContainer.Children.Add(grid);
             }
 
-            // Обновляем итоговое количество
-            TotalQuantityText.Text = $"Всего: {totalQuty:N0} шт";
-
-            //// Меняем цвет заголовка если всё 0
-            //if (totalQuty == 0)
-            //{
-            //    MaterialNameText.Foreground = Brushes.Gray;
-            //}
+            // Обновление итогового кол-ва
+            TotalQuantityText.Text = $"Остаток: {totalQuty:N0} кг";
         }
     }
 }

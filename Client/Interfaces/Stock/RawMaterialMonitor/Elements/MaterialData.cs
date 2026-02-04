@@ -7,6 +7,9 @@ using System.Windows.Media;
 
 namespace Client.Interfaces.Stock.RawMaterialMonitor
 {
+    /// <summary>
+    /// Модель для сырьевой группы
+    /// </summary>
     public class MaterialData
     {
         public MaterialData()
@@ -20,11 +23,5 @@ namespace Client.Interfaces.Stock.RawMaterialMonitor
         public string SumQuty { get; set; }
     }
 
-    public class MaterialDataFormat
-    {
-        public MaterialDataFormat() { }
 
-        public string Name { get; set; }
-        public int QUTY { get; set; }
-    }
 }

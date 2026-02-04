@@ -26,7 +26,7 @@ namespace Client.Interfaces.Stock
     /// Остаток по сырьевым группам на складе
     /// в карточном виде
     /// </summary>
-    /// <author>kurasovdp</author>
+    /// <author>kurasov_dp</author>
     public partial class RawGroupMaterialMonitorCardsTab : ControlBase
     {
         public RawGroupMaterialMonitorCardsTab()
@@ -61,18 +61,17 @@ namespace Client.Interfaces.Stock
 
             OnUnload = () =>
             {
-                //RawGroupTableGrid.Destruct();
+                
             };
 
             OnFocusGot = () =>
             {
-                //RawGroupTableGrid.ItemsAutoUpdate = true;
-                //RawGroupTableGrid.Run();
+                
             };
 
             OnFocusLost = () =>
             {
-                // RawGroupTableGrid.ItemsAutoUpdate = false;
+                
             };
 
             ///<summary>
@@ -111,10 +110,10 @@ namespace Client.Interfaces.Stock
             // Очищаем панель
             ClearCards();
 
-            // Загружаем данные
+            // Загрузка данных
             var materials = LoadMaterialsData();
 
-            // Создаем карточки
+            // Создание карточки
             foreach (var material in materials)
             {
                 AddMaterialCard(material);
@@ -122,7 +121,7 @@ namespace Client.Interfaces.Stock
         }
 
         /// <summary>
-        /// Загрузка данных материалов (из БД или API)
+        /// Загрузка данных (из БД)
         /// В модель карточек
         /// </summary>
         private List<MaterialData> LoadMaterialsData()
@@ -141,14 +140,6 @@ namespace Client.Interfaces.Stock
             {
                 p.Add("FACTORY_ID", "1"); // Значение по умолчанию
             }
-
-            // Берем выбранный формат из выпадающего списка
-            var selectedFormat = FormatSelectBox.SelectedItem;
-            if (!selectedFormat.Equals(default(KeyValuePair<string, string>)))
-            {
-                p.Add("FORMAT", selectedFormat.Key);
-            }
-            //p.Add("FACTORY_ID", $"1");
 
             var q = new LPackClientQuery();
             q.Request.SetParam("Module", "Stock");
@@ -195,7 +186,7 @@ namespace Client.Interfaces.Stock
         }
 
         /// <summary>
-        /// Добавление карточки материала (аналогично PanelScore.Children.Add)
+        /// Добавление карточки материала
         /// </summary>
         private void AddMaterialCard(MaterialData material)
         {
@@ -212,15 +203,7 @@ namespace Client.Interfaces.Stock
         private void ClearCards()
         {
             CardName.Children.Clear();
-        }
-
-       
-
-        // Обработчики событий
-        private void RefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            RefreshData();
-        }
+        }    
 
         public void SetDefaults()
         {
@@ -232,17 +215,12 @@ namespace Client.Interfaces.Stock
             PlatformSelectBox.SelectedItem = PlatformSelectBox.Items.First();
         }
 
-        private void PlatformSelectBox_SelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            RefreshData();
-        }
-
-        private void FormatSelectBox_SelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            RefreshData();
-        }
-
         private void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshData();
+        }
+
+        private void PlatformSelectBox_SelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RefreshData();
         }
