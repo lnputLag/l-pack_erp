@@ -20,53 +20,365 @@
                 <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <!--<SolidColorBrush x:Key="MetricPanelBackground" Color="#F8F9FA"/>-->
+
+            <!-- Стили для сводок (Зона 1) -->
+            <Style x:Key="SummaryCategoryStyle" TargetType="Border">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="CornerRadius" Value="6"/>
+                <Setter Property="BorderBrush" Value="#E0E0E0"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Margin" Value="0,0,0,15"/>
+                <Setter Property="Padding" Value="12"/>
+            </Style>
+
+            <Style x:Key="SummaryHeaderStyle" TargetType="Border">
+                <Setter Property="Background" Value="#F5F5F5"/>
+                <Setter Property="CornerRadius" Value="4"/>
+                <Setter Property="Padding" Value="10,8"/>
+                <Setter Property="Margin" Value="0,0,0,8"/>
+            </Style>
+
+            <Style x:Key="SummaryTitleStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Foreground" Value="#333"/>
+            </Style>
+
+            <Style x:Key="SummaryItemStyle" TargetType="Border">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Padding" Value="6,4"/>
+                <Setter Property="CornerRadius" Value="4"/>
+                <Setter Property="Cursor" Value="Hand"/>
+            </Style>
+
+            <Style x:Key="BarChartStyle" TargetType="Border">
+                <Setter Property="Background" Value="#E0E0E0"/>
+                <Setter Property="Height" Value="12"/>
+                <Setter Property="CornerRadius" Value="2"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="10,0,10,0"/>
+            </Style>
+
+            <!-- Стили для графика форматов -->
+            <Style x:Key="FormatChartContainerStyle" TargetType="Border">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="CornerRadius" Value="6"/>
+                <Setter Property="BorderBrush" Value="#E0E0E0"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Margin" Value="0,0,0,5"/>
+                <Setter Property="Padding" Value="12"/>
+            </Style>
+
+            <Style x:Key="FormatBarStyle" TargetType="Border">
+                <Setter Property="Height" Value="20"/>
+                <Setter Property="CornerRadius" Value="3"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="0,2,0,2"/>
+            </Style>
+
+            <!-- Стили для метрик -->
+            <Style x:Key="MetricBlockStyle" TargetType="Border">
+                <Setter Property="Background" Value="#2196F3"/>
+                <Setter Property="CornerRadius" Value="6"/>
+                <Setter Property="Padding" Value="12,8"/>
+                <Setter Property="Margin" Value="0,0,12,0"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+
+            <Style x:Key="MetricTextStyle" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="TextAlignment" Value="Center"/>
+            </Style>
+
         </ResourceDictionary>
     </controls:ControlBase.Resources>
+    
+    
     <Border Style="{DynamicResource DataGridContainerHolder}"  >
         <Grid Style="{DynamicResource DataGridContainer}">
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+                <!-- Строка 0: Фильтры -->
+                <RowDefinition Height="Auto"/>
+                <!-- Строка 1: Метрики -->
+                <RowDefinition Height="Auto"/>
+                <!-- Строка 2: Контент(3 зоны) -->
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
+           
 
+            <!-- === СТРОКА 0: ФИЛЬТРЫ === -->
+
+            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="11*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                </Grid.RowDefinitions>
 
-                <StackPanel Grid.Row="0" Grid.Column="0" Name="CompositionCardsGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Width="1000" >
+                <!-- Левая часть фильтров -->
+                <StackPanel Grid.Column="0" 
+                            Orientation="Horizontal" 
+                            Style="{DynamicResource FormHeaderButtonsPanel}" 
+                            HorizontalAlignment="Left" 
+                            Width="1000">
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                    <Label Content="Площадка:" 
+                           Style="{DynamicResource TopLabel}" />
+                    <controls:SelectBox x:Name="PlatformSelectBox"
+                                        SelectedItemChanged="PlatformSelectBox_SelectedItemChanged" 
+                                        Style="{DynamicResource CustomFormField}" 
+                                        ListBoxMinWidth="120" 
+                                        ListBoxMinHeight="120" 
+                                        Width="120" 
+                                        Autocomplete="True"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
 
-                    <Label Content="Площадка:"  Style="{DynamicResource TopLabel}" />
-                    <controls:SelectBox x:Name="PlatformSelectBox" SelectedItemChanged="PlatformSelectBox_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" ListBoxMinWidth="120" ListBoxMinHeight="120"  Width="120" Autocomplete="True" VerticalAlignment="Bottom"/>
-                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                    <Label Content="Поиск:" Style="{DynamicResource TopLabel}" />
+                    <TextBox x:Name="SearchTextBox" 
+                             Width="220" 
+                             Margin="10,0,0,0" 
+                             Style="{DynamicResource CustomFormField}" 
+                             ToolTip="Поиск по композиции" 
+                             TextChanged="SearchTextBox_TextChanged"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
 
-                    <Button Name="Refresh" Click="Refresh_Click" Content="Обновить"  Style="{DynamicResource Button}"  />
-                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                    <Button Name="Refresh" Click="Refresh_Click" Content="Обновить" Style="{DynamicResource Button}" />
 
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+
+                    <Button Name="LoadAllButton" Click="LoadAllButton_Click" Content="Загрузить всё" Style="{DynamicResource Button}" />
                 </StackPanel>
+
+                <!-- Правая часть -->
                 <StackPanel Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" Width="24" >
-                    <Button Name="HelpButton" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Margin="0"  />
+                    <Button Name="HelpButton" 
+                            Width="24" MinWidth="24"  
+                            Content="?"  Style="{DynamicResource Button}" 
+                            Margin="0"  />
                 </StackPanel>
             </Grid>
 
-            <ScrollViewer Grid.Row="1" 
-                      VerticalScrollBarVisibility="Auto" 
-                      HorizontalScrollBarVisibility="Disabled"
-                      Margin="10,0">
-                <WrapPanel x:Name="CardName" 
-                       Orientation="Horizontal" 
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Top"
-                       Margin="0,10,0,0"/>
-            </ScrollViewer>
+            
+            <!-- === СТРОКА 1: МЕТРИКИ === -->
+            <Border Grid.Row="1" 
+                    Background="{DynamicResource ControlBackgroundBrush}"
+                    Padding="12,10"
+                    Margin="0">
+                <StackPanel Orientation="Horizontal">
+
+                    <!-- Всего композиций -->
+                    <Border Style="{StaticResource MetricBlockStyle}" 
+                            Background="#2196F3">
+                        <!-- Синий -->
+                        <TextBlock x:Name="TotalCompositionsMetric" 
+                                   Text="Всего: 0"
+                                   Style="{StaticResource MetricTextStyle}"/>
+                    </Border>
+
+                    <!-- Критический остаток -->
+                    <Border Style="{StaticResource MetricBlockStyle}" 
+                            Background="#F44336">
+                        <!-- Красный -->
+                        <TextBlock x:Name="CriticalRemainsMetric" 
+                                   Text="Критич: 0"
+                                   Style="{StaticResource MetricTextStyle}"/>
+                    </Border>
+
+                    <!-- Низкий остаток -->
+                    <Border Style="{StaticResource MetricBlockStyle}" 
+                Background="#FF9800">
+                        <!-- Оранжевый -->
+                        <TextBlock x:Name="LowRemainsMetric" 
+                       Text="Низкий: 0"
+                       Style="{StaticResource MetricTextStyle}"/>
+                    </Border>
+
+                    <!-- Много в наличии -->
+                    <Border Style="{StaticResource MetricBlockStyle}" 
+                Background="#4CAF50">
+                        <!-- Зеленый -->
+                        <TextBlock x:Name="HighRemainsMetric" 
+                       Text="Много: 0"
+                       Style="{StaticResource MetricTextStyle}"/>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- === СТРОКА 2: КОНТЕНТ (Master-Detail) 3 Зоны === -->
+            <Grid Grid.Row="2" 
+                  Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"/>
+                    <!-- Зона 1: Сводки -->
+                    <ColumnDefinition Width="30*"/>
+                    <!-- Зона 2: Таблица -->
+                    <ColumnDefinition Width="20*"/>
+                    <!-- Зона 3: Карточка -->
+                </Grid.ColumnDefinitions>
+
+                <!-- ЗОНА 1: СВОДКИ ТОП-10 + График -->
+                <ScrollViewer Grid.Column="0" 
+                              VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled"
+                              Margin="0,0,10,0">
+                    <StackPanel x:Name="SummaryPanel">
+                        <!-- Здесь будут динамически создаваться сводки -->
+                        <TextBlock Text="Выберите категорию для просмотра деталей" 
+                                   Foreground="Gray"
+                                   FontStyle="Italic"
+                                   TextAlignment="Center"
+                                   Margin="0,20"/>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- ЗОНА 2: РАБОЧАЯ ТАБЛИЦА -->
+                <Grid Grid.Column="1" Margin="0,0,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <!-- Заголовок -->
+                        <RowDefinition Height="*"/>
+                        <!-- Таблица -->
+                    </Grid.RowDefinitions>
+
+                    <!-- Заголовок таблицы -->
+                    <Border Grid.Row="0" 
+                            Background="#F5F5F5" 
+                            Padding="10,8"
+                            BorderBrush="#E0E0E0"
+                            BorderThickness="0,0,0,1">
+                        <TextBlock x:Name="TableTitle"
+                                   Text="Выберите категорию"
+                                   FontWeight="Bold"
+                                   Foreground="#333"/>
+                    </Border>
+
+                    <!-- Таблица -->
+                    <DataGrid x:Name="CompositionGrid"
+                              Grid.Row="1"
+                              AutoGenerateColumns="False"
+                              SelectionMode="Single"
+                              SelectionChanged="CompositionGrid_SelectionChanged"
+                              IsReadOnly="True"
+                              HeadersVisibility="Column"
+                              BorderThickness="1"
+                              BorderBrush="#E0E0E0"
+                              RowBackground="White"
+                              AlternatingRowBackground="#F8F9FA"
+                              GridLinesVisibility="None"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              CanUserReorderColumns="False"
+                              CanUserResizeColumns="True"
+                              CanUserResizeRows="False"
+                              CanUserSortColumns="True"
+                              FontSize="12">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Картон" 
+                                                Binding="{Binding CartonName}"
+                                                Width="2*"
+                                                MinWidth="150">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextWrapping" Value="Wrap"/>
+                                        <Setter Property="Padding" Value="8,6"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="Background" Value="#F5F5F5"/>
+                                        <Setter Property="BorderBrush" Value="#E0E0E0"/>
+                                        <Setter Property="BorderThickness" Value="0,0,1,0"/>
+                                        <Setter Property="Padding" Value="8,6"/>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Слоёв" 
+                                                Binding="{Binding LayersCount}"
+                                                Width="0.8*"
+                                                MinWidth="60">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextAlignment" Value="Center"/>
+                                        <Setter Property="Padding" Value="8,6"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Всего кг" 
+                                                Binding="{Binding TotalStockKg, StringFormat=\{0:N0\}}"
+                                                Width="1.2*"
+                                                MinWidth="100">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                                        <Setter Property="Padding" Value="8,6"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Foreground" Value="{Binding StockTextColor}"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="BorderBrush" Value="#E0E0E0"/>
+                                <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                <Setter Property="Focusable" Value="False"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Style>
+                        </DataGrid.CellStyle>
+
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="#E3F2FD"/>
+                                        <Setter Property="BorderBrush" Value="#2196F3"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                    </Trigger>
+                                    <DataTrigger Binding="{Binding IsCritical}" Value="True">
+                                        <Setter Property="Background" Value="#FFEBEE"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsLow}" Value="True">
+                                        <Setter Property="Background" Value="#FFF3E0"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
+                    </DataGrid>
+                </Grid>
+
+
+
+                <!-- ЗОНА 3: КАРТОЧКА -->
+                <Border Grid.Column="2" 
+                        BorderBrush="#E0E0E0" 
+                        BorderThickness="1,0,0,0"
+                        Background="White">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                  HorizontalScrollBarVisibility="Disabled">
+                        <local:MaterialCompositionElement x:Name="DetailsCard"
+                                                          Margin="10"/>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+
+
         </Grid>
     </Border>
+
 </controls:ControlBase>

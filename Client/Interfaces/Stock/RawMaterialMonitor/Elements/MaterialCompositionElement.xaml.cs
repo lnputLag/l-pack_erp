@@ -32,7 +32,16 @@ namespace Client.Interfaces.Stock
         /// </summary>
         public void SetValue(MaterialDataComposition compositionData)
         {
-            CartonNameText.Text = compositionData.CartonName;
+            if (compositionData == null)
+            {
+                // Показываем пустую карточку
+                CartonNameText.Text = "Нет данных";
+                LayersContainer.Children.Clear();
+                TotalStockText.Text = "Всего: 0 кг";
+                return;
+            }
+
+            CartonNameText.Text = compositionData.CartonName ?? "Без названия";
             LayersContainer.Children.Clear();
 
             // Группировка слоям (layer_number) 
