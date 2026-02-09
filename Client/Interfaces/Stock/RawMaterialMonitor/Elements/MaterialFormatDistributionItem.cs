@@ -7,6 +7,9 @@ using System.Windows.Media;
 
 namespace Client.Interfaces.Stock.RawMaterialMonitor
 {
+    /// <summary>
+    /// Класс данных по форматам для графика
+    /// </summary>
     public class MaterialFormatDistributionItem
     {
         public int Width { get; set; }
@@ -29,11 +32,11 @@ namespace Client.Interfaces.Stock.RawMaterialMonitor
             get
             {
                 // Генерируем цвет на основе ширины формата
-                int hue = (Width % 360) * 10;
+                int a = (Width % 360) * 10;
                 return new SolidColorBrush(Color.FromArgb(200,
-                    (byte)((hue * 5) % 255),
-                    (byte)((hue * 3) % 255),
-                    (byte)((hue * 7) % 255)));
+                    (byte)((a * 5) % 255),
+                    (byte)((a * 3) % 255),
+                    (byte)((a * 7) % 255)));
             }
         }
     }

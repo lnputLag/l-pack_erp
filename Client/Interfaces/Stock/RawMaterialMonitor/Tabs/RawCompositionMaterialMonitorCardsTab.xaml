@@ -20,7 +20,7 @@
                 <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- Используем правильное имя конвертера -->
+            <!-- Конвертер для форматирования чисел -->
             <rawMaterialMonitor:MaterialNumberWithSpacesConverter x:Key="NumberWithSpacesConverter" />
 
             <!-- Стили для сводок (Зона 1) -->
@@ -82,7 +82,7 @@
                 <Setter Property="Margin" Value="8,0,8,0"/>
             </Style>
 
-            <!-- Остальные стили -->
+            <!-- Стили для метрик -->
             <Style x:Key="MetricBlockStyle" TargetType="Border">
                 <Setter Property="Background" Value="#2196F3"/>
                 <Setter Property="CornerRadius" Value="6"/>
@@ -135,17 +135,16 @@
                                         Width="120" 
                                         Autocomplete="True"/>
                     <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
-
                     <Label Content="Поиск:" Style="{DynamicResource TopLabel}" />
                     <TextBox x:Name="SearchTextBox" 
-                             Width="220" 
-                             Margin="10,0,0,0" 
+                             Width="220"  
                              Style="{DynamicResource CustomFormField}" 
                              ToolTip="Поиск по композиции" 
                              TextChanged="SearchTextBox_TextChanged"/>
                     <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
-
-                    <Button Name="LoadAllButton" Click="LoadAllButton_Click" Content="Загрузить все" Style="{DynamicResource Button}" Margin="0,0,10,0"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+                    <Button Name="LoadAllButton" Click="LoadAllButton_Click" Content="Загрузить все" Style="{DynamicResource Button}"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
                     <Button Name="Refresh" Click="Refresh_Click" Content="Обновить" Style="{DynamicResource Button}" />
                 </StackPanel>
 
@@ -349,8 +348,6 @@
                             </DataGrid.RowStyle>
                         </DataGrid>
                     </ScrollViewer>
-                    <!-- Таблица -->
-                    
                 </Grid>
 
                 <!-- ЗОНА 3: КАРТОЧКА -->

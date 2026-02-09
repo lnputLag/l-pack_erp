@@ -311,7 +311,7 @@ namespace Client.Interfaces.Stock
                     Category = CATEGORY_LOW
                 })
                 .ToList();
-            CreateCompositionSummaryCategory("НИЗКИЕ ОСТАТКИ (1 000 001 - 2 500 000 кг)", lowCompositions, CATEGORY_LOW, true);
+            CreateCompositionSummaryCategory("НИЗКИЕ ОСТАТКИ (1 000 000 - 2 500 000 кг)", lowCompositions, CATEGORY_LOW, true);
 
             // 3. Большие остатки (> 2 500 000 кг) - от меньшего к большему (ИНВЕРСИЯ)
             var highCompositions = _compositions
@@ -326,7 +326,7 @@ namespace Client.Interfaces.Stock
                     Category = CATEGORY_HIGH
                 })
                 .ToList();
-            CreateCompositionSummaryCategory("БОЛЬШИЕ ОСТАТКИ (> 2 500 000 кг)", highCompositions, CATEGORY_HIGH, true);
+            CreateCompositionSummaryCategory("МНОГО В ОСТАТКЕ (> 2 500 000 кг)", highCompositions, CATEGORY_HIGH, true);
 
             // 4. График распределения по форматам 
             CreateFormatDistributionChart();
@@ -395,7 +395,7 @@ namespace Client.Interfaces.Stock
                         FontSize = 10,
                         FontWeight = FontWeights.Bold,
                         Foreground = Brushes.DarkGray,
-                        HorizontalAlignment = HorizontalAlignment.Center
+                        HorizontalAlignment = HorizontalAlignment.Center,
                     };
                     Grid.SetColumn(chartHeader, 1);
                     headerGrid.Children.Add(chartHeader);
@@ -406,7 +406,8 @@ namespace Client.Interfaces.Stock
                         FontSize = 10,
                         FontWeight = FontWeights.Bold,
                         Foreground = Brushes.DarkGray,
-                        HorizontalAlignment = HorizontalAlignment.Right
+                        HorizontalAlignment = HorizontalAlignment.Right,
+                        Margin = new Thickness(10, 0, 10, 0)
                     };
                     Grid.SetColumn(valueHeader, 2);
                     headerGrid.Children.Add(valueHeader);
@@ -696,7 +697,7 @@ namespace Client.Interfaces.Stock
                         FontSize = 11,
                         VerticalAlignment = VerticalAlignment.Center,
                         Margin = new Thickness(5, 0, 0, 0),
-                        Foreground = format.TotalStockKg > 0 ? Brushes.Black : Brushes.Gray // Серый для нулевых
+                        Foreground = format.TotalStockKg > 0 ? Brushes.Black : Brushes.Gray 
                     };
                     Grid.SetColumn(percentText, 2);
                     formatGrid.Children.Add(percentText);
@@ -709,7 +710,7 @@ namespace Client.Interfaces.Stock
                         FontWeight = format.TotalStockKg > 0 ? FontWeights.SemiBold : FontWeights.Normal,
                         VerticalAlignment = VerticalAlignment.Center,
                         HorizontalAlignment = HorizontalAlignment.Right,
-                        Foreground = format.TotalStockKg > 0 ? Brushes.Black : Brushes.Gray // Серый для нулевых
+                        Foreground = format.TotalStockKg > 0 ? Brushes.Black : Brushes.Gray 
                     };
                     Grid.SetColumn(stockText, 3);
                     formatGrid.Children.Add(stockText);

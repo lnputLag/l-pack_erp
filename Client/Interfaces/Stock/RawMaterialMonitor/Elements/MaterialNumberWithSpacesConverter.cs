@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Client.Interfaces.Stock.RawMaterialMonitor
 {
     /// <summary>
-    /// Конвертер для форматирования чисел с пробелами вместо запятых
+    /// Конвертер для форматирования чисел
     /// </summary>
     public class MaterialNumberWithSpacesConverter : System.Windows.Data.IValueConverter
     {
