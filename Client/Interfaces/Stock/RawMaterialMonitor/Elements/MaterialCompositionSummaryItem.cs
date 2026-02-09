@@ -7,13 +7,15 @@ using System.Windows.Media;
 
 namespace Client.Interfaces.Stock.RawMaterialMonitor
 {
+    /// <summary>
+    /// Класс для группировки по композициям в сводках
+    /// </summary>
     public class MaterialCompositionSummaryItem
     {
         public string CartonName { get; set; }
         public int Idc { get; set; }
         public int TotalStockKg { get; set; }
         public string Category { get; set; }
-        public int ProblemWidthsCount { get; set; } // Количество проблемных форматов
 
         public SolidColorBrush CategoryColor
         {
@@ -21,7 +23,6 @@ namespace Client.Interfaces.Stock.RawMaterialMonitor
             {
                 return Category switch
                 {
-                    "zero" => new SolidColorBrush(Colors.Gray),
                     "critical" => new SolidColorBrush(Colors.Red),
                     "low" => new SolidColorBrush(Color.FromRgb(255, 152, 0)),
                     "high" => new SolidColorBrush(Color.FromRgb(76, 175, 80)),
@@ -30,19 +31,12 @@ namespace Client.Interfaces.Stock.RawMaterialMonitor
             }
         }
 
-        public string CategoryText
+        // Форматированная строка с пробелами вместо запятых
+        public string FormattedStock => FormatNumberWithSpaces(TotalStockKg);
+
+        private string FormatNumberWithSpaces(int number)
         {
-            get
-            {
-                return Category switch
-                {
-                    "zero" => $"❌ Композиции с {ProblemWidthsCount} нулевыми форматами",
-                    "critical" => $"🔴 Композиции с {ProblemWidthsCount} критическими форматами",
-                    "low" => $"🟠 Композиции с {ProblemWidthsCount} низкими форматами",
-                    "high" => $"🟢 Композиции с {ProblemWidthsCount} большими форматами",
-                    _ => "Неизвестно"
-                };
-            }
+            return number.ToString("N0").Replace(",", " ");
         }
     }
 }

@@ -14,12 +14,13 @@
             Background="White"
             CornerRadius="8"
             BorderBrush="#E0E0E0"
-            BorderThickness="1">
+            BorderThickness="1"
+            VerticalAlignment="Top">
 
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
