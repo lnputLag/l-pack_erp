@@ -23,9 +23,7 @@ namespace Client.Interfaces.Stock.RawMaterialMonitor
         public List<MaterialLayerData> Layers { get; set; }
         public int TotalStockKg => Layers.Sum(l => l.TotalStockKg);
 
-        // свойства для DataGrid
-        //public int LayersCount => Layers?.GroupBy(l => l.LayerNumber).Count() ?? 0;
-   
+        public int LayersCount => Layers?.GroupBy(l => l.LayerNumber).Count() ?? 0;
     }
 
 }

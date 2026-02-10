@@ -137,7 +137,7 @@
                     <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
                     <Label Content="Поиск:" Style="{DynamicResource TopLabel}" />
                     <TextBox x:Name="SearchTextBox" 
-                             Width="220"  
+                             Width="150"  
                              Style="{DynamicResource CustomFormField}" 
                              ToolTip="Поиск по композиции" 
                              TextChanged="SearchTextBox_TextChanged"/>
@@ -188,11 +188,11 @@
             <!-- СТРОКА 2: ТРИ ЗОНЫ -->
             <Grid Grid.Row="2" Margin="10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="45*"/>
                     <!-- Зона 1: Сводки + график -->
                     <ColumnDefinition Width="30*"/>
                     <!-- Зона 2: Таблица -->
-                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="25*"/>
                     <!-- Зона 3: Карточка -->
                 </Grid.ColumnDefinitions>
 

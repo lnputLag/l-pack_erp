@@ -2,6 +2,7 @@
     x:Class="Client.Interfaces.Stock.RawGroupMaterialMonitorCardsTab"
     xmlns:local="clr-namespace:Client.Interfaces.Stock"
     xmlns:controls="clr-namespace:Client.Interfaces.Main"
+    xmlns:rawMaterialMonitor="clr-namespace:Client.Interfaces.Stock.RawMaterialMonitor"
     
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -14,53 +15,141 @@
 
     <controls:ControlBase.Resources>
         <ResourceDictionary>
-
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/l-pack_erp;component/Assets/Styles/Common.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <!-- Конвертер для форматирования чисел -->
+            <rawMaterialMonitor:MaterialNumberWithSpacesConverter x:Key="NumberWithSpacesConverter" />
+
+            <!-- Стили для метрик -->
+            <Style x:Key="MetricBlockStyle" TargetType="Border">
+                <Setter Property="Background" Value="#2196F3"/>
+                <Setter Property="CornerRadius" Value="6"/>
+                <Setter Property="Padding" Value="12,8"/>
+                <Setter Property="Margin" Value="0,0,12,0"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Cursor" Value="Hand"/>
+            </Style>
+
+            <Style x:Key="MetricTextStyle" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="TextAlignment" Value="Center"/>
+            </Style>
+
         </ResourceDictionary>
     </controls:ControlBase.Resources>
-    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
         <Grid Style="{DynamicResource DataGridContainer}">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"/>
+                <!-- Фильтры -->
+                <RowDefinition Height="Auto"/>
+                <!-- Метрики -->
+                <RowDefinition Height="*"/>
+                <!-- Основной контент -->
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0"  Grid.Column="0" Style="{DynamicResource GridControlPanel}">
 
+            <!-- СТРОКА 0: ФИЛЬТРЫ -->
+            <Grid Grid.Row="0" Grid.Column="0" Style="{DynamicResource GridControlPanel}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="11*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                </Grid.RowDefinitions>
 
-                <StackPanel Grid.Row="0" Grid.Column="0" Name="RawGroupCardsGridToolbar" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Left" Width="1000" >
+                <StackPanel Grid.Column="0" 
+                            Orientation="Horizontal" 
+                            Style="{DynamicResource FormHeaderButtonsPanel}" 
+                            HorizontalAlignment="Left" 
+                            Width="1000">
+                    <Label Content="Площадка:" Style="{DynamicResource TopLabel}" />
+                    <controls:SelectBox x:Name="PlatformSelectBox" 
+                                        SelectedItemChanged="PlatformSelectBox_SelectedItemChanged"  
+                                        Style="{DynamicResource CustomFormField}" 
+                                        ListBoxMinWidth="120" 
+                                        ListBoxMinHeight="120"  
+                                        Width="120" 
+                                        Autocomplete="True"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
 
-                    <Label Content="Площадка:"  Style="{DynamicResource TopLabel}" />
-                    <controls:SelectBox x:Name="PlatformSelectBox" SelectedItemChanged="PlatformSelectBox_SelectedItemChanged"  Style="{DynamicResource CustomFormField}" ListBoxMinWidth="120" ListBoxMinHeight="120"  Width="120" Autocomplete="True" VerticalAlignment="Bottom"/>
-                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                    <Label Content="Формат:" Style="{DynamicResource TopLabel}" />
+                    <controls:SelectBox x:Name="FormatSelectBox" 
+                                        SelectedItemChanged="FormatSelectBox_SelectedItemChanged"  
+                                        Style="{DynamicResource CustomFormField}" 
+                                        ListBoxMinWidth="120" 
+                                        ListBoxMinHeight="150"  
+                                        Width="120" 
+                                        Autocomplete="True"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
 
-                    <Button Name="Refresh" Click="Refresh_Click" Content="Обновить"  Style="{DynamicResource Button}"  />
-                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                    <Label Content="Поиск:" Style="{DynamicResource TopLabel}" />
+                    <TextBox x:Name="SearchTextBox" 
+                             Width="150"  
+                             Style="{DynamicResource CustomFormField}" 
+                             ToolTip="Поиск по сырьевой группе" 
+                             TextChanged="SearchTextBox_TextChanged"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
 
+                    <Button Name="Refresh" Click="Refresh_Click" Content="Обновить" Style="{DynamicResource Button}" />
                 </StackPanel>
-                <StackPanel Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  HorizontalAlignment="Right" Width="24" >
-                    <Button Name="HelpButton" Width="24" MinWidth="24"  Content="?"  Style="{DynamicResource Button}" Margin="0"  />
+
+                <StackPanel Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}" HorizontalAlignment="Right" Width="24">
+                    <Button Name="HelpButton" Width="24" MinWidth="24" Content="?" Style="{DynamicResource Button}" Margin="0" />
                 </StackPanel>
             </Grid>
-            
-            <ScrollViewer Grid.Row="1" 
+
+            <!-- СТРОКА 1: МЕТРИКИ -->
+            <Border Grid.Row="1" 
+                    Background="{DynamicResource ControlBackgroundBrush}"
+                    Padding="12,10"
+                    Margin="0">
+                <StackPanel Orientation="Horizontal">
+                    <Border x:Name="TotalMetricBorder" 
+                            Style="{StaticResource MetricBlockStyle}" 
+                            Background="#2196F3"
+                            MouseLeftButtonDown="TotalMetric_MouseLeftButtonDown">
+                        <TextBlock x:Name="TotalMetricText" 
+                                   Text="Всего: 0"
+                                   Style="{StaticResource MetricTextStyle}"/>
+                    </Border>
+                    <Border x:Name="CriticalMetricBorder" 
+                            Style="{StaticResource MetricBlockStyle}" 
+                            Background="#F44336"
+                            MouseLeftButtonDown="CriticalMetric_MouseLeftButtonDown">
+                        <TextBlock x:Name="CriticalMetricText" 
+                                   Text="Критич: 0"
+                                   Style="{StaticResource MetricTextStyle}"/>
+                    </Border>
+                    <Border x:Name="LowMetricBorder" 
+                            Style="{StaticResource MetricBlockStyle}" 
+                            Background="#FF9800"
+                            MouseLeftButtonDown="LowMetric_MouseLeftButtonDown">
+                        <TextBlock x:Name="LowMetricText" 
+                                   Text="Низкий: 0"
+                                   Style="{StaticResource MetricTextStyle}"/>
+                    </Border>
+                    <Border x:Name="HighMetricBorder" 
+                            Style="{StaticResource MetricBlockStyle}" 
+                            Background="#4CAF50"
+                            MouseLeftButtonDown="HighMetric_MouseLeftButtonDown">
+                        <TextBlock x:Name="HighMetricText" 
+                                   Text="Много: 0"
+                                   Style="{StaticResource MetricTextStyle}"/>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- СТРОКА 2: КАРТОЧКИ -->
+            <ScrollViewer Grid.Row="2" 
                           VerticalScrollBarVisibility="Auto" 
                           HorizontalScrollBarVisibility="Disabled"
                           Margin="10,0">
-                <WrapPanel x:Name="CardName" 
+                <WrapPanel x:Name="CardsContainer" 
                            Orientation="Horizontal" 
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"

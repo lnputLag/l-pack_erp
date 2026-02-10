@@ -23,33 +23,34 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-             <!--Заголовок материала--> 
+            <!-- Заголовок сырьевой группы -->
             <TextBlock x:Name="MaterialNameText"
                        Grid.Row="0"
-                       Text="Название материала"
+                       Text="Название сырьевой группы"
                        FontSize="14"
                        FontWeight="Bold"
                        Foreground="#333"
-                       />
+                       TextWrapping="Wrap"
+                       MaxHeight="40"/>
 
-            <StackPanel Grid.Row="1" Orientation="Vertical" x:Name ="FormatContainer" >
-                
-            </StackPanel>
+            <!-- Контейнер для форматов -->
+            <StackPanel Grid.Row="1" 
+                        Orientation="Vertical" 
+                        x:Name="FormatContainer" 
+                        Margin="0,5,0,5"/>
 
-             <!--Итоговое количество--> 
-            <Border 
-                Grid.Row="2"
+            <!-- Итоговое количество -->
+            <Border Grid.Row="2"
                     Background="#F5F5F5"
                     CornerRadius="4"
                     Padding="4,2">
-
                 <TextBlock x:Name="TotalQuantityText"
-                           Text="Всего: 350 кг"
+                           Text="Остаток: 0 кг"
                            FontSize="11"
                            Foreground="#555"
                            HorizontalAlignment="Center"/>
             </Border>
         </Grid>
     </Border>
-   
+
 </UserControl>
