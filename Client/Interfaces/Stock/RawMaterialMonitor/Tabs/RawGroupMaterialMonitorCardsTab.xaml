@@ -29,7 +29,6 @@
                 <Setter Property="Padding" Value="12,8"/>
                 <Setter Property="Margin" Value="0,0,12,0"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="Cursor" Value="Hand"/>
             </Style>
 
             <Style x:Key="MetricTextStyle" TargetType="TextBlock">
@@ -42,7 +41,6 @@
 
         </ResourceDictionary>
     </controls:ControlBase.Resources>
-
 
     <Border Style="{DynamicResource DataGridContainerHolder}">
         <Grid Style="{DynamicResource DataGridContainer}">
@@ -67,6 +65,7 @@
                             Style="{DynamicResource FormHeaderButtonsPanel}" 
                             HorizontalAlignment="Left" 
                             Width="1000">
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
                     <Label Content="Площадка:" Style="{DynamicResource TopLabel}" />
                     <controls:SelectBox x:Name="PlatformSelectBox" 
                                         SelectedItemChanged="PlatformSelectBox_SelectedItemChanged"  
@@ -77,6 +76,16 @@
                                         Autocomplete="True"/>
                     <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
 
+                    <Label Content="Категория:" Style="{DynamicResource TopLabel}" />
+                    <controls:SelectBox x:Name="CategorySelectBox" 
+                                        SelectedItemChanged="CategorySelectBox_SelectedItemChanged"  
+                                        Style="{DynamicResource CustomFormField}" 
+                                        ListBoxMinWidth="180" 
+                                        ListBoxMinHeight="150"  
+                                        Width="200" 
+                                        Autocomplete="True"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
+
                     <Label Content="Формат:" Style="{DynamicResource TopLabel}" />
                     <controls:SelectBox x:Name="FormatSelectBox" 
                                         SelectedItemChanged="FormatSelectBox_SelectedItemChanged"  
@@ -84,7 +93,8 @@
                                         ListBoxMinWidth="120" 
                                         ListBoxMinHeight="150"  
                                         Width="120" 
-                                        Autocomplete="True"/>
+                                        Autocomplete="True"
+                                        IsEnabled="False"/>
                     <Border Style="{DynamicResource FormButtonsPanelSpacer}"/>
 
                     <Label Content="Поиск:" Style="{DynamicResource TopLabel}" />
@@ -103,40 +113,32 @@
                 </StackPanel>
             </Grid>
 
-            <!-- СТРОКА 1: МЕТРИКИ -->
+            <!-- СТРОКА 1: МЕТРИКИ (ТОЛЬКО ДЛЯ ИНФОРМАЦИИ) -->
             <Border Grid.Row="1" 
                     Background="{DynamicResource ControlBackgroundBrush}"
                     Padding="12,10"
                     Margin="0">
                 <StackPanel Orientation="Horizontal">
-                    <Border x:Name="TotalMetricBorder" 
-                            Style="{StaticResource MetricBlockStyle}" 
-                            Background="#2196F3"
-                            MouseLeftButtonDown="TotalMetric_MouseLeftButtonDown">
+                    <Border Style="{StaticResource MetricBlockStyle}" 
+                            Background="#2196F3">
                         <TextBlock x:Name="TotalMetricText" 
                                    Text="Всего: 0"
                                    Style="{StaticResource MetricTextStyle}"/>
                     </Border>
-                    <Border x:Name="CriticalMetricBorder" 
-                            Style="{StaticResource MetricBlockStyle}" 
-                            Background="#F44336"
-                            MouseLeftButtonDown="CriticalMetric_MouseLeftButtonDown">
+                    <Border Style="{StaticResource MetricBlockStyle}" 
+                            Background="#F44336">
                         <TextBlock x:Name="CriticalMetricText" 
                                    Text="Критич: 0"
                                    Style="{StaticResource MetricTextStyle}"/>
                     </Border>
-                    <Border x:Name="LowMetricBorder" 
-                            Style="{StaticResource MetricBlockStyle}" 
-                            Background="#FF9800"
-                            MouseLeftButtonDown="LowMetric_MouseLeftButtonDown">
+                    <Border Style="{StaticResource MetricBlockStyle}" 
+                            Background="#FF9800">
                         <TextBlock x:Name="LowMetricText" 
                                    Text="Низкий: 0"
                                    Style="{StaticResource MetricTextStyle}"/>
                     </Border>
-                    <Border x:Name="HighMetricBorder" 
-                            Style="{StaticResource MetricBlockStyle}" 
-                            Background="#4CAF50"
-                            MouseLeftButtonDown="HighMetric_MouseLeftButtonDown">
+                    <Border Style="{StaticResource MetricBlockStyle}" 
+                            Background="#4CAF50">
                         <TextBlock x:Name="HighMetricText" 
                                    Text="Много: 0"
                                    Style="{StaticResource MetricTextStyle}"/>
@@ -144,16 +146,46 @@
                 </StackPanel>
             </Border>
 
-            <!-- СТРОКА 2: КАРТОЧКИ -->
+
+            <!-- Строка 1: Карточки и сообщения -->
             <ScrollViewer Grid.Row="2" 
                           VerticalScrollBarVisibility="Auto" 
                           HorizontalScrollBarVisibility="Disabled"
                           Margin="10,0">
-                <WrapPanel x:Name="CardsContainer" 
-                           Orientation="Horizontal" 
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Top"
-                           Margin="0,10,0,0"/>
+
+                <!-- Контейнер для начального сообщения и карточек -->
+                <Grid x:Name="MainContentContainer">
+
+                    <!-- Контейнер для карточек -->
+                    <WrapPanel x:Name="CardsContainer" 
+                               Orientation="Horizontal" 
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Margin="0,10,0,0"
+                               Visibility="Collapsed"/>
+
+                    <!-- Начальное сообщение (видно по умолчанию) -->
+                    <Border x:Name="InitialMessageContainer"
+                            Background="White"
+                            CornerRadius="8"
+                            BorderBrush="#E0E0E0"
+                            BorderThickness="1"
+                            Padding="30"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                        <TextBlock x:Name="InitialMessageText"
+                                   Text="Выберите категорию из списка для отображения данных"
+                                   Foreground="#666"
+                                   FontSize="16"
+                                   FontStyle="Italic"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap"/>
+                    </Border>
+
+                </Grid>
+
             </ScrollViewer>
         </Grid>
     </Border>

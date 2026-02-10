@@ -313,7 +313,7 @@ namespace Client.Interfaces.Stock
                 .ToList();
             CreateCompositionSummaryCategory("НИЗКИЕ ОСТАТКИ (1 000 000 - 2 500 000 кг)", lowCompositions, CATEGORY_LOW, true);
 
-            // 3. Большие остатки (> 2 500 000 кг) - от меньшего к большему (ИНВЕРСИЯ)
+            // 3. Большие остатки (> 2 500 000 кг) - от меньшего к большему 
             var highCompositions = _compositions
                 .Where(c => c.TotalStockKg > LOW_THRESHOLD)
                 .OrderBy(c => c.TotalStockKg) 
@@ -333,7 +333,7 @@ namespace Client.Interfaces.Stock
         }
 
         /// <summary>
-        /// Создание сводки для категории композиций с сеткой
+        /// Создание сводки для категории композиций 
         /// </summary>
         private void CreateCompositionSummaryCategory(string title, List<MaterialCompositionSummaryItem> items, string categoryId, bool showGrid = true)
         {

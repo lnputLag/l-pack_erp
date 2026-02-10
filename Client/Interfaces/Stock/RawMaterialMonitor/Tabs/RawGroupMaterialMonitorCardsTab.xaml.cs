@@ -20,6 +20,7 @@ namespace Client.Interfaces.Stock
     /// в карточном виде
     /// </summary>
     /// <author>kurasov_dp</author>
+
     public partial class RawGroupMaterialMonitorCardsTab : ControlBase
     {
         private List<MaterialData> _allMaterials;
@@ -30,9 +31,6 @@ namespace Client.Interfaces.Stock
         private int _criticalRemainsCount = 0;
         private int _lowRemainsCount = 0;
         private int _highRemainsCount = 0;
-
-        // Текущая выбранная категория
-        private string _selectedCategory = null;
 
         // Пороги для категорий (в кг)
         private const int CRITICAL_THRESHOLD = 0;       // 0 кг
@@ -47,6 +45,12 @@ namespace Client.Interfaces.Stock
 
         // Выбранный формат
         private string _selectedFormat = "Все форматы";
+
+        // Выбранная категория
+        private string _selectedCategory = null;
+
+        // Флаг, что данные загружены
+        private bool _isDataLoaded = false;
 
         public RawGroupMaterialMonitorCardsTab()
         {
@@ -76,6 +80,7 @@ namespace Client.Interfaces.Stock
             {
                 SetDefaults();
                 RefreshData();
+                ShowInitialMessage();
             };
 
             OnUnload = () => { };
@@ -109,21 +114,44 @@ namespace Client.Interfaces.Stock
         }
 
         /// <summary>
+        /// Показать начальное сообщение
+        /// </summary>
+        private void ShowInitialMessage()
+        {
+            CardsContainer.Visibility = Visibility.Collapsed;
+            InitialMessageContainer.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Показать карточки
+        /// </summary>
+        private void ShowCards()
+        {
+            CardsContainer.Visibility = Visibility.Visible;
+            InitialMessageContainer.Visibility = Visibility.Collapsed;
+        }
+
+        /// <summary>
         /// Основной метод загрузки данных
         /// </summary>
         private void RefreshData()
         {
-            // Загрузка данных
-            _allMaterials = LoadMaterialsData();
+            try
+            {
+                // Загрузка данных
+                _allMaterials = LoadMaterialsData();
+                _isDataLoaded = true;
 
-            // Расчет метрик
-            CalculateMetrics();
+                // Расчет метрик
+                CalculateMetrics();
 
-            // Обновление списка форматов
-            UpdateFormatList();
-
-            // Применение фильтров
-            ApplyFilters();
+                // Обновление списка форматов
+                UpdateFormatList();
+            }
+            catch (Exception ex)
+            {
+                _isDataLoaded = false;
+            }
         }
 
         /// <summary>
@@ -229,10 +257,13 @@ namespace Client.Interfaces.Stock
         /// </summary>
         private void UpdateMetricsDisplay()
         {
-            TotalMetricText.Text = $"Всего: {_totalGroups}";
-            CriticalMetricText.Text = $"Критич: {_criticalRemainsCount}";
-            LowMetricText.Text = $"Низкий: {_lowRemainsCount}";
-            HighMetricText.Text = $"Много: {_highRemainsCount}";
+            Dispatcher.Invoke(() =>
+            {
+                TotalMetricText.Text = $"Всего: {_totalGroups}";
+                CriticalMetricText.Text = $"Критич: {_criticalRemainsCount}";
+                LowMetricText.Text = $"Низкий: {_lowRemainsCount}";
+                HighMetricText.Text = $"Много: {_highRemainsCount}";
+            });
         }
 
         /// <summary>
@@ -284,9 +315,35 @@ namespace Client.Interfaces.Stock
                 formatItems.Add(format, format);
             }
 
-            // Устанавливаем элементы в SelectBox
-            FormatSelectBox.SetItems(formatItems);
-            FormatSelectBox.SelectedItem = formatItems.First();
+            // Обновляем UI в основном потоке
+            Dispatcher.Invoke(() =>
+            {
+                // Устанавливаем элементы в SelectBox
+                FormatSelectBox.SetItems(formatItems);
+
+                // Сохраняем текущий выбор, если он есть
+                var currentSelection = FormatSelectBox.SelectedItem;
+                if (!currentSelection.Equals(default(KeyValuePair<string, string>)) &&
+                    formatItems.ContainsKey(currentSelection.Key))
+                {
+                    FormatSelectBox.SelectedItem = new KeyValuePair<string, string>(
+                        currentSelection.Key,
+                        currentSelection.Value);
+                }
+                else
+                {
+                    // Иначе выбираем "Все форматы"
+                    var allFormatsItem = formatItems.FirstOrDefault(x => x.Key == "ALL");
+                    if (!allFormatsItem.Equals(default(KeyValuePair<string, string>)))
+                    {
+                        FormatSelectBox.SelectedItem = allFormatsItem;
+                    }
+                    else if (formatItems.Any())
+                    {
+                        FormatSelectBox.SelectedItem = formatItems.First();
+                    }
+                }
+            });
         }
 
         /// <summary>
@@ -294,6 +351,7 @@ namespace Client.Interfaces.Stock
         /// </summary>
         private void ApplyFilters()
         {
+            if (!_isDataLoaded) return;
             if (_allMaterials == null) return;
 
             // Фильтрация по категории
@@ -398,13 +456,14 @@ namespace Client.Interfaces.Stock
                 grid.Children.Add(noDataText);
 
                 CardsContainer.Children.Add(grid);
-                return;
             }
-
-            // Создание карточек
-            foreach (var material in _filteredMaterials)
+            else
             {
-                AddMaterialCard(material);
+                // Создание карточек
+                foreach (var material in _filteredMaterials)
+                {
+                    AddMaterialCard(material);
+                }
             }
         }
 
@@ -433,120 +492,127 @@ namespace Client.Interfaces.Stock
 
         public void SetDefaults()
         {
+            // Площадка
             PlatformSelectBox.SetItems(new Dictionary<string, string>()
             {
                 {"1", "Липецк"},
                 {"2", "Кашира"},
             });
-            PlatformSelectBox.SelectedItem = PlatformSelectBox.Items.First();
 
-            // Инициализация фильтра форматов
+            // Выбираем первый элемент только если он есть
+            if (PlatformSelectBox.Items.Any())
+            {
+                PlatformSelectBox.SelectedItem = PlatformSelectBox.Items.First();
+            }
+
+            // Категория
+            var categoryItems = new Dictionary<string, string>()
+            {
+                {CATEGORY_TOTAL, "Все группы"},
+                {CATEGORY_CRITICAL, "Критические (0 кг)"},
+                {CATEGORY_LOW, "Низкие (1 - 99,999 кг)"},
+                {CATEGORY_HIGH, "Много (> 100,000 кг)"}
+            };
+            CategorySelectBox.SetItems(categoryItems);
+
+            // Выбираем первый элемент только если он есть
+            if (CategorySelectBox.Items.Any())
+            {
+                CategorySelectBox.SelectedItem = categoryItems.First();
+            }
+
+            // Формат - инициализируем пустым списком, он заполнится после загрузки данных
             FormatSelectBox.SetItems(new Dictionary<string, string>
             {
                 {"ALL", "Все форматы"}
             });
-            FormatSelectBox.SelectedItem = FormatSelectBox.Items.First();
-        }
 
-        // Обработчики кликов по метрикам
-        private void TotalMetric_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            _selectedCategory = CATEGORY_TOTAL;
+            // Выбираем первый элемент только если он есть
+            if (FormatSelectBox.Items.Any())
+            {
+                FormatSelectBox.SelectedItem = FormatSelectBox.Items.First();
+            }
 
-            // Разблокируем фильтр по форматам при выборе "Всего"
-            FormatSelectBox.IsEnabled = true;
-
-            ApplyFilters();
-
-            // Визуальное выделение активной метрики
-            ResetMetricBorders();
-            TotalMetricBorder.BorderBrush = Brushes.White;
-            TotalMetricBorder.BorderThickness = new Thickness(2);
-        }
-
-        private void CriticalMetric_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            _selectedCategory = CATEGORY_CRITICAL;
-
-            // Блокируем фильтр по форматам для критических значений
+            // Блокируем список форматов по умолчанию
             FormatSelectBox.IsEnabled = false;
-            // Устанавливаем "Все форматы" при выборе критических
-            FormatSelectBox.SelectedItem = FormatSelectBox.Items.First();
-            _selectedFormat = "Все форматы"; // Обновляем переменную
-
-            ApplyFilters();
-
-            // Визуальное выделение активной метрики
-            ResetMetricBorders();
-            CriticalMetricBorder.BorderBrush = Brushes.White;
-            CriticalMetricBorder.BorderThickness = new Thickness(2);
-        }
-
-        private void LowMetric_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            _selectedCategory = CATEGORY_LOW;
-
-            // Разблокируем фильтр по форматам
-            FormatSelectBox.IsEnabled = true;
-
-            ApplyFilters();
-
-            // Визуальное выделение активной метрики
-            ResetMetricBorders();
-            LowMetricBorder.BorderBrush = Brushes.White;
-            LowMetricBorder.BorderThickness = new Thickness(2);
-        }
-
-        private void HighMetric_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            _selectedCategory = CATEGORY_HIGH;
-
-            // Разблокируем фильтр по форматам
-            FormatSelectBox.IsEnabled = true;
-
-            ApplyFilters();
-
-            // Визуальное выделение активной метрики
-            ResetMetricBorders();
-            HighMetricBorder.BorderBrush = Brushes.White;
-            HighMetricBorder.BorderThickness = new Thickness(2);
-        }
-
-        /// <summary>
-        /// Сброс визуального выделения метрик
-        /// </summary>
-        private void ResetMetricBorders()
-        {
-            TotalMetricBorder.BorderBrush = Brushes.Transparent;
-            CriticalMetricBorder.BorderBrush = Brushes.Transparent;
-            LowMetricBorder.BorderBrush = Brushes.Transparent;
-            HighMetricBorder.BorderBrush = Brushes.Transparent;
-
-            TotalMetricBorder.BorderThickness = new Thickness(0);
-            CriticalMetricBorder.BorderThickness = new Thickness(0);
-            LowMetricBorder.BorderThickness = new Thickness(0);
-            HighMetricBorder.BorderThickness = new Thickness(0);
         }
 
         // Обработчики событий
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
             RefreshData();
-            ResetMetricBorders();
             _selectedCategory = null;
-            FormatSelectBox.IsEnabled = true;
-            // Сбрасываем формат к "Все форматы"
-            FormatSelectBox.SelectedItem = FormatSelectBox.Items.First();
-            _selectedFormat = "Все форматы";
+
+            // Сбрасываем выбор категории
+            if (CategorySelectBox.Items.Any())
+            {
+                CategorySelectBox.SelectedItem = CategorySelectBox.Items.First();
+            }
+
+            // Блокируем список форматов
+            FormatSelectBox.IsEnabled = false;
+
+            // Показываем начальное сообщение
+            ShowInitialMessage();
         }
 
         private void PlatformSelectBox_SelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RefreshData();
-            ResetMetricBorders();
             _selectedCategory = null;
-            FormatSelectBox.IsEnabled = true;
-            FormatSelectBox.SelectedItem = FormatSelectBox.Items.First();
+
+            // Сбрасываем выбор категории
+            if (CategorySelectBox.Items.Any())
+            {
+                CategorySelectBox.SelectedItem = CategorySelectBox.Items.First();
+            }
+
+            // Блокируем список форматов
+            FormatSelectBox.IsEnabled = false;
+
+            // Показываем начальное сообщение
+            ShowInitialMessage();
+        }
+
+        private void CategorySelectBox_SelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var selectedItem = CategorySelectBox.SelectedItem;
+            if (!selectedItem.Equals(default(KeyValuePair<string, string>)))
+            {
+                _selectedCategory = selectedItem.Key;
+
+                // Загружаем данные если еще не загружены
+                if (!_isDataLoaded)
+                {
+                    RefreshData();
+                }
+
+                // Управляем блокировкой списка форматов
+                if (_selectedCategory == CATEGORY_CRITICAL)
+                {
+                    // Для критических категорий блокируем список
+                    FormatSelectBox.IsEnabled = false;
+
+                    if (FormatSelectBox.Items.Any())
+                    {
+                        FormatSelectBox.SelectedItem = FormatSelectBox.Items.First();
+                    }
+                    _selectedFormat = "Все форматы";
+                }
+                else
+                {
+                    // Для всех остальных категорий (Все группы, Низкие, Много) разблокируем
+                    FormatSelectBox.IsEnabled = true;
+                }
+
+                ApplyFilters();
+                ShowCards();
+            }
+            else
+            {
+                // Если элемент не выбран, блокируем список форматов
+                FormatSelectBox.IsEnabled = false;
+            }
         }
 
         private void FormatSelectBox_SelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -555,13 +621,19 @@ namespace Client.Interfaces.Stock
             if (!selectedItem.Equals(default(KeyValuePair<string, string>)))
             {
                 _selectedFormat = selectedItem.Value;
-                ApplyFilters();
+                if (_isDataLoaded && !string.IsNullOrEmpty(_selectedCategory))
+                {
+                    ApplyFilters();
+                }
             }
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ApplyFilters();
+            if (_isDataLoaded && !string.IsNullOrEmpty(_selectedCategory))
+            {
+                ApplyFilters();
+            }
         }
     }
 }
