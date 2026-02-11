@@ -26,7 +26,7 @@
     </controls:ControlBase.Resources>
 
 
-    <Border Style="{DynamicResource DataGridContainerHolder}"  >
+    <!--<Border Style="{DynamicResource DataGridContainerHolder}"  >
         <Grid Style="{DynamicResource DataGridContainer}">
 
             <Grid.ColumnDefinitions>
@@ -63,8 +63,84 @@
                 </StackPanel>
             </Grid>
 
-            <Border Grid.Row="1" Style="{DynamicResource DataGridMainHolder}">
+            --><!--<Border Grid.Row="1" Style="{DynamicResource DataGridMainHolder}">
                 <controls:GridBox4 x:Name="RawGroupTableGrid" />
+            </Border>--><!--
+            <Border Grid.Row="1" Style="{DynamicResource DataGridMainHolder}">
+                --><!-- Просто задайте фиксированную ширину GridBox4 --><!--
+                <controls:GridBox4 
+                    x:Name="RawGroupTableGrid"
+                    Width="920"
+        HorizontalAlignment="Left"/>
+            </Border>
+        </Grid>
+    </Border>-->
+
+    <Border Style="{DynamicResource DataGridContainerHolder}">
+        <Grid Style="{DynamicResource DataGridContainer}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <!-- Верхняя панель с инструментами -->
+            <Grid Grid.Row="0" Grid.ColumnSpan="3" Style="{DynamicResource GridControlPanel}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="11*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Name="PalletGridToolbar" 
+                           Style="{DynamicResource FormHeaderButtonsPanel}" 
+                           HorizontalAlignment="Left" Width="1000">
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                    <Label Content="Площадка:" Style="{DynamicResource TopLabel}" />
+                    <controls:SelectBox x:Name="PlatformSelectBox" 
+                                       SelectedItemChanged="PlatformSelectBox_SelectedItemChanged" 
+                                       Style="{DynamicResource CustomFormField}" 
+                                       ListBoxMinWidth="120" ListBoxMinHeight="120"  
+                                       Width="120" Autocomplete="True" VerticalAlignment="Bottom"/>
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                    <Button Name="ExcelButton" Content="В Excel" Style="{DynamicResource Button}" />
+                    <Border Style="{DynamicResource FormButtonsPanelSpacer}"></Border>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Style="{DynamicResource FormHeaderButtonsPanel}"  
+                           HorizontalAlignment="Right" Width="24">
+                    <Button Name="HelpButton" Width="24" MinWidth="24" Content="?"  
+                           Style="{DynamicResource Button}" Margin="0" />
+                </StackPanel>
+            </Grid>
+
+            <!-- Левая таблица - Сырьевые группы -->
+            <Border Grid.Row="1" Grid.Column="0" 
+                    Style="{DynamicResource DataGridMainHolder}" 
+                    Margin="0,0,5,0">
+                <controls:GridBox4 x:Name="RawGroupTableGrid"/>
+            </Border>
+
+            <!-- Разделитель -->
+            <GridSplitter Grid.Row="1" Grid.Column="1"
+                         Width="3" 
+                         HorizontalAlignment="Center" 
+                         VerticalAlignment="Stretch"
+                         Background="{DynamicResource BorderDarkMainBrush}"
+                         ShowsPreview="True"
+                         ResizeBehavior="PreviousAndNext"/>
+
+            <!-- Правая таблица - Детальная информация по выбранной группе -->
+            <Border Grid.Row="1" Grid.Column="2" 
+                    Style="{DynamicResource DataGridMainHolder}"
+                    Margin="5,0,0,0">
+                <controls:GridBox4 x:Name="DetailGrid"/>
             </Border>
         </Grid>
     </Border>

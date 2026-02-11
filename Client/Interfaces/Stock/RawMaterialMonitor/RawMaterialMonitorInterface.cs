@@ -19,8 +19,8 @@ namespace Client.Interfaces.Stock.RawMaterialMonitor
         {
             Central.WM.AddTab("MonitorControl", "Монитор");
             var monitorRawGroup = Central.WM.CheckAddTab<RawGroupMaterialMonitorTab>("MonitorCardsControl_RawGroup", "Сырьевая группа", false, "MonitorControl", "bottom");
-            var monitorRawGroupCards = Central.WM.CheckAddTab<RawGroupMaterialMonitorCardsTab>("MonitorCardsControl_RawGroup", "Сырьевая группа", false, "MonitorControl", "bottom");
-            var monitorCompositionCards = Central.WM.CheckAddTab<RawCompositionMaterialMonitorCardsTab>("MonitorCardsControl_Composition", "Сырьевая композиция", false, "MonitorControl", "bottom");
+            //var monitorRawGroupCards = Central.WM.CheckAddTab<RawGroupMaterialMonitorCardsTab>("MonitorCardsControl_RawGroup", "Сырьевая группа", false, "MonitorControl", "bottom");
+            var monitorComposition = Central.WM.CheckAddTab<RawGroupMaterialMonitorCompositionTab>("MonitorCardsControl_Composition", "Сырьевая композиция", false, "MonitorControl", "bottom");
 
             Central.WM.SetActive("MonitorCardsControl_RawGroup");
         }
